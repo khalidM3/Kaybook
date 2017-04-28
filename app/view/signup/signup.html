@@ -1,0 +1,35 @@
+<section class='signup-form'>
+    <h2>Sign Up</h2>
+    <form name="signupForm" novalidate ng-submit="signupCtrl.signup(signupCtrl.user)">
+
+        <div>
+
+          <input class="input-std verify" name="name" ng-model="signupCtrl.user.username" type="text" placeholder=" " required pattern=".{4,}">
+            <label for="name">Username</label>
+            <div class="requirements">
+                Must be at least 4 characters
+            </div>
+        </div>
+
+
+        <div>
+            <input class="input-std verify" name="email" ng-model="signupCtrl.user.email" type="email" placeholder=" " required>
+            <label for="email">Email Address</label>
+            <div class="requirements">
+                Must be a valid email address
+            </div>
+        </div>
+        <div>
+
+            <input class="input-std verify" type="password" name="password" ng-model="signupCtrl.user.password" placeholder="  " ng-minlength="6"
+            pattern=".{6,}"
+            required>
+            <label for="password">Password</label>
+            <div class="requirements">
+                Your password must be at least 6 characters
+            </div>
+        </div>
+
+        <input type="submit" class="btn-std" value="sign up" ng-disabled="signupForm.name.$invalid || signupForm.password.$invalid || signupForm.email.$invalid">
+    </form>
+</section>
