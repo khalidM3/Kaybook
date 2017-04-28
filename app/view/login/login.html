@@ -1,0 +1,36 @@
+<section class="login-form">
+  <h2>sign in</h2>
+  <form name="loginForm"
+       ng-submit="loginCtrl.login()" novalidate>
+    <div ng-class="{
+      'error': loginForm.username.$invalid,
+      'success': loginForm.username.$valid
+    }">
+      <input
+       class="ignore-valid"
+       type="text"
+       name="username"
+       placeholder=" "
+       ng-minlength="4"
+       ng-model="loginCtrl.user.username" required>
+      <label for="username">username</label>
+    </div>
+
+    <div ng-class="{
+      'error': loginForm.password.$invalid && loginForm.$submitted,
+      'success': loginForm.password.$valid
+    }">
+      <input
+        class="ignore-valid"
+        type="password"
+        name="password"
+        placeholder=" "
+        ng-minlength="6"
+        ng-model="loginCtrl.user.password" required>
+             <label for="password">password</label>
+    </div>
+    <input type="submit" value="sign in" class="btn-std"
+           ng-disabled="loginForm.username.$invalid || loginForm.password.$invalid">
+    <span ng-if="loginCtrl.showLoginError">You have entered an invalid username or password. Please try again.</span>
+  </form>
+</section>
