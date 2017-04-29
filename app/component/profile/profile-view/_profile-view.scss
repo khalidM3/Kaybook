@@ -1,35 +1,9 @@
 @import "../../../scss/lib/theme/vars";
 
-.profile-view{
- div{
-   position: relative;
-   img{
-     width: 100%;
-     // margin: 0 5% 0 5%;
-   }
-   div{
-     height: 80px;
-     width: 100%;
-     // line-height: 140px;
-     background: rgba(0,0,0, 0.4);
-     position: absolute;
-     bottom: 0;
-     overflow: hidden;
-     span{
-       color: white;
-       font-size: 125%;
-       display: block;
-       height: 30px;
-       line-height: 50px;
-       padding-left: 10px;
-     }
-   }
- }
-}
-
-button {
- border: none;
- border-radius: 10%;
- cursor: pointer;
- color: $white;
+.profile-view {
+  span {
+    width: 30px;
+    height: 20px;
+    background-color: greenyellow;
+  }
 }

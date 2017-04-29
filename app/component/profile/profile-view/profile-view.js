@@ -7,7 +7,7 @@ module.exports = {
   controller: ['$log', '$rootScope', '$stateParams', 'profileService', ProfileViewController],
   controllerAs: 'profileViewCtrl',
   bindings: {
-    something: '<',
+    profile: '<',
   }
 };
 
@@ -31,6 +31,13 @@ function ProfileViewController($log, $rootScope, $stateParams, profileService) {
       this.profile = profile;
       this.showEditView = false;
     });
+  };
+
+  this.join = function(){
+    $log.debug('ProfileViewController.joinProfile()');
+
+    profileService.joinProfile(this.userID);
+    // return this.updateProfileView();
   };
 
   this.updateProfileView();
