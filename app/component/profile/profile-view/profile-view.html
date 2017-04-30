@@ -6,15 +6,24 @@
     <div>
       {{profileViewCtrl.profile.memberCount}} <span class="joinpage" ng-click="profileViewCtrl.join()">join</span>
     </div>
-    <!--<img ng-src="{{profileViewCtrl.profile.profilePicURI}}">-->
+    <img ng-src="{{profileViewCtrl.profile.profilePicURI}}">
     <!--<div>
       <p><span>Username: {{profileViewCtrl.profile.name}}</span></p>-->
       <!--<p><span>Recipes created: {{profileViewCtrl.profile.recipes.length}}</span></p>-->
     <!--</div>-->
 
   </div>
-  <div>
-  <!--<input class="btn-std commenter-button" value="edit profie" type="submit" id="edit-button" ng-if="!profileViewCtrl.showEditView" ng-click="profileViewCtrl.showEditView = true">-->
-  <!--<edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    -->
+  <div ng-if="profileViewCtrl.showEditOption">
+  <input class="btn-std commenter-button" value="edit profie" type="submit" id="edit-button" ng-if="!profileViewCtrl.showEditView" ng-click="profileViewCtrl.showEditView = true">
+  <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    
   </div>
+
+  <div>
+    <create-post profile="profileViewCtrl.profile"></create-post>
+  </div>
+
+  <!--<ul>
+    <post-item ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-item>
+  </ul>-->
+  
 </section>
