@@ -1,50 +1,55 @@
-// 'use strict';
+'use strict';
 
-// require('./_post-item.scss');
+require('./_post-item.scss');
 
-// module.exports = {
-//   template: require('./post-item.html'),
-//   controller: ['$log', 'postService', 'profileService', PostItemController],
-//   controllerAs: 'postItemCtrl',
-//   bindings: {
-//     post: '<',
-//     loggedIn: '<',
-//     profile: '<',
-//     onpostChange: '&',
-//   }
-// };
+module.exports = {
+  template: require('./post-item.html'),
+  controller: ['$log', 'postService', 'profileService', PostItemController],
+  controllerAs: 'postItemCtrl',
+  bindings: {
+    post: '<',
+    loggedIn: '<',
+    profile: '<',
+    onpostChange: '&',
+  }
+};
 
-// function PostItemController($log, postService, profileService){
-//   $log.debug('postItemController');
+function PostItemController($log, postService, profileService){
+  $log.debug('postItemController');
 
-//   this.showEditpost = false;
 
-//   this.deletepost = function(post){
-//     $log.debug('postItemController.deletepost');
+  this.showEditpost = false;
 
-//     postService.deletepost(post)
-//     .then(this.onpostChange());
-//   };
+  this.deletepost = function(post){
+    $log.debug('postItemController.deletepost');
 
-//   this.poster = function() {
-//     $log.debug('postItemController.poster', this.post.posterPID);
+    postService.deletepost(post)
+    .then(this.onpostChange());
+  };
 
-//     profileService.fetchProfile2(this.post.posterPID)
-//     .then(profile => this.poster = profile);
-//   };
+  this.poster = function() {
+    $log.debug('postItemController.poster', this.post.posterPID);
 
-//   this.poster();
+    for( var prop in this.post.data){
+      console.log(prop);
+    }
 
-//   this.$onInit = function() {
-//     $log.debug('postItemController.$onInit()');
+    profileService.fetchProfile2(this.post.data.posterPID)
+    .then(profile => this.poster = profile);
+  };
+
+  // this.poster();
+
+  this.$onInit = function() {
+    $log.debug('postItemController.$onInit()');
     
-//     if (this.post) return this.poster();
-//     return this.onpostChange();
-//   };
+    if (this.post) return this.poster();
+    return this.onpostChange();
+  };
 
-//   this.updatepostItemView = function() {
-//     $log.debug('postItemController.updatepostItemView', this.post);
+  this.updatepostItemView = function() {
+    $log.debug('postItemController.updatepostItemView', this.post);
 
-//     this.onpostChange();
-//   };
-// }
+    this.onpostChange();
+  };
+}
