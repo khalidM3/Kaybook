@@ -29,6 +29,7 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, profileS
 
   this.updateProfileView = function() {
     $log.debug('ProfileViewController.updateProfileView()');
+    console.log('this.postArray:::',this.postsArray);
 
     this.postsArray = [];
     
