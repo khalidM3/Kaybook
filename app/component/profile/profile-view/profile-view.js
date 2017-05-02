@@ -54,5 +54,4 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, profileS
     return this.updateProfileView();
   };
 
-  this.updateProfileView();
 }

@@ -1,9 +1,32 @@
 @import "../../../scss/lib/theme/vars";
 
 .profile-view {
-  span {
-    width: 30px;
-    height: 20px;
-    background-color: greenyellow;
+
+  .banner {
+    width: 100%;
+    height: 250px;
   }
+  .profile-main {
+  display: inline-block;
+  li {
+    display: inline-block;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+  
+  li:nth-child(3) {
+    margin-left: 80vw;
+    border: 1px solid black;
+    span {
+      display: inline-block;
+      width: 50px;
+      &:nth-child(2) {
+        background-color: lightgreen;
+      }
+    }
+  }
+}
+
 }
