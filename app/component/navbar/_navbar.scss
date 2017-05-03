@@ -1,7 +1,63 @@
 .navbar {
-  background-color: #1e3ded;
+  background-color: #333333;
   width: 100%;
   li {
     display: inline-block;
   }
+}
+
+@import "../../scss/lib/theme/vars";
+
+.navbar {
+  position: relative;
+  .navbar-ul{
+
+    li {
+      display: inline-block;
+    }
+
+    .nav-link{
+      color: white;
+      font-size: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .searchbar {
+      margin-left: 10vw;
+      border: none;
+
+      input {
+        width: 40vw;
+      }
+    }
+
+    li:nth-child(3) {
+    margin-left: 80%;
+    border: 1px solid white;
+    padding: 10px;
+    color: white;
+  }
+
+  li:nth-child(4) {
+    //  margin-left: 50%;
+    border: 1px solid white;
+    padding: 10px;
+    color: white;
+   }
+
+   li:nth-child(5){
+     margin-left: 90%;
+
+     img {
+       border-radius: 50%;
+     }
+
+     li {
+      display: block;
+      border-bottom: 1px solid black;
+      padding: 5px;
+    }
+   }
+  }
+
 }

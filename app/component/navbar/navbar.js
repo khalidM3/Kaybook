@@ -11,6 +11,8 @@ module.exports = {
 function NavbarController($log, $window, $location, $rootScope, authService) {
   $log.debug('NavbarController');
 
+  this.profilePic = $window.localStorage.getItem('profilePic');
+
   this.goSignUp = function() {
     $log.debug('NavbarController.goSignUp()');
 
@@ -65,6 +67,7 @@ function NavbarController($log, $window, $location, $rootScope, authService) {
       this.hideLogout = true;
       this.hideMyRecipesBtn = true;
       this.hideHomeBtn = true;
+      this.hideProfileBtn = true;
     }
 
     if (path === '/home') {
@@ -73,6 +76,7 @@ function NavbarController($log, $window, $location, $rootScope, authService) {
       this.hideLogout = false;
       this.hideMyRecipesBtn = false;
       this.hideHomeBtn = true;
+      this.hideProfileBtn = false;
     }
 
     if (path === '/mypage') {
@@ -81,6 +85,7 @@ function NavbarController($log, $window, $location, $rootScope, authService) {
       this.hideLogout = false;
       this.hideMyRecipesBtn = true;
       this.hideHomeBtn = false;
+      this.hideProfileBtn = false;
     }
 
     if (path === '/recipe') {
@@ -107,6 +112,7 @@ function NavbarController($log, $window, $location, $rootScope, authService) {
       this.hideLogout = true;
       this.hideMyRecipesBtn = true;
       this.hideHomeBtn = true;
+      this.hideProfileBtn = true;
     }
 
     if (path === '/signin') {
@@ -115,6 +121,7 @@ function NavbarController($log, $window, $location, $rootScope, authService) {
       this.hideLogout = true;
       this.hideMyRecipesBtn = true;
       this.hideHomeBtn = true;
+      this.hideProfileBtn = true;
     }
   };
 
