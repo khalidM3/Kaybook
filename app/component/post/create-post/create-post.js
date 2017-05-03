@@ -29,6 +29,9 @@ function CreatePostController($log, $location, $rootScope, postService) {
     .then( () => {
       this.post = null;
       this.onPostCreated();
+    })
+    .catch( () => {
+      return alert('Sorry, you are not a member!');
     });
   };
 

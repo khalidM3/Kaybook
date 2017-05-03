@@ -7,6 +7,7 @@
       <li> <img src="{{postItemCtrl.poster.profilePicURI}}"></li>
       <li class="poster-name">Poster: {{postItemCtrl.poster.name}}</li>
       <li> Date: {{postItemCtrl.post.data.created | date : 'mediumDate'}}</li>
+      <li> <img ng-src="{{postItemCtrl.post.data.postPicURI }}" alt=""> </li>
       <li>Description: {{postItemCtrl.post.data.description}}</li>      
     </ul>
 
