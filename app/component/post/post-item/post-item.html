@@ -1,14 +1,16 @@
 <li class="postItem" ng-click="postItemCtrl.updatePostView()">
   <!--<on-init></on-init>-->
 
+  <h2>POST ITEM</h2>
+
   <div class="current-post" ng-if="!postItemCtrl.showEditComment">
 
     <ul class="post-info">
       <li> <img src="{{postItemCtrl.poster.profilePicURI}}"></li>
       <li class="poster-name">Poster: {{postItemCtrl.poster.name}}</li>
-      <li> Date: {{postItemCtrl.post.data.created | date : 'mediumDate'}}</li>
-      <li> <img ng-src="{{postItemCtrl.post.data.postPicURI }}" alt=""> </li>
-      <li>Description: {{postItemCtrl.post.data.description}}</li>      
+      <li> Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</li>
+      <li> <img ng-src="{{postItemCtrl.resolve.post.postPicURI }}" alt=""> </li>
+      <li>Description: {{postItemCtrl.resolve.post.description}}</li>      
     </ul>
 
   </div>
@@ -16,7 +18,7 @@
       logged-in="postItemCtrl.loggedIn" 
       ng-if="postItemCtrl.showCreateComment" 
       on-comment-created="postItemCtrl.updatePostView()" 
-      post="postItemCtrl.post">
+      post="postItemCtrl.resolve.post">
   </create-comment>
 
 

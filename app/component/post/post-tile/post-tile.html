@@ -1,0 +1,13 @@
+<section ng-click="postTileCtrl.openComponentModal(postTileCtrl.post.data)">
+  
+    <ul class="post-info">
+      <h2>POST TILE</h2>
+      <!--<li> <img src="{{postTileCtrl.poster.profilePicURI}}"></li>-->
+      <li class="poster-name">Poster: {{postTileCtrl.poster.name}}</li>
+      <li> Date: {{postTileCtrl.post.data.created | date : 'mediumDate'}}</li>
+      <li> <img ng-src="{{postTileCtrl.post.data.postPicURI }}" alt=""> </li>
+      <li>Description: {{postTileCtrl.post.data.description}}</li>      
+    </ul>
+
+
+</section>

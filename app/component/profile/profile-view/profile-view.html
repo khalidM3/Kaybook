@@ -32,8 +32,12 @@
     <create-post on-post-created="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></create-post>
   </div>-->
 
-  <ul>
+  <!--<ul>
     <post-item ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-item>
+  </ul>-->
+
+  <ul>
+    <post-tile ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-tile>
   </ul>
   
 </section>

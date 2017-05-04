@@ -21,7 +21,7 @@ function CreateCommentController($log, commentService){
       comment: this.comment
     };
     
-    commentService.createComment(this.post.data, commentData)
+    commentService.createComment(this.post, commentData)
     .then( () => {
       this.onCommentCreated();
       this.comment = null;
