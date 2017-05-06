@@ -85,7 +85,10 @@ function PostItemController($log, postService, profileService, commentService){
   this.$onInit = function() {
     $log.debug('postItemController.$onInit()');
     
-    if (this.resolve.post) return this.posterf();
+    if (this.resolve.post) {
+      this.updatePostView();
+      return this.posterf();
+    }
     return this.onpostChange();
   };
 
@@ -93,5 +96,9 @@ function PostItemController($log, postService, profileService, commentService){
     $log.debug('postItemController.updatePostItemView', this.post);
 
     this.onpostChange();
+  };
+
+  this.cancel = function () {
+    this.dismiss({$value: 'cancel'});
   };
 }

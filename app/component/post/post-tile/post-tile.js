@@ -1,6 +1,6 @@
 'use strict';
 
-// require('./_profile-tile.scss');
+require('./_post-tile.scss');
 
 module.exports = {
   template: require('./post-tile.html'),
