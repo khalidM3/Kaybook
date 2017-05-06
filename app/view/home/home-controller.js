@@ -2,9 +2,9 @@
 
 require('./_home.scss');
 
-module.exports = ['$log', '$rootScope', '$stateParams', 'profileService', HomeController];
+module.exports = ['$log', '$rootScope', '$stateParams', 'profileService', 'postService', HomeController];
 
-function HomeController($log, $rootScope, $stateParams, profileService) {
+function HomeController($log, $rootScope, $stateParams, profileService, postService) {
   $log.debug('HomeController');
 
   this.myUserID = $stateParams.userID;
@@ -14,7 +14,7 @@ function HomeController($log, $rootScope, $stateParams, profileService) {
     $log.debug('HomeController.fetchProfile()');
 
     profileService.fetchProfile(this.myUserID)
-    .then(profile => this.myProfile = profile)
+    .then(profile => this.myProfile = profile);
     // .then( () => recipeService.fetchMyRecipes(this.myProfile._id))
     // .then(recipes => this.myRecipes = recipes);
   };
@@ -22,8 +22,60 @@ function HomeController($log, $rootScope, $stateParams, profileService) {
   this.fetchAllProfiles = function(){
     $log.debug('HomeController.fetchAllProfiles()');
 
+    this.joinedPosts = [];
     profileService.fetchProfiles()
     .then( profiles => this.allProfiles = profiles);
+  };
+
+  this.fetchJoinedProfiles = function(){
+    $log.debug('HomeController.fetchJoinedProfiles()');
+
+    this.allProfiles = [];
+    this.joinedPosts = [];
+
+    profileService.fetchProfile(this.myUserID)
+    .then(profile => {
+      let arr = profile.memberOf;
+  
+      arr.forEach( profileUID => {
+        profileService.fetchProfile(profileUID)
+        .then( profile => this.allProfiles.push(profile));
+      });
+    })
+    .catch( err => $log.error('couldnt fetch joinded Profiles', err));
+  };
+
+  this.fetchJoinedPosts = function(){
+    $log.debug('HomeController.fetchJoinedPosts()');
+
+    this.joinedPosts = [];
+    this.allProfiles = [];
+
+    profileService.fetchProfile(this.myUserID)
+    .then(profile => {
+      let arr = profile.memberOf;
+  
+      arr.forEach( profileUID => {
+        profileService.fetchProfile(profileUID)
+      .then( profile => {
+        postService.fetchMyPosts(profile._id)
+        .then( profile => {
+          let prof = {};
+          // console.log('fetch joined posts [][][]:', profile.posts);
+          for( var prop in profile.posts){
+            prof.data = profile.posts[prop];
+            this.joinedPosts.push(prof);
+          }
+
+          // for( var i=0; i<posts.data)
+          // return this.joinedPosts.push(...profile.posts);
+        });
+      });
+      });
+    })
+    .catch( err => $log.error('couldnt fetch joined posts', err));
+    
+    this.allProfiles = [];
   };
 
   // this.fetchAllRecipes = function() {
