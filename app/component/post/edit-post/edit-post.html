@@ -1,0 +1,28 @@
+<section class="edit-post-modal">
+
+  <form action="">
+
+     <div>
+        <span
+              ngf-select
+              ng-model="editPostCtrl.uploadedPost"> upload pic
+        </span>
+
+      </div>
+
+        <div>
+        <input class="input-std"
+              name="desc"
+              type="text"
+              placeholder=" "
+              ng-minlength="4"
+              ng-model="editPostCtrl.post.description" required>
+        <label for="desc">Description</label>
+      </div>
+
+      <input type="submit"
+              value="save post">
+  </form>
+
+
+</section>
