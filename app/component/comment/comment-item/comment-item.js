@@ -10,7 +10,7 @@ module.exports = {
     comment: '<',
     loggedIn: '<',
     profile: '<',
-    onCommentChange: '&',
+    onCommentChange: '&'
   }
 };
 
