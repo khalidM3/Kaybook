@@ -102,6 +102,12 @@ function PostItemController($log, postService, profileService, commentService){
     this.onpostChange();
   };
 
+  // this.editPost = function() {
+  //   $log.debug('postItemCtrl.deletePostItem');
+
+  //   postService.editPost()
+  // };
+
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
   };

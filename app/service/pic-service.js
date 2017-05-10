@@ -59,57 +59,57 @@ function picService($q, $log, $http, Upload, authService) {
     });
   };
 
-  // service.uploadRecipePic = function(recipeData, picData) {
-  //   $log.debug('service.uploadRecipePic');
+  service.uploadPostPic = function(postData, picData) {
+    $log.debug('service.uploadPostPic');
     
-  //   return authService.getToken()
-  //   .then( token => {
-  //     let url = `${__API_URL__}/api/recipe/${recipeData._id}/pic`;
-  //     let headers = {
-  //       Authorization: `Bearer ${token}`,
-  //       Accept: 'application/json'
-  //     };
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/post/${postData._id}/pic`;
+      let headers = {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json'
+      };
 
-  //     return Upload.upload({
-  //       url,
-  //       headers,
-  //       method: 'POST',
-  //       data: {
-  //         file: picData
-  //       }
-  //     });
-  //   })
-  //   .then( res => {
-  //     $log.log('RESPONSE:', res, 'picdata', picData);
-  //   })
-  //   .catch( err => {
-  //     $log.error(err.message);
-  //     return $q.reject(err);
-  //   });
-  // };
+      return Upload.upload({
+        url,
+        headers,
+        method: 'POST',
+        data: {
+          file: picData
+        }
+      });
+    })
+    .then( res => {
+      $log.log('RESPONSE:', res, 'picdata', picData);
+    })
+    .catch( err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
 
-  // service.deleteRecipePic = function(recipeData, picData) {
-  //   $log.debug('picService.deleteRecipePic');
+  service.deletePostPic = function(postData, picData) {
+    $log.debug('picService.deletePostPic');
 
-  //   return authService.getToken()
-  //   .then( token => {
-  //     let url = `${__API_URL__}/api/recipe/${recipe._id}/${picData._id}`;
-  //     let config = {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     };
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/post/${postData._id}/${picData._id}`;
+      let config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
 
-  //     return $http.delete(url, config);
-  //   })
-  //   .then( res => {
-  //     $log.log('Recipe pic deleted.');
-  //   })
-  //   .catch( err => {
-  //     $log.error(err.message);
-  //     return $q.reject(err);
-  //   });
-  // };
+      return $http.delete(url, config);
+    })
+    .then( res => {
+      $log.log('Post pic deleted.');
+    })
+    .catch( err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
 
   return service;
 }

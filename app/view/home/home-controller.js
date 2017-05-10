@@ -49,6 +49,7 @@ function HomeController($log, $rootScope, $stateParams, profileService, postServ
     $log.debug('HomeController.fetchJoinedPosts()');
 
     this.joinedPosts = [];
+    // console.log('JOINED ++++++', this.joinedPosts);
     this.allProfiles = [];
 
     profileService.fetchProfile(this.myUserID)
@@ -60,15 +61,13 @@ function HomeController($log, $rootScope, $stateParams, profileService, postServ
       .then( profile => {
         postService.fetchMyPosts(profile._id)
         .then( profile => {
-          let prof = {};
           // console.log('fetch joined posts [][][]:', profile.posts);
           for( var prop in profile.posts){
+            console.log(profile.posts[prop].description);
+            let prof = {};
             prof.data = profile.posts[prop];
             this.joinedPosts.push(prof);
           }
-
-          // for( var i=0; i<posts.data)
-          // return this.joinedPosts.push(...profile.posts);
         });
       });
       });
