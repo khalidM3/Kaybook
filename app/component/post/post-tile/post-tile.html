@@ -1,13 +1,27 @@
-<section class="post-tile" ng-click="postTileCtrl.openComponentModal(postTileCtrl.post.data)">
+<section class="post-tile" ng-init="postTileCtrl.checkExt(postTileCtrl.post.data.postPicURI)" ng-click="postTileCtrl.openComponentModal(postTileCtrl.post.data)">
   
-    <ul class="post-info">
+    <!--<ul class="post-info">
       <h2>POST TILE</h2>
       <li> <img src="{{postTileCtrl.post.data.posterProfilePicURI}}"></li>
       <li class="poster-name">Poster: {{postTileCtrl.post.data.posterName}}</li>
       <li> Date: {{postTileCtrl.post.data.created | date : 'mediumDate'}}</li>
       <li> <img ng-src="{{postTileCtrl.post.data.postPicURI }}" alt=""> </li>
       <li>Description: {{postTileCtrl.post.data.description}}</li>      
-    </ul>
+    </ul>-->
+
+    <section class="header">
+      <div>
+         <img ng-src="{{postTileCtrl.post.data.posterProfilePicURI}}">
+         </div>
+      <div class="poster-name"> {{postTileCtrl.post.data.posterName}}</div>
+    </section>
+
+    <section class="post-content">
+      <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.data.postPicURI }}" alt="">
+       <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.data.posterProfilePicURI}}" controls>
+           Your browser does not support HTML5
+         </video>
+    </section>
 
 
 </section>
