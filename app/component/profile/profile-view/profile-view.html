@@ -5,7 +5,7 @@
 
     <ul class="profile-main">
       <li><img ng-src="{{profileViewCtrl.profile.profilePicURI}}"></li>
-      <li>username: {{profileViewCtrl.profile.name}}</li>
+      <li>{{profileViewCtrl.profile.name}}</li>
       <li>
         <span>{{profileViewCtrl.profile.memberCount}}</span> <span class="joinpage" ng-click="profileViewCtrl.join()">join</span>
       </li>
@@ -37,7 +37,7 @@
   </ul>-->
 
   <ul>
-    <post-tile ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-tile>
+    <post-tile class="posttile" ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-tile>
   </ul>
   
 </section>
