@@ -1,23 +1,26 @@
 <section class="edit-post-modal">
+      <img class="edit-post-img" ng-src="{{editPostCtrl.resolve.post.postPicURI}}" alt="">
+  edit <p>{{editPostCtrl.resolve.post.description}}</p>
 
-  <form action="">
+  <form action=""
+        ng-submit="editPostCtrl.updatePost()">
 
      <div>
         <span
               ngf-select
-              ng-model="editPostCtrl.uploadedPost"> upload pic
+              ng-model="editPostCtrl.upload"> upload pic
         </span>
 
       </div>
 
-        <div>
+      <div>
+         <!--<label for="desc">Description</label>-->
         <input class="input-std"
               name="desc"
               type="text"
-              placeholder=" "
+              placeholder="description"
               ng-minlength="4"
-              ng-model="editPostCtrl.post.description" required>
-        <label for="desc">Description</label>
+              ng-model="editPostCtrl.post.description">
       </div>
 
       <input type="submit"
