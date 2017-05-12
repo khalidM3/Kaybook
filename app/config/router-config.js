@@ -16,13 +16,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controller: 'HomeController',
       controllerAs: 'homeCtrl'
     },
-    // {
-    //   name: 'recipe',
-    //   url: '/recipe/:recipeID',
-    //   template: require('../view/recipe/recipe.html'),
-    //   controller: 'RecipeController',
-    //   controllerAs: 'recipeCtrl'
-    // },
+    {
+      name: 'settings',
+      url: '/settings/:userID',
+      template: require('../view/settings/settings.html'),
+      controller: 'SettingsController',
+      controllerAs: 'settingsCtrl'
+    },
     {
       name: 'mypage',
       url: '/mypage/:userID',

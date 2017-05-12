@@ -63,7 +63,7 @@ function HomeController($log, $rootScope, $stateParams, profileService, postServ
         .then( profile => {
           // console.log('fetch joined posts [][][]:', profile.posts);
           for( var prop in profile.posts){
-            console.log(profile.posts[prop].description);
+            console.log(profile.posts[prop]);
             let prof = {};
             prof.data = profile.posts[prop];
             this.joinedPosts.push(prof);

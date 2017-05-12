@@ -88,12 +88,12 @@ function picService($q, $log, $http, Upload, authService) {
     });
   };
 
-  service.deletePostPic = function(postData, picData) {
+  service.deletePostPic = function(postData) {
     $log.debug('picService.deletePostPic');
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/post/${postData._id}/${picData._id}`;
+      let url = `${__API_URL__}/api/post/${postData._id}`;
       let config = {
         headers: {
           Authorization: `Bearer ${token}`
