@@ -15,7 +15,6 @@
       <li class="post-side">
         <ul>
           <li class="post-header">
-            <button ng-click="postItemCtrl.deletePost()">delete</button>
             <img src="{{postItemCtrl.resolve.post.posterProfilePicURI}}">
             <div class="poster-name">Poster: {{postItemCtrl.resolve.post.posterName}}</div>
             <div class="date">Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</div>
@@ -23,7 +22,7 @@
           </li>
 
           <li class="create-comment">
-            <create-comment 
+            <create-comment
             logged-in="postItemCtrl.loggedIn" 
             on-comment-created="postItemCtrl.updatePostView()"
             post="postItemCtrl.resolve.post">
