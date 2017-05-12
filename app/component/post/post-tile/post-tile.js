@@ -4,7 +4,7 @@ require('./_post-tile.scss');
 
 module.exports = {
   template: require('./post-tile.html'),
-  controller: ['$log', '$uibModal', PostTileController],
+  controller: ['$log', '$uibModal', '$window', 'postService' , 'picService', PostTileController],
   controllerAs: 'postTileCtrl',
   bindings: {
     post: '<'
@@ -12,8 +12,15 @@ module.exports = {
 };
 
 
-function PostTileController($log, $uibModal){
+function PostTileController($log, $uibModal, $window, postService, picService){
   $log.debug('PostTileController');
+
+  let userID = $window.localStorage.getItem('userID');
+
+  // this.checkPoster = function(){
+  
+  // };
+  // this.checkPoster();
 
   
   this.animationsEnabled = true;
@@ -44,11 +51,17 @@ function PostTileController($log, $uibModal){
     // });
   };
 
-  this.checkExt = function(postPicURI){
-    this.isVid = (/\.mp4$/).test(postPicURI);
+  this.checkExt = function(data){
+    this.isVid = (/\.mp4$/).test(data.postPicURI);
+    this.isMyPost = data.posterUID.toString() === userID.toString();
+    // console.log('POST.DATA >>>>>>>>>>>>>>>', data._id);
+    // for( var prop in data) {
+    //   console.log(prop);
+    // }
+    console.log('boolean :::::::}}}}',data.posterUID.toString() === userID.toString());
   };
 
-  this.checkExt();
+  // this.checkExt();
 
   this.openComponentModal = function (post) {
     // console.log('WARI WARI WARI WARI!::',post);
@@ -64,6 +77,28 @@ function PostTileController($log, $uibModal){
     });
 
   };
+
+  this.openEditPostModal = function (post) {
+    var modalInstance = $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'editPost',
+      resolve: {
+        post: function () {
+          console.log('<><><><><><><><><><><><><>', post);
+          return post; 
+        }
+      }
+    });
+  };
+  // postData, picData
+
+  // this.deletePost = function(post){
+  //   postService.deletePost(post._id)
+  //   .then( () => {
+  //     picService.deletePostPic(post);
+  //   })
+  //   .catch( () => $log.error('Did not delete the post'));
+  // };
 
 
 }
