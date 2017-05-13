@@ -4,7 +4,7 @@ require('./_comment-item.scss');
 
 module.exports = {
   template: require('./comment-item.html'),
-  controller: ['$log', 'commentService', 'profileService', CommentItemController],
+  controller: ['$log', '$window', 'commentService', 'profileService', CommentItemController],
   controllerAs: 'commentItemCtrl',
   bindings: {
     comment: '<',
@@ -14,15 +14,24 @@ module.exports = {
   }
 };
 
-function CommentItemController($log, commentService, profileService){
+function CommentItemController($log, $window, commentService, profileService){
   $log.debug('CommentItemController');
 
   this.showEditComment = false;
 
-  this.deleteComment = function(comment){
+  this.check = function(){
+    let userID = $window.localStorage.getItem('userID');
+    profileService.fetchProfile(userID)
+    .then( profile => {
+      this.authorized = profile._id.toString() === this.comment.commenterProfileID;
+    });
+  };
+  this.check();
+
+  this.deleteComment = function(){
     $log.debug('CommentItemController.deleteComment');
 
-    commentService.deleteComment(comment)
+    commentService.deleteComment(this.comment)
     .then(this.onCommentChange());
   };
 

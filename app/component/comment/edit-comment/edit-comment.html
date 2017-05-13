@@ -1,0 +1,9 @@
+<section class="edit-comment-section" ng-hide="hideEditForm">
+  <h1> Edit comment </h1>
+  <form name="editComments" ng-submit="editCommentCtrl.editComment()" novalidate>
+    <textarea name="editCommentarea" placeholder="{{editCommentCtrl.comment.comment}}" ng-model="editCommentCtrl.commentUpdate">
+    </textarea>
+    <input type="submit" ng-click="hideEditForm = true">
+    <!--<on-changes editCommentCtrl.comment></on-changes>-->
+  </form>
+</section>
