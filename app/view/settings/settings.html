@@ -2,7 +2,7 @@
 
   <h2>Welcome to youre account settings</h2>
 
- <ul class="settings-navbar">
+ <ul class="myposts-navbar">
    <li ng-click="settingsCtrl.fetchMyPosts()">my posts</li>
    <li ng-click="settingsCtrl.fetchMyComments()">my comments</li>
    <li>placeholder</li>
@@ -13,11 +13,11 @@
     <post-tile ng-repeat="post in settingsCtrl.myPostsArray track by $index" post="post"></post-tile>
   </section>
 
-  <section >
+  <section>
     <comment-item ng-repeat="comment in settingsCtrl.myCommentsArray" 
                           comment="comment" 
                           profile="postItemCtrl.myProfile[0]">
-            </comment-item>
+    </comment-item>
   </section>
 
 
