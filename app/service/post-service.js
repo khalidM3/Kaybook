@@ -100,6 +100,28 @@ function postService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.fetchPostedPosts = function(profileID) {
+    $log.debug('postService.fetchMyPosts()');
+
+    let url = `${__API_URL__}/api/allmyposts/${profileID}`;
+    let config = {
+      headers: {
+        Accept: 'application/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('posts retrieved');
+      service.posts = res.data;
+      return service.posts;
+    })
+    .catch( err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
+
   service.updatePost = function(postID, postData) {
     $log.debug('postService.updatePost');
 

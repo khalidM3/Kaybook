@@ -79,6 +79,29 @@ function commentService($q, $log, $window, $http, authService){
     });
   };
 
+  service.fetchMyProfileComments = function(profileID){
+    $log.debug('service.fetchMyProfileComments');
+
+    let url = `${__API_URL__}/api/allmycomments/${profileID}`;
+    let config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'aplication/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('fetched all profile comment');
+      return res.data;
+    })
+    .catch( err => {
+      $log.error(err);
+      return $q.reject(err);
+    });
+  };
+
+
   service.fetchPostComments = function(postData){
     $log.debug('service.fetchPostComments');
 
