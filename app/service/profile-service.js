@@ -182,6 +182,32 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.leaveProfile = function(joinedUID){
+    $log.debug('profileService.joinProfile');
+
+    return authService.getToken()
+    .then( token => {
+      console.log(token);
+      let url = `${__API_URL__}/api/leave/${joinedUID}`;
+      let config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('left the page');
+      service.profile = res.data;
+      return service.profile;
+    })
+    .catch( err => {
+      $log.error('Didnt leave the page',err);
+      return $q.reject(err);
+    });
+  };
+
   service.joinProfile2 = function(joinedID){
     $log.debug('profileService.joinProfile');
 
