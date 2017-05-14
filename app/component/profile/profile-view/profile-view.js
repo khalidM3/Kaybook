@@ -21,6 +21,21 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
   
   this.showEditOption = userID === this.userID;
 
+  this.check = function(){
+    $log.debug('profileViewController.check()');
+
+    let userID = $window.localStorage.getItem('userID');
+    profileService.fetchProfile(userID)
+    .then( profile => {
+      let arr = profile.memberOf;
+      this.showLeaveBtn = arr.some( PID => PID.toString() === this.userID.toString());
+      // console.log('profile.memberOf  }-------->',arr);
+      // console.log('}------->', this.userID);
+    });
+  };
+  this.check();
+
+
   this.deleteProfile = function(profile) {
     if (this.profile._id === profile._id) {
       this.profile = null;
@@ -48,10 +63,20 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
   };
 
   this.join = function(){
-    $log.debug('ProfileViewController.joinProfile()');
+    $log.debug('ProfileViewController.join()');
 
-    profileService.joinProfile(this.userID);
+    profileService.joinProfile(this.userID)
+    .then( res => console.log('SUCCESS join()', res))
+    .catch( err => console.error('FAILED join()', err));
     return this.updateProfileView();
+  };
+
+  this.leave = function(){
+    $log.debug('ProfileViewController.leave()');
+
+    profileService.leaveProfile(this.userID)
+    .then( profile => console.log(profile))
+    .catch( (err) => console.error('FAILED leave()', err));
   };
 
   // this.open = function (size, selectedPost) {
