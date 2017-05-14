@@ -1,24 +1,14 @@
 <section>
 
-  <h2>Welcome to youre account settings</h2>
+<nav class="account-settings-nav">
+  <ul>
+    <li ng-click="settingsCtrl.showContent()">my content</li>
+    <li>placeholder</li>
+    <li>placeholder</li>
+  </ul>
+</nav>
 
- <ul class="myposts-navbar">
-   <li ng-click="settingsCtrl.fetchMyPosts()">my posts</li>
-   <li ng-click="settingsCtrl.fetchMyComments()">my comments</li>
-   <li>placeholder</li>
-   <li>placeholder</li>
- </ul>
-
- <section>
-    <post-tile ng-repeat="post in settingsCtrl.myPostsArray track by $index" post="post"></post-tile>
-  </section>
-
-  <section>
-    <comment-item ng-repeat="comment in settingsCtrl.myCommentsArray" 
-                          comment="comment" 
-                          profile="postItemCtrl.myProfile[0]">
-    </comment-item>
-  </section>
+  <account-content profile="settingsCtrl.myProfile[0]"></account-content>
 
 
   </section>

@@ -1,3 +1,12 @@
-.settings-comment {
-  border: 1px solid black;
+.account-settings-nav {
+  background-color: black;
+  color: white;
+  ul {
+    margin-left: 30%;
+    padding: 10px;
+  }
+  li {
+    display: inline;
+    padding-right: 15%;
+  }
 }
