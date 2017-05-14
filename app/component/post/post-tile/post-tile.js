@@ -4,7 +4,7 @@ require('./_post-tile.scss');
 
 module.exports = {
   template: require('./post-tile.html'),
-  controller: ['$log', '$uibModal', '$window', 'postService' , 'picService', PostTileController],
+  controller: ['$log', '$uibModal', '$window', 'postService' , 'picService','profileService', PostTileController],
   controllerAs: 'postTileCtrl',
   bindings: {
     post: '<'
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PostTileController($log, $uibModal, $window, postService, picService){
+function PostTileController($log, $uibModal, $window, postService, picService, profileService){
   $log.debug('PostTileController');
 
   let userID = $window.localStorage.getItem('userID');
@@ -51,9 +51,10 @@ function PostTileController($log, $uibModal, $window, postService, picService){
     // });
   };
 
-  this.checkExt = function(data){
+  this.check = function(data){
     this.isVid = (/\.mp4$/).test(data.postPicURI);
     this.isMyPost = data.posterUID.toString() === userID.toString();
+    this.posterf(data);
     // console.log('POST.DATA >>>>>>>>>>>>>>>', data._id);
     // for( var prop in data) {
     //   console.log(prop);
@@ -100,6 +101,24 @@ function PostTileController($log, $uibModal, $window, postService, picService){
     })
     .catch( (err) => $log.error('Did not delete the post', err));
   };
+
+  this.posterf = function(post) {
+    $log.debug('CommentItemController.commenter',post.posterPID);
+
+    profileService.fetchProfile2(post.posterPID)
+    .then(profile => {
+      console.log('PPPPPPPPP', profile);
+      this.poster = profile;
+    });
+    console.log('POSTEr ]]]]]]]]:>>>>', this.poster);
+  };
+
+  // this.$onInit = function() {
+  //   $log.debug('CommentItemController.$onInit()');
+    
+  //   if (this.comment) return this.posterf();
+  //   return; //this.onPostChange();
+  // };
 
 
 }
