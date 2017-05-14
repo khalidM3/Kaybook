@@ -1,0 +1,14 @@
+.accountContent-navbar {
+  background-color: #4d4d4d;
+  height: 400px;
+  width: 200px;
+  color: white;
+  li{
+    width: 100%;
+    padding: 10px;
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+}
