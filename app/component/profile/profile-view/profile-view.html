@@ -3,6 +3,9 @@
     <h2>YOUR PROFILE VIEW</h2>
 
     <h3>username: {{profileViewCtrl.profile.name}}</h3><br>
+    <div>
+      {{profileViewCtrl.profile.memberCount}} <span class="joinpage" ng-click="profileViewCtrl.join()">join</span>
+    </div>
     <!--<img ng-src="{{profileViewCtrl.profile.profilePicURI}}">-->
     <!--<div>
       <p><span>Username: {{profileViewCtrl.profile.name}}</span></p>-->

@@ -19,6 +19,13 @@ function HomeController($log, $rootScope, $stateParams, profileService) {
     // .then(recipes => this.myRecipes = recipes);
   };
 
+  this.fetchAllProfiles = function(){
+    $log.debug('HomeController.fetchAllProfiles()');
+
+    profileService.fetchProfiles()
+    .then( profiles => this.allProfiles = profiles);
+  };
+
   // this.fetchAllRecipes = function() {
   //   $log.debug('HomeController.fetchAllRecipes()');
 
@@ -33,6 +40,7 @@ function HomeController($log, $rootScope, $stateParams, profileService) {
   // };
 
   this.fetchProfile();
+  // this.fetchAllProfiles();
   // this.fetchAllRecipes();
 
   // this.recipes = [];
