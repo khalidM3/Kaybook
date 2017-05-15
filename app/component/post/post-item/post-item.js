@@ -52,7 +52,7 @@ function PostItemController($log, postService, profileService, commentService){
 
     // this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI.toString());
     // console.log('EXT :::::::', (/\.mp4$/).test(this.resolve.post.postPicURI));
-    console.log('RESOLVE {}::', PostItemController.resolve);
+    console.log('RESOLVE {}::', this.resolve);
 
     // this.showCreateComment = true;
     this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI);
