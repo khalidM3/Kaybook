@@ -1,10 +1,17 @@
 <section class="myrecipes">
   <h2>Profile</h2>
   <profile-view profile="mypageCtrl.myProfile"></profile-view>
+
+  <div>
+    <create-post profile="mypageCtrl.myProfile"></create-post>
+  </div>
+
   <!--<create-recipe on-recipe-created="myrecipesCtrl.updateRecipeView()" profile="myrecipesCtrl.myProfile"></create-recipe>-->
   <!--<div>
     <ul>
       <recipe-tile ng-repeat="tile in myrecipeCtrl.myProfile.recipes" recipe="tile"></recipe-tile>
     </ul>
   </div>-->
+   <!--<input class="btn-std commenter-button" value="edit profie" type="submit" id="edit-button" ng-if="!profileViewCtrl.showEditView" ng-click="profileViewCtrl.showEditView = true">
+  <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="mypageCtrl.myProfile"></edit-profile>    -->
 </section>

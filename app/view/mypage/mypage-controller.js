@@ -10,6 +10,7 @@ function MypageController($log, $rootScope, $stateParams, profileService) {
   this.myUserID = $stateParams.userID;
   this.loggedIn = true;
 
+
   this.fetchProfile = function() {
     $log.debug('MypageController.fetchProfile()');
 
@@ -24,6 +25,7 @@ function MypageController($log, $rootScope, $stateParams, profileService) {
   //   recipeService.fetchMyRecipes(this.myProfile._id)
   //   .then(profile => this.myProfile = profile);
   // };
+
 
   this.fetchProfile();
 }
