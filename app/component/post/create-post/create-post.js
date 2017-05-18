@@ -28,6 +28,7 @@ function CreatePostController($log, $location, $rootScope, postService) {
     postService.createPost(this.profile._id, this.post)
     .then( () => {
       this.post = null;
+      this.onPostCreated();
     });
   };
 

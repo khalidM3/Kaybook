@@ -1,6 +1,7 @@
 <section class="navbar">
   <ul>
-    <li class="nav-link pic" id="logo" ng-click="navbarCtrl.goHome()">K project</li>
+    <li class="nav-link pic" id="logo" ng-click="navbarCtrl.home()">K project</li>
+    <li ng-show="!navbarCtrl.hideLogout"><input type="text"></li>
     <li ng-show="!navbarCtrl.hideSignupBtn" class="signup" ng-click="navbarCtrl.goSignUp()">sign up</li>
     <li ng-show="!navbarCtrl.hideMyRecipesBtn" class="signup" ng-click="navbarCtrl.myPage()">my page</li>
     <li ng-show="!navbarCtrl.hideLoginBtn" class="login" ng-click="navbarCtrl.goLogin()">sign in</li>

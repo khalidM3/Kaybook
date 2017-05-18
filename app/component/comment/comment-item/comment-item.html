@@ -1,0 +1,26 @@
+<li class="commentItem">
+  <on-init></on-init>
+
+  <div class="current-comment" ng-if="!commentItemCtrl.showEditComment">
+
+    <!--<div class="profimg">
+      <img src="{{commentItemCtrl.commenter.profilePicURI}}">
+    </div>-->
+
+    <h2>COMMENT</h2>
+
+    <p class="commenter-name">{{commentItemCtrl.commenter.name}}</p>
+    <p>{{commentItemCtrl.comment.created | date : 'mediumDate'}}</p>
+    <p>{{commentItemCtrl.comment.comment}}</p>
+
+  </div>
+  
+  <!--<edit-comment on-comment-edited="commentItemCtrl.updateCommentItemView()" ng-if="commentItemCtrl.loggedIn && commentItemCtrl.showEditComment && commentItemCtrl.profile._id === commentItemCtrl.comment.commenterProfileID" comment="commentItemCtrl.comment"></edit-comment>-->
+  
+  <!--<input ng-if="commentItemCtrl.loggedIn && !commentItemCtrl.showEditComment && commentItemCtrl.profile._id === commentItemCtrl.comment.commenterProfileID" ng-click="commentItemCtrl.showEditComment = !commentItemCtrl.showEditComment" class="btn-std commenter-button" value="edit" type="submit">-->
+
+  <!--<input ng-if="commentItemCtrl.loggedIn && commentItemCtrl.profile._id === commentItemCtrl.comment.commenterProfileID" ng-click="commentItemCtrl.deleteComment(commentItemCtrl.comment)" class="btn-std commenter-button" type="submit" value="delete">-->
+  
+  <div class="clearfix">
+  </div>
+</li>
