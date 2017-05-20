@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = ['$q', '$log', '$http', 'authService', profileService];
+module.exports = ['$q', '$log', '$http', '$window', 'authService', profileService];
 
-function profileService($q, $log, $http, authService) {
+function profileService($q, $log, $http, $window, authService) {
   $log.debug('profileService');
 
   let service = {};
@@ -49,6 +49,7 @@ function profileService($q, $log, $http, authService) {
     return $http.get(url, config)
     .then( res => {
       $log.log('Profile Retrieved', res);
+      $window.localStorage.setItem('profilePic', res.data.profilePicURI);
       service.profile = res.data;
       return service.profile;
     })
