@@ -26,9 +26,11 @@
   <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    
   </div>
 
-  <div>
+  <button type="button" class="btn btn-default" ng-click="profileViewCtrl.openComponentModal(profileViewCtrl.profile)">create post</button>
+
+  <!--<div>
     <create-post on-post-created="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></create-post>
-  </div>
+  </div>-->
 
   <ul>
     <post-item ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-item>

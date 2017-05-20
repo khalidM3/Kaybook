@@ -1,87 +1,98 @@
 <section ng-init="showCreateBtn = true" class="create-post">
   <input class="btn-std commenter-button" value="add a post" type="submit" ng-show="showCreateBtn" ng-click="showCreateBtn = false">
   <div ng-show="!showCreateBtn" class="add-post">
-    <form name="createPostForm"
-          ng-submit="createPostCtrl.createPost()"
-          novalidate>
-
-      <!--<div>
-      <input class="input-std ignore-valid"
-             name="name"
-             type="text"
-             placeholder=" "
-             ng-minlength="4"
-             ng-model="createPostCtrl.post.postName" required>
-      <label for="name">Post Name</label>
-    </div>-->
-
-      <div>
-      <input class="input-std ignore-valid"
-             name="desc"
-             type="text"
-             placeholder=" "
-             ng-minlength="4"
-             ng-model="createPostCtrl.post.description" required>
-      <label for="desc">Description</label>
+    <div class="modal-header">
+      <h2>Create post modal</h2>
     </div>
 
-      <!--<div>
-      <input class="input-std ignore-valid"
-             name="ingredients"
-             type="text"
-             placeholder=" "
-             ng-minlength="2"
-             ng-model="createPostCtrl.post.ingredients" ng-list required>
-      <label for="ingredients">Ingredient 1, Ingredient2, ect...</label>
-    </div>-->
+    <div class="modal-body">
+      <form name="createPostForm"
+            ng-submit="createPostCtrl.createPost()"
+            novalidate>
 
-      <!--<div>
-      <input class="input-std ignore-valid"
-             name="instructions"
-             type="text"
-             placeholder=" "
-             ng-minlength="2"
-             ng-model="createPostCtrl.post.instructions" ng-list required>
-      <label for="instruction">Direction 1, Direction 2, ect...</label>
-    </div>-->
-
-      <!--<div>
-      <input class="input-std ignore-valid"
-             name="prep"
-             type="text"
-             placeholder=" "
-             ng-minlength="1"
-             ng-model="createPostCtrl.post.prepTime" required>
-      <label for="prep">Prep Time (5 mins)</label>
-    </div>-->
-
-      <!--<div>
-      <input class="input-std ignore-valid"
-             name="cook"
-             type="text"
-             placeholder=" "
-             ng-minlength="1"
-             ng-model="createPostCtrl.post.cookTime" required>
-      <label for="cook">Cook Time (20 mins)</label>
-    </div>-->
-
-      <!--<div>
-      <input class="input-std ignore-valid"
-             name="cats"
-             type="text"
-             placeholder=" "
-             ng-minlength="1"
-             ng-model="createPostCtrl.post.categories" required>
-      <label for="cats">Mexican, Indian, ect...</label>
-      <div class="requirements">
-
+        <!--<div>
+        <input class="input-std ignore-valid"
+              name="name"
+              type="text"
+              placeholder=" "
+              ng-minlength="4"
+              ng-model="createPostCtrl.post.postName" required>
+        <label for="name">Post Name</label>
       </div>-->
-      <input type="submit"
-             class="btn-std"
-             value="save post"
-             ng-click="showCreateBtn = true"
-             ng-disabled="createPostForm.$invalid">
-    </form>
+
+        <div>
+        <input class="input-std ignore-valid"
+              name="desc"
+              type="text"
+              placeholder=" "
+              ng-minlength="4"
+              ng-model="createPostCtrl.post.description" required>
+        <label for="desc">Description</label>
+      </div>
+
+        <!--<div>
+        <input class="input-std ignore-valid"
+              name="ingredients"
+              type="text"
+              placeholder=" "
+              ng-minlength="2"
+              ng-model="createPostCtrl.post.ingredients" ng-list required>
+        <label for="ingredients">Ingredient 1, Ingredient2, ect...</label>
+      </div>-->
+
+        <!--<div>
+        <input class="input-std ignore-valid"
+              name="instructions"
+              type="text"
+              placeholder=" "
+              ng-minlength="2"
+              ng-model="createPostCtrl.post.instructions" ng-list required>
+        <label for="instruction">Direction 1, Direction 2, ect...</label>
+      </div>-->
+
+        <!--<div>
+        <input class="input-std ignore-valid"
+              name="prep"
+              type="text"
+              placeholder=" "
+              ng-minlength="1"
+              ng-model="createPostCtrl.post.prepTime" required>
+        <label for="prep">Prep Time (5 mins)</label>
+      </div>-->
+
+        <!--<div>
+        <input class="input-std ignore-valid"
+              name="cook"
+              type="text"
+              placeholder=" "
+              ng-minlength="1"
+              ng-model="createPostCtrl.post.cookTime" required>
+        <label for="cook">Cook Time (20 mins)</label>
+      </div>-->
+
+        <!--<div>
+        <input class="input-std ignore-valid"
+              name="cats"
+              type="text"
+              placeholder=" "
+              ng-minlength="1"
+              ng-model="createPostCtrl.post.categories" required>
+        <label for="cats">Mexican, Indian, ect...</label>
+        <div class="requirements">
+
+        </div>-->
+        <input type="submit"
+              class="btn-std"
+              value="save post"
+              ng-click="showCreateBtn = true"
+              ng-disabled="createPostForm.$invalid">
+      </form>
+      
+    </div>
+    <div class="modal-footer">
+      <button ng-click="createPostCtrl.ok()" >ok</button>
+      <button ng-click="createPostCtrl.cancel()">cancle</button>
+    </div>
     </div>
   <!--</div>-->
 </section>
