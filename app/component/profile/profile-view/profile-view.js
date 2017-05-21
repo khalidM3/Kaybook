@@ -54,42 +54,39 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
     return this.updateProfileView();
   };
 
-  this.open = function (size, selectedPost) {
-    // var parentElem = parentSelector ? 
-    //   angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
-    var modalInstance = $uibModal.open({
-      animation: this.animationsEnabled,
-      // ariaLabelledBy: 'modal-title',
-      // ariaDescribedBy: 'modal-body',
-      templateUrl: 'create-post.html',
-      // controller: 'CreatePostController',
-      // controllerAs: 'this',
-      size: size,
-      // appendTo: parentElem,
-      resolve: {
-        items: function () {
-          return selectedPost;
-        }
-      }
-    });
+  // this.open = function (size, selectedPost) {
+  //   // var parentElem = parentSelector ? 
+  //   //   angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+  //   var modalInstance = $uibModal.open({
+  //     animation: this.animationsEnabled,
+  //     // ariaLabelledBy: 'modal-title',
+  //     // ariaDescribedBy: 'modal-body',
+  //     templateUrl: 'create-post.html',
+  //     // controller: 'CreatePostController',
+  //     // controllerAs: 'this',
+  //     size: size,
+  //     // appendTo: parentElem,
+  //     resolve: {
+  //       items: function () {
+  //         return selectedPost;
+  //       }
+  //     }
+  //   });
 
-    // modalInstance.result.then(function (selectedItem) {
-    //   this.selected = selectedItem;
-    // }, function () {
-    //   $log.info('Modal dismissed at: ' + new Date());
-    // });
-  };
+  //   // modalInstance.result.then(function (selectedItem) {
+  //   //   this.selected = selectedItem;
+  //   // }, function () {
+  //   //   $log.info('Modal dismissed at: ' + new Date());
+  //   // });
+  // };
 
   this.openComponentModal = function ( profile) {
-    // console.log('BMW :::::::', profile);
+
     var modalInstance = $uibModal.open({
       animation: this.animationsEnabled,
       component: 'createPost',
-      bindings: {
-        profile: profile
-      },
       resolve: {
-        items: function () {
+        profile: function () {
           return profile;
         }
       }

@@ -1,29 +1,61 @@
-<li class="postItem" ng-click="postItemCtrl.updatePostView()">
+<li class="postItem">
   <!--<on-init></on-init>-->
 
-  <div class="current-post" ng-if="!postItemCtrl.showEditComment">
+  <h2>POST ITEM</h2>
+  <button ng-click="postItemCtrl.cancel()">x</button>
 
-    <ul class="post-info">
-      <li> <img src="{{postItemCtrl.poster.profilePicURI}}"></li>
-      <li class="poster-name">Poster: {{postItemCtrl.poster.name}}</li>
-      <li> Date: {{postItemCtrl.post.data.created | date : 'mediumDate'}}</li>
-      <li> <img ng-src="{{postItemCtrl.post.data.postPicURI }}" alt=""> </li>
-      <li>Description: {{postItemCtrl.post.data.description}}</li>      
-    </ul>
+  <!--<div class="current-post" ng-if="!postItemCtrl.showEditComment">-->
 
-  </div>
-  <create-comment 
-      logged-in="postItemCtrl.loggedIn" 
-      ng-if="postItemCtrl.showCreateComment" 
-      on-comment-created="postItemCtrl.updatePostView()" 
-      post="postItemCtrl.post">
-  </create-comment>
+    <ul class="post-body">
+      <li class="post-content">
+        <img ng-src="{{postItemCtrl.resolve.post.postPicURI }}" alt="">
+      </li>
+      <li class="post-side">
+        <ul>
+          <li class="post-header">
+            <img src="{{postItemCtrl.poster.profilePicURI}}">
+            <div class="poster-name">Poster: {{postItemCtrl.poster.name}}</div>
+            <div class="date">Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</div>
+          </li>
+
+          <li class="create-comment">
+            <create-comment 
+            logged-in="postItemCtrl.loggedIn" 
+            on-comment-created="postItemCtrl.updatePostView()" 
+            post="postItemCtrl.resolve.post">
+            </create-comment>
+          </li>
+
+          <li class="comments">
+            <comment-item ng-repeat="comment in postItemCtrl.commentArr" 
+                          comment="comment" 
+                          profile="postItemCtrl.poster">
+            </comment-item>
+          </li>
+
+        </ul>
+    </li>
+
+  </ul>
+    
+
+    
+    
+    <!--<ul class="post-info">-->
+      <!--<li> <img src="{{postItemCtrl.poster.profilePicURI}}"></li>-->
+      <!--<li class="poster-name">Poster: {{postItemCtrl.poster.name}}</li>-->
+      <!--<li> Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</li>-->
+      <!--<li> <img ng-src="{{postItemCtrl.resolve.post.postPicURI }}" alt=""> </li>-->
+      <!--<li>Description: {{postItemCtrl.resolve.post.description}}</li>      -->
+    <!--</ul>-->
+
+  <!--</div>-->
+ 
 
 
 
   <!--postItemCtrl.showComments = true && postItemCtrl.showCommentBtn = true-->
 
-  <comment-item ng-repeat="comment in postItemCtrl.commentArr" comment="comment" profile="postItemCtrl.poster"></comment-item>
 
  <!--// <edit-post on-post-edited="postItemCtrl.updateCommentItemView()" ng-if="postItemCtrl.loggedIn && postItemCtrl.showEditComment && postItemCtrl.profile._id === postItemCtrl.post.posterProfileID" post="postItemCtrl.post"></edit-post>
   

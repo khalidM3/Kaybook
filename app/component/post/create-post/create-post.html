@@ -1,6 +1,6 @@
 <section ng-init="showCreateBtn = true" class="create-post">
-  <input class="btn-std commenter-button" value="add a post" type="submit" ng-show="showCreateBtn" ng-click="showCreateBtn = false">
-  <div ng-show="!showCreateBtn" class="add-post">
+  <!--<input class="btn-std commenter-button" value="add a post" type="submit" ng-show="showCreateBtn" ng-click="showCreateBtn = false">-->
+  <div ng-show="showCreateBtn" class="add-post">
     <div class="modal-header">
       <h2>Create post modal</h2>
     </div>
@@ -90,8 +90,8 @@
       
     </div>
     <div class="modal-footer">
-      <button ng-click="createPostCtrl.ok()" >ok</button>
-      <button ng-click="createPostCtrl.cancel()">cancle</button>
+      <!--<button ng-click="createPostCtrl.ok()" >ok</button>-->
+      <button ng-click="createPostCtrl.cancel()">cancel</button>
     </div>
     </div>
   <!--</div>-->

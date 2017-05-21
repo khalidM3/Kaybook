@@ -30,7 +30,7 @@ function CreatePostController($log, $location, $rootScope, postService) {
     $log.debug('HERE 2!!!',this.profile);
     console.log('POST>>', this.resolve);
 
-    postService.createPost(this.resolve.items._id, this.post)
+    postService.createPost(this.resolve.profile._id, this.post)
     .then( () => {
       this.post = null;
       this.onPostCreated();
@@ -40,9 +40,9 @@ function CreatePostController($log, $location, $rootScope, postService) {
     });
   };
 
-  this.ok = function () {
-    this.close({$value: this.selected.item});
-  };
+  // this.ok = function () {
+  //   this.close({$value: this.selected.item});
+  // };
 
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
