@@ -31,6 +31,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'myprofileCtrl'
     },
     {
+      name: 'page',
+      url: '/page/:pageID/:profileID',
+      template: require('../view/mypage/mypage.html'),
+      controller: 'MypageController',
+      controllerAs: 'mypageCtrl'
+    },
+    {
       name: 'landing',
       url: '/landing',
       template: require('../view/landing/landing.html'),
