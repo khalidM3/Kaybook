@@ -5,11 +5,11 @@
 
     <ul class="profile-main">
       <li><img ng-src="{{profileViewCtrl.profile.profilePicURI}}"></li>
-      <li>{{profileViewCtrl.profile.name}}</li>
+      <li>{{profileViewCtrl.profile.name}} follows {{ profileViewCtrl.profile.friendReq.length}} </li>
       <li>
-        <span>{{profileViewCtrl.profile.members.length}}</span>
-         <span class="joinpage" ng-if="!profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.join()">join</span>
-         <span class="joinpage" ng-if="profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.leave()">leave</span>
+        <span>{{profileViewCtrl.profile.friends.length}}</span>
+         <span class="joinpage" ng-click="profileViewCtrl.sendReq()">add</span>
+         <!--<span class="joinpage" ng-if="profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.removeFriend()">remove</span>-->
       </li>
     </ul>
     

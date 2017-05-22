@@ -24,19 +24,21 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
   this.check = function(){
     $log.debug('profileViewController.check()');
 
-    let userID = $window.localStorage.getItem('userID');
-    profileService.fetchProfile(userID)
-    .then( profile => {
-      let arr = profile.memberOf;
-      this.showLeaveBtn = arr.some( PID => PID.toString() === this.userID.toString());
-      // console.log('profile.memberOf  }-------->',arr);
-      // console.log('}------->', this.userID);
-    });
+    // let userID = $window.localStorage.getItem('userID');
+    // profileService.fetchProfile(userID)
+    // .then( profile => {
+    //   let arr = profile.friends;
+    //   this.showLeaveBtn = arr.some( PID => PID.toString() === this.profile._id.toString());
+    //   // console.log('profile.memberOf  }-------->',arr);
+    //   // console.log('}------->', this.userID);
+    // });
+
+    console.log('PROFILE ::::::::', this.profile);
   };
   this.check();
 
 
-  this.deleteProfile = function(profile) {
+  this.deleteProfile = function(profile) {  
     if (this.profile._id === profile._id) {
       this.profile = null;
     }
@@ -62,22 +64,15 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
     .catch( err => $log.error(err.message));
   };
 
-  this.join = function(){
-    $log.debug('ProfileViewController.join()');
-
-    profileService.joinProfile(this.userID)
-    .then( res => console.log('SUCCESS join()', res))
-    .catch( err => console.error('FAILED join()', err));
+  this.sendReq = function(){
+    $log.debug('ProfileViewController.sendReq()');
+    console.log('This.profile ::::', this.profile);
+    profileService.sendReq(this.profile._id)
+    .then( res => console.log('SUCCESS sent friend req()', res))
+    .catch( err => console.error('FAILED to send friend req()', err));
     return this.updateProfileView();
   };
 
-  this.leave = function(){
-    $log.debug('ProfileViewController.leave()');
-
-    profileService.leaveProfile(this.userID)
-    .then( profile => console.log(profile))
-    .catch( (err) => console.error('FAILED leave()', err));
-  };
 
   // this.open = function (size, selectedPost) {
   //   // var parentElem = parentSelector ? 
