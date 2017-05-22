@@ -4,14 +4,14 @@ require('./_profile-item.scss');
 
 module.exports = {
   template: require('./profile-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'postService', ProfileItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'pageService', ProfileItemController],
   controllerAs: 'profileItemCtrl',
   bindings: {
     profile: '<',
   }
 };
 
-function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModal, profileService, postService) {
+function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModal, profileService, pageService) {
   $log.debug('ProfileViewController');
 
   this.userID = $stateParams.userID;
@@ -33,6 +33,8 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
   this.fetchFRP = function(){
     $log.debug('profileViewCtrl.fetchFRP()');
 
+    this.showCreatePage = false;
+
     this.profileArr = [];
 
     profileService.fetchFriendReq(this.profile._id)
@@ -43,11 +45,28 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
   this.fetchMyFriends = function(){
     $log.debug('profileItemCtrl.fetchMyFriends()');
 
+    this.showCreatePage = false;
+    this.showProfileTile = true;
+
     this.profileArr = [];
 
     profileService.fetchFriends(this.profile._id)
     .then( profiles => this.profileArr = profiles.friends)
     .catch( err => console.log('Failed fetchMyFriends ', err));
+  };
+
+  this.fetchPage = function(){
+    $log.debug('profileItemCtrl.fetchPage()');
+
+    this.showProfileTile = false;
+    this.showCreatePage = true;
+
+    this.pagesArr = [];
+
+    pageService.fetchPagesByPID(this.profile._id)
+    .then( pages => this.pagesArr = pages)
+    .catch( err => console.log('Failed fetchMyPages()', err));
+
   };
 
   // this.acceptReq = function(){
