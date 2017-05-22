@@ -2,9 +2,9 @@
 
 require('./_login.scss');
 
-module.exports = ['$log', '$location', 'authService', LoginController];
+module.exports = ['$log', '$location', '$window', 'authService', LoginController];
 
-function LoginController($log, $location, authService) {
+function LoginController($log, $location, $window, authService) {
   $log.debug('LoginController');
 
   this.myProfile = {};
@@ -12,9 +12,11 @@ function LoginController($log, $location, authService) {
 
   this.login = function() {
     $log.debug('loginCtrl.login');
+    let profileID = $window.localStorage.getItem('profileID');
+    console.log('PID +++++++', profileID);
     console.log('USER::', this.user);
     authService.login(this.user)
-    .then(user => $location.url(`/home/${user._id}`))
+    .then(user => $location.url(`/home/${user._id}/:profileID`))
     .catch( () => {
       this.showLoginError = true;
       this.user = null;

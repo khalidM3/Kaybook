@@ -16,7 +16,10 @@ function MypageController($log, $rootScope, $stateParams, profileService) {
 
     profileService.fetchProfile(this.myUserID)
     // .then(profile => recipeService.fetchMyRecipes(profile._id))
-    .then(prof => this.myProfile = prof);
+    .then(prof => {
+      console.log('MYPAGE PROFILE :::::',prof);
+      this.myProfile = prof;
+    });
   };
 
   // this.updateRecipeView = function() {
