@@ -1,3 +1,10 @@
 <li class="profile-tile" ng-click="profileTileCtrl.goToProfile()">
+  <img ng-src="{{ profileTileCtrl.profile.profilePicURI}}" alt="">
   <span>name: {{ profileTileCtrl.profile.name}} </span>
+
+  <button ng-if="profileTileCtrl.showSendReqBtn" ng-click="profileTileCtrl.sendReq()"> send request </button>
+  <button ng-if="profileTileCtrl.showUnSendReqBtn" ng-click="profileTileCtrl.unSendReq()">unsend request</button>
+  <button ng-if="profileTileCtrl.showAcceptBtn" ng-click="profileTileCtrl.acceptReq()">accept</button>
+  <button ng-if="profileTileCtrl.showUnFriendBtn" ng-click="profileTileCtrl.unFriend()">unfriend</button>
+ 
 </li>

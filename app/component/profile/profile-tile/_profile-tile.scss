@@ -1,8 +1,12 @@
 .profile-tile {
   display: inline-block;
-  width: 20%;
+  width: 200px;
   height: 200px;
   background-color: grey;
   padding: 20px;
   margin: 10px;
+  img {
+    width: 50px;
+    border-radius: 50%;
+  }
 }
