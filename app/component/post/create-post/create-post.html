@@ -10,15 +10,14 @@
             ng-submit="createPostCtrl.createPost()"
             novalidate>
 
-        <!--<div>
-        <input class="input-std ignore-valid"
-              name="name"
-              type="text"
-              placeholder=" "
-              ng-minlength="4"
-              ng-model="createPostCtrl.post.postName" required>
-        <label for="name">Post Name</label>
-      </div>-->
+        <div>
+        <p class="input-std ignore-valid"
+              name="post"
+              ngf-select
+              ng-model="createPostCtrl.post.postPicURI" required> upload pic
+        </p>
+
+      </div>
 
         <div>
         <input class="input-std ignore-valid"
