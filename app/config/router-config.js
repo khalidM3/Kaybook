@@ -24,11 +24,11 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'settingsCtrl'
     },
     {
-      name: 'mypage',
-      url: '/mypage/:userID',
-      template: require('../view/mypage/mypage.html'),
-      controller: 'MypageController',
-      controllerAs: 'mypageCtrl'
+      name: 'myprofile',
+      url: '/profile/:userID/:profileID',
+      template: require('../view/myprofile/myprofile.html'),
+      controller: 'MyprofileController',
+      controllerAs: 'myprofileCtrl'
     },
     {
       name: 'landing',
