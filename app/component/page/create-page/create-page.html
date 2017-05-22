@@ -1,0 +1,19 @@
+<section ng-init="showCreateBtn = true" class="createpage">
+
+<button ng-show="showCreateBtn" ng-click="showCreateBtn=false">create page</button>
+<section ng-show="!showCreateBtn">
+  <form name="createPageForm" ng-submit="createPageCtrl.createPage()">
+
+    <label for="name">Page name</label>
+    <input name="name" type="text" ng-minlength="4" ng-model="createPageCtrl.page.pageName">
+
+    <label for="Desc">Page description</label>
+    <input name="Desc" type="text" ng-minlength="4" ng-model="createpageCtrl.page.pageDesc">
+
+    <button ng-disabled="createPageForm.$invalid">create page</button>
+  </form>
+</section>
+
+<button ng-show="!showCreateBtn" ng-click="showCreateBtn = true">cancel</button>
+  
+</section>
