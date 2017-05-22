@@ -11,7 +11,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
   let states = [
     {
       name: 'home',
-      url: '/home/:userID',
+      url: '/home/:userID/:profileID',
       template: require('../view/home/home.html'),
       controller: 'HomeController',
       controllerAs: 'homeCtrl'
