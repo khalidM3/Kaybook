@@ -31,14 +31,14 @@
       }
     }
 
-    li:nth-child(3) {
+    .signup-btn {
     margin-left: 80%;
     border: 1px solid white;
     padding: 10px;
     color: white;
   }
 
-  li:nth-child(4) {
+  .login-btn {
     //  margin-left: 50%;
     border: 1px solid white;
     padding: 10px;
@@ -50,6 +50,7 @@
 
      img {
        border-radius: 50%;
+       width: 50px;
      }
 
      li {

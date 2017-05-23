@@ -4,7 +4,7 @@ require('./_create-post.scss');
 
 module.exports = {
   template: require('./create-post.html'),
-  controller: ['$log', '$location', '$rootScope', 'postService', CreatePostController],
+  controller: ['$log', '$location', '$rootScope', 'postService', 'picService', CreatePostController],
   controllerAs: 'createPostCtrl',
   bindings: {
     profile: '<',
@@ -15,7 +15,7 @@ module.exports = {
   }
 };
 
-function CreatePostController($log, $location, $rootScope, postService) {
+function CreatePostController($log, $location, $rootScope, postService, picService) {
   $log.debug('CreatePostController');
 
   $log.debug('HERE !!!',this.profile);
@@ -31,10 +31,16 @@ function CreatePostController($log, $location, $rootScope, postService) {
     console.log('POST>>', this.resolve);
 
     postService.createPost(this.resolve.profile._id, this.post)
+    .then( post => {
+      console.log('res.post  CAPITAL', post._id);
+      return picService.uploadPostPic(post, this.uploadedPost);
+    })
     .then( () => {
       this.post = null;
+      this.uploadPost = null;
       this.onPostCreated();
     })
+    .then( () => this.cancel())
     .catch( () => {
       return alert('Sorry, you are not a member!');
     });

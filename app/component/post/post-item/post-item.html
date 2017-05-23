@@ -1,27 +1,31 @@
-<li class="postItem">
-  <!--<on-init></on-init>-->
+<li class="postItem modal-body">
+  <on-init></on-init>
 
-  <h2>POST ITEM</h2>
-  <button ng-click="postItemCtrl.cancel()">x</button>
+  <!--<button ng-click="postItemCtrl.cancel()">x</button>-->
 
   <!--<div class="current-post" ng-if="!postItemCtrl.showEditComment">-->
 
     <ul class="post-body">
       <li class="post-content">
-        <img ng-src="{{postItemCtrl.resolve.post.postPicURI }}" alt="">
+        <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.resolve.post.postPicURI }}" alt="">
+        <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.resolve.post.postPicURI }}" controls>
+          Youre browser does not support HTML5
+        </video>
       </li>
       <li class="post-side">
         <ul>
           <li class="post-header">
+            <button ng-click="postItemCtrl.deletePost()">delete</button>
             <img src="{{postItemCtrl.resolve.post.posterProfilePicURI}}">
             <div class="poster-name">Poster: {{postItemCtrl.resolve.post.posterName}}</div>
             <div class="date">Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</div>
+            <div> {{ postItemCtrl.resolve.post.description }}</div>
           </li>
 
           <li class="create-comment">
             <create-comment 
             logged-in="postItemCtrl.loggedIn" 
-            on-comment-created="postItemCtrl.updatePostView()" 
+            on-comment-created="postItemCtrl.updatePostView()"
             post="postItemCtrl.resolve.post">
             </create-comment>
           </li>
@@ -29,6 +33,7 @@
           <li class="comments">
             <comment-item ng-repeat="comment in postItemCtrl.commentArr" 
                           comment="comment" 
+                          on-comment-change="postItemCtrl.updatePostView()"
                           profile="postItemCtrl.poster">
             </comment-item>
           </li>

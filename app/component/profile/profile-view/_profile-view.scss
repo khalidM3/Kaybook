@@ -1,9 +1,11 @@
 @import "../../../scss/lib/theme/vars";
 
 .profile-view {
+  
 
   .banner {
     width: 100%;
+    max-width: 1000px;
     height: 250px;
   }
   .profile-main {
@@ -13,6 +15,7 @@
 
     img {
       border-radius: 50%;
+      width: 50px;
     }
   }
   

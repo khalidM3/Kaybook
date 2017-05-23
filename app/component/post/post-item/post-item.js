@@ -50,11 +50,14 @@ function PostItemController($log, postService, profileService, commentService){
   this.updatePostView = function(){
     $log.debug('PostItemController.updatePost');
 
+    // this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI.toString());
+    // console.log('EXT :::::::', (/\.mp4$/).test(this.resolve.post.postPicURI));
     console.log('RESOLVE {}::', PostItemController.resolve);
 
-    this.showCreateComment = true;
+    // this.showCreateComment = true;
+    this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI);
     this.commentArr = [];
-    this.showCommentField = false;
+    // this.showCommentField = false;
 
     $log.debug('this.post >>');
 
@@ -73,6 +76,7 @@ function PostItemController($log, postService, profileService, commentService){
           console.log('CommentID HERE!!!',commentID);
           commentService.fetchComment(commentID)
           .then(commentObj => this.commentArr.push(commentObj));
+          // .then( () =>  this.posterf());
         });
       }
     })
@@ -97,6 +101,12 @@ function PostItemController($log, postService, profileService, commentService){
 
     this.onpostChange();
   };
+
+  // this.editPost = function() {
+  //   $log.debug('postItemCtrl.deletePostItem');
+
+  //   postService.editPost()
+  // };
 
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
