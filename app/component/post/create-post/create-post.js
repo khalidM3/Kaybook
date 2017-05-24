@@ -21,19 +21,29 @@ function CreatePostController($log, $location, $rootScope, postService, picServi
   $log.debug('HERE !!!',this.profile);
 
   this.post = {};
+  this.uploadedPost = {};
 
   // this.profile = this.resolve.items;
+  this.bark = function(){
+    console.log('BARK! BARK! Bark!', this.post);
+    console.log('UPload', this.uploadedPost);
+    // for(var prop in this.uploadedPost) var hasProp = this.uploadedPost[prop];
+    console.log('uploadedPost present', this.uploadedPost.name);
+  };
+
 
   this.createPost = function() {
     $log.debug('CreatePostController.createPost()');
 
-    $log.debug('HERE 2!!!',this.profile);
-    console.log('POST>>', this.resolve);
+    // $log.debug('HERE 2!!!',this.profile);
+    // console.log('POST>>', this.resolve);
 
-    postService.createPost(this.resolve.profile._id, this.post)
+    postService.createPost(this.resolve.page._id, this.post)
     .then( post => {
       console.log('res.post  CAPITAL', post._id);
-      return picService.uploadPostPic(post, this.uploadedPost);
+      console.log('uploadedPost', this.uploadedPost);
+      if( this.uploadedPost.name) picService.uploadPostPic(post._id, this.uploadedPost);
+      return;
     })
     .then( () => {
       this.post = null;
@@ -41,10 +51,10 @@ function CreatePostController($log, $location, $rootScope, postService, picServi
       this.onPostCreated();
     })
     .then( () => this.cancel())
-    .catch( () => {
+    .catch( err => {
       this.post = null;
       this.uploadPost = null;
-      return alert('Sorry, you are not a member!');
+      console.log('the error', err);
     });
   };
 
