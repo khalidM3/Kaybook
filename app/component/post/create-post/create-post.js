@@ -42,6 +42,8 @@ function CreatePostController($log, $location, $rootScope, postService, picServi
     })
     .then( () => this.cancel())
     .catch( () => {
+      this.post = null;
+      this.uploadPost = null;
       return alert('Sorry, you are not a member!');
     });
   };

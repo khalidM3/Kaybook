@@ -1,4 +1,4 @@
-<section class="post-tile" ng-init="postTileCtrl.checkExt(postTileCtrl.post.data.postPicURI)" ng-click="postTileCtrl.openComponentModal(postTileCtrl.post.data)">
+<section class="post-tile" ng-init="postTileCtrl.checkExt(postTileCtrl.post.data)" >
   
     <!--<ul class="post-info">
       <h2>POST TILE</h2>
@@ -14,14 +14,15 @@
          <img ng-src="{{postTileCtrl.post.data.posterProfilePicURI}}">
          </div>
       <div class="poster-name"> {{postTileCtrl.post.data.posterName}}</div>
+      <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal(postTileCtrl.post.data)">edit</button>
+      <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost(postTileCtrl.post.data)">delete</button>
     </section>
 
-    <section class="post-content">
+    <section class="post-content" ng-click="postTileCtrl.openComponentModal(postTileCtrl.post.data)">
       <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.data.postPicURI }}" alt="">
        <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.data.posterProfilePicURI}}" controls>
            Your browser does not support HTML5
          </video>
     </section>
-
 
 </section>

@@ -32,6 +32,13 @@ function NavbarController($log, $window, $location, $rootScope, authService) {
     $location.url(`/mypage/${userID}`);
   };
 
+  this.myAccount = function(){
+    $log.debug('NavbarCtrl.myAccount');
+
+    let userID = $window.localStorage.getItem('userID');
+    $location.url(`settings/${userID}`);
+  };
+
   this.goHome = function() {
     $log.debug('NavbarController.goHome()');
 
