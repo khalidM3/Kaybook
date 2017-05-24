@@ -1,34 +1,36 @@
-<!--<section class="profile-view">
-  <div ng-if="!profileViewCtrl.showEditView">
 
-    <img class="banner" ng-src="{{profileViewCtrl.profile.profileBannerURI}}">
+<section class="pageItem">
+  <!--<div ng-if="!profileViewCtrl.showEditView">-->
 
-    <ul class="profile-main">
-      <li><img ng-src="{{profileViewCtrl.profile.profilePicURI}}"></li>
-      <li>{{profileViewCtrl.profile.name}} follows {{ profileViewCtrl.profile.memberOf.length}} </li>
+    <img class="banner" ng-src="{{pageItemCtrl.page.pageBannerURI}}">
+
+    <ul class="page-main">
+      <li><img ng-src="{{pageItemCtrl.page.profilePicURI}}"></li>
+      <li>{{pageItemCtrl.page.pageName}} </li>
       <li>
-        <span>{{profileViewCtrl.profile.members.length}}</span>
-         <span class="joinpage" ng-if="!profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.join()">BEfriend</span>
-         <span class="joinpage" ng-if="profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.leave()">DEfriend</span>
+        <span>{{pageItemCtrl.count}}</span>
+         <span class="joinpage" ng-if="!pageItemCtrl.showLeaveBtn" ng-click="pageItemCtrl.joinPage()">join</span>
+         <span class="joinpage" ng-if="pageItemCtrl.showLeaveBtn" ng-click="pageItemCtrl.leavePage()">leave</span>
       </li>
     </ul>
     
    
    <section class="subnav">
-    <ul>
-      <li ng-init="profileViewCtrl.updateProfileView()" ng-click="profileViewCtrl.updateProfileView()">posts</li>
+    <ul> 
+      <!--ng-init="pageItemCtrl.fetchPagePosts()"-->
+      <li  ng-click="pageItemCtrl.fetchPagePosts()">posts</li>
       <li>placeholder</li>
       <li>placeholder</li>
     </ul>
   </section>
 
-  </div>
-  <div ng-if="profileViewCtrl.showEditOption">
+  <!--</div>-->
+  <!--<div ng-if="profileViewCtrl.showEditOption">
   <input class="btn-std commenter-button" value="edit profie" type="submit" id="edit-button" ng-if="!profileViewCtrl.showEditView" ng-click="profileViewCtrl.showEditView = true">
   <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    
-  </div>
+  </div>-->
 
-  <button type="button" class="btn btn-default" ng-click="profileViewCtrl.openComponentModal(profileViewCtrl.profile)">create post</button>
+  <button type="button" class="btn btn-default" ng-click="pageItemCtrl.openComponentModal(pageItemCtrl.page)">create post</button>
 
   <!--<div>
     <create-post on-post-created="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></create-post>
@@ -38,8 +40,8 @@
     <post-item ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-item>
   </ul>-->
 
-  <!--<ul>
-    <post-tile class="posttile" ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-tile>
+  <ul>
+    <post-tile class="posttile" ng-repeat="post in pageItemCtrl.postsArr" post="post"></post-tile>
   </ul>
   
-</section>-->
+</section>

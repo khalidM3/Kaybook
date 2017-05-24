@@ -1,15 +1,89 @@
-// 'use strict';
+'use strict';
 
-// require('./_profile-view.scss');
+require('./_page-item.scss');
 
-// module.exports = {
-//   template: require('./profile-view.html'),
-//   controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'postService', ProfileViewController],
-//   controllerAs: 'profileViewCtrl',
-//   bindings: {
-//     profile: '<',
-//   }
-// };
+module.exports = {
+  template: require('./page-item.html'),
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'pageService', 'postService', PageItemController],
+  controllerAs: 'pageItemCtrl',
+  bindings: {
+    page: '<' 
+  }
+};
+
+
+function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal, pageService, postService){
+  $log.debug('PageItemController');
+
+
+  this.$onInit = function(){
+    $log.debug('pageItemCtrl.onInit');
+
+    this.pageID = $stateParams.pageID;
+    this.profileID = $window.localStorage.getItem('profileID');
+
+    pageService.fetchPage(this.pageID)
+    .then( page =>  {
+      this.count = page.members.length;
+      this.showLeaveBtn = page.members.some( PID => PID.toString() === this.profileID.toString());
+      console.log(this.showLeaveBtn);
+      return this.page = page;
+    });
+    // .then( () => {
+    //   return this.fetchPagePosts();
+    // });
+  };
+
+  this.fetchPagePosts = function(){
+    $log.debug('pageItemCtrl.fetchPagePosts()');
+
+    
+    postService.fetchPagePosts(this.page._id)
+    .then( posts => {
+      console.log(posts);
+      return this.postsArr = posts;
+    })
+    .catch( err => console.log('Failed ', err));
+  };
+
+  this.joinPage = function() {
+    $log.debug('pageItemCtrl.joinPage()');
+
+    this.showLeaveBtn = true;
+    ++this.count;
+
+    pageService.joinPage(this.page._id)
+    .then( page => console.log('Successfully joinPage()', page))
+    .catch( err => console.log('Failed joinPage()', err));
+  };
+
+  this.leavePage = function(){
+    $log.debug('pageItemCtrl.leavePage()');
+
+    this.showLeaveBtn = false;
+    --this.count;
+
+    pageService.leavePage(this.page._id)
+    .then( page => console.log('Successfully leavePage()', page))
+    .catch( err => console.log('Failed leavePage()', err));
+  };
+
+
+
+  this.openComponentModal = function (page) {
+
+    var modalInstance = $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'createPost',
+      resolve: {
+        page: function () {
+          return page;
+        }
+      }
+    });
+  };
+
+}
 
 // function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModal, profileService, postService) {
 //   $log.debug('ProfileViewController');
@@ -105,18 +179,18 @@
 //   //   // });
 //   // };
 
-//   this.openComponentModal = function ( profile) {
+  // this.openComponentModal = function ( profile) {
 
-//     var modalInstance = $uibModal.open({
-//       animation: this.animationsEnabled,
-//       component: 'createPost',
-//       resolve: {
-//         profile: function () {
-//           return profile;
-//         }
-//       }
-//     });
-//   };
+  //   var modalInstance = $uibModal.open({
+  //     animation: this.animationsEnabled,
+  //     component: 'createPost',
+  //     resolve: {
+  //       profile: function () {
+  //         return profile;
+  //       }
+  //     }
+  //   });
+  // };
 
 
 // }
