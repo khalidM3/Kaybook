@@ -1,5 +1,7 @@
 'use strict';
 
+require('./_page-tile.scss');
+
 module.exports = {
   template: require('./page-tile.html'),
   controller: ['$log', '$location', '$window', PageTileController],
