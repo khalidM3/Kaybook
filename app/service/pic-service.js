@@ -59,12 +59,12 @@ function picService($q, $log, $http, Upload, authService) {
     });
   };
 
-  service.uploadPostPic = function(postData, picData) {
+  service.uploadPostPic = function(postID, picData) {
     $log.debug('service.uploadPostPic');
     
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/post/${postData._id}/pic`;
+      let url = `${__API_URL__}/api/post/${postID}/pic`;
       let headers = {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json'
