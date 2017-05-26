@@ -1,23 +1,24 @@
-<!--<section>
+<section>
 
+<h3>Account content</h3>
 
- <ul class="myposts-navbar">
-   <li ng-click="settingsCtrl.fetchMyPosts()">my posts</li>
-   <li ng-click="settingsCtrl.fetchMyComments()">my comments</li>
+ <ul class="accountContent-navbar">
+   <li ng-click="accountContentCtrl.fetchMyPosts()">my posts</li>
+   <li ng-click="accountContentCtrl.fetchMyComments()">my comments</li>
    <li>placeholder</li>
    <li>placeholder</li>
  </ul>
 
  <section>
-    <post-tile ng-repeat="post in settingsCtrl.myPostsArray track by $index" post="post"></post-tile>
+    <post-tile ng-repeat="post in accountContentCtrl.myPostsArray track by $index" post="post"></post-tile>
   </section>
 
   <section>
-    <comment-item ng-repeat="comment in settingsCtrl.myCommentsArray" 
+    <comment-item ng-repeat="comment in accountContentCtrl.myCommentsArray" 
                           comment="comment" 
                           profile="postItemCtrl.myProfile[0]">
     </comment-item>
   </section>
 
 
-  </section>-->
+  </section>

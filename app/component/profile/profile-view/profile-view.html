@@ -7,7 +7,9 @@
       <li><img ng-src="{{profileViewCtrl.profile.profilePicURI}}"></li>
       <li>{{profileViewCtrl.profile.name}}</li>
       <li>
-        <span>{{profileViewCtrl.profile.memberCount}}</span> <span class="joinpage" ng-click="profileViewCtrl.join()">join</span>
+        <span>{{profileViewCtrl.profile.members.length}}</span>
+         <span class="joinpage" ng-if="!profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.join()">join</span>
+         <span class="joinpage" ng-if="profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.leave()">leave</span>
       </li>
     </ul>
     

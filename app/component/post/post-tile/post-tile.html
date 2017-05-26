@@ -1,5 +1,4 @@
-<section class="post-tile" ng-init="postTileCtrl.checkExt(postTileCtrl.post.data)" >
-  
+<section class="post-tile" ng-init="postTileCtrl.check(postTileCtrl.post.data)">
     <!--<ul class="post-info">
       <h2>POST TILE</h2>
       <li> <img src="{{postTileCtrl.post.data.posterProfilePicURI}}"></li>
@@ -11,9 +10,9 @@
 
     <section class="header">
       <div>
-         <img ng-src="{{postTileCtrl.post.data.posterProfilePicURI}}">
+         <img ng-src="{{postTileCtrl.poster.profilePicURI}}">
          </div>
-      <div class="poster-name"> {{postTileCtrl.post.data.posterName}}</div>
+      <div class="poster-name"> {{postTileCtrl.poster.name}}</div>
       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal(postTileCtrl.post.data)">edit</button>
       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost(postTileCtrl.post.data)">delete</button>
     </section>

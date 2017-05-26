@@ -4,14 +4,26 @@ require('./_navbar.scss');
 
 module.exports = {
   template: require('./navbar.html'),
-  controller: ['$log', '$window', '$location', '$rootScope', 'authService', NavbarController],
+  controller: ['$log', '$window', '$location', '$rootScope', 'authService', 'profileService', NavbarController],
   controllerAs: 'navbarCtrl'
 };
 
-function NavbarController($log, $window, $location, $rootScope, authService) {
+function NavbarController($log, $window, $location, $rootScope, authService, profileService) {
   $log.debug('NavbarController');
 
-  this.profilePic = $window.localStorage.getItem('profilePic');
+  // this.profilePic = $window.localStorage.getItem('profilePic');
+  
+  this.fetchMyProfile = function(){
+
+    let userID = $window.localStorage.getItem('userID');
+    profileService.fetchProfile(userID)
+    .then( profile => {
+      $window.localStorage.setItem('profilePic', profile.profilePicURI);
+      return this.profilePic = profile.profilePicURI;
+    });
+  };
+
+  this.fetchMyProfile();
 
   this.goSignUp = function() {
     $log.debug('NavbarController.goSignUp()');
