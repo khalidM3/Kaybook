@@ -90,15 +90,16 @@ function PostTileController($log, $uibModal, $window, postService, picService){
       }
     });
   };
-  // postData, picData
 
-  // this.deletePost = function(post){
-  //   postService.deletePost(post._id)
-  //   .then( () => {
-  //     picService.deletePostPic(post);
-  //   })
-  //   .catch( () => $log.error('Did not delete the post'));
-  // };
+  this.deletePost = function(post){
+    $log.debug('postTileController.deletePost()');
+    //TODO => fix the delete pic route
+    postService.deletePost(post._id)
+    .then( () => {
+      picService.deletePostPic(post);
+    })
+    .catch( (err) => $log.error('Did not delete the post', err));
+  };
 
 
 }

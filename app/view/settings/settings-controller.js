@@ -25,7 +25,7 @@ function SettingsController($log, $rootScope, $stateParams, profileService, post
 
   this.fetchMyProfile();
 
-  this.fetchMyPosts = function() {
+  this.fetchMyProfilePosts = function() {
     $log.debug('SettingsController.fetchMyPosts()');
 
     this.myCommentsArray = [];
@@ -42,38 +42,71 @@ function SettingsController($log, $rootScope, $stateParams, profileService, post
     });
   };
 
-  this.fetchMyComments = function() {
-    $log.debug('SettingsController.fetchMyComments');
+  // this.fetchMyComments = function() {
+  //   $log.debug('SettingsController.fetchMyComments');
 
-    this.myPostsArray = [];
+  //   this.myPostsArray = [];
 
-    this.myCommentsArray = [];
-    console.log('JCKBDJCGJDGCKJDBCKJDBCJKHDC', this.myCommentsArray[0]);
-    // for( var prop in this.myCommentsArray){
-    //   console.log( prop);
-    // }
-    this.myCommentsArray.forEach( comment => {
-      console.log('comment if ',comment._id)
-    });
+  //   this.myCommentsArray = [];
+  //   console.log('JCKBDJCGJDGCKJDBCKJDBCJKHDC', this.myCommentsArray[0]);
+  //   // for( var prop in this.myCommentsArray){
+  //   //   console.log( prop);
+  //   // }
+  //   // this.myCommentsArray.forEach( comment => {
+  //   //   console.log('comment if ',comment._id)
+  //   // });
 
 
-    commentService.fetchProfileComments(this.myProfile[0])
-    .then( profile => {
-      console.log('Settings profile ::::::::::::::::>', profile.comments[1]);
-      profile.comments.forEach( comment => {
-        this.myCommentsArray.push(comment);
-        // console.log('comment pushed:::::::', comment._id);
-      });
-      //  console.log('JCKBDJCGJDGCKJDBCKJDBCJKHDC', this.myCommentsArray[1]._id);
-    });
+  //   commentService.fetchProfileComments(this.myProfile[0])
+  //   .then( profile => {
+  //     console.log('Settings profile ::::::::::::::::>', profile.comments[1]);
+  //     profile.comments.forEach( comment => {
+  //       this.myCommentsArray.push(comment);
+  //       // console.log('comment pushed:::::::', comment._id);
+  //     });
+  //     //  console.log('JCKBDJCGJDGCKJDBCKJDBCJKHDC', this.myCommentsArray[1]._id);
+  //   });
 
     
-    // for( var prop in this.myCommentsArray[0]){
-    //   console.log('BROB',prop);
-    // }
+  //   // for( var prop in this.myCommentsArray[0]){
+  //   //   console.log('BROB',prop);
+  //   // }
+  // };
+
+  this.fetchMyComments = function(){
+    $log.debug('SettingsController.fetchMyComments()');
+
+    this.myPostsArray = [];
+    this.myCommentsArray = [];
+
+    commentService.fetchMyProfileComments(this.myProfile[0]._id)
+    .then( comments => {
+      comments.forEach( comment => {
+        this.myCommentsArray.push(comment);
+      });
+    })
+    .catch(err => {
+      $log.error('FAILED to fetchMyComment()', err);
+    });
   };
 
-  // this.fetchMyComments();
+  this.fetchMyPosts = function(){
+    $log.debug('SettingsController.fetchMyPosts()');
+
+    this.myCommentsArray = [];
+    this.myPostsArray = [];
+
+    postService.fetchPostedPosts(this.myProfile[0]._id)
+    .then( posts => {
+      // console.log(posts);
+      posts.forEach( postData => {
+        console.log(postData.posterName);
+        let post = {};
+        post.data = postData;
+        this.myPostsArray.push(post);
+      });
+    });
+  };
 
 
 }

@@ -93,7 +93,7 @@ function picService($q, $log, $http, Upload, authService) {
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/post/${postData._id}`;
+      let url = `${__API_URL__}/api/post/${postData._id}/pic`;
       let config = {
         headers: {
           Authorization: `Bearer ${token}`
