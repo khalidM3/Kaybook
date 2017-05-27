@@ -23,35 +23,43 @@ function PostItemController($log, postService, profileService, commentService){
 // posts.data are resolve.post
 
   this.showEditpost = false;
-  
   this.showCreateComment = false;
-  this.bark = function(){
-    console.log('BARK BARK BARK');
+
+  this.$onInit = function() {
+    $log.debug('postItemController.$onInit()');
+    
+    if (this.resolve.post) return this.updatePostView();
+    return this.onpostChange();
   };
 
-  this.deletepost = function(post){
-    $log.debug('postItemController.deletepost');
+  this.updatePostItemView = function() {
+    $log.debug('postItemController.updatePostItemView', this.post);
 
-    postService.deletepost(post)
-    .then(this.onpostChange());
+    this.onpostChange();
   };
 
-  this.posterf = function() {
-    $log.debug('postItemController.poster',this.resolve.post.posterPID);
+  // this.deletepost = function(post){
+  //   $log.debug('postItemController.deletepost');
 
-    profileService.fetchProfile2(this.resolve.post.posterPID)
-    .then(profile => {
-      console.log('HERE IT IS MATE',this.resolve.post.posterPID);
-      this.poster = profile;
-      return this.poster;
-    });
-  };
+  //   postService.deletepost(post)
+  //   .then(this.onpostChange());
+  // };
+
+  // this.posterf = function() {
+  //   $log.debug('postItemController.poster',this.resolve.post.posterPID);
+
+  //   profileService.fetchProfile2(this.resolve.post.posterPID)
+  //   .then(profile => {
+  //     console.log('HERE IT IS MATE',this.resolve.post.posterPID);
+  //     this.poster = profile;
+  //     return this.poster;
+  //   });
+  // };
 
   this.updatePostView = function(){
     $log.debug('PostItemController.updatePost');
 
-    // this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI.toString());
-    // console.log('EXT :::::::', (/\.mp4$/).test(this.resolve.post.postPicURI));
+  
     console.log('RESOLVE {}::', this.resolve);
 
     // this.showCreateComment = true;
@@ -67,46 +75,41 @@ function PostItemController($log, postService, profileService, commentService){
     profileService.fetchProfile2(this.resolve.post.posterPID)
     .then(profile => {
       console.log('PROFILE >>>', profile);
-      this.profilePic = profile.profilePicURI;
-      this.profileName = profile.name;
+      this.poster = profile;
     })
     .then( () => {
-      if (this.resolve.post.comments.length !== 0) {
-        this.resolve.post.comments.forEach(commentID => {
-          console.log('CommentID HERE!!!',commentID);
-          commentService.fetchComment(commentID)
-          .then(commentObj => this.commentArr.push(commentObj));
-          // .then( () =>  this.posterf());
-        });
-      }
+      if (this.resolve.post.comments.length < 1) return;
+      commentService.fetchPostComments(this.resolve.post._id)
+        .then( post => this.commentArr = post.comments)
+        .catch( err => console.log('FAILED fetch post comments', err));
     })
     .catch(err => $log.error(err.message));
   };
 
-  // this.updatePostView();
-  // this.poster();
+  this.likePost = function(){
+    $log.debug('postItemCtrl.likePost()');
 
-  this.$onInit = function() {
-    $log.debug('postItemController.$onInit()');
-    
-    if (this.resolve.post) {
-      this.updatePostView();
-      return this.posterf();
-    }
-    return this.onpostChange();
+    postService.likePost(this.resolve.post._id)
+    .then( post => console.log('Successfuly likedPost()', post))
+    .catch( err => console.log('Failed likePost()', err));
   };
 
-  this.updatePostItemView = function() {
-    $log.debug('postItemController.updatePostItemView', this.post);
+  this.unLikePost = function() {
+    $log.debug('postItemCtrl.unLikePost()');
 
-    this.onpostChange();
+    postService.unLikePost(this.resolve.post._id)
+    .then( post => console.log('Successfuly unLikedPost()', post))
+    .catch( err => console.log('Failed unLikePost()', err));
   };
 
-  // this.editPost = function() {
-  //   $log.debug('postItemCtrl.deletePostItem');
+  this.dislikePost = function() {
+    $log.debug('postItemCtrl.dislikePost()');
 
-  //   postService.editPost()
-  // };
+    postService.dislikePost(this.resolve.post._id)
+    .then( post => console.log('Successfuly dislikedPost()', post))
+    .catch( err => console.log('Failed dislikePost()', err));
+  };
+
 
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
