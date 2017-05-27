@@ -6,19 +6,21 @@
 
     <ul class="page-main">
       <li><img ng-src="{{pageItemCtrl.page.profilePicURI}}"></li>
-      <li>{{pageItemCtrl.page.pageName}} </li>
-      <li>
+      <li><h3> {{pageItemCtrl.page.pageName}} </h3></li>
+      <li> {{pageItemCtrl.page.pageDesc}} </li>
+      <li class="memberBtn">
         <span>{{pageItemCtrl.count}}</span>
          <span class="joinpage" ng-if="!pageItemCtrl.showLeaveBtn" ng-click="pageItemCtrl.joinPage()">join</span>
          <span class="joinpage" ng-if="pageItemCtrl.showLeaveBtn" ng-click="pageItemCtrl.leavePage()">leave</span>
       </li>
     </ul>
     
-   
+   <edit-page ng-if="pageItemCtrl.showEditBtn" page="pageItemCtrl.page"></edit-page>
+
    <section class="subnav">
     <ul> 
       <!--ng-init="pageItemCtrl.fetchPagePosts()"-->
-      <li  ng-click="pageItemCtrl.fetchPagePosts()">posts</li>
+      <li ng-click="pageItemCtrl.fetchPagePosts()">posts</li>
       <li>placeholder</li>
       <li>placeholder</li>
     </ul>
@@ -31,6 +33,7 @@
   </div>-->
 
   <button type="button" class="btn btn-default" ng-click="pageItemCtrl.openComponentModal(pageItemCtrl.page)">create post</button>
+  <button ng-click="pageItemCtrl.openCreateForumModal(pageItemCtrl.page)">create forum</button>
 
   <!--<div>
     <create-post on-post-created="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></create-post>
@@ -40,8 +43,14 @@
     <post-item ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-item>
   </ul>-->
 
+  <button ng-click="pageItemCtrl.fetchPageForums()">bark</button>
+
   <ul>
     <post-tile class="posttile" ng-repeat="post in pageItemCtrl.postsArr" post="post"></post-tile>
+  </ul>
+
+  <ul>
+    <forum-tile ng-repeat="forum in pageItemCtrl.forumArr" forum="forum"></forum-tile>
   </ul>
   
 </section>

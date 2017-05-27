@@ -4,7 +4,7 @@ require('./_page-item.scss');
 
 module.exports = {
   template: require('./page-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'pageService', 'postService', PageItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'pageService', 'postService', 'forumService',PageItemController],
   controllerAs: 'pageItemCtrl',
   bindings: {
     page: '<' 
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal, pageService, postService){
+function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal, pageService, postService, forumService){
   $log.debug('PageItemController');
 
 
@@ -21,17 +21,19 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
 
     this.pageID = $stateParams.pageID;
     this.profileID = $window.localStorage.getItem('profileID');
-
+    
     pageService.fetchPage(this.pageID)
     .then( page =>  {
       this.count = page.members.length;
       this.showLeaveBtn = page.members.some( PID => PID.toString() === this.profileID.toString());
-      console.log(this.showLeaveBtn);
+      this.showEditBtn = this.profileID === page.profileID;
       return this.page = page;
+    })
+    .then( () => {
+      this.fetchPagePosts();
+      this.fetchPageForums();
+      return;
     });
-    // .then( () => {
-    //   return this.fetchPagePosts();
-    // });
   };
 
   this.fetchPagePosts = function(){
@@ -44,6 +46,14 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
       return this.postsArr = posts;
     })
     .catch( err => console.log('Failed ', err));
+  };
+
+  this.fetchPageForums = function(){
+    $log.debug('pageItemCtrl.fetchPageForum()');
+
+    forumService.fetchPageForums(this.page._id)
+    .then( forums => this.forumArr = forums)
+    .catch( err => console.log('failed fetchPageForum', err));
   };
 
   this.joinPage = function() {
@@ -75,6 +85,19 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
     var modalInstance = $uibModal.open({
       animation: this.animationsEnabled,
       component: 'createPost',
+      resolve: {
+        page: function () {
+          return page;
+        }
+      }
+    });
+  };
+
+  this.openCreateForumModal = function (page) {
+
+    var modalInstance = $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'createForum',
       resolve: {
         page: function () {
           return page;
