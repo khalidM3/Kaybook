@@ -46,7 +46,7 @@ function EditPostController($log, $location, $rootScope, postService, picService
   //   });
   // }; 
   this.updatePostPic = function(){
-    return picService.uploadPostPic(this.resolve.post, this.upload)
+    picService.uploadPostPic(this.resolve.post._id, this.upload)
     .then( () => {
       this.upload = null;
       this.onPostCreated();
@@ -57,7 +57,7 @@ function EditPostController($log, $location, $rootScope, postService, picService
   };
 
   this.updatePostDesc = function(){
-    return postService.updatePost(this.resolve.post._id, this.post)
+    postService.updatePost(this.resolve.post._id, this.post)
     .then( () => {
       this.post = null;
       this.onPostCreated();
@@ -92,6 +92,19 @@ function EditPostController($log, $location, $rootScope, postService, picService
     // });
     return;
   }; 
+
+  this.bark = function(){
+    console.log(
+      'BARK BARK BARK',
+      'this.post', this.post,
+      'resolve post', this.resolve.post,
+      'this.upload', this.upload
+    );
+    // console.log('BARK BARK BARK');
+    // console.log('post', this.resolve.post);
+    // console.log('post', this.post);
+    // console.log('')
+  };
 
 
   // this.ok = function () {
