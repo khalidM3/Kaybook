@@ -102,10 +102,10 @@ function commentService($q, $log, $window, $http, authService){
   };
 
 
-  service.fetchPostComments = function(postData){
+  service.fetchPostComments = function(postID){
     $log.debug('service.fetchPostComments');
 
-    let url = `${__API_URL__}/api/allpostcomments/${postData._id}`;
+    let url = `${__API_URL__}/api/allpostcomments/${postID}`;
     let config = {
       headers: {
         'Content-Type': 'application/json',
