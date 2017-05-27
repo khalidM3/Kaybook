@@ -1,0 +1,20 @@
+<section ng-init="showEditBtn = true" class="editpage">
+
+<button ng-show="showEditBtn" ng-click="showEditBtn=false">edit page</button>
+<section ng-show="!showEditBtn">
+  
+  <form name="editPageForm" ng-submit="editPageCtrl.editPage()">
+
+    <label for="name">Page name</label>
+    <input name="name" type="text" ng-minlength="4" ng-model="editPageCtrl.update.pageName">
+
+    <label for="Desc">Page description</label>
+    <input name="Desc" type="text" ng-minlength="4" ng-model="editPageCtrl.update.pageDesc">
+
+    <button ng-disabled="editPageForm.$invalid">edit page</button>
+  </form>
+</section>
+
+<button ng-show="!showEditBtn" ng-click="showEditBtn = true">cancel</button>
+  
+</section>
