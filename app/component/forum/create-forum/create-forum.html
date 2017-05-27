@@ -1,0 +1,18 @@
+<section class="createforum">
+
+<section>
+  <form name="createForumForm" ng-submit="createForumCtrl.createForum()">
+
+    <label for="name">Question title</label>
+    <input name="name" type="text" ng-minlength="4" ng-model="createForumCtrl.forum.forumTitle">
+
+    <label for="Desc">Question description</label>
+    <input name="Desc" type="text" ng-minlength="4" ng-model="createForumCtrl.forum.forumDesc">
+
+    <button ng-disabled="createForumForm.$invalid">create forum</button>
+  </form>
+</section>
+
+<button ng-click="createForumCtrl.cancel()">cancel</button>
+  
+</section>
