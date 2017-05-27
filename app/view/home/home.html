@@ -1,13 +1,15 @@
 <section>
   <ul class="subnav">
     <li ng-init="homeCtrl.fetchJoinedPosts()" ng-click="homeCtrl.fetchJoinedPosts()">joined posts</li>
-    <li ng-click="homeCtrl.fetchAllProfiles()">home</li>
+    <li ng-click="homeCtrl.fetchAllProfiles()">explore</li>
     <li ng-click="homeCtrl.fetchJoinedProfiles()">followed</li>
-    <li>placeholder</li>
+    <li ng-click="homeCtrl.showProfileItem=true">social</li>
     <li>placeholder</li>
   </ul>
 
-  <h1>Welcome to the Home page</h1>
+  <section ng-if="homeCtrl.showProfileItem">
+     <profile-Item profile="homeCtrl.myProfile"></profile-Item>
+  </section>
 
   <section>
     <profile-tile ng-repeat="tile in homeCtrl.allProfiles" profile="tile"></profile-tile>

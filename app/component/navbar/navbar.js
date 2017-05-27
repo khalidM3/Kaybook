@@ -19,11 +19,12 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
     profileService.fetchProfile(userID)
     .then( profile => {
       $window.localStorage.setItem('profilePic', profile.profilePicURI);
+      $window.localStorage.setItem('profileID', profile._id);
       return this.profilePic = profile.profilePicURI;
     });
   };
 
-  this.fetchMyProfile();
+  // this.fetchMyProfile();
 
   this.goSignUp = function() {
     $log.debug('NavbarController.goSignUp()');
@@ -61,7 +62,8 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
     $log.debug('NavbarController.home()');
 
     let userID = $window.localStorage.getItem('userID');
-    $location.url(`/home/${userID}`);
+    let profileID = $window.localStorage.getItem('profileID');
+    $location.url(`/home/${userID}/${profileID}`);
   };
 
   this.logout = () => {
@@ -96,6 +98,7 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
       this.hideMyRecipesBtn = false;
       this.hideHomeBtn = true;
       this.hideProfileBtn = false;
+      this.fetchMyProfile();
     }
 
     if (path === '/mypage') {
@@ -105,6 +108,7 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
       this.hideMyRecipesBtn = true;
       this.hideHomeBtn = false;
       this.hideProfileBtn = false;
+      this.fetchMyProfile();
     }
 
     if (path === '/recipe') {
