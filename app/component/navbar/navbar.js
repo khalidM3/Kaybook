@@ -42,7 +42,15 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
     $log.debug('NavbarController.myPage()');
 
     let userID = $window.localStorage.getItem('userID');
-    $location.url(`/mypage/${userID}`);
+    $location.url(`/page/${userID}`);
+  };
+
+  this.myProfile = function() {
+    $log.debug('NavbarController.myProfile()');
+
+    let userID = $window.localStorage.getItem('userID');
+    let profileID = $window.localStorage.getItem('profileID');
+    $location.url(`/profile/${userID}/${profileID}`);
   };
 
   this.myAccount = function(){

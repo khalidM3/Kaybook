@@ -59,6 +59,30 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.fetchMyProfile = function() {
+    $log.debug('profileService.fetchProfile');
+
+    let userID = $window.localStorage.getItem('userID');
+    let url = `${__API_URL__}/api/profile/${userID}`;
+    let config = {
+      headers: {
+        Accept: 'application/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('Profile Retrieved', res);
+      $window.localStorage.setItem('profilePic', res.data.profilePicURI);
+      service.profile = res.data;
+      return service.profile;
+    })
+    .catch( err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
+
   service.fetchProfile2 = function(profileID) {
     $log.debug('profileService.fetchProfile2');
 
@@ -80,6 +104,7 @@ function profileService($q, $log, $http, $window, authService) {
       return $q.reject(err);
     });
   };
+
 
   service.fetchProfiles = function() {
     $log.debug('profileService.fetchProfiles');
@@ -156,6 +181,110 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.sendReq = function(profileID){
+    $log.debug('profileService.sendReq');
+
+    return authService.getToken()
+    .then( token => {
+      console.log(token);
+      let url = `${__API_URL__}/api/sendreq/${profileID}`;
+      let config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('sent a friend request');
+      service.profile = res.data;
+      return service.profile;
+    })
+    .catch( err => {
+      $log.error('Didnt send a friend request',err);
+      return $q.reject(err);
+    });
+  };
+
+  service.unSendReq = function(profileID){
+    $log.debug('profileService.unSendReq');
+
+    return authService.getToken()
+    .then( token => {
+      console.log(token);
+      let url = `${__API_URL__}/api/unsendreq/${profileID}`;
+      let config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('unsent a friend request');
+      service.profile = res.data;
+      return service.profile;
+    })
+    .catch( err => {
+      $log.error('Didnt unsend a friend request',err);
+      return $q.reject(err);
+    });
+  };
+
+  service.acceptReq = function(profileID){
+    $log.debug('profileService.acceptReq');
+
+    return authService.getToken()
+    .then( token => {
+      console.log(token);
+      let url = `${__API_URL__}/api/acceptreq/${profileID}`;
+      let config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('accepted friend request');
+      service.profile = res.data;
+      return service.profile;
+    })
+    .catch( err => {
+      $log.error('Didnt accept friend request',err);
+      return $q.reject(err);
+    });
+  };
+
+  service.unFriend = function(profileID){
+    $log.debug('profileService.unFriend');
+
+    return authService.getToken()
+    .then( token => {
+      console.log(token);
+      let url = `${__API_URL__}/api/unfriend/${profileID}`;
+      let config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('unfriended the person');
+      service.profile = res.data;
+      return service.profile;
+    })
+    .catch( err => {
+      $log.error('Didnt unfriend person',err);
+      return $q.reject(err);
+    });
+  };
+
   service.joinProfile = function(joinedUID){
     $log.debug('profileService.joinProfile');
 
@@ -178,6 +307,51 @@ function profileService($q, $log, $http, $window, authService) {
     })
     .catch( err => {
       $log.error('Didnt join the page',err);
+      return $q.reject(err);
+    });
+  };
+
+  service.fetchFriends = function(profileID) {
+    $log.debug('profileService.fetchFriends');
+
+    let url = `${__API_URL__}/api/getfriends/${profileID}`;
+    let config = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('friends Retrieved', res);
+      service.profile = res.data;
+      return service.profile;
+    })
+    .catch( err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
+
+  service.fetchFriendReq= function(profileID) {
+    $log.debug('profileService.fetchfriendReq');
+
+    let url = `${__API_URL__}/api/getfriendreq/${profileID}`;
+    let config = {
+      headers: {
+        Accept: 'application/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('friends req Retrieved', res);
+      service.profile = res.data;
+      return service.profile;
+    })
+    .catch( err => {
+      $log.error(err.message);
       return $q.reject(err);
     });
   };

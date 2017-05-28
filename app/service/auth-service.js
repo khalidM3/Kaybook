@@ -83,6 +83,7 @@ function authService($q, $log, $http, $window) {
 
     $window.localStorage.removeItem('token');
     $window.localStorage.removeItem('userID');
+    $window.localStorage.removeItem('profileID');
     token = null;
     return $q.resolve();
   };

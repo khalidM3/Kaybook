@@ -11,7 +11,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
   let states = [
     {
       name: 'home',
-      url: '/home/:userID',
+      url: '/home/:userID/:profileID',
       template: require('../view/home/home.html'),
       controller: 'HomeController',
       controllerAs: 'homeCtrl'
@@ -24,8 +24,15 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'settingsCtrl'
     },
     {
-      name: 'mypage',
-      url: '/mypage/:userID',
+      name: 'myprofile',
+      url: '/profile/:userID/:profileID',
+      template: require('../view/myprofile/myprofile.html'),
+      controller: 'MyprofileController',
+      controllerAs: 'myprofileCtrl'
+    },
+    {
+      name: 'page',
+      url: '/page/:pageID/:profileID',
       template: require('../view/mypage/mypage.html'),
       controller: 'MypageController',
       controllerAs: 'mypageCtrl'

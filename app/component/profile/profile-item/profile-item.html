@@ -1,0 +1,44 @@
+<section class="profile-item">
+
+  <section class="profile-item-nav">
+    <ul>
+      <li>
+        <img ng-src="{{profileItemCtrl.profile.profilePicURI}}">
+        <h5>{{ profileItemCtrl.profile.name}}</h5> 
+      </li>
+      <li>posts</li>
+      <li>chats</li>
+      <li ng-click="profileItemCtrl.fetchMyFriends()">friends</li>
+      <li ng-click="profileItemCtrl.fetchFRP()">friend requests {{profileItemCtrl.profile.friendReq.length}}</li>
+      <li ng-click="profileItemCtrl.fetchPage()">page</li>
+      <li>blank</li>
+    </ul>
+  </section>
+
+  <section class="profile-item-content">
+
+    <section> 
+      <input type="text" placeholder="search for friends">
+
+      <button ng-click="profileItemCtrl.openCreatePostModal(profileItemCtrl.profile)">create post</button>
+    </section>
+
+    <section ng-show="profileItemCtrl.showProfileTile">
+      <profile-tile ng-repeat="profile in profileItemCtrl.profileArr" profile="profile"></profile-tile>
+    </section>
+
+
+    <section ng-show="profileItemCtrl.showCreatePage">
+      <create-page></create-page>
+      <page-tile ng-repeat="page in profileItemCtrl.pagesArr" page="page"></page-tile>
+    </section>
+
+
+  </section>
+
+  <!--<section>
+    <post-tile ng-repeat="post in profileItemCtrl.myPosts track by $index" post="post"></post-tile>
+  </section>-->
+
+
+</section>
