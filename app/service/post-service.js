@@ -7,12 +7,12 @@ function postService($q, $log, $http, $window, authService) {
 
   let service = {};
 
-  service.createPost = function(postedPID, post) {
+  service.createPost = function(postedID, post) {
     $log.debug('postService.createPost()');
 
     return authService.getToken()
     .then( token  => {
-      let url = `${__API_URL__}/api/post/${postedPID}`;
+      let url = `${__API_URL__}/api/posttopage/${postedID}`;
       let config = {
         headers: {
           'Content-Type': 'application/json',
@@ -21,15 +21,16 @@ function postService($q, $log, $http, $window, authService) {
         }
       };
 
-      console.log('POST', postedPID);
+      console.log('POST', postedID);
+      console.log(url);
       return $http.post(url, post, config);
     })
     .then( res => {
-      $log.log('post created', res.data);
-      return res.data.post;
+      $log.log('page post created', res.data);
+      return res.data;
     })
     .catch( err => {
-      $log.error('FAILED', err);
+      $log.error('FAILED to post to page', err);
       return $q.reject(err);
     });
   };
@@ -55,10 +56,10 @@ function postService($q, $log, $http, $window, authService) {
     });
   };
 
-  service.fetchPosts = function() {
-    $log.debug('postService.fetchPosts()');
+  service.fetchPagePosts = function(pageID) {
+    $log.debug('postService.fetchPagePosts()');
 
-    let url = `${__API_URL__}/api/allposts`;
+    let url = `${__API_URL__}/api/pageposts/${pageID}`;
     let config = {
       headers: {
         Accept: 'application/json'
@@ -67,12 +68,12 @@ function postService($q, $log, $http, $window, authService) {
 
     return $http.get(url, config)
     .then( res => {
-      $log.log('posts retrieved');
+      $log.log('page posts retrieved');
       service.posts = res.data;
       return service.posts;
     })
     .catch( err => {
-      $log.error('failed to retrieve posts', err.message);
+      $log.error('failed to retrieve page posts', err.message);
 
       return $q.reject(err);
     });

@@ -1,6 +1,6 @@
-<section class="pageTile">
+<section class="pageTile" ng-click="pageTileCtrl.goToPage()">
 
-  <h2>Page tile</h2>
-
-  <h3>Name {{ pageTileCtrl.page.pageName }}</h3>
+  <img ng-src="{{ pageTileCtrl.page.pageBannerURI }}" alt="">
+  <p>{{ pageTileCtrl.page.pageName }}</p>
+  <p>{{ pageTileCtrl.page.pageDesc }}</p>
 </section>

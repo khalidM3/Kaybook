@@ -15,14 +15,22 @@ module.exports = {
 function PostTileController($log, $uibModal, $window, postService, picService, profileService){
   $log.debug('PostTileController');
 
-  let userID = $window.localStorage.getItem('userID');
+  let profileID = $window.localStorage.getItem('profileID');
 
-  // this.checkPoster = function(){
-  
-  // };
-  // this.checkPoster();
+  this.$onInit = function(){
+    $log.debug('postTileCtrl.$onInit()');
 
-  
+    this.isVid = (/\.mp4$/).test(this.post.postPicURI);
+    this.isMyPost = this.post.posterPID.toString() === profileID.toString();
+
+    profileService.fetchProfile2(this.post.posterPID)
+    .then(profile => {
+      console.log('PPPPPPPPP', profile);
+      this.poster = profile;
+    });
+  };
+
+
   this.animationsEnabled = true;
   // console.log('WARI WARI WARI WARI!::',this.post);
   this.open = function (size, parentSelector) {
@@ -51,18 +59,17 @@ function PostTileController($log, $uibModal, $window, postService, picService, p
     // });
   };
 
-  this.check = function(data){
-    this.isVid = (/\.mp4$/).test(data.postPicURI);
-    this.isMyPost = data.posterUID.toString() === userID.toString();
-    this.posterf(data);
-    // console.log('POST.DATA >>>>>>>>>>>>>>>', data._id);
-    // for( var prop in data) {
-    //   console.log(prop);
-    // }
-    console.log('boolean :::::::}}}}',data.posterUID.toString() === userID.toString());
-  };
+  // this.check = function(data){
+  //   this.isVid = (/\.mp4$/).test(data.postPicURI);
+  //   this.isMyPost = data.posterUID.toString() === userID.toString();
+  //   this.posterf(data);
+  //   // console.log('POST.DATA >>>>>>>>>>>>>>>', data._id);
+  //   // for( var prop in data) {
+  //   //   console.log(prop);
+  //   // }
+  //   console.log('boolean :::::::}}}}',data.posterUID.toString() === userID.toString());
+  // };
 
-  // this.checkExt();
 
   this.openComponentModal = function (post) {
     // console.log('WARI WARI WARI WARI!::',post);
@@ -101,24 +108,6 @@ function PostTileController($log, $uibModal, $window, postService, picService, p
     })
     .catch( (err) => $log.error('Did not delete the post', err));
   };
-
-  this.posterf = function(post) {
-    $log.debug('CommentItemController.commenter',post.posterPID);
-
-    profileService.fetchProfile2(post.posterPID)
-    .then(profile => {
-      console.log('PPPPPPPPP', profile);
-      this.poster = profile;
-    });
-    console.log('POSTEr ]]]]]]]]:>>>>', this.poster);
-  };
-
-  // this.$onInit = function() {
-  //   $log.debug('CommentItemController.$onInit()');
-    
-  //   if (this.comment) return this.posterf();
-  //   return; //this.onPostChange();
-  // };
 
 
 }

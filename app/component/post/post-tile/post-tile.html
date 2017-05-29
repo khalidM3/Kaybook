@@ -13,13 +13,13 @@
          <img ng-src="{{postTileCtrl.poster.profilePicURI}}">
          </div>
       <div class="poster-name"> {{postTileCtrl.poster.name}}</div>
-      <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal(postTileCtrl.post.data)">edit</button>
-      <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost(postTileCtrl.post.data)">delete</button>
+      <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal(postTileCtrl.post)">edit</button>
+      <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost(postTileCtrl.post)">delete</button>
     </section>
 
-    <section class="post-content" ng-click="postTileCtrl.openComponentModal(postTileCtrl.post.data)">
-      <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.data.postPicURI }}" alt="">
-       <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.data.posterProfilePicURI}}" controls>
+    <section class="post-content" ng-click="postTileCtrl.openComponentModal(postTileCtrl.post)">
+      <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.postPicURI }}" alt="">
+       <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.posterProfilePicURI}}" controls>
            Your browser does not support HTML5
          </video>
     </section>
