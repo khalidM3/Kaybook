@@ -22,7 +22,7 @@ function ProfileTileController($log, $location, $stateParams, profileService){
     let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === profileID);
     this.showAcceptBtn = sentMeReq;
     this.showUnFriendBtn = isFriend;
-    this.showSendReqBtn = !isFriend && !sentMeReq;
+    this.showSendReqBtn = sentMeReq;
     this.showUnSendReqBtn = sentThemReq;
     console.log(this.profile.name);
     console.log('is my friend', isFriend);
@@ -40,6 +40,11 @@ function ProfileTileController($log, $location, $stateParams, profileService){
   this.sendReq = function(){
     $log.debug('ProfileTileController.sendReq()');
 
+    this.showAcceptBtn = false;
+    this.showUnFriendBtn = false;
+    this.showSendReqBtn = false;
+    this.showUnSendReqBtn = true;
+
     profileService.sendReq(this.profile._id)
     .then( res => console.log('SUCCESS sent friend req()', res))
     .catch( err => console.error('FAILED to send friend req()', err));
@@ -48,6 +53,11 @@ function ProfileTileController($log, $location, $stateParams, profileService){
 
   this.unSendReq = function(){
     $log.debug('ProfileTileController.unSendReq()');
+
+    this.showAcceptBtn = false;
+    this.showUnFriendBtn = false;
+    this.showSendReqBtn = true;
+    this.showUnSendReqBtn = false;
 
     profileService.unSendReq(this.profile._id)
     .then( res => console.log('Success unSendReq() ', res))
@@ -59,6 +69,11 @@ function ProfileTileController($log, $location, $stateParams, profileService){
   this.acceptReq = function(){
     $log.debug('ProfileTileController.acceptReq()');
 
+    this.showAcceptBtn = false;
+    this.showUnFriendBtn = true;
+    this.showSendReqBtn = false;
+    this.showUnSendReqBtn = false;
+
     profileService.acceptReq(this.profile._id)
     .then( res => console.log('SUCCESS accepted friend req()', res))
     .catch( err => console.error('FAILED accepted friend req()', err));
@@ -67,6 +82,11 @@ function ProfileTileController($log, $location, $stateParams, profileService){
 
   this.unFriend = function(){
     $log.debug('ProfileTileCtrl.unFriend()');
+
+    this.showAcceptBtn = false;
+    this.showUnFriendBtn = false;
+    this.showSendReqBtn = true;
+    this.showUnSendReqBtn = false;
 
     profileService.unFriend(this.profile._id)
     .then( res => console.log('Success unFriend() ', res))

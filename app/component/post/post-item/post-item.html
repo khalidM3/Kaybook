@@ -15,10 +15,15 @@
       <li class="post-side">
         <ul>
           <li class="post-header">
-            <img src="{{postItemCtrl.resolve.post.posterProfilePicURI}}">
-            <div class="poster-name">Poster: {{postItemCtrl.resolve.post.posterName}}</div>
+            <img src="{{postItemCtrl.poster.profilePicURI}}">
+            <div class="poster-name">Poster: {{postItemCtrl.poster.name}}</div>
             <div class="date">Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</div>
             <div> {{ postItemCtrl.resolve.post.description }}</div>
+            <div>
+              <button ng-click="postItemCtrl.likePost()">like</button>
+              <button ng-click="postItemCtrl.unLikePost()">unlike</button>
+              <button ng-click="postItemCtrl.dislikePost()">dislike</button>
+            </div>
           </li>
 
           <li class="create-comment">
