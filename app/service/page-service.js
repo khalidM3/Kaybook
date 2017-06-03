@@ -135,7 +135,7 @@ function pageService($q, $log, $http, $window, authService) {
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/profile/${pageID}`;
+      let url = `${__API_URL__}/api/page/${pageID}`;
       let config = {
         headers: {
           Accept: 'application/json',

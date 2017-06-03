@@ -6,9 +6,13 @@
     <ul class="profile-main">
       <li><img ng-src="{{profileViewCtrl.profile.profilePicURI}}"></li>
       <li>{{profileViewCtrl.profile.name}} follows {{ profileViewCtrl.profile.friendReq.length}} </li>
-      <li>
-        <span>{{profileViewCtrl.profile.friends.length}}</span>
-         <span class="joinpage" ng-click="profileViewCtrl.sendReq()">add</span>
+      <li class="theBtns">
+         <span>{{profileViewCtrl.profile.friends.length}}</span>
+         <!--<span class="joinpage" ng-click="profileViewCtrl.sendReq()">add</span>-->
+         <span ng-if="profileViewCtrl.showSendReqBtn" ng-click="profileViewCtrl.sendReq()"> send req </span>
+         <span ng-if="profileViewCtrl.showUnSendReqBtn" ng-click="profileViewCtrl.unSendReq()">unsend </span>
+         <span ng-if="profileViewCtrl.showAcceptBtn" ng-click="profileViewCtrl.acceptReq()">accept</span>
+         <span ng-if="profileViewCtrl.showUnFriendBtn" ng-click="profileViewCtrl.unFriend()">unfriend</span>
          <!--<span class="joinpage" ng-if="profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.removeFriend()">remove</span>-->
       </li>
     </ul>
@@ -28,7 +32,7 @@
   <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    
   </div>
 
-  <button type="button" class="btn btn-default" ng-click="profileViewCtrl.openComponentModal(profileViewCtrl.profile)">create post</button>
+  <!--<button type="button" class="btn btn-default" ng-click="profileViewCtrl.openComponentModal(profileViewCtrl.profile)">create post</button>-->
 
   <!--<div>
     <create-post on-post-created="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></create-post>
@@ -38,8 +42,8 @@
     <post-item ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-item>
   </ul>-->
 
-  <ul>
+  <!--<ul>
     <post-tile class="posttile" ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-tile>
-  </ul>
+  </ul>-->
   
 </section>

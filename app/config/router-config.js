@@ -38,6 +38,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'mypageCtrl'
     },
     {
+      name: 'forum',
+      url: '/forum/:forumID',
+      template: require('../view/forum/forum.html'),
+      controller: 'ForumController',
+      controllerAs: 'forumCtrl'
+    },
+    {
       name: 'landing',
       url: '/landing',
       template: require('../view/landing/landing.html'),
