@@ -4,7 +4,7 @@ require('./_page-item.scss');
 
 module.exports = {
   template: require('./page-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'pageService', 'postService', 'forumService',PageItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'pageService', 'postService', 'forumService', 'pollService',PageItemController],
   controllerAs: 'pageItemCtrl',
   bindings: {
     page: '<' 
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal, pageService, postService, forumService){
+function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal, pageService, postService, forumService, pollService){
   $log.debug('PageItemController');
 
 
@@ -32,6 +32,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
     .then( () => {
       this.fetchPagePosts();
       this.fetchPageForums();
+      this.fetchPagePolls();
       return;
     });
   };
@@ -52,8 +53,16 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
     $log.debug('pageItemCtrl.fetchPageForum()');
 
     forumService.fetchPageForums(this.page._id)
-    .then( forums => this.forumArr = forums)
+    .then( forums => this.forumsArr = forums)
     .catch( err => console.log('failed fetchPageForum', err));
+  };
+
+  this.fetchPagePolls = function(){
+    $log.debug('pageItemCtrl.fetchPagePolls()');
+
+    pollService.fetchPagePolls(this.page._id)
+    .then( polls => this.pollsArr = polls)
+    .catch( err => console.log('failed fetchPagePolls', err));
   };
 
   this.joinPage = function() {
@@ -78,6 +87,43 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
     .catch( err => console.log('Failed leavePage()', err));
   };
 
+  this.fetchFeed = function(){
+    $log.debug('pageItemCtrl.fetchFeed()');
+
+    this.postsArr = [];
+    this.forumsArr = [];
+    this.pollsArr = [];
+    
+    this.fetchPostFeed();
+    this.fetchForumFeed();
+    this.fetchPollFeed();
+    return;
+  };
+
+  this.fetchPostFeed = function(){
+    $log.debug('pageItemCtrl.fetchPostsFeed()');
+
+    postService.fetchPageFeed(this.page._id)
+    .then( posts => this.postsArr = posts)
+    .catch(err => console.log('Failed to fetch feed', err));
+  };
+
+  this.fetchForumFeed = function(){
+    $log.debug('pageItemCtrl.fetchForumFeed');
+
+    forumService.fetchForumFeed(this.page._id)
+    .then( forums => this.forumsArr = forums)
+    .catch(err => console.log('Failed to fetch forum feed', err));
+  };
+
+  this.fetchPollFeed = function(){
+    $log.debug('pageItemCtrl.fetchPollFeed()');
+
+    pollService.fetchPollFeed(this.page._id)
+    .then( polls => this.pollsArr = polls)
+    .catch(err => console.log('Failed to fetch poll feed', err));
+  };
+
 
 
   this.openComponentModal = function (page) {
@@ -98,6 +144,19 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
     var modalInstance = $uibModal.open({
       animation: this.animationsEnabled,
       component: 'createForum',
+      resolve: {
+        page: function () {
+          return page;
+        }
+      }
+    });
+  };
+
+  this.openCreatePollModal = function (page) {
+
+    var modalInstance = $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'createPoll',
       resolve: {
         page: function () {
           return page;
