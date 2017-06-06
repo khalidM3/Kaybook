@@ -45,6 +45,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'forumCtrl'
     },
     {
+      name: 'poll',
+      url: '/poll/:pollID',
+      template: require('../view/poll/poll.html'),
+      controller: 'PollController',
+      controllerAs: 'pollCtrl'
+    },
+    {
       name: 'landing',
       url: '/landing',
       template: require('../view/landing/landing.html'),
