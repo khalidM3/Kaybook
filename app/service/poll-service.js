@@ -1,18 +1,18 @@
 'use strict';
 
-module.exports = ['$q', '$log', '$window', '$http', 'authService', forumService];
+module.exports = ['$q', '$log', '$window', '$http', 'authService', pollService];
 
-function forumService($q, $log, $window, $http, authService){
-  $log.debug('forumService');
+function pollService($q, $log, $window, $http, authService){
+  $log.debug('pollService');
 
   let service = {};
 
-  service.createForum = function(postID, forumData){
-    $log.debug('service.createForum');
+  service.createPoll = function(pageID, pollData){
+    $log.debug('service.createPoll');
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/forum/${postID}`;
+      let url = `${__API_URL__}/api/pagepoll/${pageID}`;
       let config = {
         headers: {
           Accept: 'application/json',
@@ -21,24 +21,24 @@ function forumService($q, $log, $window, $http, authService){
         }
       };
 
-      return $http.post(url, forumData, config);
+      return $http.post(url, pollData, config);
     })
     .then( res => {
-      $log.log('created a forum');
+      $log.log('created a poll');
       return res.data;
     })
     .catch( err => {
-      $log.error('Failed to create a forum',err);
+      $log.error('Failed to create a poll',err);
       return $q.reject(err);
     });
   };
 
-  service.createForumFeed = function(postID, forumData){
-    $log.debug('service.createForumFeed');
+  service.createPollFeed = function(pageID, pollData){
+    $log.debug('service.createPollFeed');
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/forumfeed/${postID}`;
+      let url = `${__API_URL__}/api/pollfeed/${pageID}`;
       let config = {
         headers: {
           Accept: 'application/json',
@@ -47,7 +47,7 @@ function forumService($q, $log, $window, $http, authService){
         }
       };
 
-      return $http.post(url, forumData, config);
+      return $http.post(url, pollData, config);
     })
     .then( res => {
       $log.log('created a forum feed');
@@ -59,7 +59,7 @@ function forumService($q, $log, $window, $http, authService){
     });
   };
 
-  service.fetchForum = function(forumID){
+  service.fetchPoll = function(forumID){
     $log.debug('service.fetchForum');
 
     let url = `${__API_URL__}/api/forum/${forumID}`;
@@ -81,10 +81,10 @@ function forumService($q, $log, $window, $http, authService){
     });
   };
 
-  service.fetchForumFeed = function(pageID){
+  service.fetchPollFeed = function(pageID){
     $log.debug('service.fetchForumFeed');
 
-    let url = `${__API_URL__}/api/forumfeed/${pageID}`;
+    let url = `${__API_URL__}/api/pollfeed/${pageID}`;
     let config = {
       headers: {
         'Content-Type': 'application/json',
@@ -94,16 +94,16 @@ function forumService($q, $log, $window, $http, authService){
 
     return $http.get(url, config)
     .then( res => {
-      $log.log('fetched forum feed');
+      $log.log('fetched poll feed', res.data);
       return res.data;
     })
     .catch( err => {
-      $log.error('Failed to fetch form feed',err);
+      $log.error('Failed to fetch poll feed',err);
       return $q.reject(err);
     });
   };
 
-  service.fetchProfileForums = function(forumID){
+  service.fetchProfilePolls = function(forumID){
     $log.debug('service.fetchProfileForums');
 
     let url = `${__API_URL__}/api/profileforums/${forumID}`;
@@ -125,10 +125,10 @@ function forumService($q, $log, $window, $http, authService){
     });
   };
 
-  service.fetchPageForums = function(forumID){
+  service.fetchPagePolls = function(forumID){
     $log.debug('service.fetchPageForums');
 
-    let url = `${__API_URL__}/api/pageforums/${forumID}`;
+    let url = `${__API_URL__}/api/pagepolls/${forumID}`;
     let config = {
       headers: {
         'Content-Type': 'application/json',
@@ -138,19 +138,19 @@ function forumService($q, $log, $window, $http, authService){
 
     return $http.get(url, config)
     .then( res => {
-      $log.log('fetched page forums', res.data);
+      $log.log('fetched page polls', res.data);
       return res.data;
     })
     .catch( err => {
-      $log.error('Failed to fetch page forums',err);
+      $log.error('Failed to fetch page polls',err);
       return $q.reject(err);
     });
   };
 
-  service.fetchForumAns= function(forumID){
+  service.fetchPollAns= function(forumID){
     $log.debug('service.fetchForumAns');
 
-    let url = `${__API_URL__}/api/forumans/${forumID}`;
+    let url = `${__API_URL__}/api/pollans/${forumID}`;
     let config = {
       headers: {
         'Content-Type': 'application/json',
@@ -160,16 +160,16 @@ function forumService($q, $log, $window, $http, authService){
 
     return $http.get(url, config)
     .then( res => {
-      $log.log('fetched forum and answers', res.data);
+      $log.log('fetched poll and answers', res.data);
       return res.data;
     })
     .catch( err => {
-      $log.error('Failed to fetch form and answers',err);
+      $log.error('Failed to fetch poll and answers',err);
       return $q.reject(err);
     });
   };
 
-  service.deleteForum = function(forumID){
+  service.deletePost = function(forumID){
     $log.debug('service.deleteForum');
 
     return authService.getToken()
