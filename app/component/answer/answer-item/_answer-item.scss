@@ -1,0 +1,17 @@
+.answer-item {
+  border-bottom: 1px solid grey;
+  padding: 20px;
+  width: 500px;
+  margin-left: 10%;
+  .answer-item-header {
+    display: block;
+    img {
+      display: inline-block;
+      width: 50px;
+      border-radius: 50%;
+    }
+    div {
+      display: inline-block;
+    }
+  }
+}
