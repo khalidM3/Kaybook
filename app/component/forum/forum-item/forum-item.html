@@ -1,9 +1,18 @@
-<section>
-  <h2>{{ forumItemCtrl.forum.forumTitle }}</h2>
-
-  <p>
-    {{ forumItemCtrl.forum.forumDesc}}
-  </p>
+<section class="forum-item">
+  <button ng-click="forumItemCtrl.deleteForum()">delete forum</button>
+  <section class="forum-item-header">
+    <h2>{{ forumItemCtrl.forum.forumTitle }}</h2>
+    <p>
+    {{ forumItemCtrl.forum.forumDesc }}
+    </p>
+  </section>
+ 
+ <section class="forum-item-poster">
+    <img ng-src="{{forumItemCtrl.poster.profilePicURI}}" alt="">
+    <p> {{forumItemCtrl.poster.name}} </p>
+ </section>
 
   <create-answer forum="forumItemCtrl.forum"></create-answer>
+
+  <answer-item ng-repeat="answer in forumItemCtrl.answersArr" answer="answer"></answer-item>
 </section>
