@@ -1,0 +1,30 @@
+<section class="answer-item">
+
+  <section class="answer-item-header">
+    <img ng-src="{{answerItemCtrl.poster.profilePicURI}}" alt="">
+    <div>
+      <h5> {{ answerItemCtrl.poster.name}}</h5>
+      <p> Answered {{ answerItemCtrl.answer.created | date : 'mediumDate'}} </p>
+    </div>
+    <button ng-if="answerItemCtrl.showDeleteBtn" ng-click="answerItemCtrl.deleteAnswer()">delete</button>
+  </section>
+
+  <section class="answer-item-content">
+    <div>
+       <p> 
+          {{ answerItemCtrl.answer.answer}}
+      </p>
+    </div>
+
+    <div>
+      <img ng-src="{{answerItemCtrl.answer.answerImgURI}}" alt="">
+    </div>
+
+  </section>
+
+  <button ng-click="answerItemCtrl.upvote()">upvote {{answerItemCtrl.answer.upvotes.length}} </button>
+  <button ng-click="answerItemCtrl.downvote()">downvote {{answerItemCtrl.answer.downvotes.length}} </button>
+  <button ng-click="answerItemCtrl.fetchReplies()"> comments {{answerItemCtrl.answer.replies.length}} </button>
+  <create-answer answer="answerItemCtrl.answer"></create-answer>
+  <answer-item ng-repeat="reply in answerItemCtrl.repliesArr" parent="answerItemCtrl.answer" answer="reply"></answer-item>
+</section>

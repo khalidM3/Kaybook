@@ -88,12 +88,12 @@ function picService($q, $log, $http, Upload, authService) {
     });
   };
 
-  service.deletePostPic = function(postData) {
+  service.deletePostPic = function(postID) {
     $log.debug('picService.deletePostPic');
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/post/${postData._id}/pic`;
+      let url = `${__API_URL__}/api/post/${postID}/pic`;
       let config = {
         headers: {
           Authorization: `Bearer ${token}`
@@ -103,7 +103,7 @@ function picService($q, $log, $http, Upload, authService) {
       return $http.delete(url, config);
     })
     .then( res => {
-      $log.log('Post pic deleted.');
+      $log.log('Post pic deleted.', res);
     })
     .catch( err => {
       $log.error(err.message);
