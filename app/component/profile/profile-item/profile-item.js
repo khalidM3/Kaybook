@@ -4,14 +4,14 @@ require('./_profile-item.scss');
 
 module.exports = {
   template: require('./profile-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'pageService', ProfileItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'pageService', 'postService', ProfileItemController],
   controllerAs: 'profileItemCtrl',
   bindings: {
     profile: '<',
   }
 };
 
-function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModal, profileService, pageService) {
+function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModal, profileService, pageService, postService) {
   $log.debug('ProfileViewController');
 
   this.userID = $stateParams.userID;
@@ -27,7 +27,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
 
     profileService.fetchMyProfile()
     .then( profile => this.myProfile = profile)
-    .catch(err => $log.error('FAILED profileItemCtrl.fetchMyProfile()', err));
+    .catch(err => $log.error('FAILED fetchMyProfile()', err));
   };
 
   this.fetchFRP = function(){
@@ -47,6 +47,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
 
     this.showCreatePage = false;
     this.showProfileTile = true;
+    this.fiendsPosts = [];
 
     this.profileArr = [];
 
@@ -62,11 +63,25 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
     this.showCreatePage = true;
 
     this.pagesArr = [];
+    this.profileArr = [];
+    this.friendsPosts = [];
 
     pageService.fetchPagesByPID(this.profile._id)
     .then( pages => this.pagesArr = pages)
     .catch( err => console.log('Failed fetchMyPages()', err));
 
+  };
+
+  this.fetchFriendsPosts = function(){
+    $log.debug('profileItemCtrl.fetchFriendsPosts()');
+
+    this.pagesArr = [];
+    this.profileArr = [];
+    this.fiendsPosts = [];
+
+    postService.fetchFriendsPosts()
+    .then( posts => this.friendsPosts =  posts)
+    .catch(err => console.log('Failed to fetch posts', err));
   };
 
   // this.acceptReq = function(){

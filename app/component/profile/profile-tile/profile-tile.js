@@ -4,7 +4,7 @@ require('./_profile-tile.scss');
 
 module.exports = {
   template: require('./profile-tile.html'),
-  controller: ['$log', '$location', '$stateParams', 'profileService', ProfileTileController],
+  controller: ['$log', '$location', '$stateParams', '$window', 'profileService', ProfileTileController],
   controllerAs: 'profileTileCtrl',
   bindings: {
     profile: '<'
@@ -12,18 +12,18 @@ module.exports = {
 };
 
 
-function ProfileTileController($log, $location, $stateParams, profileService){
+function ProfileTileController($log, $location, $stateParams, $window, profileService){
   $log.debug('ProfileTileController');
 
   this.$onInit = function(){
-    let profileID = $stateParams.profileID;
+    let profileID = $window.localStorage.getItem('profileID');
     let isFriend = this.profile.friends.some(pID => pID.toString() === profileID);
     let sentThemReq = this.profile.friendReq.some(pID => pID.toString() === profileID);
     let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === profileID);
     this.showAcceptBtn = sentMeReq;
     this.showUnFriendBtn = isFriend;
-    this.showSendReqBtn = sentMeReq;
-    this.showUnSendReqBtn = sentThemReq;
+    this.showSendReqBtn = !sentMeReq && !sentThemReq && !isFriend;
+    this.showUnSendReqBtn = true;//sentThemReq;
     console.log(this.profile.name);
     console.log('is my friend', isFriend);
     console.log('sent them a request', sentThemReq);

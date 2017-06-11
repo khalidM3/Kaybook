@@ -27,6 +27,15 @@ function PostTileController($log, $uibModal, $window, postService, picService, p
     .then(profile => {
       console.log('PPPPPPPPP', profile);
       this.poster = profile;
+      return profile;
+    })
+    .then( profile => {
+      if(profile) return profile;
+      profileService.fetchProfile2(this.post.postedID)
+      .then(profile => {
+        console.log('PPPPPPPPP', profile);
+        this.poster = profile;
+      });
     });
   };
 

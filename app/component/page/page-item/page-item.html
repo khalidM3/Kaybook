@@ -21,7 +21,7 @@
     <ul> 
       <!--ng-init="pageItemCtrl.fetchPagePosts()"-->
       <li ng-click="pageItemCtrl.fetchPagePosts()">posts</li>
-      <li>placeholder</li>
+      <li ng-click="pageItemCtrl.fetchFeed()">feed</li>
       <li>placeholder</li>
     </ul>
   </section>
@@ -32,25 +32,22 @@
   <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    
   </div>-->
 
+
   <button type="button" class="btn btn-default" ng-click="pageItemCtrl.openComponentModal(pageItemCtrl.page)">create post</button>
   <button ng-click="pageItemCtrl.openCreateForumModal(pageItemCtrl.page)">create forum</button>
-
-  <!--<div>
-    <create-post on-post-created="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></create-post>
-  </div>-->
-
-  <!--<ul>
-    <post-item ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-item>
-  </ul>-->
-
-  <button ng-click="pageItemCtrl.fetchPageForums()">bark</button>
+  <button ng-click="pageItemCtrl.openCreatePollModal(pageItemCtrl.page)">create poll new</button>
+  <button ng-click="pageItemCtrl.fetchPagePolls()">bark</button>
 
   <ul>
     <post-tile class="posttile" ng-repeat="post in pageItemCtrl.postsArr" post="post"></post-tile>
   </ul>
 
   <ul>
-    <forum-tile ng-repeat="forum in pageItemCtrl.forumArr" forum="forum"></forum-tile>
+    <forum-tile ng-repeat="forum in pageItemCtrl.forumsArr" forum="forum"></forum-tile>
+  </ul>
+
+  <ul>
+    <poll-tile ng-repeat="poll in pageItemCtrl.pollsArr" poll="poll"></poll-tile>
   </ul>
   
 </section>

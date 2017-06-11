@@ -1,0 +1,22 @@
+<section class="poll-item">
+  <!--<button ng-click="forumItemCtrl.deletePoll()">delete poll</button>-->
+  <section class="poll-item-header">
+    <h2>{{ pollItemCtrl.poll.title }}</h2>
+  </section>
+ 
+ <section class="poll-item-poster">
+    <img ng-src="{{pollItemCtrl.poster.profilePicURI}}" alt="">
+    <p> {{pollItemCtrl.poster.name}} </p>
+    <p>
+    {{ pollItemCtrl.poll.Desc }}
+    </p>
+ </section>
+
+ <section ng-repeat="choice in pollItemCtrl.choicesArr">
+   <button ng-click="pollItemCtrl.vote(choice)"> {{choice.title}} {{ choice.votes.length }} </button>
+ </section>
+
+  <create-answer poll="pollItemCtrl.poll"></create-answer>
+
+  <answer-item ng-repeat="answer in pollItemCtrl.answersArr" answer="answer"></answer-item>
+</section>
