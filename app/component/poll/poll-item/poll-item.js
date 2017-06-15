@@ -19,7 +19,7 @@ function PollItemController($log, $window, $stateParams, profileService, pollSer
   
 
   this.$onInit = function(){
-    $log.debug('forumItemCtrl.onInit()');
+    $log.debug('pollItemCtrl.onInit()');
 
     
     pollService.fetchPollAns(this.pollID)
@@ -35,8 +35,16 @@ function PollItemController($log, $window, $stateParams, profileService, pollSer
       profileService.fetchProfile2(this.poll.posterID)
       .then( profile =>  {
         this.poster = profile;
-        let profileID = $window.localStorage.getItem('profileID');
-        return this.showDeleteBtn = profileID === this.poster._id;
+        if(this.poster) {
+          let profileID = $window.localStorage.getItem('profileID');
+          this.showDeleteBtn = profileID === this.poster._id;
+        }
+        profileService.fetchProfile2(this.poll.postedID)
+       .then( profile => {
+         this.poster = profile;
+         let profileID = $window.localStorage.getItem('profileID');
+         return this.showDeleteBtn = profileID === this.poster._id;
+       });
       });
     })
     .catch(err => console.log('failed fetchForum()', err));
@@ -60,5 +68,10 @@ function PollItemController($log, $window, $stateParams, profileService, pollSer
     .catch(err => console.log('Failed choice', err));
   };
 
-  
+  this.deletePoll = function(){
+    $log.debug('pollItemCtrl.deletePoll()');
+
+    pollService.deletePoll(this.poll._id)
+    .then( res => console.log('Success', res));
+  };
 }

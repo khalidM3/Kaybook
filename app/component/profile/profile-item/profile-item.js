@@ -4,23 +4,23 @@ require('./_profile-item.scss');
 
 module.exports = {
   template: require('./profile-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'pageService', 'postService', ProfileItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'pageService', 'postService', 'roomService', ProfileItemController],
   controllerAs: 'profileItemCtrl',
   bindings: {
     profile: '<',
   }
 };
 
-function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModal, profileService, pageService, postService) {
+function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModal, profileService, pageService, postService, roomService) {
   $log.debug('ProfileViewController');
 
-  this.userID = $stateParams.userID;
-  this.showEditView = false;
+  // this.userID = $stateParams.userID;
+  // this.showEditView = false;
 
 
-  let userID = $window.localStorage.getItem('userID');
+  // let userID = $window.localStorage.getItem('userID');
   
-  this.showEditOption = userID === this.userID;
+  // this.showEditOption = userID === this.userID;
 
   this.fetchMyProfile = function(){
     $log.debug('profileItemCtrl.fetchMyProfile()');
@@ -48,8 +48,8 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
     this.showCreatePage = false;
     this.showProfileTile = true;
     this.fiendsPosts = [];
-
     this.profileArr = [];
+    this.pagesArr = [];
 
     profileService.fetchFriends(this.profile._id)
     .then( profiles => this.profileArr = profiles.friends)
@@ -78,10 +78,15 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
     this.pagesArr = [];
     this.profileArr = [];
     this.fiendsPosts = [];
+    this.roomsArr = [];
 
     postService.fetchFriendsPosts()
     .then( posts => this.friendsPosts =  posts)
     .catch(err => console.log('Failed to fetch posts', err));
+  };
+
+  this.bark = function(){
+    console.log(this.profile);
   };
 
   // this.acceptReq = function(){
@@ -93,7 +98,23 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
   //   return this.updateProfileView();
   // };
 
+  this.createRoom = function(){
+    $log.debug('profileItemCtrl.createRoom()');
 
+    roomService.createRoom()
+    .then( room => console.log('Successfully createRoom ', room));
+  };
+
+  this.fetchMyRooms = function(){
+    $log.debug('profileItemCtrl.fetchMyRooms()');
+
+    this.pagesArr = [];
+    this.profileArr = [];
+    this.friendsPosts = [];
+
+    roomService.fetchMyRooms()
+    .then( room => this.roomsArr = room);
+  };
 
   // this.check = function(){
   //   $log.debug('profileViewController.check()');

@@ -74,7 +74,6 @@ function PostItemController($log, postService, profileService, commentService){
     // .then( () => profileService.fetchProfile2(this.post.posterPID))
     profileService.fetchProfile2(this.resolve.post.posterPID)
     .then(profile => {
-      console.log('PROFILE >>>', profile);
       this.poster = profile;
     })
     .then( () => {
@@ -90,7 +89,7 @@ function PostItemController($log, postService, profileService, commentService){
     $log.debug('postItemCtrl.likePost()');
 
     postService.likePost(this.resolve.post._id)
-    .then( post => console.log('Successfuly likedPost()', post))
+    .then( post => this.resolve.post =  post)
     .catch( err => console.log('Failed likePost()', err));
   };
 

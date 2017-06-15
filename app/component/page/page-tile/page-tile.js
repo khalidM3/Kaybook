@@ -17,8 +17,7 @@ function PageTileController($log, $location, $window) {
   this.goToPage = function(){
     $log.debug('pageTileCtrl.goToPage()');
 
-    let profileID = $window.localStorage.getItem('profileID');
-    $location.url(`/page/${this.page._id}/${profileID}`);
+    $location.url(`/page/${this.page._id}`);
   };
 
 }

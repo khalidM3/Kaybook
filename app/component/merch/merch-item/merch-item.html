@@ -1,0 +1,18 @@
+<section class="merch-item">
+
+  <section class="merch-item-content">
+     <img ng-src="{{ merchItemCtrl.resolve.merch.picURI}}" alt="">
+  </section>
+
+  <section class="merch-item-options">
+    <h2> {{ merchItemCtrl.resolve.merch.name}} </h2>
+
+    <p> {{ merchItemCtrl.resolve.merch.desc}} </p>
+
+    <p>{{ merchItemCtrl.resolve.merch.price}}</p>
+
+    <p> {{ merchItemCtrl.resolve.merch.qtty}} </p>
+
+    <button ng-click="merchItemCtrl.addToCart()"> add to cart</button>
+  </section>
+</section>

@@ -2,13 +2,16 @@
 
 require('./_home.scss');
 
-module.exports = ['$log', '$rootScope', '$stateParams', 'profileService', 'postService', HomeController];
 
-function HomeController($log, $rootScope, $stateParams, profileService, postService) {
+module.exports = ['$log', '$rootScope', '$stateParams', '$location', 'profileService', 'postService', HomeController];
+
+function HomeController($log, $rootScope, $stateParams, $location, profileService, postService) {
   $log.debug('HomeController');
 
   this.myUserID = $stateParams.userID;
   this.loggedIn = true;
+
+  // let socket = io();
 
   this.fetchProfile = function() {
     $log.debug('HomeController.fetchProfile()');
@@ -77,18 +80,11 @@ function HomeController($log, $rootScope, $stateParams, profileService, postServ
     this.allProfiles = [];
   };
 
-  // this.fetchAllRecipes = function() {
-  //   $log.debug('HomeController.fetchAllRecipes()');
+  this.goToSocial = function(){
+    $log.debug('homectrl.goToSocial()');
 
-  //   recipeService.fetchRecipes()
-  //   .then(recipes => this.allRecipes = recipes);
-  // };
-
-  // this.updateAllRecipesView = function() {
-  //   $log.debug('HomeController.updateAllRecipesView()');
-
-  //   this.fetchAllRecipes();
-  // };
+    $location.url('/social');
+  };
 
   this.fetchProfile();
   // this.fetchAllProfiles();

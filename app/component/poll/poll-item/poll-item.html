@@ -1,6 +1,7 @@
 <section class="poll-item">
   <!--<button ng-click="forumItemCtrl.deletePoll()">delete poll</button>-->
   <section class="poll-item-header">
+    <button ng-click="pollItemCtrl.deletePoll()">delete</button>
     <h2>{{ pollItemCtrl.poll.title }}</h2>
   </section>
  
@@ -18,5 +19,5 @@
 
   <create-answer poll="pollItemCtrl.poll"></create-answer>
 
-  <answer-item ng-repeat="answer in pollItemCtrl.answersArr" answer="answer"></answer-item>
+  <answer-item ng-repeat="answer in pollItemCtrl.answersArr" poll="pollItemCtrl.poll" answer="answer"></answer-item>
 </section>

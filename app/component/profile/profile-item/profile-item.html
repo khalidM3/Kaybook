@@ -7,11 +7,11 @@
         <h5>{{ profileItemCtrl.profile.name}}</h5> 
       </li>
       <li ng-click="profileItemCtrl.fetchFriendsPosts()">posts</li>
-      <li>chats</li>
+      <li ng-click="profileItemCtrl.fetchMyRooms()">chats</li>
       <li ng-click="profileItemCtrl.fetchMyFriends()">friends</li>
       <li ng-click="profileItemCtrl.fetchFRP()">friend requests {{profileItemCtrl.profile.friendReq.length}}</li>
       <li ng-click="profileItemCtrl.fetchPage()">page</li>
-      <li>blank</li>
+      <li ng-click="profileItemCtrl.bark()">blank</li>
     </ul>
   </section>
 
@@ -35,7 +35,8 @@
       <page-tile ng-repeat="page in profileItemCtrl.pagesArr" page="page"></page-tile>
     </section>
 
-
+    <button ng-click="profileItemCtrl.createRoom()">create room</button>
+    <room-tile ng-repeat="room in profileItemCtrl.roomsArr" room="room"></room-tile>
   </section>
 
 

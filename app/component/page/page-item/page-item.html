@@ -20,9 +20,9 @@
    <section class="subnav">
     <ul> 
       <!--ng-init="pageItemCtrl.fetchPagePosts()"-->
-      <li ng-click="pageItemCtrl.fetchPagePosts()">posts</li>
+      <li ng-click="pageItemCtrl.fetch()">posts</li>
       <li ng-click="pageItemCtrl.fetchFeed()">feed</li>
-      <li>placeholder</li>
+      <li ng-click="pageItemCtrl.fetchMerch()">merch</li>
     </ul>
   </section>
 
@@ -33,21 +33,26 @@
   </div>-->
 
 
-  <button type="button" class="btn btn-default" ng-click="pageItemCtrl.openComponentModal(pageItemCtrl.page)">create post</button>
-  <button ng-click="pageItemCtrl.openCreateForumModal(pageItemCtrl.page)">create forum</button>
-  <button ng-click="pageItemCtrl.openCreatePollModal(pageItemCtrl.page)">create poll new</button>
-  <button ng-click="pageItemCtrl.fetchPagePolls()">bark</button>
+  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openComponentModal(pageItemCtrl.page)">create post</button>
+  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateForumModal(pageItemCtrl.page)">create forum</button>
+  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePollModal(pageItemCtrl.page)">create poll</button>
+  <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateMerchModal(pageItemCtrl.page)">create merch</button>
+  <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToCart()">view cart</button>
 
   <ul>
     <post-tile class="posttile" ng-repeat="post in pageItemCtrl.postsArr" post="post"></post-tile>
   </ul>
 
   <ul>
-    <forum-tile ng-repeat="forum in pageItemCtrl.forumsArr" forum="forum"></forum-tile>
+    <forum-tile ng-repeat="forum in pageItemCtrl.forumsArr" forum="forum" page="pageItemCtrl.page"></forum-tile>
   </ul>
 
   <ul>
     <poll-tile ng-repeat="poll in pageItemCtrl.pollsArr" poll="poll"></poll-tile>
+  </ul>
+
+  <ul>
+    <merch-tile ng-repeat="merch in pageItemCtrl.merchesArr" merch="merch"></merch-tile>
   </ul>
   
 </section>

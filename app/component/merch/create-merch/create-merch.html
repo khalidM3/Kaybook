@@ -1,0 +1,19 @@
+<section class="create-merch">
+
+  <form ng-submit="createMerchCtrl.createMerch()">
+
+    <input type="text" placeholder="name" ng-model="createMerchCtrl.merch.name">
+
+    <input type="text" placeholder="picture url" ng-model="createMerchCtrl.merch.picURI">
+
+    <textarea cols="30" rows="10" placeholder="item descriptions" ng-model="createMerchCtrl.merch.desc">
+    </textarea>
+
+    <input type="number" placeholder="price" ng-model="createMerchCtrl.merch.price">
+
+    <input type="number" placeholder="quantity" ng-model="createMerchCtrl.merch.qtty">
+
+    <button>create</button>
+
+  </form>
+</section>

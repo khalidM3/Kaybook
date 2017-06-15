@@ -195,6 +195,32 @@ function forumService($q, $log, $window, $http, authService){
     });
   };
 
+  service.deleteForumFeed = function(forumID){
+    $log.debug('service.deleteForum');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/forum/deleteforumfeed/${forumID}`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.delete(url, config);
+    })
+    .then( res => {
+      $log.log('deleted a forum feed');
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to delete a forum feed',err);
+      return $q.reject(err);
+    });
+  };
+
 
   return service;
 }
