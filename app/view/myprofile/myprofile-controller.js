@@ -11,16 +11,16 @@ function MyprofileController($log, $rootScope, $stateParams, profileService) {
   this.loggedIn = true;
 
 
-  this.fetchProfile = function() {
-    $log.debug('MypageController.fetchProfile()');
+  // this.fetchProfile = function() {
+  //   $log.debug('MypageController.fetchProfile()');
 
-    profileService.fetchProfile(this.myUserID)
-    // .then(profile => recipeService.fetchMyRecipes(profile._id))
-    .then(prof => {
-      console.log('MYPAGE PROFILE :::::',prof);
-      this.myProfile = prof;
-    });
-  };
+  //   profileService.fetchProfile(this.myUserID)
+  //   // .then(profile => recipeService.fetchMyRecipes(profile._id))
+  //   .then(prof => {
+  //     console.log('MYPAGE PROFILE :::::',prof);
+  //     this.myProfile = prof;
+  //   });
+  // };
 
   // this.updateRecipeView = function() {
   //   $log.debug('MyrecipesController.updateRecipeView()');
@@ -30,5 +30,5 @@ function MyprofileController($log, $rootScope, $stateParams, profileService) {
   // };
 
 
-  this.fetchProfile();
+  // this.fetchProfile();
 }
