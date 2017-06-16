@@ -1,0 +1,31 @@
+<section class="room-item">
+
+  <header class="room-item-header">
+    <p> {{roomItemCtrl.room.name}}</p>
+
+    <p> {{roomItemCtrl.room._id}} </p>
+    <button ng-click="roomItemCtrl.openMemberModal(roomItemCtrl.profile)">add friend</button>
+  </header>
+
+
+
+  <section class="room-item-content">
+
+  </section>
+
+
+
+  <footer class="room-item-footer">
+    <img ng-src="{{ roomItemCtrl.profile.profilePicURI}}" alt="">
+    <p> {{ roomItemCtrl.profile.name }} </p>
+
+    <form ng-submit="roomItemCtrl.createMsg()">
+       <textarea ng-model="roomItemCtrl.msg.content" name="" id="" cols="40" rows="1" minlength="1"></textarea>
+       <button>send</button>
+    </form>
+
+    <button ng-click="roomItemCtrl.bark()">bark</button>
+   
+  </footer>
+
+</section>

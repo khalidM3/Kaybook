@@ -20,9 +20,9 @@
             <div class="date">Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</div>
             <div> {{ postItemCtrl.resolve.post.description }}</div>
             <div>
-              <button ng-click="postItemCtrl.likePost()">like</button>
+              <button ng-click="postItemCtrl.likePost()">like {{postItemCtrl.resolve.post.likes.length}}</button>
               <button ng-click="postItemCtrl.unLikePost()">unlike</button>
-              <button ng-click="postItemCtrl.dislikePost()">dislike</button>
+              <button ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.resolve.post.dislikes.length}}</button>
             </div>
           </li>
 

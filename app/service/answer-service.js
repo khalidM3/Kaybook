@@ -212,6 +212,32 @@ function answerService($q, $log, $window, $http, authService){
     });
   };
 
+  service.deletePollAnswer = function(answerID){
+    $log.debug('service.deletePollAnswer');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/answer/deletepollanswer/${answerID}`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.delete(url, config);
+    })
+    .then( res => {
+      $log.log('deleted an poll answer');
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to delete an poll answer',err);
+      return $q.reject(err);
+    });
+  };
+
   service.deleteReply = function(answerID){
     $log.debug('service.deleteReply');
 

@@ -169,12 +169,12 @@ function pollService($q, $log, $window, $http, authService){
     });
   };
 
-  service.deletePost = function(forumID){
-    $log.debug('service.deleteForum');
+  service.deletePoll = function(fpollID){
+    $log.debug('service.deletePoll');
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/forum/deleteforum/${forumID}`;
+      let url = `${__API_URL__}/api/poll/deletepoll/${fpollID}`;
       let config = {
         headers: {
           Accept: 'application/json',
@@ -186,11 +186,11 @@ function pollService($q, $log, $window, $http, authService){
       return $http.delete(url, config);
     })
     .then( res => {
-      $log.log('deleted a forum');
+      $log.log('deleted a poll');
       return res.data;
     })
     .catch( err => {
-      $log.error('Failed to delete a forum',err);
+      $log.error('Failed to delete a poll',err);
       return $q.reject(err);
     });
   };

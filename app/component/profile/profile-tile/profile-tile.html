@@ -1,6 +1,6 @@
-<li class="profile-tile" ng-click="profileTileCtrl.goToProfile()">
+<li class="profile-tile" >
   <img ng-src="{{ profileTileCtrl.profile.profilePicURI}}" alt="">
-  <span>name: {{ profileTileCtrl.profile.name}} </span>
+  <span ng-click="profileTileCtrl.goToProfile()">name: {{ profileTileCtrl.profile.name}} </span>
 
   <button ng-if="profileTileCtrl.showSendReqBtn" ng-click="profileTileCtrl.sendReq()"> send request </button>
   <button ng-if="profileTileCtrl.showUnSendReqBtn" ng-click="profileTileCtrl.unSendReq()">unsend request</button>

@@ -382,6 +382,60 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.fetchMyCart = function() {
+    $log.debug('profileService.fetchCart');
+
+    return authService.getToken()
+    .then( token => {
+      let profileID = $window.localStorage.getItem('profileID');
+      let ftoken = 'dummy token';
+      let url = `${__API_URL__}/api/mycart/${profileID}`;
+      let config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      };
+      console.log('url ++++++++++',url);
+      console.log(token);
+      return $http.get(url, config);
+    })
+     .then( res => {
+       $log.log('Profile Retrieved', res.data);
+       service.profile = res.data;
+       return service.profile;
+    
+     })
+    .catch( err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
+
+  // service.fetchMyCart = function() {
+  //   $log.debug('profileService.fetchCart');
+
+  //   let profileID = $window.localStorage.getItem('profileID');
+
+  //   let url = `${__API_URL__}/api/mycart/${profileID}`;
+  //   let config = {
+  //     headers: {
+  //       Accept: 'application/json'
+  //     }
+  //   };
+  //   console.log('url ++++++++++',url);
+  //   return $http.get(url, config)
+  //    .then( res => {
+  //      $log.log('Profile Retrieved', res.data);
+  //      service.profile = res.data;
+  //      return service.profile;
+  //    })
+  //   .catch( err => {
+  //     $log.error(err.message);
+  //     return $q.reject(err);
+  //   });
+  // };
+
+
   service.joinProfile2 = function(joinedID){
     $log.debug('profileService.joinProfile');
 

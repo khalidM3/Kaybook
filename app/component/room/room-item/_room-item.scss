@@ -1,0 +1,19 @@
+.room-item {
+
+  .room-item-header {
+    background-color: black;
+    color: white;
+  }
+
+  .room-item-footer {
+    background-color: black;
+    border: 1px solid white;
+    margin-top: 100%;
+    color: white;
+    margin-bottom: -200px;
+    img {
+      width: 50px;
+      border-radius: 50%;
+    }
+  }
+}

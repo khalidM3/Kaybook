@@ -1,0 +1,13 @@
+<section class="room-ctrl">
+  <h2>room</h2>
+
+  <aside class="room-ctrl-side">
+    <button ng-click="roomCtrl.createRoom()">create room</button>
+    <room-tile ng-repeat="room in roomCtrl.roomsArr" room="room"></room-tile>
+  </aside>
+  
+  <main class="room-ctrl-main">
+     <room-item room="roomCtrl.currRoom" profile="roomCtrl.profile"></room-item>
+  </main>
+  
+</section>

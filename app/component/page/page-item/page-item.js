@@ -4,7 +4,7 @@ require('./_page-item.scss');
 
 module.exports = {
   template: require('./page-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'pageService', 'postService', 'forumService', 'pollService',PageItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$location', '$uibModal', 'pageService', 'postService', 'forumService', 'pollService', 'merchService',PageItemController],
   controllerAs: 'pageItemCtrl',
   bindings: {
     page: '<' 
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal, pageService, postService, forumService, pollService){
+function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, forumService, pollService, merchService){
   $log.debug('PageItemController');
 
 
@@ -30,12 +30,28 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
       return this.page = page;
     })
     .then( () => {
-      this.fetchPagePosts();
-      this.fetchPageForums();
-      this.fetchPagePolls();
+      this.fetch();
       return;
     });
   };
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//               FETCH MAIN
+  this.fetch = function(){
+    $log.debug('pageItemCtrl.fetch()');
+
+    this.showPostBtn = true;
+
+    this.postsArr = [];
+    this.forumsArr = [];
+    this.pollsArr = [];
+    this.merchesArr = [];
+
+    this.fetchPagePosts();
+    this.fetchPageForums();
+    this.fetchPagePolls();
+  };
+
+
 
   this.fetchPagePosts = function(){
     $log.debug('pageItemCtrl.fetchPagePosts()');
@@ -65,39 +81,23 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
     .catch( err => console.log('failed fetchPagePolls', err));
   };
 
-  this.joinPage = function() {
-    $log.debug('pageItemCtrl.joinPage()');
 
-    this.showLeaveBtn = true;
-    ++this.count;
-
-    pageService.joinPage(this.page._id)
-    .then( page => console.log('Successfully joinPage()', page))
-    .catch( err => console.log('Failed joinPage()', err));
-  };
-
-  this.leavePage = function(){
-    $log.debug('pageItemCtrl.leavePage()');
-
-    this.showLeaveBtn = false;
-    --this.count;
-
-    pageService.leavePage(this.page._id)
-    .then( page => console.log('Successfully leavePage()', page))
-    .catch( err => console.log('Failed leavePage()', err));
-  };
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//               FEED
 
   this.fetchFeed = function(){
     $log.debug('pageItemCtrl.fetchFeed()');
 
+    this.showPostBtn = true;
+
     this.postsArr = [];
     this.forumsArr = [];
     this.pollsArr = [];
+    this.merchesArr = [];
     
     this.fetchPostFeed();
     this.fetchForumFeed();
     this.fetchPollFeed();
-    return;
   };
 
   this.fetchPostFeed = function(){
@@ -123,7 +123,58 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
     .then( polls => this.pollsArr = polls)
     .catch(err => console.log('Failed to fetch poll feed', err));
   };
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//                    MERCH
+  this.fetchMerch = function(){
+    $log.debug('pageItemCtrl.fetchMerch()');
 
+    this.showPostBtn = false;
+
+    this.postsArr = [];
+    this.forumsArr = [];
+    this.pollsArr = [];
+
+    this.fetchPageMerch();
+  };
+
+
+  this.fetchPageMerch = function(){
+    $log.debug('pageItemCtrl.fetchPageMerch');
+
+    merchService.fetchPageMerch(this.page._id)
+    .then( merches => this.merchesArr =  merches)
+    .catch(err => console.log('Failed to fetch poll feed', err));
+  };
+
+  this.goToCart = function(){
+    $log.debug('pageItemCtrl.goToCart()');
+
+    $location.url('/cart');
+  }
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//                    PAGE 
+  this.joinPage = function() {
+    $log.debug('pageItemCtrl.joinPage()');
+
+    this.showLeaveBtn = true;
+    ++this.count;
+
+    pageService.joinPage(this.page._id)
+    .then( page => console.log('Successfully joinPage()', page))
+    .catch( err => console.log('Failed joinPage()', err));
+  };
+
+  this.leavePage = function(){
+    $log.debug('pageItemCtrl.leavePage()');
+
+    this.showLeaveBtn = false;
+    --this.count;
+
+    pageService.leavePage(this.page._id)
+    .then( page => console.log('Successfully leavePage()', page))
+    .catch( err => console.log('Failed leavePage()', err));
+  };
 
 
   this.openComponentModal = function (page) {
@@ -157,6 +208,19 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $uibModal,
     var modalInstance = $uibModal.open({
       animation: this.animationsEnabled,
       component: 'createPoll',
+      resolve: {
+        page: function () {
+          return page;
+        }
+      }
+    });
+  };
+
+  this.openCreateMerchModal = function (page) {
+
+    var modalInstance = $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'createMerch',
       resolve: {
         page: function () {
           return page;

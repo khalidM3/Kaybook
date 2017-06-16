@@ -1,0 +1,24 @@
+.merch-item {
+  min-height: 400px;
+  .merch-item-content {
+   display: inline-block;
+   width: 50%;
+   border-right: 1px solid grey;
+   padding: 10px;
+
+   img {
+     width: 90%;
+   }
+ }
+  .merch-item-options {
+    display: inline-block;
+
+    button {
+      width: 70%;
+      height: 30px;
+      background-color: green;
+      color: white;
+    }
+ }
+ 
+}

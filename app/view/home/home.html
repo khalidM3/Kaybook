@@ -3,13 +3,13 @@
     <li ng-init="homeCtrl.fetchJoinedPosts()" ng-click="homeCtrl.fetchJoinedPosts()">joined posts</li>
     <li ng-click="homeCtrl.fetchAllProfiles()">explore</li>
     <li ng-click="homeCtrl.fetchJoinedProfiles()">followed</li>
-    <li ng-click="homeCtrl.showProfileItem=true">social</li>
+    <li ng-click="homeCtrl.goToSocial()">social</li>
     <li>placeholder</li>
   </ul>
 
-  <section ng-if="homeCtrl.showProfileItem">
+  <!--<section ng-if="homeCtrl.showProfileItem">
      <profile-Item profile="homeCtrl.myProfile"></profile-Item>
-  </section>
+  </section>-->
 
   <section>
     <profile-tile ng-repeat="tile in homeCtrl.allProfiles" profile="tile"></profile-tile>
@@ -18,4 +18,10 @@
   <section>
     <post-tile ng-repeat="post in homeCtrl.joinedPosts track by $index" post="post"></post-tile>
   </section>
+
+
+<!--<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect("http://localhost:8000/socket.io/socket.io.js");
+</script>-->
 </section>

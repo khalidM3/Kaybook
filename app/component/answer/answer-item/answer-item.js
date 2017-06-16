@@ -8,7 +8,8 @@ module.exports = {
   controllerAs: 'answerItemCtrl',
   bindings: {
     answer: '=',
-    parent: '='
+    parent: '=',
+    poll: '='
   }
 };
 
@@ -77,6 +78,12 @@ function AnswerItemController($log, $window, $stateParams, answerService, profil
         return;
       })
       .catch( err => console.log('Failed to delete an reply', err));
+    }
+
+    if(this.poll) {
+      return answerService.deletePollAnswer(this.answer._id)
+      .then( poll => console.log('Successfuly deleted poll answer', poll))
+      .catch( err => console.log('Failed to delet an poll answer', err));
     }
 
     return answerService.deleteAnswer(this.answer._id)

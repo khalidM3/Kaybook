@@ -119,9 +119,10 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
       this.fetchMyProfile();
     }
 
-    if (path === '/recipe') {
+    if (path === '/page') {
       authService.getToken()
       .then( () => {
+        this.hideProfileBtn = false;
         this.hideLoginBtn = true;
         this.hideSignupBtn = true;
         this.hideLogout = false;

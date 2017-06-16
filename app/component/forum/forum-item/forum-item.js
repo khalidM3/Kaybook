@@ -6,9 +6,9 @@ module.exports = {
   template: require('./forum-item.html'),
   controller: ['$log', '$window', '$stateParams', 'profileService', 'forumService', ForumItemController],
   controllerAs: 'forumItemCtrl',
-  // bindings: {
-  //   forum: '<'
-  // }
+  bindings: {
+    page: '<'
+  }
 };
 
 
@@ -46,6 +46,7 @@ function ForumItemController($log, $window, $stateParams, profileService, forumS
     forumService.deleteForum(this.forum._id)
     .then( res => console.log('Successfully deleted forum', res))
     .catch( err => console.log('Failed to delete forum', err));
+    
   };
 
 }

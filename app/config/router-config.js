@@ -32,7 +32,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     },
     {
       name: 'page',
-      url: '/page/:pageID/:profileID',
+      url: '/page/:pageID',
       template: require('../view/mypage/mypage.html'),
       controller: 'MypageController',
       controllerAs: 'mypageCtrl'
@@ -43,6 +43,27 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       template: require('../view/forum/forum.html'),
       controller: 'ForumController',
       controllerAs: 'forumCtrl'
+    },
+    {
+      name: 'social',
+      url: '/social',
+      template: require('../view/social/social.html'),
+      controller: 'SocialController',
+      controllerAs: 'socialCtrl'
+    },
+    {
+      name: 'cart',
+      url: '/cart',
+      template: require('../view/cart/cart.html'),
+      controller: 'CartController',
+      controllerAs: 'cartCtrl'
+    },
+    {
+      name: 'room',
+      url: '/room/:roomID',
+      template: require('../view/room/room.html'),
+      controller: 'RoomController',
+      controllerAs: 'roomCtrl'
     },
     {
       name: 'poll',
