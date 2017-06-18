@@ -9,6 +9,8 @@ function RoomController($log, $rootScope, $stateParams, $window, profileService,
   
   this.$onInit = function(){
     $log.debug('roomController.oninit()');
+
+
     roomService.fetchMyRooms()
     .then( rooms => this.roomsArr = rooms)
     .then( () => {
@@ -29,8 +31,15 @@ function RoomController($log, $rootScope, $stateParams, $window, profileService,
   this.fetchRoom = function(){
     $log.debug('roomCtrl.fetchRoom');
     let roomID = $stateParams.roomID;
-    roomService.fetchRoom(roomID)
-    .then( room => this.currRoom = room);
+    this.oldroom = this.currRoom;
+    roomService.fetchRoom(roomID) // todo -secure the room BE;
+    .then( room => {
+      this.currRoom = room;
+      this.socket = io(`${__API_URL__}/chat`);
+
+      this.socket.emit('join room', {oldroom: this.oldroom, newroom: this.currRoom._id});
+
+    });
   };
 
   this.createRoom = function(){
@@ -40,7 +49,6 @@ function RoomController($log, $rootScope, $stateParams, $window, profileService,
     .then( room => console.log('Successfully createRoom ', room));
   };
 
-  this.socket
 
 
 }

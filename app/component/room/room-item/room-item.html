@@ -9,9 +9,15 @@
 
 
 
-  <section class="room-item-content">
+  <!--<msg-tile ng-repeat="msg in roomItemCtrl.msgArr" msg="msg"></msg-tile>-->
 
-  </section>
+  <li class="msg-tile" ng-repeat="msg in roomItemCtrl.msgArr">
+    <img ng-src="{{msg.profilePicURI}}" alt="">
+    <p> {{ msg.name }} </p>
+    <p> {{ msg.created }} </p>
+
+    <p> {{ msg.content }} </p>
+ </li>
 
 
 
