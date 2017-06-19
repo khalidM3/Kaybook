@@ -35,10 +35,6 @@ function RoomController($log, $rootScope, $stateParams, $window, profileService,
     roomService.fetchRoom(roomID) // todo -secure the room BE;
     .then( room => {
       this.currRoom = room;
-      this.socket = io(`${__API_URL__}/chat`);
-
-      this.socket.emit('join room', {oldroom: this.oldroom, newroom: this.currRoom._id});
-
     });
   };
 

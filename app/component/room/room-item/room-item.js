@@ -4,7 +4,7 @@ require('./_room-item.scss');
 
 module.exports = {
   template: require('./room-item.html'),
-  controller: ['$log', '$location', '$stateParams', '$window','$uibModal', 'messageService', RoomItemController],
+  controller: ['$log', '$location', '$stateParams', '$window','$uibModal', 'socketService', RoomItemController],
   controllerAs: 'roomItemCtrl',
   bindings: {
     room: '<',
@@ -14,16 +14,26 @@ module.exports = {
 };
 
 
-function RoomItemController($log, $location, $stateParams, $window, $uibModal, messageService){
+function RoomItemController($log, $location, $stateParams, $window, $uibModal, socketService){
   $log.debug('RoomItemController');
 
   this.msg = {};
   this.msgArr = [];
 
-  this.$onInit = function(){
+  // this.socket = io(`${__API_URL__}/chat`);
+  // this.socket.emit('join room', {oldroom: this.oldroom, newroom: this.currRoom._id});
+  socketService.connect(`${__API_URL__}/chat`);
+
+  this.$onChanges = function(room){
     console.log('ON INIT WORKING ?');
-    console.log(this.room);
+    console.log('this.ROOOOM',this.room);
+    console.log('obj', room);
+    
   };
+
+  this.$on('$locationChangeStart', function(event){
+    socketService.disconnect(true);
+  });
 
   // const socket = io(`${__API_URL__}/chat`);
 
