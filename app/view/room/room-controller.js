@@ -2,9 +2,9 @@
 
 require('./_room.scss');
 
-module.exports = ['$log', '$rootScope', '$stateParams', '$window', 'profileService','roomService', RoomController];
+module.exports = ['$log', '$rootScope', '$stateParams', '$window', 'profileService','roomService','socketService', RoomController];
 
-function RoomController($log, $rootScope, $stateParams, $window, profileService, roomService) {
+function RoomController($log, $rootScope, $stateParams, $window, profileService, roomService, socketService) {
   $log.debug('RoomController');
   
   this.$onInit = function(){
@@ -23,7 +23,6 @@ function RoomController($log, $rootScope, $stateParams, $window, profileService,
     $log.debug('roomCtrl.fetchMyProfile');
 
     let profileID = $window.localStorage.getItem('profileID');
-    console.log('_____________',profileID);
     profileService.fetchProfile2(profileID)
     .then( profile => this.profile = profile);
   };
@@ -34,6 +33,8 @@ function RoomController($log, $rootScope, $stateParams, $window, profileService,
     this.oldroom = this.currRoom;
     roomService.fetchRoom(roomID) // todo -secure the room BE;
     .then( room => {
+      let data = { old: roomID, new: room._id};
+      socketService.emit('join room', data);
       this.currRoom = room;
     });
   };
