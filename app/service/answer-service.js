@@ -32,6 +32,32 @@ function answerService($q, $log, $window, $http, authService){
       return $q.reject(err);
     });
   };
+  
+  service.createArticleAnswer = function(articleID, answerData){
+    $log.debug('service.createArticleAnswer');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/articleanswer/${articleID}`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.post(url, answerData, config);
+    })
+    .then( res => {
+      $log.log('created an answer');
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to create an answer',err);
+      return $q.reject(err);
+    });
+  };
 
   service.createPollAnswer = function(pollID, answerData){
     $log.debug('service.createPollAnswer');
@@ -208,6 +234,32 @@ function answerService($q, $log, $window, $http, authService){
     })
     .catch( err => {
       $log.error('Failed to delete an answer',err);
+      return $q.reject(err);
+    });
+  };
+
+  service.deleteArticleAnswer = function(answerID){
+    $log.debug('service.deleteArticleAnswer');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/answer/deletearticleanswer/${answerID}`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.delete(url, config);
+    })
+    .then( res => {
+      $log.log('deleted an article answer');
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to delete an article answer',err);
       return $q.reject(err);
     });
   };

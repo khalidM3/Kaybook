@@ -45,6 +45,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'forumCtrl'
     },
     {
+      name: 'article',
+      url: '/article/:articleID',
+      template: require('../view/article/article.html'),
+      controller: 'ArticleController',
+      controllerAs: 'articleCtrl'
+    },
+    {
       name: 'social',
       url: '/social',
       template: require('../view/social/social.html'),
