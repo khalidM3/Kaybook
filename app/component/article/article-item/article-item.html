@@ -1,0 +1,18 @@
+<section class="article-item">
+  <button ng-click="articleItemCtrl.deleteArticle()">delete article</button>
+  <section class="article-item-header">
+    <h2>{{ articleItemCtrl.article.title }}</h2>
+    <p>
+    {{ articleItemCtrl.article.content }}
+    </p>
+  </section>
+ 
+ <section class="article-item-poster">
+    <img ng-src="{{articleItemCtrl.poster.profilePicURI}}" alt="">
+    <p> {{articleItemCtrl.poster.name}} </p>
+ </section>
+
+  <create-answer article="articleItemCtrl.article"></create-answer>
+
+  <answer-item ng-repeat="comment in articleItemCtrl.commentsArr" article="articleItemCtrl.article" answer="comment"></answer-item>
+</section>
