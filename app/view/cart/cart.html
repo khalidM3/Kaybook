@@ -2,5 +2,31 @@
 
   <h2>Your Cart</h2>
 
-  <merch-tile ng-repeat="merch in cartCtrl.merchesArr" merch="merch"></merch-tile>
+  <!--<merch-tile ng-repeat="merch in cartCtrl.merchesArr" merch="merch"></merch-tile>-->
+  <!--<merch-cart ng-repeat="merch in cartCtrl.merchesArr" merch="merch"></merch-cart>-->
+
+  <table>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th>unit price</th>
+      <th>qtty</th>
+      <th>total</th>
+      <th>remove</th>
+    </tr>
+
+    <tr ng-repeat="merch in cartCtrl.merchesArr">
+
+     <td> <img ng-src="{{merch.picURI}}" alt=""> </td>
+     <td> {{merch.name}} </td>
+     <td> {{merch.price}} </td>
+     <td> {{merch.qtty}} </td>
+     <td> $100 </td>
+     <td> x </td>
+
+    </tr>
+
+
+  </table>
+
 </section>
