@@ -12,8 +12,10 @@ const ngAnimate = require('angular-animate');
 const uiBootstrap = require('angular-ui-bootstrap');
 const ngFileUpload = require('ng-file-upload');
 const ngRoute = require('angular-route');
+const btford = require('./lib/angular-socket-io/socket.js');
 
-const kproject = angular.module('kproject', [ngTouch, ngAnimate, uiRouter, uiBootstrap, ngRoute, ngFileUpload]);
+
+const kproject = angular.module('kproject', [ngTouch, ngAnimate, uiRouter, uiBootstrap, ngRoute, ngFileUpload, 'btford.socket-io']);
 
 let context = require.context('./config/', true, /\.js$/);
 context.keys().forEach( key => {
