@@ -28,7 +28,10 @@ function CreateMerchController($log, $window, merchService) {
 
     if( admin ) {
       merchService.createMerch(this.resolve.page._id, this.merch)
-      .then( merch => console.log('Success createMerch()', merch))
+      .then( merch =>  {
+        console.log('Success createMerch()', merch);
+        this.createdMerch = merch;
+      })
       .catch(err => console.log('Failed createMerch()', err));
     }
   };
