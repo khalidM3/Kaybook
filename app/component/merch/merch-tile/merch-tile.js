@@ -31,16 +31,20 @@ function MerchTileController($log, $uibModal, $window, merchService, picService,
   };
 
   this.openMerchModal = function () {
-    let merch = this.merch;
-    var modalInstance = $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'merchItem',
-      resolve: {
-        merch: function () {
-          return merch; 
+    merchService.fetchMerchOptions(this.merch._id)
+    .then( merch => {
+      $uibModal.open({
+        animation: this.animationsEnabled,
+        component: 'merchItem',
+        resolve: {
+          merch: function () {
+            return merch; 
+          }
         }
-      }
-    });
+      });
 
+    });
+    // var modalInstance =
   };
+
 }
