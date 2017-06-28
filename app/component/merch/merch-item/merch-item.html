@@ -1,18 +1,35 @@
 <section class="merch-item">
 
   <section class="merch-item-content">
-     <img ng-src="{{ merchItemCtrl.resolve.merch.picURI}}" alt="">
+     <img ng-src="{{ merchItemCtrl.order.picURI}}" alt="">
   </section>
 
   <section class="merch-item-options">
+      {{ merchItemCtrl.order.val1}}
+
+      {{ merchItemCtrl.order.val2}}
+
+      {{ merchItemCtrl.order.picURI}}
+
     <h2> {{ merchItemCtrl.resolve.merch.name}} </h2>
 
     <p> {{ merchItemCtrl.resolve.merch.desc}} </p>
 
-    <p>{{ merchItemCtrl.resolve.merch.price}}</p>
+    <p> $ {{ merchItemCtrl.order.price}}</p>
 
-    <p> {{ merchItemCtrl.resolve.merch.qtty}} </p>
+    <p> {{ merchItemCtrl.order.qtty}} pieces </p>
 
-    <button ng-click="merchItemCtrl.addToCart()"> add to cart</button>
+
+    <button ng-repeat="val in merchItemCtrl.val1Arr" ng-click="merchItemCtrl.filterOptions('val1', val)"> {{val}} </button>
+
+    <button ng-repeat="val in merchItemCtrl.val2Arr" ng-click="merchItemCtrl.filterOptions('val2', val)"> {{val}} </button>
+     
+    <button class="cart-btn" ng-click="merchItemCtrl.addToCart()"> add to cart</button>
+    <button ng-click="merchItemCtrl.bark()">bark</button>
+
+     <button ng-click="merchItemCtrl.filterOptions()">filter</button>
+
   </section>
+
+  
 </section>
