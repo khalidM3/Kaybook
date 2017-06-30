@@ -8,6 +8,7 @@ module.exports = {
   controllerAs: 'createAnswerCtrl',
   bindings: {
     forum: '<',
+    article: '<',
     answer: '<',
     poll: '<'
   }
@@ -26,6 +27,13 @@ function CreateAnswerController($log, $window, answerService) {
     .then( forum => console.log('Successfully created answer', forum))
     .catch( err => console.log('FAiled to createAnswer', err));
     }
+  
+    if(this.article) {
+      answerService.createArticleAnswer(this.article._id, this.answerData)
+    .then( article => console.log('Successfully created answer', article))
+    .catch( err => console.log('FAiled to createAnswer', err));
+    }
+  
     if(this.answer) {
       answerService.replyAnswer(this.answer._id, this.answerData)
     .then( forum => console.log('Successfully replied answer', forum))

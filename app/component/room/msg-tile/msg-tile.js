@@ -7,7 +7,7 @@ module.exports = {
   controller: ['$log', '$location', '$stateParams', '$window', MsgTileController],
   controllerAs: 'msgTileCtrl',
   bindings: {
-    msg: '=',
+    msg: '<',
     profile: '<'
   }
 };

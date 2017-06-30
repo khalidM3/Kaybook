@@ -1,0 +1,12 @@
+<li class="merch-cart" ng-click="merchCartCtrl.openMerchModal()">
+
+  <h2> {{ merchCartCtrl.merch.name}} </h2>
+
+  <img ng-src="{{ merchCartCtrl.merch.picURI}}" alt="">
+
+  <p> {{ merchCartCtrl.merch.desc}} </p>
+
+  <p> $ {{ merchCartCtrl.merch.price}} USD</p>
+
+  <p> stock {{ merchCartCtrl.merch.qtty}} </p>
+</li>

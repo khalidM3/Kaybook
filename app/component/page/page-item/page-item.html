@@ -34,8 +34,10 @@
 
 
   <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openComponentModal(pageItemCtrl.page)">create post</button>
-  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateForumModal(pageItemCtrl.page)">create forum</button>
+  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateForumModal(pageItemCtrl.page)">create article</button>
+  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateArticleModal(pageItemCtrl.page)">create article</button>
   <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePollModal(pageItemCtrl.page)">create poll</button>
+
   <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateMerchModal(pageItemCtrl.page)">create merch</button>
   <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToCart()">view cart</button>
 
@@ -45,6 +47,10 @@
 
   <ul>
     <forum-tile ng-repeat="forum in pageItemCtrl.forumsArr" forum="forum" page="pageItemCtrl.page"></forum-tile>
+  </ul>
+
+  <ul>
+    <article-tile ng-repeat="article in pageItemCtrl.articlesArr" article="article" page="pageItemCtrl.page"></article-tile>
   </ul>
 
   <ul>

@@ -1,10 +1,15 @@
 'use strict';
 
-module.exports = ['$log', socketService];
+module.exports = ['$log', 'socketFactory', socketService];
 
-function socketService($log){
+function socketService($log, socketFactory){
   $log.debug('SocketService');
 
-  // this.socket = io(`${__API_URL__}`);
+  let chatSocket = io.connect(`${__API_URL__}/chat`);
 
+  let mySockets = socketFactory({
+    ioSocket: chatSocket
+  });
+
+  return mySockets;
 }

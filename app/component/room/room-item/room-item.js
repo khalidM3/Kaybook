@@ -4,7 +4,7 @@ require('./_room-item.scss');
 
 module.exports = {
   template: require('./room-item.html'),
-  controller: ['$log', '$location', '$stateParams', '$window','$uibModal', 'messageService', RoomItemController],
+  controller: ['$log', '$location', '$stateParams', '$window','$uibModal', 'socketService', RoomItemController],
   controllerAs: 'roomItemCtrl',
   bindings: {
     room: '<',
@@ -14,16 +14,17 @@ module.exports = {
 };
 
 
-function RoomItemController($log, $location, $stateParams, $window, $uibModal, messageService){
+function RoomItemController($log, $location, $stateParams, $window, $uibModal, socketService){
   $log.debug('RoomItemController');
 
   this.msg = {};
   this.msgArr = [];
 
-  this.$onInit = function(){
-    console.log('ON INIT WORKING ?');
-    console.log(this.room);
-  };
+  
+
+  // this.$on('$locationChangeStart', function(event){
+  //   socketService.disconnect(true);
+  // });
 
   // const socket = io(`${__API_URL__}/chat`);
 
@@ -35,29 +36,26 @@ function RoomItemController($log, $location, $stateParams, $window, $uibModal, m
     this.msg.posterID = this.profile._id;
     this.msg.name = this.profile.name;
     this.msg.profilePicURI = this.profile.profilePicURI;
-    this.socket.emit('created msg', this.msg);
-
-    this.socket.on('new msg', data => {
-      console.log('ID', this.socket.id);
-      this.msg = data;
-      console.log('msg', this.msg);
-
-      console.log('new message', data.content);
-      this.msgArr.push(data);
-      console.log(this.msgArr);
-      return;
-    });
-
-
+    socketService.emit('created msg', this.msg);
   };
 
+  socketService.on('new msg', data => {
+    console.log('ID', socketService.id);
+    // this.msg = data;
+    // console.log('msg', this.msg);
+
+    console.log('new message', data.content);
+    this.msgArr.push(data);
+    console.log(this.msgArr);
+    return;
+  });
   
 
 
   this.bark = function(){
     console.log(this.room);
-    console.log('prof', this.profile,
-          'msgARr', this.socket);
+    // console.log('prof', this.profile,
+          // 'msgARr', socketService);
   };
 
 

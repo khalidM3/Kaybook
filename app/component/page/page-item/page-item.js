@@ -4,7 +4,7 @@ require('./_page-item.scss');
 
 module.exports = {
   template: require('./page-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$location', '$uibModal', 'pageService', 'postService', 'forumService', 'pollService', 'merchService',PageItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$location', '$uibModal', 'pageService', 'postService', 'forumService', 'pollService', 'articleService', 'merchService',PageItemController],
   controllerAs: 'pageItemCtrl',
   bindings: {
     page: '<' 
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, forumService, pollService, merchService){
+function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, forumService, pollService, articleService, merchService){
   $log.debug('PageItemController');
 
 
@@ -48,6 +48,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
 
     this.fetchPagePosts();
     this.fetchPageForums();
+    this.fetchPageArticles();
     this.fetchPagePolls();
   };
 
@@ -71,6 +72,14 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     forumService.fetchPageForums(this.page._id)
     .then( forums => this.forumsArr = forums)
     .catch( err => console.log('failed fetchPageForum', err));
+  };
+
+  this.fetchPageArticles = function(){
+    $log.debug('pageItemCtrl.fetchPageArticle()');
+
+    articleService.fetchPageArticles(this.page._id)
+    .then( articles => this.articlesArr = articles)
+    .catch( err => console.log('failed fetchPageArticle', err));
   };
 
   this.fetchPagePolls = function(){
@@ -97,6 +106,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     
     this.fetchPostFeed();
     this.fetchForumFeed();
+    this.fetchArticleFeed();
     this.fetchPollFeed();
   };
 
@@ -114,6 +124,14 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     forumService.fetchForumFeed(this.page._id)
     .then( forums => this.forumsArr = forums)
     .catch(err => console.log('Failed to fetch forum feed', err));
+  };
+
+  this.fetchArticleFeed = function(){
+    $log.debug('pageItemCtrl.fetchArticleFeed');
+
+    articleService.fetchArticleFeed(this.page._id)
+    .then( articles => this.articlesArr = articles)
+    .catch(err => console.log('Failed to fetch article feed', err));
   };
 
   this.fetchPollFeed = function(){
@@ -150,7 +168,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     $log.debug('pageItemCtrl.goToCart()');
 
     $location.url('/cart');
-  }
+  };
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                    PAGE 
@@ -195,6 +213,19 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     var modalInstance = $uibModal.open({
       animation: this.animationsEnabled,
       component: 'createForum',
+      resolve: {
+        page: function () {
+          return page;
+        }
+      }
+    });
+  };
+
+  this.openCreateArticleModal = function (page) {
+
+    var modalInstance = $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'createArticle',
       resolve: {
         page: function () {
           return page;

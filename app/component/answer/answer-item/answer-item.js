@@ -9,6 +9,7 @@ module.exports = {
   bindings: {
     answer: '=',
     parent: '=',
+    article: '=',
     poll: '='
   }
 };
@@ -78,6 +79,12 @@ function AnswerItemController($log, $window, $stateParams, answerService, profil
         return;
       })
       .catch( err => console.log('Failed to delete an reply', err));
+    }
+
+    if(this.article) {
+      return answerService.deleteArticleAnswer(this.answer._id)
+      .then( article => console.log('Successfuly deleted article answer', article))
+      .catch( err => console.log('Failed to delet an article answer', err));
     }
 
     if(this.poll) {
