@@ -1,34 +1,34 @@
 'use strict';
 
-module.exports = ['$q', '$log', '$window', '$http', 'authService', merchService];
+module.exports = ['$q', '$log', '$window', '$http', 'authService', optionService];
 
-function merchService($q, $log, $window, $http, authService){
-  $log.debug('merchService');
+function optionService($q, $log, $window, $http, authService){
+  $log.debug('optionService');
 
   let service = {};
 
-  service.createMerch = function(pageID, merchData){
-    $log.debug('service.createMerch');
+  service.createOption = function(merchID, optionData){
+    $log.debug('service.createOption');
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/merch/merch/${pageID}`;
+      let url = `${__API_URL__}/api/option/newoption/${merchID}`;
       let config = {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-type': 'application/json',
           Authorization: `Bearer ${token}`
         }
       };
 
-      return $http.post(url, merchData, config);
+      return $http.post(url, optionData, config);
     })
     .then( res => {
-      $log.log('created a merch');
+      $log.log('created a option');
       return res.data;
     })
     .catch( err => {
-      $log.error('Failed to create a merch',err);
+      $log.error('Failed to create a option',err);
       return $q.reject(err);
     });
   };
@@ -41,7 +41,7 @@ function merchService($q, $log, $window, $http, authService){
     let url = `${__API_URL__}/api/merch/pagemerch/${pageID}`;
     let config = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Option': 'application/json',
         Accept: 'aplication/json'
       }
     };
@@ -57,28 +57,6 @@ function merchService($q, $log, $window, $http, authService){
     });
   };
 
-  service.fetchMerchOptions = function(merchID){
-    $log.debug('service.fetchMerchOptions');
-
-    let url = `${__API_URL__}/api/merch/merchoptions/${merchID}`;
-    let config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'aplication/json'
-      }
-    };
-
-    return $http.get(url, config)
-    .then( res => {
-      $log.log('fetched merch and options', res.data);
-      return res.data;
-    })
-    .catch( err => {
-      $log.error('Failed to fetch merch and options',err);
-      return $q.reject(err);
-    });
-  };
-
   service.addCart = function(merchID){
     $log.debug('service.addCart()');
 
@@ -88,7 +66,7 @@ function merchService($q, $log, $window, $http, authService){
       let config = {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Option': 'application/json',
           Authorization: `Bearer ${token}`
         }
       };
