@@ -59,6 +59,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'socialCtrl'
     },
     {
+      name: 'merch',
+      url: '/merch/:pageID',
+      template: require('../view/merch/merch.html'),
+      controller: 'MerchController',
+      controllerAs: 'merchCtrl'
+    },
+    {
       name: 'cart',
       url: '/cart',
       template: require('../view/cart/cart.html'),
