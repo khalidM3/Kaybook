@@ -105,5 +105,31 @@ function merchService($q, $log, $window, $http, authService){
     });
   };
 
+  service.deleteMerch = function(merchID){
+    $log.debug('service.deleteMerch()');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/merch/deletemerch/${merchID}`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.delete(url,config);
+    })
+    .then( res => {
+      $log.log('Successfuly deleted merch');
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to delete merch',err);
+      return $q.reject(err);
+    });
+  };
+
   return service;
 }

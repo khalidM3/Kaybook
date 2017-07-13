@@ -4,7 +4,7 @@ require('./_merch-item.scss');
 
 module.exports = {
   template: require('./merch-item.html'),
-  controller: ['$log', 'merchService', 'profileService', MerchItemController],
+  controller: ['$log', '$window', 'merchService', 'profileService', MerchItemController],
   controllerAs: 'merchItemCtrl',
   bindings: {
     loggedIn: '<',
@@ -16,7 +16,7 @@ module.exports = {
   }
 };
 
-function MerchItemController($log, merchService, profileService){
+function MerchItemController($log, $window, merchService, profileService){
   $log.debug('merchItemController');
 
   
@@ -28,6 +28,7 @@ function MerchItemController($log, merchService, profileService){
   this.$onChanges = (changes) => {
     console.log('changes in the onChanges function');
     this.order =  JSON.parse(JSON.stringify(this.resolve.merch.options[0]));
+    this.order.count = 1;
     console.log('order ===>', this.order);
     this.val1Arr = [];
     this.val2Arr = [];
@@ -53,26 +54,60 @@ function MerchItemController($log, merchService, profileService){
     console.log('value', value);
     this.order[name] = value;
     this.resolve.merch.options.forEach( option => {
-      if(option.val1 === this.order.val1 && option.val2 === this.order.val2 && option.val3 === this.order.val3) {
+      console.log('similarities <>,',
+      'val1',this.order.val1 === option.val1,
+      'val2', this.order.val2 === option.val2,
+      'val3', this.order.val3, option.val3);
+      if(option.val1 === this.order.val1 && option.val2 === this.order.val2) {
         console.log('passed',option.val1, this.order.val1);
         console.log('passed2',option.val2, this.order.val2);
         // this.order = option;
         console.log('new order', option.val1, option.val2);
         this.order = JSON.parse(JSON.stringify(option));
-        console.log(this.order._id);
+        // console.log(this.order._id);
+        this.order.count = 1;
         return this.order;
       } 
-      // console.log('not it', this.order.val1, this.order.val2);
+      console.log('not it', this.order.val1, this.order.val2, this.order.val3);
     });
   };
-
 
   this.addToCart = function(){
     $log.debug('merchItemCtrl.addToMerch()');
 
-    merchService.addCart(this.order._id)
-    .then( profile => console.log('Success addToCart', profile));
+    // $window.localStorage.merch ?
+    // arr = JSON.parse($window.localStorage.merch)
+    // arr.push(this.order)
+    // $window.localStorage.merch = JSON.stringify(arr):
+    // $window.localStorage.merch = JSON.stringify(this.order);
+    
+    if(!$window.localStorage.merch) $window.localStorage.merch = JSON.stringify({});
+    let merch = JSON.parse($window.localStorage.merch);
+    if(! merch[this.order._id]) merch[this.order._id] = this.order;
+    let enough = this.order.qtty - (merch[this.order._id].count + this.order.count) > -1;
+    enough ? merch[this.order._id].count += this.order.count: merch[this.order._id].count = this.order.qtty;
+    $window.localStorage.merch = JSON.stringify(merch);
+    
+    // merchService.addCart(this.order._id)
+    // .then( profile => console.log('Success addToCart', profile));
+    // let option = {
+    //   this.order._id
+    // }
   };
+
+  this.add = () => {
+    this.order.qtty - this.order.count > 0 ?  ++this.order.count: false;
+  };
+
+  this.subtract = () => {
+    this.order.count - 1 > 0 ?  --this.order.count: false;
+  };
+
+  this.deleteMerch = () => {
+    merchService.deleteMerch(this.resolve.merch._id)
+    .then( res => console.log('Successfuly deleted merch', res));
+  };
+
 
   this.bark = () => {
     console.log('merch', this.resolve.merch);

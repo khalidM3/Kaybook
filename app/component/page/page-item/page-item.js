@@ -164,6 +164,12 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     .catch(err => console.log('Failed to fetch poll feed', err));
   };
 
+  this.goToMerch = function(){
+    $log.debug('pageItemCtrl.goToMerch()');
+
+    $location.url(`/merch/${this.page._id}`);
+  };
+
   this.goToCart = function(){
     $log.debug('pageItemCtrl.goToCart()');
 

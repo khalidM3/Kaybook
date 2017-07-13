@@ -9,20 +9,24 @@
     <tr>
       <th>image</th>
       <th>name</th>
+      <th>val1</th>
+      <th>val2</th>
       <th>unit price</th>
-      <th>qtty</th>
+      <th>count</th>
       <th>total</th>
       <th>remove</th>
     </tr>
 
-    <tr ng-repeat="merch in cartCtrl.merchesArr">
+    <tr ng-repeat="merch in cartCtrl.merches">
 
      <td> <img ng-src="{{merch.picURI}}" alt=""> </td>
      <td> {{merch.name}} </td>
-     <td> {{merch.price}} </td>
-     <td> {{merch.qtty}} </td>
-     <td> $100 </td>
-     <td> x </td>
+     <td> {{merch.val1}} </td>
+     <td> {{merch.val2}} </td>
+     <td> ${{merch.price}} </td>
+     <td> {{merch.count}} </td>
+     <td> ${{merch.price * merch.count}} </td>
+     <td ng-click="cartCtrl.removeItem(merch)"> x </td>
 
     </tr>
 

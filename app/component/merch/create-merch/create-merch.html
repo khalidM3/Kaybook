@@ -1,4 +1,89 @@
 <section class="create-merch">
+
+  <section class="create-merch-tile" ng-if="!createMerchCtrl.showCreateForm">
+    <h2> {{ createMerchCtrl.createdMerch.name}} </h2>
+    <p> {{ createMerchCtrl.createdMerch.desc}} </p>
+  </section>
+
+
+  <form ng-submit="createMerchCtrl.createMerch()" ng-if="!createMerchCtrl.showCreateForm">
+
+    <input type="text" placeholder="name" ng-model="createMerchCtrl.merch.name">
+
+    <textarea cols="40" rows="5" placeholder="item descriptions" ng-model="createMerchCtrl.merch.desc">
+    </textarea>
+
+    <section class="option-table" ng-if="createMerchCtrl.showTable">
+      <table>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th>unit price</th>
+            <th>value 1</th>
+            <th>value 2</th>
+            <th>value 3</th>
+            <th>quantity</th>
+            <th>remove</th>
+          </tr>
+
+        <tr ng-repeat="option in createMerchCtrl.optionsArr">
+
+          <td> <img ng-src="{{option.picURI}}" alt=""> </td>
+          <td> {{option.name}} </td>
+          <td> $ {{option.price}} </td>
+          <td> {{option.val1}} </td>
+          <td> {{option.val2}} </td>
+          <td> {{option.val4}} </td>
+          <td> {{option.qtty}} </td>
+          <td ng-click="createMerchCtrl.removeOption(option)"> x </td>
+
+        </tr>
+
+
+      </table>
+  </section>
+
+    <input type="text" placeholder="option name 1" ng-model="createMerchCtrl.option.name1">
+    <input type="text" placeholder="option value 1" ng-model="createMerchCtrl.option.val1">
+
+    <input type="text" placeholder="option name 2" ng-model="createMerchCtrl.option.name2">
+    <input type="text" placeholder="option value 2" ng-model="createMerchCtrl.option.val2">
+
+    <input type="text" placeholder="option name 3" ng-model="createMerchCtrl.option.name3">
+    <input type="text" placeholder="option value 3" ng-model="createMerchCtrl.option.val3">
+
+
+    <input type="text" placeholder="picture url" ng-model="createMerchCtrl.option.picURI">
+
+    <input type="number" placeholder="price" ng-model="createMerchCtrl.option.price">
+
+    <input type="number" placeholder="quantity" ng-model="createMerchCtrl.option.qtty">
+
+    <span class="add-option" ng-click="createMerchCtrl.addToOptions()">add option</span>
+
+
+
+
+    <button>create</button>
+
+  </form>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<section class="create-merch">
   <h3>STEP 1</h3>
 
   <section class="create-merch-tile" ng-if="!createMerchCtrl.showCreateForm">
@@ -8,21 +93,21 @@
 
   <form ng-submit="createMerchCtrl.createMerch()" ng-if="!createMerchCtrl.showCreateForm">
 
-    <input type="text" placeholder="name" ng-model="createMerchCtrl.merch.name">
+    <input type="text" placeholder="name" ng-model="createMerchCtrl.merch.name">-->
 
     <!--<input type="text" placeholder="picture url" ng-model="createMerchCtrl.merch.picURI">-->
 
-    <textarea cols="40" rows="5" placeholder="item descriptions" ng-model="createMerchCtrl.merch.desc">
-    </textarea>
+    <!--<textarea cols="40" rows="5" placeholder="item descriptions" ng-model="createMerchCtrl.merch.desc">
+    </textarea>-->
 
     <!--<input type="number" placeholder="price" ng-model="createMerchCtrl.merch.price">
 
     <input type="number" placeholder="quantity" ng-model="createMerchCtrl.merch.qtty">-->
 
-    <button>create</button>
+    <!--<button>create</button>
 
   </form>
 
   <h3>STEP 2</h3>
   <create-option merch="createMerchCtrl.merch"></create-option>
-</section>
+</section>-->
