@@ -4,7 +4,7 @@ require('./_create-article.scss');
 
 module.exports = {
   template: require('./create-article.html'),
-  controller: ['$log', '$window', 'articleService', CreateArticleController],
+  controller: ['$log', '$window', 'postService', CreateArticleController],
   controllerAs: 'createArticleCtrl',
   bindings: {
     page: '<',
@@ -15,10 +15,11 @@ module.exports = {
   }
 };
 
-function CreateArticleController($log, $window, articleService) {
+function CreateArticleController($log, $window, postService) {
   $log.debug('CreateArticleController');
 
   this.article = {};
+  this.article.type = 'article';
   
   this.createArticle = function(){
     $log.debug('createArticleCtrl.createArticle()');
@@ -27,13 +28,13 @@ function CreateArticleController($log, $window, articleService) {
     let admin = profileID === this.resolve.page.profileID;
 
     if( !admin ) {
-      articleService.createArticle(this.resolve.page._id, this.article)
+      postService.createPost(this.resolve.page._id, this.article)
       .then( article => console.log('Success createArticle()', article))
       .catch(err => console.log('Failed createArticle()', err));
     }
 
     if( admin ) {
-      articleService.createArticleFeed(this.resolve.page._id, this.article)
+      postService.createFeed(this.resolve.page._id, this.article)
       .then( article => console.log('Success createArticleFeed()', article))
       .catch(err => console.log('Failed createArticleFeed()', err));
     }
