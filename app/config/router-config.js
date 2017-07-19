@@ -39,7 +39,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     },
     {
       name: 'forum',
-      url: '/forum/:forumID',
+      url: '/question/:questionID',
       template: require('../view/forum/forum.html'),
       controller: 'ForumController',
       controllerAs: 'forumCtrl'

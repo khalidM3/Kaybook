@@ -4,7 +4,7 @@ require('./_post-tile.scss');
 
 module.exports = {
   template: require('./post-tile.html'),
-  controller: ['$log', '$uibModal', '$window', 'postService' , 'picService','profileService', PostTileController],
+  controller: ['$log', '$uibModal', '$window', '$location', 'postService' , 'picService','profileService', PostTileController],
   controllerAs: 'postTileCtrl',
   bindings: {
     post: '<'
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PostTileController($log, $uibModal, $window, postService, picService, profileService){
+function PostTileController($log, $uibModal, $window, $location, postService, picService, profileService){
   $log.debug('PostTileController');
 
   let profileID = $window.localStorage.getItem('profileID');
@@ -21,9 +21,9 @@ function PostTileController($log, $uibModal, $window, postService, picService, p
     $log.debug('postTileCtrl.$onInit()');
 
     this.isVid = (/\.mp4$/).test(this.post.postPicURI);
-    this.isMyPost = this.post.posterPID.toString() === profileID.toString();
+    this.isMyPost = this.post.posterID.toString() === profileID.toString();
 
-    profileService.fetchProfile2(this.post.posterPID)
+    profileService.fetchProfile2(this.post.posterID)
     .then(profile => {
       console.log('PPPPPPPPP', profile);
       this.poster = profile;
@@ -70,20 +70,20 @@ function PostTileController($log, $uibModal, $window, postService, picService, p
 
 
 
-  this.openComponentModal = function () {
-    let post = this.post;
-    var modalInstance = $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'postItem',
-      resolve: {
-        post: function () {
-          console.log('<><><><><><><><><><><><><>', post);
-          return post; 
-        }
-      }
-    });
+  // this.openComponentModal = function () {
+  //   let post = this.post;
+  //   var modalInstance = $uibModal.open({
+  //     animation: this.animationsEnabled,
+  //     component: 'postItem',
+  //     resolve: {
+  //       post: function () {
+  //         console.log('<><><><><><><><><><><><><>', post);
+  //         return post; 
+  //       }
+  //     }
+  //   });
 
-  };
+  // };
 
   this.openEditPostModal = function () {
     let post = this.post;
@@ -110,18 +110,54 @@ function PostTileController($log, $uibModal, $window, postService, picService, p
     .catch( (err) => $log.error('Did not delete the post', err));
   };
 
-  this.deletePost = function(){
-    $log.debug('postTileController.deletePost()');
+  // this.deletePost = function(){
+  //   $log.debug('postTileController.deletePost()');
 
+  //   let post = this.post;
+  //   picService.deletePostPic(post._id)
+  //   .then( () => {
+  //     return postService.deletePost(post._id);
+  //   })
+  //   .catch( () => {
+  //     return postService.deletePost(post._id);
+  //   });
+  // };
+  
+  this.goTo = () => {
+    if(this.post.type !== 'pic') return $location.url(`/${this.post.type}/${this.post._id}`);
+    
     let post = this.post;
-    picService.deletePostPic(post._id)
-    .then( () => {
-      return postService.deletePost(post._id);
-    })
-    .catch( () => {
-      return postService.deletePost(post._id);
+    return $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'postItem',
+      resolve: {
+        post: function () {
+          console.log('<><><><><><><><><><><><><>', post);
+          return post; 
+        }
+      }
     });
+
   };
+
+  // this.goToForum = function(){
+  //   $log.debug('forumTileCtrl.goToForum()');
+
+  //   $location.url(`/forum/${this.forum._id}`);
+  // };
+
+  // this.goToArticle = function(){
+  //   $log.debug('articleTileCtrl.goToArticle()');
+
+  //   $location.url(`/article/${this.article._id}`);
+  // };
+
+  // this.goToPoll = function(){
+  //   $log.debug('pollTileCtrl.goToPoll()');
+
+  //   $location.url(`/poll/${this.poll._id}`);
+  // };
+
 
 
 }

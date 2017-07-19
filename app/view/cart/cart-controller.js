@@ -29,6 +29,8 @@ function CartController($log, $rootScope, $stateParams, $window, profileService)
     $window.localStorage.merch = JSON.stringify(this.merches);
   };
 
+  
+
 
 
 }
