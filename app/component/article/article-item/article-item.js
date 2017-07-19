@@ -40,6 +40,30 @@ function ArticleItemController($log, $window, $stateParams, profileService, post
     .catch(err => console.log('failed fetchArticle()', err));
   };
 
+  this.likePost = function(){
+    $log.debug('postItemCtrl.likePost()');
+
+    postService.likePost(this.article._id)
+    .then( post => this.article = post)
+    .catch( err => console.log('Failed likePost()', err));
+  };
+
+  // this.unLikePost = function() {
+  //   $log.debug('postItemCtrl.unLikePost()');
+
+  //   postService.unLikePost(this.article._id)
+  //   .then( post => console.log('Successfuly unLikedPost()', post))
+  //   .catch( err => console.log('Failed unLikePost()', err));
+  // };
+
+  this.dislikePost = function() {
+    $log.debug('postItemCtrl.dislikePost()');
+
+    postService.dislikePost(this.article._id)
+    .then( post => this.article =  post)
+    .catch( err => console.log('Failed dislikePost()', err));
+  };
+
   this.deleteArticle = function(){
     $log.debug('articleItemCtrl.deleteArticle()');
 

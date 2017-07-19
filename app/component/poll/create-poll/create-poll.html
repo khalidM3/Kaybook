@@ -7,20 +7,41 @@
     <input name="name" type="text" ng-minlength="4" ng-model="createPollCtrl.poll.title">
 
     <label for="Desc">Poll description</label>
-    <input name="Desc" type="text" ng-minlength="4" ng-model="createPollCtrl.poll.Desc">
+    <input name="Desc" type="text" ng-minlength="4" ng-model="createPollCtrl.poll.desc">
 
-    <label for="Desc">Poll choice 1</label>
-    <input name="" type="text" ng-minlength="1" ng-model="createPollCtrl.choice1">
+
+    <section class="choice-table" ng-show="createPollCtrl.poll.choices[0]">
+      <table>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th>remove</th>
+          </tr>
+
+        <tr ng-repeat="choice in createPollCtrl.poll.choices track by $index">
+        
+          <td> <img ng-src="{{choice.picURI}}" alt=""> </td>
+          <td> {{choice.name}} </td>
+          <td ng-click="createPollCtrl.removeChoice(choice)"> X </td>
+
+        </tr>
+
+
+      </table>
+  </section>
+
+    <label for="Desc">choice name</label>
+    <input name="" type="text" ng-minlength="1" ng-model="createPollCtrl.choice">
+
+    <label for="Desc">choice pic</label>
+    <input name="" type="text" ng-minlength="1" ng-model="createPollCtrl.picURI">
     
-    <label for="Desc">Poll choice 2</label>
-    <input name="" type="text" ng-minlength="1" ng-model="createPollCtrl.choice2">
-
-    <label for="Desc">Poll choice 3</label>
-    <input name="" type="text" ng-minlength="1" ng-model="createPollCtrl.choice3">
-
+    <span ng-click="createPollCtrl.addChoice()">add choice</span>
     <button ng-disabled="createPollForm.$invalid">create poll</button>
   </form>
 </section>
+
+
 
 <button ng-click="createPollCtrl.cancel()">cancel</button>
 <button ng-click="createPollCtrl.bark()">bark</button>

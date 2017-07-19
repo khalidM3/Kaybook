@@ -1,18 +1,21 @@
 <section class="forum-item">
   <button ng-click="forumItemCtrl.deleteForum()">delete forum</button>
   <section class="forum-item-header">
-    <h2>{{ forumItemCtrl.forum.forumTitle }}</h2>
+    <h2>{{ forumItemCtrl.question.title }}</h2>
     <p>
-    {{ forumItemCtrl.forum.forumDesc }}
+    {{ forumItemCtrl.question.desc }}
     </p>
   </section>
+
+  <button ng-click="forumItemCtrl.likePost()">like {{forumItemCtrl.question.likes.length}}</button>
+  <button ng-click="forumItemCtrl.dislikePost()">dislike {{forumItemCtrl.question.dislikes.length}}</button>
  
  <section class="forum-item-poster">
     <img ng-src="{{forumItemCtrl.poster.profilePicURI}}" alt="">
     <p> {{forumItemCtrl.poster.name}} </p>
  </section>
 
-  <create-answer forum="forumItemCtrl.forum"></create-answer>
+  <create-answer post="forumItemCtrl.question"></create-answer>
 
-  <answer-item ng-repeat="answer in forumItemCtrl.answersArr" answer="answer"></answer-item>
+  <answer-item ng-repeat="answer in forumItemCtrl.answersArr" post="forumItemCtrl.question" answer="answer"></answer-item>
 </section>

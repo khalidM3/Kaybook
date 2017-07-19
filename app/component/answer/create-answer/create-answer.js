@@ -7,10 +7,8 @@ module.exports = {
   controller: ['$log', '$window', 'answerService', CreateAnswerController],
   controllerAs: 'createAnswerCtrl',
   bindings: {
-    forum: '<',
-    article: '<',
-    answer: '<',
-    poll: '<'
+    post: '<',
+    answer: '<'
   }
 };
 
@@ -21,16 +19,10 @@ function CreateAnswerController($log, $window, answerService) {
 
   this.createAnswer = function(){
     $log.debug('createAnswerCtrl.createAnswer()');
-
-    if(this.forum) {
-      answerService.createAnswer(this.forum._id, this.answerData)
-    .then( forum => console.log('Successfully created answer', forum))
-    .catch( err => console.log('FAiled to createAnswer', err));
-    }
-  
-    if(this.article) {
-      answerService.createArticleAnswer(this.article._id, this.answerData)
-    .then( article => console.log('Successfully created answer', article))
+    console.log('post =============|>', this.post, this.answerData);
+    if(this.post) {
+      answerService.createAnswer(this.post._id, this.answerData)
+    .then( post => console.log('Successfully created answer', post))
     .catch( err => console.log('FAiled to createAnswer', err));
     }
   
@@ -40,11 +32,7 @@ function CreateAnswerController($log, $window, answerService) {
     .catch( err => console.log('FAiled to reply to Answer', err));
     }
   
-    if(this.poll) {
-      answerService.createPollAnswer(this.poll._id, this.answerData)
-    .then( forum => console.log('Successfully created poll answer', forum))
-    .catch( err => console.log('FAiled to create poll Answer', err));
-    }
+  
   };
 
 }

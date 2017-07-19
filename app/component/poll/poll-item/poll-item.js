@@ -4,7 +4,7 @@ require('./_poll-item.scss');
 
 module.exports = {
   template: require('./poll-item.html'),
-  controller: ['$log', '$window', '$stateParams', 'profileService', 'pollService', 'choiceService', PollItemController],
+  controller: ['$log', '$window', '$stateParams', 'profileService', 'postService', 'choiceService', PollItemController],
   controllerAs: 'pollItemCtrl',
   // bindings: {
   //   forum: '<'
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PollItemController($log, $window, $stateParams, profileService, pollService, choiceService){
+function PollItemController($log, $window, $stateParams, profileService, postService, choiceService){
   $log.debug('PollItemController');
 
   this.pollID = $stateParams.pollID;
@@ -22,11 +22,11 @@ function PollItemController($log, $window, $stateParams, profileService, pollSer
     $log.debug('pollItemCtrl.onInit()');
 
     
-    pollService.fetchPollAns(this.pollID)
+    postService.fetchPostComments(this.pollID)
     .then( poll =>  {
       this.poll =  poll;
-      this.answersArr = poll.comments;
-      console.log('arr ans', this.answersArr)
+      // this.commentsArr = poll.comments;
+      // console.log('arr ans', this.commentsArr);
       this.choicesArr = poll.choices;
       console.log('ARR',poll.choices);
       return;
@@ -39,12 +39,6 @@ function PollItemController($log, $window, $stateParams, profileService, pollSer
           let profileID = $window.localStorage.getItem('profileID');
           this.showDeleteBtn = profileID === this.poster._id;
         }
-        profileService.fetchProfile2(this.poll.postedID)
-       .then( profile => {
-         this.poster = profile;
-         let profileID = $window.localStorage.getItem('profileID');
-         return this.showDeleteBtn = profileID === this.poster._id;
-       });
       });
     })
     .catch(err => console.log('failed fetchForum()', err));
@@ -63,15 +57,39 @@ function PollItemController($log, $window, $stateParams, profileService, pollSer
     console.log(choice);
     // /api/vote/:pollID/:choiceID
 
-    choiceService.vote(this.poll._id, choice._id)
-    .then( choice => console.log('Success choice', choice))
+    postService.vote(this.poll._id, choice._id)
+    .then( poll => this.choicesArr = poll.choices)
     .catch(err => console.log('Failed choice', err));
+  };
+
+  this.likePost = function(){
+    $log.debug('postItemCtrl.likePost()');
+
+    postService.likePost(this.poll._id)
+    .then( post => this.poll = post)
+    .catch( err => console.log('Failed likePost()', err));
+  };
+
+  // this.unLikePost = function() {
+  //   $log.debug('postItemCtrl.unLikePost()');
+
+  //   postService.unLikePost(this.poll._id)
+  //   .then( post => console.log('Successfuly unLikedPost()', post))
+  //   .catch( err => console.log('Failed unLikePost()', err));
+  // };
+
+  this.dislikePost = function() {
+    $log.debug('postItemCtrl.dislikePost()');
+
+    postService.dislikePost(this.poll._id)
+    .then( post => this.poll =  post)
+    .catch( err => console.log('Failed dislikePost()', err));
   };
 
   this.deletePoll = function(){
     $log.debug('pollItemCtrl.deletePoll()');
 
-    pollService.deletePoll(this.poll._id)
+    postService.deletePost(this.poll._id)
     .then( res => console.log('Success', res));
   };
 }

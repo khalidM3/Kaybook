@@ -1,5 +1,4 @@
 <section class="poll-item">
-  <!--<button ng-click="forumItemCtrl.deletePoll()">delete poll</button>-->
   <section class="poll-item-header">
     <button ng-click="pollItemCtrl.deletePoll()">delete</button>
     <h2>{{ pollItemCtrl.poll.title }}</h2>
@@ -9,15 +8,21 @@
     <img ng-src="{{pollItemCtrl.poster.profilePicURI}}" alt="">
     <p> {{pollItemCtrl.poster.name}} </p>
     <p>
-    {{ pollItemCtrl.poll.Desc }}
+    {{ pollItemCtrl.poll.desc }}
     </p>
  </section>
 
+ <button ng-click="pollItemCtrl.likePost()">like {{pollItemCtrl.poll.likes.length}}</button>
+  <button ng-click="pollItemCtrl.dislikePost()">dislike {{pollItemCtrl.poll.dislikes.length}}</button>
+
  <section ng-repeat="choice in pollItemCtrl.choicesArr">
-   <button ng-click="pollItemCtrl.vote(choice)"> {{choice.title}} {{ choice.votes.length }} </button>
+   <img ng-src="{{choice.picURI}}" alt="">
+   <button ng-click="pollItemCtrl.vote(choice)">
+      {{choice.name}} {{ choice.voters.length }} 
+      </button>
  </section>
 
-  <create-answer poll="pollItemCtrl.poll"></create-answer>
+  <create-answer post="pollItemCtrl.poll"></create-answer>
 
-  <answer-item ng-repeat="answer in pollItemCtrl.answersArr" poll="pollItemCtrl.poll" answer="answer"></answer-item>
+  <answer-item ng-repeat="answer in pollItemCtrl.poll.comments" post="pollItemCtrl.poll" answer="answer"></answer-item>
 </section>
