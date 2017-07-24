@@ -4,7 +4,7 @@ require('./_article-item.scss');
 
 module.exports = {
   template: require('./article-item.html'),
-  controller: ['$log', '$window', '$stateParams', 'profileService', 'articleService', ArticleItemController],
+  controller: ['$log', '$window', '$stateParams', 'profileService', 'postService', ArticleItemController],
   controllerAs: 'articleItemCtrl',
   bindings: {
     page: '<'
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function ArticleItemController($log, $window, $stateParams, profileService, articleService){
+function ArticleItemController($log, $window, $stateParams, profileService, postService){
   $log.debug('ArticleItemController');
 
   this.articleID = $stateParams.articleID;
@@ -22,15 +22,15 @@ function ArticleItemController($log, $window, $stateParams, profileService, arti
     $log.debug('articleItemCtrl.onInit()');
 
     
-    articleService.fetchArticleAns(this.articleID)
+    postService.fetchPostComments(this.articleID)
     .then( article =>  {
       this.article =  article;
       this.commentsArr = article.comments;
-      console.log('ARR',this.commentsArr);
+      // console.log('ARR',this.commentsArr);
       return;
     })
     .then( () => {
-      profileService.fetchProfile2(this.article.posterPID)
+      profileService.fetchProfile2(this.article.posterID)
       .then( profile =>  {
         this.poster = profile;
         let profileID = $window.localStorage.getItem('profileID');
@@ -40,10 +40,34 @@ function ArticleItemController($log, $window, $stateParams, profileService, arti
     .catch(err => console.log('failed fetchArticle()', err));
   };
 
+  this.likePost = function(){
+    $log.debug('postItemCtrl.likePost()');
+
+    postService.likePost(this.article._id)
+    .then( post => this.article = post)
+    .catch( err => console.log('Failed likePost()', err));
+  };
+
+  // this.unLikePost = function() {
+  //   $log.debug('postItemCtrl.unLikePost()');
+
+  //   postService.unLikePost(this.article._id)
+  //   .then( post => console.log('Successfuly unLikedPost()', post))
+  //   .catch( err => console.log('Failed unLikePost()', err));
+  // };
+
+  this.dislikePost = function() {
+    $log.debug('postItemCtrl.dislikePost()');
+
+    postService.dislikePost(this.article._id)
+    .then( post => this.article =  post)
+    .catch( err => console.log('Failed dislikePost()', err));
+  };
+
   this.deleteArticle = function(){
     $log.debug('articleItemCtrl.deleteArticle()');
 
-    articleService.deleteArticle(this.article._id)
+    postService.deletePost(this.article._id)
     .then( res => console.log('Successfully deleted article', res))
     .catch( err => console.log('Failed to delete article', err));
     

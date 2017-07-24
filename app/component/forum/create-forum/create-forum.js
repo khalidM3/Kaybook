@@ -4,7 +4,7 @@ require('./_create-forum.scss');
 
 module.exports = {
   template: require('./create-forum.html'),
-  controller: ['$log', '$window', 'forumService', CreateForumController],
+  controller: ['$log', '$window', 'postService', CreateForumController],
   controllerAs: 'createForumCtrl',
   bindings: {
     page: '<',
@@ -15,26 +15,27 @@ module.exports = {
   }
 };
 
-function CreateForumController($log, $window, forumService) {
+function CreateForumController($log, $window, postService) {
   $log.debug('CreateForumController');
 
-  this.forum = {};
+  this.question = {};
+  this.question.type='question';
   
-  this.createForum = function(){
+  this.createQuestion = function(){
     $log.debug('createForumCtrl.createForum()');
 
     let profileID = $window.localStorage.getItem('profileID');
     let admin = profileID === this.resolve.page.profileID;
 
     if( !admin ) {
-      forumService.createForum(this.resolve.page._id, this.forum)
-      .then( forum => console.log('Success createForum()', forum))
-      .catch(err => console.log('Failed createForum()', err));
+      postService.createPost(this.resolve.page._id, this.question)
+      .then( question => console.log('Success createPost()', question))
+      .catch(err => console.log('Failed createPost()', err));
     }
 
     if( admin ) {
-      forumService.createForumFeed(this.resolve.page._id, this.forum)
-      .then( forum => console.log('Success createForumFeed()', forum))
+      postService.createFeed(this.resolve.page._id, this.question)
+      .then( question => console.log('Success createForumFeed()', question))
       .catch(err => console.log('Failed createForumFeed()', err));
     }
     

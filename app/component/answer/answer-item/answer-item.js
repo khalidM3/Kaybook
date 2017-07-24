@@ -9,8 +9,7 @@ module.exports = {
   bindings: {
     answer: '=',
     parent: '=',
-    article: '=',
-    poll: '='
+    post: '='
   }
 };
 
@@ -25,9 +24,9 @@ function AnswerItemController($log, $window, $stateParams, answerService, profil
     $log.debug('answerItemCtrl.onInit()');
 
     let profileID = $window.localStorage.getItem('profileID');
-    this.showDeleteBtn = profileID === this.answer.answerPosterPID;
+    this.showDeleteBtn = profileID === this.answer.posterID;
 
-    profileService.fetchProfile2(this.answer.answerPosterPID)
+    profileService.fetchProfile2(this.answer.posterID)
     .then( profile => this.poster = profile);
   };
 
@@ -78,19 +77,7 @@ function AnswerItemController($log, $window, $stateParams, answerService, profil
         this.answer = null;
         return;
       })
-      .catch( err => console.log('Failed to delete an reply', err));
-    }
-
-    if(this.article) {
-      return answerService.deleteArticleAnswer(this.answer._id)
-      .then( article => console.log('Successfuly deleted article answer', article))
-      .catch( err => console.log('Failed to delet an article answer', err));
-    }
-
-    if(this.poll) {
-      return answerService.deletePollAnswer(this.answer._id)
-      .then( poll => console.log('Successfuly deleted poll answer', poll))
-      .catch( err => console.log('Failed to delet an poll answer', err));
+      .catch( err => console.log('Failed to delete a reply', err));
     }
 
     return answerService.deleteAnswer(this.answer._id)

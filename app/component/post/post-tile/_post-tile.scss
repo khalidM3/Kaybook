@@ -18,9 +18,20 @@
    }
  }
 
+ .post-tile {
+   display: block;
+   background-color: white;
+ }
+
  .post-content {
    img {
      width: 100%;
    }
+ }
+
+ .post-desc {
+   background-color: white;
+   border: 1px solid black;
+   height: 100px;
  }
 }

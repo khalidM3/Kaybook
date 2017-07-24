@@ -63,6 +63,33 @@ function postService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.createProfilePost = function(post) {
+    $log.debug('postService.createPost()');
+
+    return authService.getToken()
+    .then( token  => {
+      let url = `${__API_URL__}/api/posttoprofile`;
+      let config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      console.log(url);
+      return $http.post(url, post, config);
+    })
+    .then( res => {
+      $log.log('profile post created', res.data);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('FAILED to post to profile', err);
+      return $q.reject(err);
+    });
+  };
+
   service.fetchPost = function(postID) {
     $log.debug('postService.fetchMyPosts()');
 
@@ -84,6 +111,56 @@ function postService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.fetchPostComments = function(postID) {
+    $log.debug('postService.fetchMyPosts()');
+
+    let url = `${__API_URL__}/api/post/comments/${postID}`;
+    let config = {
+      headers: {
+        Accept: 'application/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('post retrieved', res);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error(err.message, 'FAILED TO RETRIEVE');
+      return $q.reject(err);
+    });
+  };
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//            POLL
+
+  service.vote = function(postID, choiceID ) {
+    $log.debug('postService.fetchMyPosts()');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/post/vote/${postID}/${choiceID}`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('post retrieved', res);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error(err.message, 'FAILED TO RETRIEVE');
+      return $q.reject(err);
+    });
+  };
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   service.fetchPagePosts = function(pageID) {
     $log.debug('postService.fetchPagePosts()');
 
@@ -212,9 +289,9 @@ function postService($q, $log, $http, $window, authService) {
       };
       return $http.get(url, config);
     })
-    .then( post => {
-      $log.log('post liked', post);
-      return post;
+    .then( res => {
+      $log.log('post liked', res);
+      return res.data;
     })
     .catch( err => {
       $log.error(err.message, 'FAILED to like post');
@@ -260,9 +337,9 @@ function postService($q, $log, $http, $window, authService) {
       };
       return $http.get(url, config);
     })
-    .then( post => {
-      $log.log('post disliked', post);
-      return post;
+    .then( res => {
+      $log.log('post liked', res);
+      return res.data;
     })
     .catch( err => {
       $log.error(err.message, 'FAILED to dislike post');

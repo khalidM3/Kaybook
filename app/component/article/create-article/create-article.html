@@ -3,11 +3,11 @@
 <section>
   <form name="createArticleForm" ng-submit="createArticleCtrl.createArticle()">
 
-    <label for="name">Question title</label>
+    <label for="name">article title</label>
     <input name="name" type="text" ng-minlength="4" ng-model="createArticleCtrl.article.title">
 
-    <label for="Desc">Question description</label>
-    <input name="Desc" type="text" ng-minlength="4" ng-model="createArticleCtrl.article.content">
+    <label for="Desc">article description</label>
+    <textarea name="Desc" type="text" ng-minlength="4" ng-model="createArticleCtrl.article.desc"></textarea>
 
     <button ng-disabled="createArticleForm.$invalid">create article</button>
   </form>

@@ -9,11 +9,24 @@
       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost()">delete</button>
     </section>
 
-    <section class="post-content" ng-click="postTileCtrl.openComponentModal(postTileCtrl.post)">
-      <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.postPicURI }}" alt="">
-      <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.postPicURI}}" controls>
+    <section class="body" ng-click="postTileCtrl.goTo()">
+      <section class="post-tile">
+      <h2> {{ postTileCtrl.post.title}} </h2>
+    </section>
+
+    <section class="post-content">
+      <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI }}" alt="">
+      <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI}}" controls>
            Your browser does not support HTML5
       </video>
     </section>
+
+    <section class="post-desc">
+      <p>
+        {{postTileCtrl.post.desc}}
+      </p>
+    </section>
+    </section>
+    
 
 </section>

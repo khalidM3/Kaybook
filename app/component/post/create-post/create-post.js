@@ -20,6 +20,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   $log.debug('HERE !!!',this.profile);
 
   this.post = {};
+  this.post.type = 'pic';
   this.uploadedPost = {};
 
   // this.profile = this.resolve.items;

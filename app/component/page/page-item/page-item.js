@@ -47,9 +47,9 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     this.merchesArr = [];
 
     this.fetchPagePosts();
-    this.fetchPageForums();
-    this.fetchPageArticles();
-    this.fetchPagePolls();
+    // this.fetchPageForums();
+    // this.fetchPageArticles();
+    // this.fetchPagePolls();
   };
 
 
@@ -105,9 +105,9 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     this.merchesArr = [];
     
     this.fetchPostFeed();
-    this.fetchForumFeed();
-    this.fetchArticleFeed();
-    this.fetchPollFeed();
+    // this.fetchForumFeed();
+    // this.fetchArticleFeed();
+    // this.fetchPollFeed();
   };
 
   this.fetchPostFeed = function(){

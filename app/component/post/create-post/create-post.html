@@ -17,10 +17,21 @@
         </span>
 
         <div>
-          <input type="text" placeholder="choose a link" ng-model="createPostCtrl.post.postPicURI">
+          <input type="text" placeholder="choose a link" ng-model="createPostCtrl.post.picURI">
         </div>
 
       </div>
+
+      <div>
+        <input class="input-std ignore-valid"
+              name="desc"
+              type="text"
+              placeholder=" "
+              ng-minlength="4"
+              ng-model="createPostCtrl.post.title" required>
+        <label for="desc">Title</label>
+      </div>
+
 
         <div>
         <input class="input-std ignore-valid"
@@ -28,7 +39,7 @@
               type="text"
               placeholder=" "
               ng-minlength="4"
-              ng-model="createPostCtrl.post.description" required>
+              ng-model="createPostCtrl.post.desc" required>
         <label for="desc">Description</label>
       </div>
 
