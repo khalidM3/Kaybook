@@ -4,7 +4,7 @@ require('./_page-item.scss');
 
 module.exports = {
   template: require('./page-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$location', '$uibModal', 'pageService', 'postService', 'forumService', 'pollService', 'articleService', 'merchService',PageItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$location', '$uibModal', 'pageService', 'postService', 'merchService',PageItemController],
   controllerAs: 'pageItemCtrl',
   bindings: {
     page: '<' 
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, forumService, pollService, articleService, merchService){
+function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, merchService){
   $log.debug('PageItemController');
 
 
@@ -42,14 +42,10 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     this.showPostBtn = true;
 
     this.postsArr = [];
-    this.forumsArr = [];
-    this.pollsArr = [];
     this.merchesArr = [];
 
     this.fetchPagePosts();
-    // this.fetchPageForums();
-    // this.fetchPageArticles();
-    // this.fetchPagePolls();
+  
   };
 
 
@@ -66,29 +62,6 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     .catch( err => console.log('Failed ', err));
   };
 
-  this.fetchPageForums = function(){
-    $log.debug('pageItemCtrl.fetchPageForum()');
-
-    forumService.fetchPageForums(this.page._id)
-    .then( forums => this.forumsArr = forums)
-    .catch( err => console.log('failed fetchPageForum', err));
-  };
-
-  this.fetchPageArticles = function(){
-    $log.debug('pageItemCtrl.fetchPageArticle()');
-
-    articleService.fetchPageArticles(this.page._id)
-    .then( articles => this.articlesArr = articles)
-    .catch( err => console.log('failed fetchPageArticle', err));
-  };
-
-  this.fetchPagePolls = function(){
-    $log.debug('pageItemCtrl.fetchPagePolls()');
-
-    pollService.fetchPagePolls(this.page._id)
-    .then( polls => this.pollsArr = polls)
-    .catch( err => console.log('failed fetchPagePolls', err));
-  };
 
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -100,14 +73,9 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     this.showPostBtn = true;
 
     this.postsArr = [];
-    this.forumsArr = [];
-    this.pollsArr = [];
     this.merchesArr = [];
     
     this.fetchPostFeed();
-    // this.fetchForumFeed();
-    // this.fetchArticleFeed();
-    // this.fetchPollFeed();
   };
 
   this.fetchPostFeed = function(){
@@ -118,29 +86,6 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     .catch(err => console.log('Failed to fetch feed', err));
   };
 
-  this.fetchForumFeed = function(){
-    $log.debug('pageItemCtrl.fetchForumFeed');
-
-    forumService.fetchForumFeed(this.page._id)
-    .then( forums => this.forumsArr = forums)
-    .catch(err => console.log('Failed to fetch forum feed', err));
-  };
-
-  this.fetchArticleFeed = function(){
-    $log.debug('pageItemCtrl.fetchArticleFeed');
-
-    articleService.fetchArticleFeed(this.page._id)
-    .then( articles => this.articlesArr = articles)
-    .catch(err => console.log('Failed to fetch article feed', err));
-  };
-
-  this.fetchPollFeed = function(){
-    $log.debug('pageItemCtrl.fetchPollFeed()');
-
-    pollService.fetchPollFeed(this.page._id)
-    .then( polls => this.pollsArr = polls)
-    .catch(err => console.log('Failed to fetch poll feed', err));
-  };
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                    MERCH
   this.fetchMerch = function(){
@@ -149,8 +94,6 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     this.showPostBtn = false;
 
     this.postsArr = [];
-    this.forumsArr = [];
-    this.pollsArr = [];
 
     this.fetchPageMerch();
   };
@@ -201,9 +144,9 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
   };
 
 
-  this.openComponentModal = function (page) {
-
-    var modalInstance = $uibModal.open({
+  this.openCreatePostModal = function () {
+    let page = this.page;
+    $uibModal.open({
       animation: this.animationsEnabled,
       component: 'createPost',
       resolve: {
@@ -214,48 +157,10 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     });
   };
 
-  this.openCreateForumModal = function (page) {
 
-    var modalInstance = $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'createForum',
-      resolve: {
-        page: function () {
-          return page;
-        }
-      }
-    });
-  };
-
-  this.openCreateArticleModal = function (page) {
-
-    var modalInstance = $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'createArticle',
-      resolve: {
-        page: function () {
-          return page;
-        }
-      }
-    });
-  };
-
-  this.openCreatePollModal = function (page) {
-
-    var modalInstance = $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'createPoll',
-      resolve: {
-        page: function () {
-          return page;
-        }
-      }
-    });
-  };
-
-  this.openCreateMerchModal = function (page) {
-
-    var modalInstance = $uibModal.open({
+  this.openCreateMerchModal = function () {
+    let page = this.page;
+    $uibModal.open({
       animation: this.animationsEnabled,
       component: 'createMerch',
       resolve: {
