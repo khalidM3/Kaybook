@@ -1,0 +1,28 @@
+<section class="poll-item">
+  <section class="poll-item-header">
+    <button ng-click="pollItemCtrl.deletePoll()">delete</button>
+    <h2>{{ pollItemCtrl.poll.title }}</h2>
+  </section>
+ 
+ <section class="poll-item-poster">
+    <img ng-src="{{pollItemCtrl.poster.profilePicURI}}" alt="">
+    <p> {{pollItemCtrl.poster.name}} </p>
+    <p>
+    {{ pollItemCtrl.poll.desc }}
+    </p>
+ </section>
+
+ <button ng-click="pollItemCtrl.likePost()">like {{pollItemCtrl.poll.likes.length}}</button>
+  <button ng-click="pollItemCtrl.dislikePost()">dislike {{pollItemCtrl.poll.dislikes.length}}</button>
+
+ <section ng-repeat="choice in pollItemCtrl.choicesArr">
+   <img ng-src="{{choice.picURI}}" alt="">
+   <button ng-click="pollItemCtrl.vote(choice)">
+      {{choice.name}} {{ choice.voters.length }} 
+      </button>
+ </section>
+
+  <create-answer post="pollItemCtrl.poll"></create-answer>
+
+  <answer-item ng-repeat="answer in pollItemCtrl.poll.comments" post="pollItemCtrl.poll" answer="answer"></answer-item>
+</section>
