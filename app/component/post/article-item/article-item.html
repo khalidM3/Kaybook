@@ -1,0 +1,22 @@
+<section class="article-item">
+  <button ng-click="articleItemCtrl.deleteArticle()">delete article</button>
+  <section class="article-item-header">
+    <h2>{{ articleItemCtrl.article.title }}</h2>
+
+    <button ng-click="articleItemCtrl.likePost()">like {{ articleItemCtrl.article.likes.length }} </button>
+    <button ng-click="articleItemCtrl.dislikePost()">dislike {{ articleItemCtrl.article.dislikes.length }} </button>
+    <p>
+      <!--<pre>{{ articleItemCtrl.article.desc }}</pre>-->
+          {{ articleItemCtrl.article.desc }}
+    </p>
+  </section>
+ 
+ <section class="article-item-poster">
+    <img ng-src="{{articleItemCtrl.poster.profilePicURI}}" alt="">
+    <p> {{articleItemCtrl.poster.name}} </p>
+ </section>
+
+  <create-answer post="articleItemCtrl.article"></create-answer>
+
+  <answer-item ng-repeat="comment in articleItemCtrl.commentsArr" post="articleItemCtrl.article" answer="comment"></answer-item>
+</section>
