@@ -54,7 +54,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
     this.fiendsPosts = [];
     this.profileArr = [];
     this.pagesArr = [];
-     this.roomsArr = [];
+    this.roomsArr = [];
 
     profileService.fetchFriends(this.profile._id)
     .then( profiles => this.profileArr = profiles.friends)

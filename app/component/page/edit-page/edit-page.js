@@ -14,13 +14,10 @@ module.exports = {
 function EditPageController($log, pageService){
   $log.debug('EditPageController');
 
-  
-  this.update = {};
-
   this.editPage = function(){
     $log.debug('editPageCtrl.editPage()');
-
-    pageService.editPage(this.page._id, this.update)
+    
+    pageService.editPage(this.page._id, this.page)
     .then( page => console.log('Success editpage()', page))
     .catch(err => console.log('Failed editPage()', err));
   };

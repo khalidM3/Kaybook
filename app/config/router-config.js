@@ -18,7 +18,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     },
     {
       name: 'settings',
-      url: '/settings/:userID',
+      url: '/settings/:section',
       template: require('../view/settings/settings.html'),
       controller: 'SettingsController',
       controllerAs: 'settingsCtrl'

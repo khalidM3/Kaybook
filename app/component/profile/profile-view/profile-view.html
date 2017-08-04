@@ -5,7 +5,7 @@
 
     <ul class="profile-main">
       <li><img ng-src="{{profileViewCtrl.profile.profilePicURI}}"></li>
-      <li>{{profileViewCtrl.profile.name}} follows {{ profileViewCtrl.profile.friendReq.length}} </li>
+      <li>{{profileViewCtrl.profile.name}}</li>
       <li class="theBtns">
          <span>{{profileViewCtrl.profile.friends.length}}</span>
          <!--<span class="joinpage" ng-click="profileViewCtrl.sendReq()">add</span>-->
@@ -20,30 +20,24 @@
    
    <section class="subnav">
     <ul>
-      <li ng-init="profileViewCtrl.updateProfileView()" ng-click="profileViewCtrl.updateProfileView()">posts</li>
-      <li>placeholder</li>
-      <li>placeholder</li>
+      <li ng-click="profileViewCtrl.fetchMyPagePosts()">posts</li>
+      <li ng-click="profileViewCtrl.fetchTimePosts()"> timeline </li>
+      <li> about </li>
     </ul>
   </section>
 
   </div>
-  <div ng-if="profileViewCtrl.showEditOption">
-  <input class="btn-std commenter-button" value="edit profie" type="submit" id="edit-button" ng-if="!profileViewCtrl.showEditView" ng-click="profileViewCtrl.showEditView = true">
-  <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    
-  </div>
+ 
+  <button ng-if="profileViewCtrl.showEditOption" ng-click="profileViewCtrl.goToEditProfile()"> edit profile</button>
 
   <!--<button type="button" class="btn btn-default" ng-click="profileViewCtrl.openComponentModal(profileViewCtrl.profile)">create post</button>-->
-
-  <!--<div>
-    <create-post on-post-created="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></create-post>
-  </div>-->
-
-  <!--<ul>
-    <post-item ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-item>
+<!--
+  <ul>
+    <post-item ng-repeat="post in profileViewCtrl.postsArr" post="post"></post-item>
   </ul>-->
 
-  <!--<ul>
-    <post-tile class="posttile" ng-repeat="post in profileViewCtrl.postsArray" post="post"></post-tile>
-  </ul>-->
+  <ul>
+    <post-tile class="posttile" ng-repeat="post in profileViewCtrl.postsArr" post="post"></post-tile>
+  </ul>
   
 </section>

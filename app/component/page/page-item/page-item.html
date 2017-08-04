@@ -15,7 +15,8 @@
       </li>
     </ul>
     
-   <edit-page ng-if="pageItemCtrl.showEditBtn" page="pageItemCtrl.page"></edit-page>
+   <!--<edit-page ng-if="pageItemCtrl.showEditBtn" page="pageItemCtrl.page"></edit-page>-->
+   <button ng-if="pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.goToEditPage()">edit page</button>
 
    <section class="subnav">
     <ul> 

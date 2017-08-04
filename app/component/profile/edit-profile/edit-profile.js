@@ -7,44 +7,55 @@ module.exports = {
   controller: ['$log', '$window', 'profileService', 'picService', EditProfileController],
   controllerAs: 'editProfileCtrl',
   bindings: {
-    profile: '<',
-    onProfileUpdated: '&'
+    profile: '<'
   }
 };
 
 function EditProfileController($log, $window, profileService, picService) {
   $log.debug('EditProfileController');
 
+
+  
+
+  this.updateProfile = () => {
+    console.log('profile:::', this.profile);
+    profileService.updateProfile(this.profile)
+    .then( profile => {
+      console.log('updated profile', profile);
+      this.profile = profile;
+    });
+  };
+
+
+
+
+  
+}
+
+
   // this.pic = {};
+  // this.bannerPic = {};
+  // let location = $window.location;
+
   // let userID = $window.localStorage.getItem('userID');
   // this.editProfile = function() {
+    
   //   profileService.editProfile(userID, this.profile)
+  //   .then( profile => {
+  //     if( !this.pic) return profile;
+  //     return picService.uploadProfilePic(profile, this.pic);
+  //   })
+  //   .then( profile => {
+  //     if( !this.bannerPic) return profile;
+  //     return picService.uploadProfilePic(profile, this.bannerPic);
+  //   })
+  //   .catch( () => {
+  //     this.pic = null;
+  //     location.reload(true);
+  //     this.onProfileUpdated();
+  //   })
   //   .then( () => this.onProfileUpdated());
   // };
-
-  this.pic = {};
-  this.bannerPic = {};
-  let location = $window.location;
-
-  let userID = $window.localStorage.getItem('userID');
-  this.editProfile = function() {
-    
-    profileService.editProfile(userID, this.profile)
-    .then( profile => {
-      if( !this.pic) return profile;
-      return picService.uploadProfilePic(profile, this.pic);
-    })
-    .then( profile => {
-      if( !this.bannerPic) return profile;
-      return picService.uploadProfilePic(profile, this.bannerPic);
-    })
-    .catch( () => {
-      this.pic = null;
-      location.reload(true);
-      this.onProfileUpdated();
-    })
-    .then( () => this.onProfileUpdated());
-  };
 
   // this.uploadProfilePic = function() {
   //   let location = $window.location;
@@ -61,5 +72,4 @@ function EditProfileController($log, $window, profileService, picService) {
   // this.onProfileUpdated = function() {
     
   // };
-}
 

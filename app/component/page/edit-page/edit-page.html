@@ -1,20 +1,27 @@
-<section ng-init="showEditBtn = true" class="editpage">
-
-<button ng-show="showEditBtn" ng-click="showEditBtn=false">edit page</button>
-<section ng-show="!showEditBtn">
+<section class="edit-page">
   
   <form name="editPageForm" ng-submit="editPageCtrl.editPage()">
 
     <label for="name">Page name</label>
-    <input name="name" type="text" ng-minlength="4" ng-model="editPageCtrl.update.pageName">
+    <input name="name" type="text" ng-minlength="4" ng-model="editPageCtrl.page.pageName">
 
     <label for="Desc">Page description</label>
-    <input name="Desc" type="text" ng-minlength="4" ng-model="editPageCtrl.update.pageDesc">
+    <textarea cols="40" rows="5" placeholder="editPageCtrl.page.pageDesc" ng-model="editPageCtrl.page.pageDesc">
+    </textarea>
+
+    <label for="">page banner </label>
+    <img ng-src="{{editPageCtrl.page.pageBannerURI}}" alt="">
+    <input name="name" type="text" ng-minlength="4" ng-model="editPageCtrl.page.pageBannerURI">
+    <button type="button" ngf-select ng-model="editPageCtrl.page.picfile">
+      select an banner image
+    </button>
+
+    <label for="">page greeting</label>
+    <textarea name="" id="" cols="40" rows="5"></textarea>
+
+    <label for="status">public</label>
+    <input type="checkbox" name="status" value="private">
 
     <button ng-disabled="editPageForm.$invalid">edit page</button>
   </form>
-</section>
-
-<button ng-show="!showEditBtn" ng-click="showEditBtn = true">cancel</button>
-  
 </section>

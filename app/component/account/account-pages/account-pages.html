@@ -1,0 +1,11 @@
+<section class="account-pages">
+
+  <h2>Account pages</h2>
+
+  <ul class="accountContent-navbar">
+    <li ng-click="accountPagesCtrl.changeCurr(page)" ng-repeat="page in accountPagesCtrl.pagesArr"> {{page.pageName}} </li>
+  </ul>
+</section>
+
+
+<edit-page page="accountPagesCtrl.currpage"></edit-page>

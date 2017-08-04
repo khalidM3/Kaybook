@@ -171,6 +171,10 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     });
   };
 
+  this.goToEditPage = () => {
+    $location.url('settings/pages'); // change to 'seetings/pages/:pageID'
+  };
+
 }
 
 // function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModal, profileService, postService) {

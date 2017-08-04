@@ -59,21 +59,36 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
   this.createPost = function(){
     $log.debug('createPostCtrl.createPost()');
-    this.post.timeline = true;
-    let profileID = $window.localStorage.getItem('profileID');
-    let admin = profileID === this.resolve.page.profileID;
+    console.log('creating post on ',this.resolve.page ? this.resolve.page : this.resolve.profile)
 
-    if( !admin ) {
-      postService.createPost(this.resolve.page._id, this.post)
+
+    if(this.resolve.profile) {
+      console.log('going inside profile');
+      return postService.createProfilePost(this.post)
       .then( post => console.log('Success createPost()', post))
       .catch(err => console.log('Failed createPost()', err));
     }
 
-    if( admin ) {
-      postService.createFeed(this.resolve.page._id, this.post)
-      .then( post => console.log('Success createForumFeed()', post))
-      .catch(err => console.log('Failed createForumFeed()', err));
+    if( this.resolve.page) {
+      console.log('inside page');
+      let profileID = $window.localStorage.getItem('profileID');
+      let admin = profileID === this.resolve.page.profileID;
+      if( !admin ) {
+        console.log('inside page !admin')
+        postService.createPost(this.resolve.page._id, this.post)
+        .then( post => console.log('Success createPost()', post))
+        .catch(err => console.log('Failed createPost()', err));
+      }
+
+      if( admin ) {
+        console.log('inside page admin')
+        postService.createFeed(this.resolve.page._id, this.post)
+        .then( post => console.log('Success createForumFeed()', post))
+        .catch(err => console.log('Failed createForumFeed()', err));
+      }
     }
+
+    
     
   };
 

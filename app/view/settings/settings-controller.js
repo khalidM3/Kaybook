@@ -2,15 +2,50 @@
 
 require('./_settings.scss');
 
-module.exports = ['$log', '$rootScope', '$stateParams', '$window', 'profileService', 'postService', 'commentService', SettingsController];
+module.exports = ['$log', '$rootScope', '$stateParams', '$location', 'profileService', 'postService', 'commentService', SettingsController];
 
 
-function SettingsController($log, $rootScope, $stateParams, $window, profileService, postService, commentService) {
+function SettingsController($log, $rootScope, $stateParams, $location, profileService, postService, commentService) {
   $log.debug('SettingsController');
 
 
 
   this.showAccountContent = true;
+
+  this.$onInit = () => {
+    profileService.fetchMyProfile()
+    .then( profile => {
+      this.profile = profile;
+      this.checkPath();
+    });
+
+  };
+
+  this.checkPath = () => {
+    let section = $stateParams.section;
+
+    this.showProfile = false;
+    this.showContent = false;
+
+    this['show'+section] = true;
+    console.log(this['show'+section]);
+  };
+
+
+  this.accountProfile = () => {
+    $location.url('settings/profile');
+  };
+
+  this.accountContent = () => {
+    $location.url('settings/content');
+  };
+
+  this.accountPages = () => {
+    $location.url('settings/pages');
+  }
+  
+
+} 
 
   // this.myUserID = $stateParams.userID;
   // this.myUserID = $window.localStorage.getItem('userID');
@@ -112,6 +147,3 @@ function SettingsController($log, $rootScope, $stateParams, $window, profileServ
   //     });
   //   });
   // };
-
-
-}

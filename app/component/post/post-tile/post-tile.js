@@ -42,48 +42,6 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
 
   this.animationsEnabled = true;
 
-  // this.open = function (size, parentSelector) {
-  //   // var parentElem = parentSelector ? 
-  //   //   angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
-  //   var modalInstance = $uibModal.open({
-  //     animation: this.animationsEnabled,
-  //     // ariaLabelledBy: 'modal-title',
-  //     // ariaDescribedBy: 'modal-body',
-  //     // templateUrl: 'myModalContent.html',
-  //     // controller: 'ModalInstanceCtrl',
-  //     // controllerAs: 'this',
-  //     size: size,
-  //     // appendTo: parentElem,
-  //     // resolve: {
-  //     //   items: function () {
-  //     //     return this.items;
-  //     //   }
-  //     // }
-  //   });
-
-  //   // modalInstance.result.then(function (selectedItem) {
-  //   //   this.selected = selectedItem;
-  //   // }, function () {
-  //   //   $log.info('Modal dismissed at: ' + new Date());
-  //   // });
-  // };
-
-
-
-  // this.openComponentModal = function () {
-  //   let post = this.post;
-  //   var modalInstance = $uibModal.open({
-  //     animation: this.animationsEnabled,
-  //     component: 'postItem',
-  //     resolve: {
-  //       post: function () {
-  //         console.log('<><><><><><><><><><><><><>', post);
-  //         return post; 
-  //       }
-  //     }
-  //   });
-
-  // };
 
   this.openEditPostModal = function () {
     let post = this.post;
@@ -99,28 +57,25 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
     });
   };
 
+
   this.deletePost = function(){
-    $log.debug('postTileController.deletePost()');
-    //TODO => fix the delete pic route
-    let post = this.post;
-    postService.deletePost(post._id)
-    .then( () => {
-      picService.deletePostPic(post._id);
-    })
-    .catch( (err) => $log.error('Did not delete the post', err));
+    $log.debug('postTileCtrl.deletePost()');
+
+    postService.deletePost(this.post._id)
+    .then( res => console.log('Successfully deleted question', res))
+    .catch( err => console.log('Failed to delete question', err));
+    
   };
 
   // this.deletePost = function(){
   //   $log.debug('postTileController.deletePost()');
-
+  //   //TODO => fix the delete pic route
   //   let post = this.post;
-  //   picService.deletePostPic(post._id)
+  //   postService.deletePost(post._id)
   //   .then( () => {
-  //     return postService.deletePost(post._id);
+  //     picService.deletePostPic(post._id);
   //   })
-  //   .catch( () => {
-  //     return postService.deletePost(post._id);
-  //   });
+  //   .catch( (err) => $log.error('Did not delete the post', err));
   // };
   
   this.goTo = () => {
@@ -139,24 +94,6 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
     });
 
   };
-
-  // this.goToForum = function(){
-  //   $log.debug('forumTileCtrl.goToForum()');
-
-  //   $location.url(`/forum/${this.forum._id}`);
-  // };
-
-  // this.goToArticle = function(){
-  //   $log.debug('articleTileCtrl.goToArticle()');
-
-  //   $location.url(`/article/${this.article._id}`);
-  // };
-
-  // this.goToPoll = function(){
-  //   $log.debug('pollTileCtrl.goToPoll()');
-
-  //   $location.url(`/poll/${this.poll._id}`);
-  // };
 
 
 

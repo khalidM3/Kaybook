@@ -1,8 +1,8 @@
 <section>
   <ul class="subnav">
     <li ng-init="homeCtrl.fetchJoinedPosts()" ng-click="homeCtrl.fetchJoinedPosts()">joined posts</li>
-    <li ng-click="homeCtrl.fetchAllProfiles()">explore</li>
-    <li ng-click="homeCtrl.fetchJoinedProfiles()">followed</li>
+    <li ng-click="homeCtrl.explore()">explore</li>
+    <li ng-click="homeCtrl.fetchJoinedFeed()">feed</li>
     <li ng-click="homeCtrl.goToSocial()">social</li>
     <li>placeholder</li>
   </ul>
@@ -16,7 +16,7 @@
   </section>
 
   <section>
-    <post-tile ng-repeat="post in homeCtrl.joinedPosts track by $index" post="post"></post-tile>
+    <post-tile ng-repeat="post in homeCtrl.postsArr" post="post"></post-tile>
   </section>
 
 
