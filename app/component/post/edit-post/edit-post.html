@@ -1,4 +1,71 @@
-<section class="edit-post-modal">
+<section class="edit-post">
+
+  <!--<div class="choosebtns">
+    <button ng-click="editPostCtrl.chosePost()"> Post</button>
+    <button ng-click="editPostCtrl.choseQuest()"> Question</button>
+    <button ng-click="editPostCtrl.choseArticle()"> Article</button>
+    <button ng-click="editPostCtrl.chosePoll()"> Poll</button>
+  </div>-->
+
+  
+
+  <form name="editPostForm" ng-submit="editPostCtrl.updatePost()">
+
+
+    <label for="name"> title</label>
+    <input name="name" type="text" ng-minlength="4" ng-model="editPostCtrl.post.title">
+
+    <label for="Desc">description</label>
+    <textarea name="Desc" type="text" ng-minlength="4" ng-model="editPostCtrl.post.desc"></textarea>
+
+    <section class="post" ng-if="editPostCtrl.showPic">
+      <label for="pic">pic url</label>
+      <img ng-src="{{editPostCtrl.post.picURI}}" alt="">
+      <input name="pic" type="text" ng-minlength="4" ng-model="editPostCtrl.post.picURI"></input>
+    </section>
+
+    <section class="poll" ng-if="editPostCtrl.showPoll">
+      <section class="choice-table" ng-show="editPostCtrl.post.choices[0]">
+        <table>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th>remove</th>
+          </tr>
+
+        <tr ng-repeat="choice in editPostCtrl.post.choices track by $index">
+        
+          <td> <img ng-src="{{choice.picURI}}" alt=""> </td>
+          <td> {{choice.name}} </td>
+          <td ng-click="editPostCtrl.removeChoice(choice)"> X </td>
+
+        </tr>
+        </table>
+      </section>
+
+      <label for="name">choice name</label>
+      <input name="name" type="text" ng-minlength="1" ng-model="editPostCtrl.choice">
+
+      <label for="desc">choice pic</label>
+      <input name="desc" type="text" ng-minlength="1" ng-model="editPostCtrl.picURI">
+    
+      <span ng-click="editPostCtrl.addChoice()">add choice</span>
+    </section>
+
+
+    <button>edit post</button>
+  </form>
+</section>
+
+
+
+
+
+
+
+
+
+<!--<section class="edit-post-modal">
       <img class="edit-post-img" ng-src="{{editPostCtrl.resolve.post.postPicURI}}" alt="">
   edit <p>{{editPostCtrl.resolve.post.description}}</p>
 
@@ -14,7 +81,6 @@
       </div>
 
       <div>
-         <!--<label for="desc">Description</label>-->
         <input class="input-std"
               name="desc"
               type="text"
@@ -30,4 +96,4 @@
   <button ng-click="editPostCtrl.bark()">bark</button>
 
 
-</section>
+</section>-->
