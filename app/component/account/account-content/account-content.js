@@ -20,6 +20,9 @@ function AccountContentController($log, $rootScope, $stateParams, $window, profi
   this.myUserID = $window.localStorage.getItem('userID');
   this.myProfile = [];
 
+  this.$onInit = () => {
+    this.fetchMyPosts();
+  }
   // this.fetchMyProfile = function(){
   //   $log.debug('AccountContentController.fetchMyProfile()');
 
@@ -43,7 +46,10 @@ function AccountContentController($log, $rootScope, $stateParams, $window, profi
     this.answersArr = [];
     
     postService.fetchMyPosts()
-    .then( posts => this.postsArr = posts);
+    .then( posts =>  {
+      this.postsArr = posts;
+      this.posts = posts;
+    });
   };
 
   this.fetchMyAnswers = () => {
@@ -53,6 +59,11 @@ function AccountContentController($log, $rootScope, $stateParams, $window, profi
 
     answerService.fetchMyAnswers()
     .then( answers => this.answersArr = answers);
+  };
+
+  this.filterType = (type) => {
+    console.log(type);
+    this.posts = this.postsArr.filter( post => post.type == type);
   };
 
     
