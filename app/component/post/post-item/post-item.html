@@ -7,8 +7,8 @@
 
     <ul class="post-body">
       <li class="post-content">
-        <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.resolve.post.postPicURI }}" alt="">
-        <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.resolve.post.postPicURI }}" controls>
+        <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.resolve.post.picURI }}" alt="">
+        <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.resolve.post.picURI }}" controls>
           Youre browser does not support HTML5
         </video>
       </li>
@@ -18,15 +18,33 @@
             <img src="{{postItemCtrl.poster.profilePicURI}}">
             <div class="poster-name">Poster: {{postItemCtrl.poster.name}}</div>
             <div class="date">Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</div>
-            <div> {{ postItemCtrl.resolve.post.description }}</div>
+            <h2> {{ postItemCtrl.resolve.post.title }}</h2>
+             <!-- <div> {{ postItemCtrl.resolve.post.desc }}</div> -->
+
+             <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
+              <button ng-click="postItemCtrl.vote(choice)">
+                <img ng-src="{{choice.picURI}}" alt="">
+                  {{choice.name}} {{ choice.voters.length }} 
+                  </button>
+            </section>  
+
+            <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
+                   <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
+                    <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
+                 <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
+                 
+
+              <!-- {{word.payload}}
+              {{word.type === 'img'}} -->
+            </div>
+
             <div>
               <button ng-click="postItemCtrl.likePost()">like {{postItemCtrl.resolve.post.likes.length}}</button>
-              <button ng-click="postItemCtrl.unLikePost()">unlike</button>
               <button ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.resolve.post.dislikes.length}}</button>
             </div>
           </li>
 
-          <li class="create-comment">
+          <!--<li class="create-comment">
             <create-comment
             logged-in="postItemCtrl.loggedIn" 
             on-comment-created="postItemCtrl.updatePostView()"
@@ -40,7 +58,11 @@
                           on-comment-change="postItemCtrl.updatePostView()"
                           profile="postItemCtrl.poster">
             </comment-item>
-          </li>
+          </li>-->
+
+          <create-answer post="postItemCtrl.post"></create-answer>
+
+          <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item>
 
         </ul>
     </li>

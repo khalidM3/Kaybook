@@ -6,7 +6,7 @@
     <ul class="profile-main">
       <li><img ng-src="{{profileViewCtrl.profile.profilePicURI}}"></li>
       <li>{{profileViewCtrl.profile.name}}</li>
-      <li class="theBtns">
+      <li class="theBtns" ng-if="!profileViewCtrl.showEditOption">
          <span>{{profileViewCtrl.profile.friends.length}}</span>
          <!--<span class="joinpage" ng-click="profileViewCtrl.sendReq()">add</span>-->
          <span ng-if="profileViewCtrl.showSendReqBtn" ng-click="profileViewCtrl.sendReq()"> send req </span>
@@ -15,6 +15,7 @@
          <span ng-if="profileViewCtrl.showUnFriendBtn" ng-click="profileViewCtrl.unFriend()">unfriend</span>
          <!--<span class="joinpage" ng-if="profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.removeFriend()">remove</span>-->
       </li>
+        <li> <button ng-if="profileViewCtrl.showEditOption" ng-click="profileViewCtrl.goToEditProfile()"> edit profile</button></li>
     </ul>
     
    
@@ -22,13 +23,12 @@
     <ul>
       <li ng-click="profileViewCtrl.fetchMyPagePosts()">posts</li>
       <li ng-click="profileViewCtrl.fetchTimePosts()"> timeline </li>
-      <li> about </li>
+      <li ng-click="profileViewCtrl.about()"> about </li>
     </ul>
   </section>
 
   </div>
- 
-  <button ng-if="profileViewCtrl.showEditOption" ng-click="profileViewCtrl.goToEditProfile()"> edit profile</button>
+
 
   <!--<button type="button" class="btn btn-default" ng-click="profileViewCtrl.openComponentModal(profileViewCtrl.profile)">create post</button>-->
 <!--
@@ -39,5 +39,9 @@
   <ul>
     <post-tile class="posttile" ng-repeat="post in profileViewCtrl.postsArr" post="post"></post-tile>
   </ul>
+
+  <section ng-if="profileViewCtrl.showBio">
+    {{profileViewCtrl.profile.bio }}
+  </section>
   
 </section>

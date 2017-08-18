@@ -34,4 +34,14 @@
    border: 1px solid black;
    height: 100px;
  }
+
+ .repost {
+   img {
+     max-width: 20px;
+   }
+   border: 1px solid grey;
+   background-color: lightgrey;
+   width: 80%;
+  //  height: 100px;
+ }
 }

@@ -6,7 +6,6 @@
    <li ng-click="accountContentCtrl.fetchMyPosts()"> all posts</li>
    <li ng-click="accountContentCtrl.filterType()"> video</li>
    <li ng-click="accountContentCtrl.filterType('pic')"> img</li>
-   <li ng-click="accountContentCtrl.filterType('feed')"> feed</li>
    <li ng-click="accountContentCtrl.filterType('question')"> questions</li>
    <li ng-click="accountContentCtrl.filterType('article')"> article</li>
    <li ng-click="accountContentCtrl.filterType('poll')"> poll </li>
@@ -21,8 +20,8 @@
 
   <section>
     <comment-item ng-repeat="comment in accountContentCtrl.myCommentsArray" 
-                          comment="comment" 
-                          profile="postItemCtrl.myProfile[0]">
+                  comment="comment" 
+                  profile="postItemCtrl.myProfile[0]">
     </comment-item>
   </section>
 

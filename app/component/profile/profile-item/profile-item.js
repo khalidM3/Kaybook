@@ -4,14 +4,14 @@ require('./_profile-item.scss');
 
 module.exports = {
   template: require('./profile-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'pageService', 'postService', 'roomService', ProfileItemController],
+  controller: ['$log', '$rootScope', '$location', '$window', '$uibModal', 'profileService', 'pageService', 'postService', 'roomService', ProfileItemController],
   controllerAs: 'profileItemCtrl',
   bindings: {
     profile: '<',
   }
 };
 
-function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModal, profileService, pageService, postService, roomService) {
+function ProfileItemController($log, $rootScope, $location, $window, $uibModal, profileService, pageService, postService, roomService) {
   $log.debug('ProfileViewController');
 
 
@@ -33,7 +33,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
     // this.showProfileTile = true;
     this.showCreatePage = false;
 
-    this.fiendsPosts = [];
+    this.friendsPosts = [];
     this.profileArr = [];
     this.pagesArr = [];
     this.roomsArr = [];
@@ -51,7 +51,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
     // this.showProfileTile = true;
     this.showCreatePage = false;
 
-    this.fiendsPosts = [];
+    this.friendsPosts = [];
     this.profileArr = [];
     this.pagesArr = [];
     this.roomsArr = [];
@@ -177,6 +177,10 @@ function ProfileItemController($log, $rootScope, $stateParams, $window, $uibModa
 
     roomService.fetchMyRooms()
     .then( room => this.roomsArr = room);
+  };
+
+  this.goToAccount = () => {
+    $location.url('settings/profile');
   };
 
 

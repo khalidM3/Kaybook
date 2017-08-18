@@ -22,7 +22,7 @@ function AccountContentController($log, $rootScope, $stateParams, $window, profi
 
   this.$onInit = () => {
     this.fetchMyPosts();
-  }
+  };
   // this.fetchMyProfile = function(){
   //   $log.debug('AccountContentController.fetchMyProfile()');
 
@@ -55,7 +55,7 @@ function AccountContentController($log, $rootScope, $stateParams, $window, profi
   this.fetchMyAnswers = () => {
     $log.debug('AccountContentController.fetchMyAnswers()');
 
-    this.postsArr = [];
+    this.posts = [];
 
     answerService.fetchMyAnswers()
     .then( answers => this.answersArr = answers);
@@ -63,6 +63,7 @@ function AccountContentController($log, $rootScope, $stateParams, $window, profi
 
   this.filterType = (type) => {
     console.log(type);
+    this.answersArr = [];
     this.posts = this.postsArr.filter( post => post.type == type);
   };
 

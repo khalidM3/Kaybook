@@ -1,0 +1,27 @@
+<section>
+  <ul class="subnav">
+    <!-- <li ng-init="hashCtrl.fetchJoinedPosts()" ng-click="hashCtrl.fetchJoinedPosts()">joined posts</li>
+    <li ng-click="hashCtrl.explore()">explore</li>
+    <li ng-click="hashCtrl.fetchJoinedFeed()">feed</li>
+    <li ng-click="hashCtrl.goToSocial()">social</li> -->
+     <li>placeholder</li> 
+  </ul>
+
+  <!--<section ng-if="hashCtrl.showProfileItem">
+     <profile-Item profile="hashCtrl.myProfile"></profile-Item>
+  </section>-->
+
+  <!-- <section>
+    <profile-tile ng-repeat="tile in hashCtrl.allProfiles" profile="tile"></profile-tile>
+  </section> -->
+
+  <section>
+    <post-tile ng-repeat="post in hashCtrl.postsArr" post="post"></post-tile>
+  </section>
+
+
+<!--<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect("http://localhost:8000/socket.io/socket.io.js");
+</script>-->
+</section>

@@ -43,9 +43,9 @@ context.keys().forEach( key => {
   kproject.component(name, module);
 });
 
-// context = require.context('./filter/', true, /\.js$/);
-// context.keys().forEach( key => {
-//   let name = camelcase(path.basename(key, '.js'));
-//   let module = context(key);
-//   kproject.filter(name, module);
-// });
+context = require.context('./filter/', true, /\.js$/);
+context.keys().forEach( key => {
+  let name = camelcase(path.basename(key, '.js'));
+  let module = context(key);
+  kproject.filter(name, module);
+});
