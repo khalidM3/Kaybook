@@ -4,11 +4,11 @@ require('./_navbar.scss');
 
 module.exports = {
   template: require('./navbar.html'),
-  controller: ['$log', '$window', '$location', '$rootScope', 'authService', 'profileService', NavbarController],
+  controller: ['$log', '$window', '$location', '$rootScope', 'authService', 'profileService','pageService', NavbarController],
   controllerAs: 'navbarCtrl'
 };
 
-function NavbarController($log, $window, $location, $rootScope, authService, profileService) {
+function NavbarController($log, $window, $location, $rootScope, authService, profileService, pageService) {
   $log.debug('NavbarController');
 
   // this.profilePic = $window.localStorage.getItem('profilePic');
@@ -24,7 +24,6 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
     });
   };
 
-  // this.fetchMyProfile();
 
   this.goSignUp = function() {
     $log.debug('NavbarController.goSignUp()');
@@ -38,11 +37,11 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
     $location.url('/signin');
   };
 
-  this.myPage = function() {
+  this.goToPage = function(pageID) {
     $log.debug('NavbarController.myPage()');
 
-    let userID = $window.localStorage.getItem('userID');
-    $location.url(`/page/${userID}`);
+    // let userID = $window.localStorage.getItem('userID');
+    $location.url(`/page/${pageID}/posts`);
   };
 
   this.myProfile = function() {
@@ -81,6 +80,11 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
     .then( () => {
       $location.url('/');
     });
+  };
+  
+  this.searchPages = () => {
+    pageService.searchPages(this.searchName)
+    .then( pages => this.pagesArr = pages );
   };
 
   this.checkPath = () => {

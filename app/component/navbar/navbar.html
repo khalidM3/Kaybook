@@ -1,7 +1,14 @@
 <section class="navbar">
   <ul class="navbar-ul">
     <li class="nav-link" id="logo" ng-click="navbarCtrl.home()"><h2>K</h2></li>
-    <li class="searchbar" ng-show="!navbarCtrl.hideLogout"><input type="text"></li>
+    <li class="searchbar" ng-show="!navbarCtrl.hideLogout">
+      <ul> <input type="text" ng-Change="navbarCtrl.searchPages()" ng-model="navbarCtrl.searchName"> 
+            <li class="searches" ng-repeat="page in navbarCtrl.pagesArr" ng-click="navbarCtrl.goToPage(page._id)">
+            {{page.pageName}}
+          </li>
+      </ul>
+
+    </li>
     <li class="signup-btn"ng-show="!navbarCtrl.hideSignupBtn" class="signup" ng-click="navbarCtrl.goSignUp()">sign up</li>
     <!--<li ng-show="!navbarCtrl.hideMyRecipesBtn" class="signup" ng-click="navbarCtrl.myPage()">my page</li>-->
     <li class="login-btn" ng-show="!navbarCtrl.hideLoginBtn" class="signup" ng-click="navbarCtrl.goLogin()">login</li>
