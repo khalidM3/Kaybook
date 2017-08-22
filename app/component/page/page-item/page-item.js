@@ -15,22 +15,36 @@ module.exports = {
 function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, merchService){
   $log.debug('PageItemController');
 
+  // $rootScope.$on('$locationChangeStart', (e) => {
+  //   console.log('you know what it is', e);
+  //   if(this.postsArr) this.call();
+  // });
+
 
   this.$onInit = function(){
     $log.debug('pageItemCtrl.onInit');
+    console.log('hapa',$stateParams);
 
     this.pageID = $stateParams.pageID;
     this.profileID = $window.localStorage.getItem('profileID');
     
     pageService.fetchPage(this.pageID)
-    .then( page =>  {
+    .then( page => {
       this.count = page.members.length;
       this.showLeaveBtn = page.members.some( PID => PID.toString() === this.profileID.toString());
       this.showEditBtn = this.profileID === page.profileID;
-      return this.page = page;
+      this.page = page;
+      return this.fetch();
     })
     .then( () => {
-      this.fetch();
+      if($stateParams.post) {
+        postService.fetchPost($stateParams.post)
+        .then( post => {
+          console.log('here it is mate \n\n', post);
+          this.postsArr = [post, ...this.postsArr];
+          this.openPostModal(post);
+        });
+      }
       return;
     });
   };
@@ -39,21 +53,31 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
   this.fetch = function(){
     $log.debug('pageItemCtrl.fetch()');
 
-    this.showPostBtn = true;
-
     this.postsArr = [];
     this.merchesArr = [];
+    this.showPostBtn = true;
 
-    this.fetchPagePosts();
-  
+    switch($stateParams.section) {
+    case 'posts':
+      return this.fetchPagePosts();
+    case 'feed':
+      return this.fetchPageFeed();
+    case 'merch':
+      this.showPostBtn = false;
+      return this.fetchPageMerch();
+    default: 
+      this.fetchPagePosts();
+    }
   };
 
 
+  this.pagePosts = () => {
+    $location.url(`/page/${this.page._id}/posts`);
+  };
 
   this.fetchPagePosts = function(){
     $log.debug('pageItemCtrl.fetchPagePosts()');
 
-    
     postService.fetchPagePosts(this.page._id)
     .then( posts => {
       console.log(posts);
@@ -67,18 +91,11 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //               FEED
 
-  this.fetchFeed = function(){
-    $log.debug('pageItemCtrl.fetchFeed()');
-
-    this.showPostBtn = true;
-
-    this.postsArr = [];
-    this.merchesArr = [];
-    
-    this.fetchPostFeed();
+  this.pageFeed = () => {
+    $location.url(`/page/${this.page._id}/feed`);
   };
 
-  this.fetchPostFeed = function(){
+  this.fetchPageFeed = function(){
     $log.debug('pageItemCtrl.fetchPostsFeed()');
 
     postService.fetchPageFeed(this.page._id)
@@ -88,16 +105,10 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                    MERCH
-  this.fetchMerch = function(){
-    $log.debug('pageItemCtrl.fetchMerch()');
 
-    this.showPostBtn = false;
-
-    this.postsArr = [];
-
-    this.fetchPageMerch();
+  this.pageMerch = () => {
+    $location.url(`/page/${this.page._id}/merch`);
   };
-
 
   this.fetchPageMerch = function(){
     $log.debug('pageItemCtrl.fetchPageMerch');
@@ -171,8 +182,30 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     });
   };
 
+  this.openPostModal = function (post) {
+    // let page = this.page;
+    $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'postItem',
+      resolve: {
+        post: function () {
+          return post;
+        }
+      }
+    });
+  };
+
   this.goToEditPage = () => {
     $location.url('settings/pages'); // change to 'seetings/pages/:pageID'
+  };
+
+  this.bark = () => {
+    console.log($stateParams);
+    // $stateParams.post = 'new';
+    // $location.path('page/597e798bfd94ab787bb8f851/post/5983de077b678b66f4532dba').replace();
+    $location.search('name', 'newname');
+    // $location.path('page/597e798bfd94ab787bb8f851/post/5983de077b678b66f4532dba').replace();
+
   };
 
 }

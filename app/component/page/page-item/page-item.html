@@ -1,4 +1,3 @@
-
 <section class="pageItem">
   <!--<div ng-if="!profileViewCtrl.showEditView">-->
 
@@ -17,13 +16,14 @@
     
    <!--<edit-page ng-if="pageItemCtrl.showEditBtn" page="pageItemCtrl.page"></edit-page>-->
    <button ng-if="pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.goToEditPage()">edit page</button>
+   <button ng-click="pageItemCtrl.bark()">bark</button>
 
    <section class="subnav">
     <ul> 
       <!--ng-init="pageItemCtrl.fetchPagePosts()"-->
-      <li ng-click="pageItemCtrl.fetch()">posts</li>
-      <li ng-click="pageItemCtrl.fetchFeed()">feed</li>
-      <li ng-click="pageItemCtrl.fetchMerch()">merch</li>
+      <li ng-click="pageItemCtrl.pagePosts()">posts</li>
+      <li ng-click="pageItemCtrl.pageFeed()">feed</li>
+      <li ng-click="pageItemCtrl.pageMerch()">merch</li>
     </ul>
   </section>
 

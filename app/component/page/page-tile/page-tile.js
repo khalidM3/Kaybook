@@ -15,9 +15,9 @@ function PageTileController($log, $location, $window) {
   $log.debug('PageTileController');
 
   this.goToPage = function(){
-    $log.debug('pageTileCtrl.goToPage()');
+    $log.debug('pageTileCtrl.goToPage');
 
-    $location.url(`/page/${this.page._id}`);
+    $location.url(`/page/${this.page._id}/post`);
   };
 
 }
