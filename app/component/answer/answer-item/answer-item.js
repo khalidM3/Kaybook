@@ -22,22 +22,28 @@ function AnswerItemController($log, $window, $filter, answerService, profileServ
 
   this.$onInit = function(){
     $log.debug('answerItemCtrl.onInit()');
-    // console.log('\n\n==>',$window.document.getElementById(this.answer._id));
-    // $window.document.getElementById(this.answer._id).innerHTML = this.parseURL(this.answer.answer);
+    this.parsedArr = this.parseStr(this.answer.answer);
     let profileID = $window.localStorage.getItem('profileID');
     this.showDeleteBtn = profileID === this.answer.posterID;
-    profileService.fetchProfile2(this.answer.posterID)
-    .then( profile => this.poster = profile);
+    // profileService.fetchProfile2(this.answer.posterID)
+    // .then( profile => this.poster = profile);
+    this.poster = this.answer.posterID;
   };
 
-  this.parseURL = (str ) => {
-    console.log('str\n',str);
+
+  this.parseStr = (str) => {
     let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     let imgReg = /\.(?:jpe?g|gif|png)$/i;
-    return str.replace(urlReg, (match) => {
-      console.log('match\n',match);
-      return imgReg.test(match) ? '<img src="'+match+'" class="thumb" />' : '<a href="'+match+'" target="_blank">'+match+'</a>';
-    });
+    let hash = /#(?:\w)\w*/g;
+    
+    return str.split(' ').map( word => ({
+      type: word.match(urlReg) || word.match(hash)
+              ? word.match(imgReg) ? 'img' : 'link'
+              : 'string',
+      payload: word,
+      link:  word.match(hash) ? `http://localhost:8080/#!/hash/${word.split('#')[1]}`: word,
+      size: {}
+    }));
   };
 
   this.upvote = function(){
@@ -77,7 +83,7 @@ function AnswerItemController($log, $window, $filter, answerService, profileServ
     .catch(err => console.log('Failed to unvoteAnswer()',err));
   };
 
-  this.deleteAnswer = function(){
+  this.delete = function(){
     $log.debug('answerItemCtrl.deleteAnswer()');
 
     if(this.parent) {
