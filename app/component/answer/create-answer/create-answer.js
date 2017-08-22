@@ -16,7 +16,6 @@ function CreateAnswerController($log, $window, $document, answerService) {
   $log.debug('CreateAnswerController');
 
   this.answerData = {};
-  $window.document.getElementById('cont').innerHTML = '';
 
   this.createAnswer = function(){
     $log.debug('createAnswerCtrl.createAnswer()');
@@ -28,22 +27,26 @@ function CreateAnswerController($log, $window, $document, answerService) {
     }
   
     if(this.answer) {
-      answerService.replyAnswer(this.answer._id, this.answerData)
+      this.answerData.level = this.answer.level + 1;
+      let full = this.answer.level > 2;
+      if(full)this.answerData.answer = '@'+this.answer.posterID.name+' '+this.answerData.answer;
+      console.log('reply ==> ', full, this.answerData.answer);
+      answerService.replyAnswer(full ? this.answer.postedID :this.answer._id, this.answerData)
     .then( forum => console.log('Successfully replied answer', forum))
     .catch( err => console.log('FAiled to reply to Answer', err));
     }
   };
 
-  this.parseURL = (str ) => {
-    console.log('str\n',str);
-    let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    let imgReg = /\.(?:jpe?g|gif|png)$/i;
-    let parsed = str.replace(urlReg, (match) => {
-      console.log('match\n',match);
-      return imgReg.test(match) ? '<img src="'+match+'" class="thumb" />' : '<a href="'+match+'" target="_blank">'+match+'</a>';
-    });
-    $window.document.getElementById('cont').innerHTML = parsed;
-  };
+  // this.parseURL = (str ) => {
+  //   console.log('str\n',str);
+  //   let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  //   let imgReg = /\.(?:jpe?g|gif|png)$/i;
+  //   let parsed = str.replace(urlReg, (match) => {
+  //     console.log('match\n',match);
+  //     return imgReg.test(match) ? '<img src="'+match+'" class="thumb" />' : '<a href="'+match+'" target="_blank">'+match+'</a>';
+  //   });
+  //   $window.document.getElementById('cont').innerHTML = parsed;
+  // };
 
   // this.check = () => {
   //   this.answerData.answer = this.answerData.answer.replace(
@@ -55,12 +58,12 @@ function CreateAnswerController($log, $window, $document, answerService) {
 
   // };
 
-  this.wtf = () => {
-    console.log('changing');
-    console.log(this.parseURL(this.answerData.answer));
-    // this.answerData.answer = this.parseURL(this.answerData.answer);
-    this.parseURL(this.answerData.answer);
-    // $window.document.getElementById('cont').innerHTML = this.parseURL(this.answerData.answer);
-  };
+  // this.wtf = () => {
+  //   console.log('changing');
+  //   console.log(this.parseURL(this.answerData.answer));
+  //   // this.answerData.answer = this.parseURL(this.answerData.answer);
+  //   this.parseURL(this.answerData.answer);
+  //   // $window.document.getElementById('cont').innerHTML = this.parseURL(this.answerData.answer);
+  // };
 
 }
