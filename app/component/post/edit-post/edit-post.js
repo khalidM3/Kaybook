@@ -96,6 +96,8 @@ function EditPostController($log, $location, $rootScope, postService, picService
     // service.updatePost = function(postID, postData) {};
     console.log('THIS.POST <><><><><><><><><>', this.post);
     this.post.updated = new Date();
+    this.post.edited = true;
+    this.post.searchTerms = this.post.desc.match(/#(?:\w)\w*/g);
     postService.updatePost(this.post._id, this.post)
     .then( post => {
       console.log('res.post  CAPITAL', post._id);
