@@ -59,6 +59,27 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.searchProfile = function(name) {
+    $log.debug('profileService.searchProfile');
+
+    let url = `${__API_URL__}/api/profile/search/${name}`;
+    let config = {
+      headers: {
+        Accept: 'application/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('Profile Retrieved', res);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
+
   service.fetchMyProfile = function() {
     $log.debug('profileService.fetchProfile');
 
