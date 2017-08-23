@@ -14,6 +14,9 @@ module.exports = {
 function ProfileItemController($log, $rootScope, $location, $window, $uibModal, profileService, pageService, postService, roomService) {
   $log.debug('ProfileViewController');
 
+  this.$onInit = () => {
+
+  };
 
   this.fetchMyProfile = function(){
     $log.debug('profileItemCtrl.fetchMyProfile()');
@@ -23,6 +26,12 @@ function ProfileItemController($log, $rootScope, $location, $window, $uibModal, 
     .catch(err => $log.error('FAILED fetchMyProfile()', err));
   };
 
+
+  this.searchProfiles = () => {
+    console.log('changing', this.searchName);
+    profileService.searchProfile(this.searchName)
+    .then( profiles => this.searchesArr = profiles);
+  };
 
 
   this.fetchFRP = function(){

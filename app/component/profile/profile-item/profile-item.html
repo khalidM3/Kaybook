@@ -20,7 +20,12 @@
   <section class="profile-item-content">
 
     <section> 
-      <input type="text" placeholder="search for friends">
+      <ul>
+      <input type="text" placeholder="search for friends" ng-Change="profileItemCtrl.searchProfiles()" ng-model="profileItemCtrl.searchName">
+        <li class="searches" ng-repeat="profile in profileItemCtrl.searchesArr">
+          <img ng-src="{{profile.profilePicURI}}" alt="">  {{ profile.name}}
+        </li>
+      </ul>
       <button ng-if="profileItemCtrl.showPostBtn" ng-click="profileItemCtrl.openCreatePostModal()">create post</button>
     </section>
 
