@@ -28,7 +28,6 @@ function SettingsController($log, $rootScope, $stateParams, $location, profileSe
     this.showContent = false;
 
     this['show'+section] = true;
-    console.log(this['show'+section]);
   };
 
 
@@ -45,7 +44,7 @@ function SettingsController($log, $rootScope, $stateParams, $location, profileSe
   };
   
 
-} 
+}
 
   // this.myUserID = $stateParams.userID;
   // this.myUserID = $window.localStorage.getItem('userID');
