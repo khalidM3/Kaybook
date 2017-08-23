@@ -11,7 +11,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
   let states = [
     {
       name: 'home',
-      url: '/home/:userID/:profileID',
+      url: '/home/:section/:post',
+      params: {
+        post: {
+          value: null,
+          squash: true,
+        }
+      },
       template: require('../view/home/home.html'),
       controller: 'HomeController',
       controllerAs: 'homeCtrl'
@@ -39,7 +45,17 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     },
     {
       name: 'page',
-      url: '/page/:pageID',
+      url: '/page/:pageID/:section/:post',
+      params: {
+        section: {
+          value: null,
+          squash: true,
+        },
+        post: {
+          value: null,
+          squash: true,
+        }
+      },
       template: require('../view/mypage/mypage.html'),
       controller: 'MypageController',
       controllerAs: 'mypageCtrl'
