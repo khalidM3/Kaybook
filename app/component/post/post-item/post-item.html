@@ -1,5 +1,13 @@
 <li class="postItem modal-body">
-  <on-init></on-init>
+  <!-- <on-init></on-init> -->
+      <span uib-dropdown on-toggle="toggled(open)">
+       <span uib-dropdown-toggle alt=""> 0 0 0 </span>
+      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+        <li>edit</li>
+        <li>delete</li>
+        <li>report</li>
+      </ul>
+    </span>
 
   <!--<button ng-click="postItemCtrl.cancel()">x</button>-->
 
@@ -15,6 +23,7 @@
       <li class="post-side">
         <ul>
           <li class="post-header">
+            <p ng-if="postItemCtrl.resolve.post.edited">  edited </p>
             <img src="{{postItemCtrl.poster.profilePicURI}}">
             <div class="poster-name">Poster: {{postItemCtrl.poster.name}}</div>
             <div class="date">Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</div>
@@ -33,9 +42,6 @@
                     <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
                  <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
                  
-
-              <!-- {{word.payload}}
-              {{word.type === 'img'}} -->
             </div>
 
             <div>
