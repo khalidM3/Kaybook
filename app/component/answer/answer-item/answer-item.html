@@ -1,5 +1,14 @@
 <section class="answer-item">
-<button ng-click="answerItemCtrl.delete()">delete</button>
+
+    <span uib-dropdown on-toggle="toggled(open)">
+       <span uib-dropdown-toggle alt=""> <div class="dots">...</div> </span>
+      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+        <li ng-click="answerItemCtrl.openEditPostModal()">edit</li>
+        <li ng-click="answerItemCtrl.delete()">delete</li>
+        <li ng-click="answerItemCtrl.report()">report</li>
+      </ul>
+    </span>
+
   <section class="answer-item-header">
     <img ng-src="{{answerItemCtrl.poster.profilePicURI}}" alt="">
     <div>
