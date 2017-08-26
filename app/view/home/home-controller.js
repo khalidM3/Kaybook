@@ -12,6 +12,7 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
   this.loggedIn = true;
 
 
+
   this.fetchProfile = function() {
     $log.debug('HomeController.fetchProfile()');
 
@@ -20,6 +21,7 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
     // .then( () => recipeService.fetchMyRecipes(this.myProfile._id))
     // .then(recipes => this.myRecipes = recipes);
   };
+
   this.$onInit = () => {
     new Promise( (resolve, reject) => {
       try {
@@ -48,7 +50,7 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
     case 'feed':
       return this.fetchJoinedFeed();
     default: 
-      this.fetchPagePosts();
+      this.fetchJoinedPosts();
     }
     
     this.postParams();
@@ -68,8 +70,7 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
   };
 
   this.goToJoined = () => {
-    // $location.url('/home/joined');
-    console.log($stateParams);
+    $location.url('/home/joined');
   };
 
   this.goToExplore = () => {
