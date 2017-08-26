@@ -15,11 +15,6 @@ module.exports = {
 function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, merchService){
   $log.debug('PageItemController');
 
-  // $rootScope.$on('$locationChangeStart', (e) => {
-  //   console.log('you know what it is', e);
-  //   if(this.postsArr) this.call();
-  // });
-
 
   this.$onInit = function(){
     $log.debug('pageItemCtrl.onInit');
@@ -37,11 +32,10 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
       return this.fetch();
     })
     .then( () => {
-      if($stateParams.post) {
-        postService.fetchPost($stateParams.post)
+      if($location.search().id) {
+        postService.fetchPost($location.search().id)
         .then( post => {
           console.log('here it is mate \n\n', post);
-          this.postsArr = [post, ...this.postsArr];
           this.openPostModal(post);
         });
       }
@@ -139,7 +133,11 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     ++this.count;
 
     pageService.joinPage(this.page._id)
-    .then( page => console.log('Successfully joinPage()', page))
+    .then( page => {
+      console.log('Successfully joinPage()', page);
+      this.openModal( page.greeting);
+
+    })
     .catch( err => console.log('Failed joinPage()', err));
   };
 
@@ -154,6 +152,17 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     .catch( err => console.log('Failed leavePage()', err));
   };
 
+  this.openModal = function (message) {
+    $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'modalItem',
+      resolve: {
+        message: function () {
+          return message;
+        }
+      }
+    });
+  };
 
   this.openCreatePostModal = function () {
     let page = this.page;
@@ -201,9 +210,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
 
   this.bark = () => {
     console.log($stateParams);
-    // $stateParams.post = 'new';
-    // $location.path('page/597e798bfd94ab787bb8f851/post/5983de077b678b66f4532dba').replace();
-    $location.search('name', 'newname');
+    $location.search('id', null);
     // $location.path('page/597e798bfd94ab787bb8f851/post/5983de077b678b66f4532dba').replace();
 
   };
