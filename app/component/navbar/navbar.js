@@ -4,14 +4,30 @@ require('./_navbar.scss');
 
 module.exports = {
   template: require('./navbar.html'),
-  controller: ['$log', '$window', '$location', '$rootScope', 'authService', 'profileService','pageService', NavbarController],
+  controller: ['$log', '$window', '$location', '$rootScope', '$uibModal', 'authService', 'profileService','pageService', NavbarController],
   controllerAs: 'navbarCtrl'
 };
 
-function NavbarController($log, $window, $location, $rootScope, authService, profileService, pageService) {
+function NavbarController($log, $window, $location, $rootScope, $uibModal, authService, profileService, pageService) {
   $log.debug('NavbarController');
 
   // this.profilePic = $window.localStorage.getItem('profilePic');
+  $rootScope.$on('$locationChangeStart', () => {
+    // this.openPostModal({ _id: $location.search().id});()
+    // console.log('atarere', $location.search().id);
+    if($location.search().id) {
+      $uibModal.open({
+        animation: this.animationsEnabled,
+        component: 'postItem',
+        resolve: {
+          post: function () {
+            return { _id: $location.search().id};
+          }
+        }
+      });
+    }
+    
+  });
   
   this.fetchMyProfile = function(){
 
@@ -68,9 +84,7 @@ function NavbarController($log, $window, $location, $rootScope, authService, pro
   this.home = function() {
     $log.debug('NavbarController.home()');
 
-    let userID = $window.localStorage.getItem('userID');
-    let profileID = $window.localStorage.getItem('profileID');
-    $location.url(`/home/${userID}/${profileID}`);
+    $location.url('/home');
   };
 
   this.logout = () => {
