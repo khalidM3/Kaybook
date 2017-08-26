@@ -95,7 +95,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
       }
 
       if( admin ) {
-        console.log('inside page admin')
+        console.log('inside page admin');
         postService.createFeed(this.resolve.page._id, this.post)
         .then( post => console.log('Success createForumFeed()', post))
         .catch(err => console.log('Failed createForumFeed()', err));
@@ -106,6 +106,9 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     
   };
 
+  this.show = () => {
+    this.pic = this.post.picURI;
+  };
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
   };
