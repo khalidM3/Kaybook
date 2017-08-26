@@ -1,25 +1,25 @@
-<section class="post-tile" ng-init="postTileCtrl.check(postTileCtrl.post.data)">
-
+<section class="post-tile" ng-init="postTileCtrl.check(postTileCtrl.post.data)" ng-click="postTileCtrl.goTo()">
+    <p class="reposter" ng-if="postTileCtrl.reposter" ng-click="postTileCtrl.goToProfile(postTileCtrl.reposter._id)"> shared by {{ postTileCtrl.reposter.name }} </p>
     <section class="header">
       <div>
          <img ng-src="{{postTileCtrl.poster.profilePicURI}}">
          </div>
-      <div class="poster-name"> {{postTileCtrl.poster.name}}</div>
+      <div class="poster-name" ng-click="postTileCtrl.goToProfile(postTileCtrl.poster._id)"> {{postTileCtrl.poster.name}}</div>
       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal()">edit</button>
       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost()">delete</button>
       <button ng-if="!postTileCtrl.isMyPost" ng-click="postTileCtrl.rePost()">share</button>
       <!-- <div ng-if="postTileCtrl.isRePost">
         <img ng-src="{{postTileCtrl.post.posterID.profilePicURI}}">
         <div class=""> {{postTileCtrl.post.posterID.name}}</div>
-     </div>  -->
+     </div> -->
     </section>
 
     
 
-    <section class="body"  ng-click="postTileCtrl.goTo()">
+    <section class="body">
       <section class="post-tile">
-      <h2> {{ postTileCtrl.post.title}} </h2>
-    </section>
+        <h2> {{ postTileCtrl.post.title }} </h2>
+      </section>
 
       <section class="post-content">
         

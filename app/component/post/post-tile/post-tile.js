@@ -19,11 +19,15 @@ function PostTileController($log, $uibModal, $window, $location, $stateParams, p
 
   this.$onInit = function(){
     $log.debug('postTileCtrl.$onInit()');
+   
+    this.reposter = this.post.repost? this.post.posterID : null;
+    this.post = this.post.repost ? this.post.repost : this.post;
 
     this.isVid = (/\.mp4$/).test(this.post.postPicURI);
     this.isMyPost = this.post.posterID._id === profileID;
     this.poster = this.post.posterID;
     this.showRepost = this.post.repost;
+    
     // if(this.post.repost)  {
     //   this.post = this.post.repost;
     //   console.log('poster ', this.post.posterID);
@@ -98,21 +102,29 @@ function PostTileController($log, $uibModal, $window, $location, $stateParams, p
   //   .catch( (err) => $log.error('Did not delete the post', err));
   // };
   
-  this.goTo = () => {
+  // this.goTo = () => {
 
-    let url = $location.path();
-    if($stateParams.post) {
-      url = url.split('/');
-      url.pop();
-      url.push(this.post._id);
-      url = url.join('/');
-      console.log(url);
-      $location.path(url).replace();
-    } else {
-      url = url+'/'+this.post._id;
-      console.log(url);
-      $location.url(url).replace();
-    }
+  //   let url = $location.path();
+  //   if($stateParams.post) {
+  //     url = url.split('/');
+  //     url.pop();
+  //     url.push(this.post._id);
+  //     url = url.join('/');
+  //     console.log(url);
+  //     $location.path(url).replace();
+  //   } else {
+  //     url = url+'/'+this.post._id;
+  //     console.log(url);
+  //     $location.url(url).replace();
+  //   }
+  // };
+
+  this.goTo = () => {
+    $location.search('id', this.post._id);
+  };
+
+  this.goToProfile = (id) => {
+    $location.url(`/profile/${id}`);
   };
 
 
