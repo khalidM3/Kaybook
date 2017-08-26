@@ -1,0 +1,24 @@
+<section>
+    <button ng-click="reportCtrl.cancel()">cancel</button>
+  <form action="" ng-submit="reportCtrl.reportPost()">
+    <label for=""> Sexual content</label>
+    <input type="checkbox" ng-model="reportCtrl.report.sexual">
+      <label for=""> violent </label>
+    <input type="checkbox" ng-model="reportCtrl.report.violent">
+      <label for=""> abusive </label>
+    <input type="checkbox" ng-model="reportCtrl.report.abusive">
+      <label for=""> promotion </label>
+    <input type="checkbox" ng-model="reportCtrl.report.promotion">
+      <label for=""> spam </label>
+    <input type="checkbox" ng-model="reportCtrl.report.spam">
+      <label for=""> infringement </label>
+    <input type="checkbox" ng-model="reportCtrl.report.infringement">
+      <label for=""> message </label>
+    <textarea name="" id="" cols="30" rows="5" ng-model="reportCtrl.report.message">
+
+    </textarea>
+
+    <button>submit</button>
+  </form>
+
+</section>
