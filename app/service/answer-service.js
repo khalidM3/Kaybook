@@ -191,6 +191,32 @@ function answerService($q, $log, $window, $http, authService){
     });
   };
 
+  service.reportAnswer = function(answerID){
+    $log.debug('service.reportAnswer');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/answer/report/${answerID}`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('reported an answer');
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to report an answer',err);
+      return $q.reject(err);
+    });
+  };
+
   service.fetchAnswerReplies = function(answerID){
     $log.debug('service.upvoteAnswer');
 
