@@ -43,7 +43,7 @@ module.exports  = ($sce) => (url) => {
     if(vimeo) return getVimeo(str);
     let imgur = str.match(/imgur.com/);
     if(imgur) return getImgur(str);
-    // return console.log(str)
+    return str;
   };
   let embeded = embed(url);
   return $sce.trustAsResourceUrl(embeded);
