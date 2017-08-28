@@ -120,7 +120,7 @@ function ProfileItemController($log, $rootScope, $location, $window, $uibModal, 
 
     this.pagesArr = [];
     this.profileArr = [];
-    this.fiendsPosts = [];
+    this.friendsPosts = [];
     this.roomsArr = [];
 
     postService.fetchTimeline()
@@ -139,7 +139,7 @@ function ProfileItemController($log, $rootScope, $location, $window, $uibModal, 
 
     this.pagesArr = [];
     this.profileArr = [];
-    this.fiendsPosts = [];
+    this.friendsPosts = [];
     this.roomsArr = [];
     
     profileService.fetchJoinedPages()
