@@ -101,7 +101,7 @@ function PostTileController($log, $uibModal, $window, $location, $stateParams, p
   //   })
   //   .catch( (err) => $log.error('Did not delete the post', err));
   // };
-  
+
   // this.goTo = () => {
 
   //   let url = $location.path();
