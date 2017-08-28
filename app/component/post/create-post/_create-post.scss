@@ -2,6 +2,25 @@
   img {
     max-width: 200px;
   }
+  .small-input {
+    width: 2px;
+  }
+  .med-input {
+    display: inline-block;
+    width: 2px;
+  }
+
+  .content {
+    display: inline-block;
+    padding: 5px;
+    div {
+      display: inline-block;
+    }
+    p {
+      display: inline-block;
+    }
+    
+  }
   
   .choosebtns {
     display: block;
@@ -33,7 +52,7 @@
       display: block;
     }
     input {
-      display: block;
+      // display: block;
     }
   }
 }
