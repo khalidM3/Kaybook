@@ -1,6 +1,6 @@
 <section class="merch-item">
   <button ng-click="merchItemCtrl.deleteMerch()">delete</button>
-
+  {{ merchItemCtrl.order }}
   <section class="merch-item-content">
      <img ng-src="{{ merchItemCtrl.order.picURI}}" alt="">
   </section>
@@ -22,14 +22,17 @@
 
     <p> {{ merchItemCtrl.order.count}} p </p>
 
-
-    <button ng-repeat="val in merchItemCtrl.val1Arr" ng-click="merchItemCtrl.filterOptions('val1', val)"> {{val}} </button>
-
-    <button ng-repeat="val in merchItemCtrl.val2Arr" ng-click="merchItemCtrl.filterOptions('val2', val)"> {{val}} </button>
+    <div class="valBtns"> 
+      <button  ng-repeat="val in merchItemCtrl.val1Arr" ng-click="merchItemCtrl.filterOptions('val1', val)"> {{val}} </button>
+    </div>
+    
+    <div class="valBtns"> 
+      <button ng-repeat="val in merchItemCtrl.val2Arr" ng-click="merchItemCtrl.filterOptions('val2', val)"> {{val}} </button>    
+    </div>
      
-    <button ng-click="merchItemCtrl.subtract()"> - </button>
-    <button ng-click="merchItemCtrl.add()"> + </button>
-    <button class="cart-btn" ng-click="merchItemCtrl.addToCart()"> add to cart</button>
+    <button ng-disabled="merchItemCtrl.disableBtns" ng-click="merchItemCtrl.subtract()"> - </button>
+    <button ng-disabled="merchItemCtrl.disableBtns" ng-click="merchItemCtrl.add()"> + </button>
+    <button class="cart-btn" ng-disabled="merchItemCtrl.disableBtns" ng-click="merchItemCtrl.addToCart()"> add to cart</button>
     <button ng-click="merchItemCtrl.bark()">bark</button>
 
   </section>

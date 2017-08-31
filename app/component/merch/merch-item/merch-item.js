@@ -53,16 +53,20 @@ function MerchItemController($log, $window, merchService, profileService){
     console.log('name', name);
     console.log('value', value);
     this.order[name] = value;
+    // let order = {};
+    // order[name] = value;
+    this.disableBtns = true;
     this.resolve.merch.options.forEach( option => {
-      console.log('similarities <>,',
-      'val1',this.order.val1 === option.val1,
-      'val2', this.order.val2 === option.val2,
-      'val3', this.order.val3, option.val3);
+      // console.log('similarities <>,',
+      // 'val1',this.order.val1 === option.val1,
+      // 'val2', this.order.val2 === option.val2,
+      // 'val3', this.order.val3, option.val3);
       if(option.val1 === this.order.val1 && option.val2 === this.order.val2) {
-        console.log('passed',option.val1, this.order.val1);
-        console.log('passed2',option.val2, this.order.val2);
-        // this.order = option;
-        console.log('new order', option.val1, option.val2);
+        // console.log('passed',option.val1, this.order.val1);
+        // console.log('passed2',option.val2, this.order.val2);
+        // // this.order = option;
+        // console.log('new order', option.val1, option.val2);
+        this.disableBtns = false;
         this.order = JSON.parse(JSON.stringify(option));
         // console.log(this.order._id);
         this.order.count = 1;
@@ -87,7 +91,7 @@ function MerchItemController($log, $window, merchService, profileService){
     let enough = this.order.qtty - (merch[this.order._id].count + this.order.count) > -1;
     enough ? merch[this.order._id].count += this.order.count: merch[this.order._id].count = this.order.qtty;
     $window.localStorage.merch = JSON.stringify(merch);
-    
+
     // merchService.addCart(this.order._id)
     // .then( profile => console.log('Success addToCart', profile));
     // let option = {
