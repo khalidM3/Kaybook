@@ -4,7 +4,7 @@ require('./_merch-tile.scss');
 
 module.exports = {
   template: require('./merch-tile.html'),
-  controller: ['$log', '$uibModal', '$window', 'merchService' , 'picService','profileService', MerchTileController],
+  controller: ['$log', '$location' ,'$uibModal', '$window', 'merchService' , 'picService','profileService', MerchTileController],
   controllerAs: 'merchTileCtrl',
   bindings: {
     merch: '<'
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function MerchTileController($log, $uibModal, $window, merchService, picService, profileService){
+function MerchTileController($log, $location, $uibModal, $window, merchService, picService, profileService){
   $log.debug('MerchTileController');
 
   let profileID = $window.localStorage.getItem('profileID');
@@ -31,20 +31,34 @@ function MerchTileController($log, $uibModal, $window, merchService, picService,
   };
 
   this.openMerchModal = function () {
-    merchService.fetchMerchOptions(this.merch._id)
-    .then( merch => {
-      $uibModal.open({
-        animation: this.animationsEnabled,
-        component: 'merchItem',
-        resolve: {
-          merch: function () {
-            return merch; 
-          }
+    let merch = this.merch;
+    $location.search('mid', merch._id);
+    $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'merchItem',
+      resolve: {
+        merch: function () {
+          return merch; 
         }
-      });
-
+      }
     });
-    // var modalInstance =
   };
 
 }
+
+
+
+// this.openMerchModal = function () {
+//   merchService.fetchMerchOptions(this.merch._id)
+//   .then( merch => {
+//     $uibModal.open({
+//       animation: this.animationsEnabled,
+//       component: 'merchItem',
+//       resolve: {
+//         merch: function () {
+//           return merch; 
+//         }
+//       }
+//     });
+//   });
+// };
