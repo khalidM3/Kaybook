@@ -30,6 +30,7 @@ function CreateMerchController($log, $window, merchService, optionService) {
     let admin = this.resolve.page.admins.some( PID => PID.toString() === profileID.toString());
 
     if( admin ) {
+      // this.merch.options = this.optionsArr;
       merchService.createMerch(this.resolve.page._id, this.merch)
       .then( merch =>  {
         console.log('Success createMerch()', merch);
@@ -47,10 +48,10 @@ function CreateMerchController($log, $window, merchService, optionService) {
     this.showTable = true;
     let result = JSON.parse(JSON.stringify(this.option));
     this.optionsArr.push(result);
-    this.option.val1 = '';
-    this.option.val2 = '';
-    this.option.val3 = '';
-    this.option.val1 = '';
+    this.option.val1 = null;
+    this.option.val2 = null;
+    this.option.val3 = null;
+    this.option.val1 = null;
     console.log(this.optionsArr);
     return;
   };
