@@ -81,7 +81,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     let hash = /#(?:\w)\w*/g;
     let embed = /((https| http):\/\/(www\.youtu|www\.vimeo|imgur|))/;
     
-    return str.split(' ').map( ( word, i ) => ({
+    return str.split(urlReg).map( ( word, i ) => ({
       type: word.match(urlReg) || word.match(hash)
               ? word.match(imgReg)
               ? 'img' : word.match(embed)
@@ -89,14 +89,22 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
               : 'string',
       payload: word,
       index: i,
-      link:  word.match(hash) ? `http://localhost:8080/#!/hash/${word.split('#')[1]}`: word,
+      link: word.match(hash) ? `http://localhost:8080/#!/hash/${word.split('#')[1]}`: word,
       size: {}
     }));
   };
 
   this.parse = () => {
-    console.log('changing', this.parsedArr? this.parsedArr[0] : null);
-    this.parsedArr = this.parseStr(this.post.desc);
+    console.log('changing', this.parsedArr? this.parsedArr : null);
+    // this.parsedArr = this.parseStr(this.post.desc);
+    let urlReg = /(\s(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
+    if(this.x.match(urlReg)) {
+      console.log('()()()()()(',this.x)
+      !this.post.desc ? this.post.desc = '' : false;
+      this.post.desc = this.post.desc + this.x;
+      this.x = '';
+      this.parsedArr = this.parseStr(this.post.desc);
+    }
   };
   
   this.update = (word) => {
@@ -110,6 +118,10 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     this.index = word.index;
     console.log('index', this.index);
     this.showUpdate = true;
+  };
+
+  this.xchange = () => {
+    
   }
 
   this.createPost = function(){
