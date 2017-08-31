@@ -32,12 +32,19 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
       return this.fetch();
     })
     .then( () => {
-      if($location.search().id) {
-        postService.fetchPost($location.search().id)
-        .then( post => {
-          console.log('here it is mate \n\n', post);
-          this.openPostModal(post);
-        });
+      if($location.search().mid && $stateParams.section === 'merch') {
+        merchService.fetchMerchOptions($location.search().mid)
+          .then( merch => {
+            $uibModal.open({
+              animation: this.animationsEnabled,
+              component: 'merchItem',
+              resolve: {
+                merch: function () {
+                  return merch; 
+                }
+              }
+            });
+          });
       }
       return;
     });
