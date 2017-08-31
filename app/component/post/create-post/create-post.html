@@ -22,9 +22,9 @@
       <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
       <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
       <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
-      <input ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" class="med-input" name="Desc" type="" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" />
+      <!-- <input ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" class="med-input" name="Desc" type="" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" /> -->
     </div>
-    <input class="small-input content" name="Desc" type="text" ng-model="createPostCtrl.post.desc" ng-change="createPostCtrl.parse()" />
+    <input class="small-inputs content" name="Desc" type="text" ng-model="createPostCtrl.x" ng-change="createPostCtrl.parse()" ng-trim="false"/>
 
     <section class="post" ng-if="createPostCtrl.showPic">
       <label for="pic">pic url</label>
