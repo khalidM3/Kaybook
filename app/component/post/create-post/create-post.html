@@ -6,7 +6,6 @@
     <button ng-click="createPostCtrl.choseArticle()"> Article</button>
     <button ng-click="createPostCtrl.chosePoll()"> Poll</button>
   </div>
-
   
 
   <form name="createPostForm" ng-submit="createPostCtrl.createPost()">
@@ -18,19 +17,28 @@
     <label for="Desc">description</label>
 
     <div class="content" ng-repeat="word in createPostCtrl.parsedArr">
-      <p ng-click="createPostCtrl.index = word.index" ng-if="word.type === 'string' "> {{word.payload}} </p>  
-      <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
+      <p ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word.type === 'string' "> {{word.payload}} </p>  
+      <img ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word.type === 'img'" src="{{word.payload}}" alt="">  
       <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
-      <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
-      <!-- <input ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" class="med-input" name="Desc" type="" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" /> -->
+      <iframe ng-if="word.index !== createPostCtrl.index && word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
+      <button type="button" ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word !== null && word.type !== 'string' "> edit </button>
+      <input ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" />
+      <div class="box" ng-if="word.index === createPostCtrl.index && word.type !== 'string'" ng-if="createPostCtrl.showUpdate"> 
+        <button type="button" ng-click="createPostCtrl.removeLink(word)"> remove </button>
+        <p>replace</p>
+        <input ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" />
+        <button type="button" ng-click="createPostCtrl.index = null"> done </button>
+      </div>
     </div>
     <input class="small-inputs content" name="Desc" type="text" ng-model="createPostCtrl.x" ng-change="createPostCtrl.parse()" ng-trim="false"/>
 
     <section class="post" ng-if="createPostCtrl.showPic">
       <label for="pic">pic url</label>
       <img ng-src="{{createPostCtrl.post.picURI}}" alt="">
-       <video src="{{createPostCtrl.post.picURI}}"></video> 
-      <iframe src="{{createPostCtrl.post.picURI | embed }}" frameborder="0"></iframe>
+      <!-- <video src="{{createPostCtrl.post.picURI}}"></video> -->
+      <iframe ng-if="createPostCtrl.post.picURI" src="{{createPostCtrl.post.picURI | embed }}" frameborder="0">
+        <p> cannot get it boy</p>
+      </iframe>
       <button type="button" ng-click="createPostCtrl.show()">show</button>
       <input name="pic" type="text" ng-minlength="4" ng-model="createPostCtrl.post.picURI"></input>
     </section>

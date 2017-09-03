@@ -76,7 +76,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   };
 
   this.parseStr = (str) => {
-    let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let urlReg = /(\b(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     let imgReg = /\.(?:jpe?g|gif|png)$/i;
     let hash = /#(?:\w)\w*/g;
     let embed = /((https| http):\/\/(www\.youtu|www\.vimeo|imgur|))/;
@@ -97,21 +97,36 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   this.parse = () => {
     console.log('changing', this.parsedArr? this.parsedArr : null);
     // this.parsedArr = this.parseStr(this.post.desc);
-    let urlReg = /(\s(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
+    let urlReg = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
     if(this.x.match(urlReg)) {
-      console.log('()()()()()(',this.x)
+      console.log('x ===>\n',this.x);
       !this.post.desc ? this.post.desc = '' : false;
+      console.log('desc ===> \n', this.post.desc);
       this.post.desc = this.post.desc + this.x;
+      console.log('total desc ===> \n', this.post.desc);
       this.x = '';
       this.parsedArr = this.parseStr(this.post.desc);
     }
   };
   
   this.update = (word) => {
+    let urlReg = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
+    console.log('word', word);
     this.parsedArr[word.index].payload = word.payload;
-    let arr = this.post.desc.split(' ');
+    let arr = this.post.desc.split(urlReg);
+    console.log('arr', arr);
     arr[word.index] = word.payload;
     this.post.desc = arr.join(' ');
+    console.log('post desc', this.post.desc);
+  };
+
+  this.removeLink = (word) => {
+    let urlReg = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
+    this.parsedArr[word.index] = null;
+    let arr = this.post.desc.split(urlReg);
+    arr[word.index] = null;
+    this.post.desc = arr.join(' ');
+    this.index = null;
   };
 
   this.updateWord = (word) => {
@@ -120,13 +135,11 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     this.showUpdate = true;
   };
 
-  this.xchange = () => {
-    
-  }
 
   this.createPost = function(){
     $log.debug('createPostCtrl.createPost()');
     console.log('creating post on ',this.resolve.page ? this.resolve.page : this.resolve.profile)
+    this.post.desc = this.post.desc + this.x;
     this.post.searchTerms = this.post.desc.match(/#(?:\w)\w*/g);
 
     if(this.resolve.profile) {
@@ -154,19 +167,18 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
       }
     }
 
-    
-    
   };
 
-  this.show = () => {
-    this.pic = this.post.picURI;
-  };
+  // this.show = () => {
+  //   this.pic = this.post.picURI;
+  // };
+
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
   };
 
-
   this.bark = function(){
+    return console.log("bark bark ");
   };
 
 }
