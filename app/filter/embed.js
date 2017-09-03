@@ -33,6 +33,8 @@ module.exports  = ($sce) => (url) => {
   };
 
   let embed = (str) =>  {
+    let img = str.match(/\.(?:jpe?g|gif|png)$/i);
+    if(img) return null;
     let youtube = str.match(/youtube.com\/watch/);
     if( youtube) return getYT(str);
     let youtube2 = str.match(/youtu.be/);
