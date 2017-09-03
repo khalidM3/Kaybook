@@ -79,6 +79,29 @@ function merchService($q, $log, $window, $http, authService){
     });
   };
 
+
+  service.fetchMerch = function(){
+    $log.debug('service.fetchMerch');
+
+    let url = `${__API_URL__}/api/merch/all`;
+    let config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'aplication/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('fetched all merch', res.data);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to fetch all merch',err);
+      return $q.reject(err);
+    });
+  };
+
   service.addCart = function(merchID){
     $log.debug('service.addCart()');
 
