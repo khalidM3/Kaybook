@@ -12,6 +12,10 @@ function CreatePageController($log, $window, pageService) {
   $log.debug('CreatePageController');
 
   this.page = {};
+
+  this.check = () => {
+    this.page.public ? console.log('changing the rest') : false;
+  };
   
   this.createPage = function(){
     $log.debug('createPageCtrl.createPage()');
