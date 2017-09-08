@@ -55,12 +55,27 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     this.showArticle = this.showPic = false;
   };
 
+  this.addChoice = () => {
+    console.log({name: this.choice1});
+    this.post.choices.push({name: this.choice, picURI: this.picURI});
+    this.choice = null;
+    this.picURI = null;
+    console.log('post\n', this.post);
+  };
+
+  this.removeChoice = (choice) => {
+    this.post.choices.forEach( ( ch, ind )  => {
+      if(choice.name === ch.name && choice.picURI === ch.picURI) {
+        this.post.choices.splice(ind, 1);
+      }
+    });
+  };
   
 
   this.createPost = function(){
     $log.debug('createPostCtrl.createPost()');
     console.log('creating post on ',this.resolve.page ? this.resolve.page : this.resolve.profile)
-
+    this.post.searchTerms = this.post.desc.match(/#(?:\w)\w*/g);
 
     if(this.resolve.profile) {
       console.log('going inside profile');
@@ -70,11 +85,10 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     }
 
     if( this.resolve.page) {
-      console.log('inside page');
       let profileID = $window.localStorage.getItem('profileID');
       let admin = profileID === this.resolve.page.profileID;
       if( !admin ) {
-        console.log('inside page !admin')
+        console.log('inside page !admin');
         postService.createPost(this.resolve.page._id, this.post)
         .then( post => console.log('Success createPost()', post))
         .catch(err => console.log('Failed createPost()', err));
@@ -90,23 +104,6 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
     
     
-  };
-
-
-  this.addChoice = () => {
-    console.log({name: this.choice1});
-    this.post.choices.push({name: this.choice, picURI: this.picURI});
-    this.choice = null;
-    this.picURI = null;
-    console.log('post\n', this.post);
-  };
-
-  this.removeChoice = (choice) => {
-    this.post.choices.forEach( ( ch, ind )  => {
-      if(choice.name === ch.name && choice.picURI === ch.picURI) {
-        this.post.choices.splice(ind, 1);
-      }
-    });
   };
 
   this.cancel = function () {

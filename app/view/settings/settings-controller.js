@@ -42,7 +42,7 @@ function SettingsController($log, $rootScope, $stateParams, $location, profileSe
 
   this.accountPages = () => {
     $location.url('settings/pages');
-  }
+  };
   
 
 } 

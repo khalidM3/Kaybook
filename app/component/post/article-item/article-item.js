@@ -26,16 +26,10 @@ function ArticleItemController($log, $window, $stateParams, profileService, post
     .then( article =>  {
       this.article =  article;
       this.commentsArr = article.comments;
+      this.poster = article.posterID;
       // console.log('ARR',this.commentsArr);
-      return;
-    })
-    .then( () => {
-      profileService.fetchProfile2(this.article.posterID)
-      .then( profile =>  {
-        this.poster = profile;
-        let profileID = $window.localStorage.getItem('profileID');
-        return this.showDeleteBtn = profileID === this.poster._id;
-      });
+      let profileID = $window.localStorage.getItem('profileID');
+      return this.showDeleteBtn = profileID === this.poster._id;
     })
     .catch(err => console.log('failed fetchArticle()', err));
   };

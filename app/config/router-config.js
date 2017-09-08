@@ -17,6 +17,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'homeCtrl'
     },
     {
+      name: 'hash',
+      url: '/hash/:term',
+      template: require('../view/hash/hash.html'),
+      controller: 'HashController',
+      controllerAs: 'hashCtrl'
+    },
+    {
       name: 'settings',
       url: '/settings/:section',
       template: require('../view/settings/settings.html'),

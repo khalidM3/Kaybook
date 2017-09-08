@@ -7,26 +7,51 @@
       <div class="poster-name"> {{postTileCtrl.poster.name}}</div>
       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal()">edit</button>
       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost()">delete</button>
+      <button ng-if="!postTileCtrl.isMyPost" ng-click="postTileCtrl.rePost()">share</button>
+      <!-- <div ng-if="postTileCtrl.isRePost">
+        <img ng-src="{{postTileCtrl.post.posterID.profilePicURI}}">
+        <div class=""> {{postTileCtrl.post.posterID.name}}</div>
+     </div>  -->
     </section>
 
-    <section class="body" ng-click="postTileCtrl.goTo()">
+    
+
+    <section class="body"  ng-click="postTileCtrl.goTo()">
       <section class="post-tile">
       <h2> {{ postTileCtrl.post.title}} </h2>
     </section>
 
-    <section class="post-content">
-      <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI }}" alt="">
-      <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI}}" controls>
-           Your browser does not support HTML5
-      </video>
-    </section>
-
-    <section class="post-desc">
-      <p>
-        {{postTileCtrl.post.desc}}
-      </p>
-    </section>
+      <section class="post-content">
+        
+        <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI }}" alt="">
+        <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI}}" controls>
+            Your browser does not support HTML5
+        </video>
+      </section>
     </section>
     
+    <section class="post-desc">
+       <p>
+          {{postTileCtrl.post.desc}}
+        </p>
+    </section>
+    
+    <div class="repost" ng-if="postTileCtrl.post.repost" ng-click="postTileCtrl.goToRepost()">
+      <img src="{{postTileCtrl.post.repost.posterID.profilePicURI}}" alt="">
+      <h4>  {{postTileCtrl.post.repost.posterID.name}} </h4>
+      <h4>  {{postTileCtrl.post.repost.title}} </h4>
+      <section class="repost-desc">
+        <p>
+          {{postTileCtrl.post.repost.desc}}
+        </p>
+        <section class="post-content">
+        <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.repost.picURI }}" alt="">
+        <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.repost.picURI}}" controls>
+            Your browser does not support HTML5
+        </video>
+      </section>
+
+      </section>
+    </div>
 
 </section>

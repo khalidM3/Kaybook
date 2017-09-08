@@ -4,7 +4,7 @@ require('./_post-item.scss');
 
 module.exports = {
   template: require('./post-item.html'),
-  controller: ['$log', 'postService', 'profileService', 'commentService', PostItemController],
+  controller: ['$log', '$window', 'postService', 'profileService', 'commentService', PostItemController],
   controllerAs: 'postItemCtrl',
   bindings: {
     loggedIn: '<',
@@ -16,7 +16,7 @@ module.exports = {
   }
 };
 
-function PostItemController($log, postService, profileService, commentService){
+function PostItemController($log, $window, postService, profileService, commentService){
   $log.debug('postItemController');
 
   
@@ -25,12 +25,12 @@ function PostItemController($log, postService, profileService, commentService){
   this.showEditpost = false;
   this.showCreateComment = false;
 
-  this.$onInit = function() {
-    $log.debug('postItemController.$onInit()');
+  // this.$onInit = function() {
+  //   $log.debug('postItemController.$onInit()');
     
-    if (this.resolve.post) return this.updatePostView();
-    return this.onpostChange();
-  };
+  //   if (this.resolve.post) return this.updatePostView();
+  //   return this.onpostChange();
+  // };
 
   this.updatePostItemView = function() {
     $log.debug('postItemController.updatePostItemView', this.post);
@@ -38,51 +38,39 @@ function PostItemController($log, postService, profileService, commentService){
     this.onpostChange();
   };
 
-  // this.deletepost = function(post){
-  //   $log.debug('postItemController.deletepost');
+  this.$onInit = function(){
+    $log.debug('articleItemCtrl.onInit()');
 
-  //   postService.deletepost(post)
-  //   .then(this.onpostChange());
-  // };
-
-  // this.posterf = function() {
-  //   $log.debug('postItemController.poster',this.resolve.post.posterPID);
-
-  //   profileService.fetchProfile2(this.resolve.post.posterPID)
-  //   .then(profile => {
-  //     console.log('HERE IT IS MATE',this.resolve.post.posterPID);
-  //     this.poster = profile;
-  //     return this.poster;
-  //   });
-  // };
-
-  this.updatePostView = function(){
-    $log.debug('PostItemController.updatePost');
-
-  
-    console.log('RESOLVE {}::', this.resolve);
-
-    // this.showCreateComment = true;
     this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI);
-    this.commentArr = [];
-    // this.showCommentField = false;
 
-    $log.debug('this.post >>');
+    postService.fetchPostComments(this.resolve.post._id)
+    .then( post =>  {
+      this.post =  post;
+      this.commentsArr = post.comments;
+      this.choicesArr = post.choices;
+      this.poster = post.posterID;
+      this.parsedArr = this.parseStr(this.post.desc);
+      console.log(this.parsedArr);
+      // console.log('ARR',this.commentsArr);
+      let profileID = $window.localStorage.getItem('profileID');
+      return this.showDeleteBtn = profileID === this.poster._id;
+    })
+    .catch(err => console.log('failed fetchArticle()', err));
+  };
 
-    // postService.fetchPost(this.resolve.post._id)
-    // .then( post => this.post = post.data)
-    // .then( () => profileService.fetchProfile2(this.post.posterPID))
-    profileService.fetchProfile2(this.resolve.post.posterPID)
-    .then(profile => {
-      this.poster = profile;
-    })
-    .then( () => {
-      if (this.resolve.post.comments.length < 1) return;
-      commentService.fetchPostComments(this.resolve.post._id)
-        .then( post => this.commentArr = post.comments)
-        .catch( err => console.log('FAILED fetch post comments', err));
-    })
-    .catch(err => $log.error(err.message));
+  this.parseStr = (str) => {
+    let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let imgReg = /\.(?:jpe?g|gif|png)$/i;
+    let hash = /#(?:\w)\w*/g;
+    
+    return str.split(' ').map( word => ({
+      type: word.match(urlReg) || word.match(hash)
+              ? word.match(imgReg) ? 'img' : 'link'
+              : 'string',
+      payload: word,
+      link:  word.match(hash) ? `http://localhost:8080/#!/hash/${word.split('#')[1]}`: word,
+      size: {}
+    }));
   };
 
   this.likePost = function(){
@@ -93,20 +81,19 @@ function PostItemController($log, postService, profileService, commentService){
     .catch( err => console.log('Failed likePost()', err));
   };
 
-  this.unLikePost = function() {
-    $log.debug('postItemCtrl.unLikePost()');
-
-    postService.unLikePost(this.resolve.post._id)
-    .then( post => console.log('Successfuly unLikedPost()', post))
-    .catch( err => console.log('Failed unLikePost()', err));
-  };
-
   this.dislikePost = function() {
     $log.debug('postItemCtrl.dislikePost()');
 
     postService.dislikePost(this.resolve.post._id)
-    .then( post => console.log('Successfuly dislikedPost()', post))
+    .then( post => this.resolve.post = post)
     .catch( err => console.log('Failed dislikePost()', err));
+  };
+
+  this.vote = function(choice){
+    
+    postService.vote(this.post._id, choice._id)
+    .then( poll => this.choicesArr = poll.choices)
+    .catch(err => console.log('Failed choice', err));
   };
 
 

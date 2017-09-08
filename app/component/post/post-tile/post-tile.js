@@ -21,22 +21,29 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
     $log.debug('postTileCtrl.$onInit()');
 
     this.isVid = (/\.mp4$/).test(this.post.postPicURI);
-    this.isMyPost = this.post.posterID.toString() === profileID.toString();
+    this.isMyPost = this.post.posterID._id === profileID;
+    this.poster = this.post.posterID;
+    this.showRepost = this.post.repost;
+    // if(this.post.repost)  {
+    //   this.post = this.post.repost;
+    //   console.log('poster ', this.post.posterID);
+    //   this.isRePost = true;
+    // }
 
-    profileService.fetchProfile2(this.post.posterID)
-    .then(profile => {
-      console.log('PPPPPPPPP', profile);
-      this.poster = profile;
-      return profile;
-    })
-    .then( profile => {
-      if(profile) return profile;
-      profileService.fetchProfile2(this.post.postedID)
-      .then(profile => {
-        console.log('PPPPPPPPP', profile);
-        this.poster = profile;
-      });
-    });
+    // profileService.fetchProfile2(this.post.posterID)
+    // .then(profile => {
+    //   console.log('PPPPPPPPP', profile);
+    //   this.poster = profile;
+    //   return profile;
+    // })
+    // .then( profile => {
+    //   if(profile) return profile;
+    //   profileService.fetchProfile2(this.post.postedID)
+    //   .then(profile => {
+    //     console.log('PPPPPPPPP', profile);
+    //     this.poster = profile;
+    //   });
+    // });
   };
 
 
@@ -45,7 +52,7 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
 
   this.openEditPostModal = function () {
     let post = this.post;
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       animation: this.animationsEnabled,
       component: 'editPost',
       resolve: {
@@ -67,6 +74,19 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
     
   };
 
+  this.rePost = () => {
+
+    profileService.fetchMyProfile()
+    .then( profile => {
+      console.log('profile', profile);
+      this.repost = {};
+      this.repost.friends = profile.friends;
+      console.log('repost', this.repost);
+      return postService.rePost(this.post._id, this.repost)
+            .then( post => console.log(post));
+    });
+  };
+
   // this.deletePost = function(){
   //   $log.debug('postTileController.deletePost()');
   //   //TODO => fix the delete pic route
@@ -79,7 +99,8 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
   // };
   
   this.goTo = () => {
-    if(this.post.type !== 'pic') return $location.url(`/${this.post.type}/${this.post._id}`);
+    // console.log('the tyoe is =====|>', this.post.type);
+    // if(this.post.type !== 'pic' && this.post.type !== 'question' ) return $location.url(`/${this.post.type}/${this.post._id}`);
     
     let post = this.post;
     return $uibModal.open({
@@ -93,6 +114,20 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
       }
     });
 
+  };
+
+  this.goToRepost = () => {
+    let post = this.post.repost;
+    return $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'postItem',
+      resolve: {
+        post: function () {
+          console.log('<><><><><><><><><><><><><>', post);
+          return post; 
+        }
+      }
+    });
   };
 
 

@@ -38,46 +38,49 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $locatio
       this.showUnFriendBtn = isFriend;
       this.showSendReqBtn = !isFriend && !sentMeReq;
       this.showUnSendReqBtn = sentThemReq;
-      console.log(this.profile.name);
-      console.log('is my friend', isFriend);
-      console.log('sent them a request', sentThemReq);
-      console.log('sent me a request', sentMeReq);
-      console.log('+++++++++++++++++++++++++++++++++');
+      this.fetchMyPagePosts();
     });
   };
 
-  this.updateProfileView = function() {
-    $log.debug('ProfileViewController.updateProfileView()');
-    console.log('this.postArray:::',this.postsArray);
+  // this.updateProfileView = function() {
+  //   $log.debug('ProfileViewController.updateProfileView()');
+  //   console.log('this.postArray:::',this.postsArray);
 
-    this.postsArray = [];
+  //   this.postsArray = [];
     
-    profileService.fetchProfile(this.userID)
-    .then(profile => {
-      this.profile = profile;
-      this.showEditView = false;
-      if(profile.posts.length !== 0){
-        profile.posts.forEach( profileID => {
-          postService.fetchPost(profileID)
-          .then( postObj => this.postsArray.push(postObj));
-        });
-      }
-    })
-    .catch( err => $log.error(err.message));
-  };
+  //   profileService.fetchProfile(this.userID)
+  //   .then(profile => {
+  //     this.profile = profile;
+  //     this.showEditView = false;
+  //     if(profile.posts.length !== 0){
+  //       profile.posts.forEach( profileID => {
+  //         postService.fetchPost(profileID)
+  //         .then( postObj => this.postsArray.push(postObj));
+  //       });
+  //     }
+  //   })
+  //   .catch( err => $log.error(err.message));
+  // };
 
   this.fetchMyPagePosts = () => {
     $log.debug('ProfileViewController.fetchPosts()');
-
+    this.showBio = false;
     postService.fetchMyPagePosts(this.profile._id)
     .then( posts => this.postsArr =  posts);
   };
 
   this.fetchTimePosts = () => {
     $log.debug('ProfileViewController.fetchTimePosts()');
-   
+    this.showBio = false;
     postService.fetchTimePosts(this.profile._id)
     .then( posts => this.postsArr = posts);
+  };
+
+  this.about = () => {
+
+    this.showBio = true;
+    this.postsArr = [];
+    console.log(this.showBio, this.profile.bio)
   };
   
 

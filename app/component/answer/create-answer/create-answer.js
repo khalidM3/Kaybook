@@ -4,7 +4,7 @@ require('./_create-answer.scss');
 
 module.exports = {
   template: require('./create-answer.html'),
-  controller: ['$log', '$window', 'answerService', CreateAnswerController],
+  controller: ['$log', '$window','$document', 'answerService', CreateAnswerController],
   controllerAs: 'createAnswerCtrl',
   bindings: {
     post: '<',
@@ -12,10 +12,11 @@ module.exports = {
   }
 };
 
-function CreateAnswerController($log, $window, answerService) {
+function CreateAnswerController($log, $window, $document, answerService) {
   $log.debug('CreateAnswerController');
 
   this.answerData = {};
+  $window.document.getElementById('cont').innerHTML = '';
 
   this.createAnswer = function(){
     $log.debug('createAnswerCtrl.createAnswer()');
@@ -31,8 +32,35 @@ function CreateAnswerController($log, $window, answerService) {
     .then( forum => console.log('Successfully replied answer', forum))
     .catch( err => console.log('FAiled to reply to Answer', err));
     }
-  
-  
+  };
+
+  this.parseURL = (str ) => {
+    console.log('str\n',str);
+    let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let imgReg = /\.(?:jpe?g|gif|png)$/i;
+    let parsed = str.replace(urlReg, (match) => {
+      console.log('match\n',match);
+      return imgReg.test(match) ? '<img src="'+match+'" class="thumb" />' : '<a href="'+match+'" target="_blank">'+match+'</a>';
+    });
+    $window.document.getElementById('cont').innerHTML = parsed;
+  };
+
+  // this.check = () => {
+  //   this.answerData.answer = this.answerData.answer.replace(
+  //     /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-]).(jpg|png)/g,
+  //     (match) => '<img src="'+ match +'" />'
+  //   );
+
+    
+
+  // };
+
+  this.wtf = () => {
+    console.log('changing');
+    console.log(this.parseURL(this.answerData.answer));
+    // this.answerData.answer = this.parseURL(this.answerData.answer);
+    this.parseURL(this.answerData.answer);
+    // $window.document.getElementById('cont').innerHTML = this.parseURL(this.answerData.answer);
   };
 
 }

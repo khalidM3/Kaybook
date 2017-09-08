@@ -90,6 +90,34 @@ function postService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.rePost = function(postID, post) {
+    $log.debug('postService.rePost()');
+
+    return authService.getToken()
+    .then( token  => {
+      let url = `${__API_URL__}/api/repost/${postID}`;
+      let config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      console.log('POST', postID);
+      console.log(url);
+      return $http.post(url, post, config);
+    })
+    .then( res => {
+      $log.log('Successfully reposted post', res.data);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('FAILED to repost post', err);
+      return $q.reject(err);
+    });
+  };
+
   service.fetchPost = function(postID) {
     $log.debug('postService.fetchPosts()');
 
@@ -385,6 +413,27 @@ function postService($q, $log, $http, $window, authService) {
       }
     };
     console.log(url);
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('fetched all posts', res.data);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('FAILED to fetch all posts', err);
+      return $q.reject(err);
+    });
+  };
+
+  service.fetchHash = function(term) {
+    $log.debug('postService.fetchHash()');
+
+    let url = `${__API_URL__}/api/hash/${term}`;
+    let config = {
+      headers: {
+        Accept: 'application/json',
+      }
+    };
+    console.log(url);    
     return $http.get(url, config)
     .then( res => {
       $log.log('fetched all posts', res.data);
