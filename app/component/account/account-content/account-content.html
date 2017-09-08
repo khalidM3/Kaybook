@@ -5,12 +5,12 @@
  <ul class="accountContent-navbar">
    <li ng-click="accountContentCtrl.fetchMyPosts()">my posts</li>
    <li ng-click="accountContentCtrl.fetchMyComments()">my comments</li>
-   <li>placeholder</li>
+   <li ng-click="accountContentCtrl.fetchMyAnswers()"> answers </li>
    <li>placeholder</li>
  </ul>
 
  <section>
-    <post-tile ng-repeat="post in accountContentCtrl.myPostsArray track by $index" post="post"></post-tile>
+    <post-tile ng-repeat="post in accountContentCtrl.postsArr" post="post"></post-tile>
   </section>
 
   <section>
@@ -18,6 +18,10 @@
                           comment="comment" 
                           profile="postItemCtrl.myProfile[0]">
     </comment-item>
+  </section>
+
+  <section>
+    <answer-item ng-repeat="answer in accountContentCtrl.answersArr" answer="answer"></answer-item>
   </section>
 
 

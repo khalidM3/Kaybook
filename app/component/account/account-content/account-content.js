@@ -6,7 +6,7 @@ require('./_account-content.scss');
 
 module.exports = {
   template: require('./account-content.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', 'profileService', 'postService', 'commentService', AccountContentController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', 'profileService', 'postService', 'answerService', AccountContentController],
   controllerAs: 'accountContentCtrl',
   bindings: {
     profile: '<',
@@ -14,43 +14,48 @@ module.exports = {
   }
 };
 
-function AccountContentController($log, $rootScope, $stateParams, $window, profileService, postService, commentService) {
+function AccountContentController($log, $rootScope, $stateParams, $window, profileService, postService, answerService) {
   $log.debug('AccountContentController');
 
   this.myUserID = $window.localStorage.getItem('userID');
   this.myProfile = [];
 
-  this.fetchMyProfile = function(){
-    $log.debug('AccountContentController.fetchMyProfile()');
+  // this.fetchMyProfile = function(){
+  //   $log.debug('AccountContentController.fetchMyProfile()');
 
-    this.myUserID = $window.localStorage.getItem('userID');
-    console.log('this one ?',this.myUserID);
-    profileService.fetchProfile(this.myUserID)
-      .then( profile => {
-        this.myProfile.push(profile);
-        console.log('HERE!!!',this.myProfile[0]._id);
-      });
+  //   this.myUserID = $window.localStorage.getItem('userID');
+  //   console.log('this one ?',this.myUserID);
+  //   profileService.fetchProfile(this.myUserID)
+  //     .then( profile => {
+  //       this.myProfile.push(profile);
+  //       console.log('HERE!!!',this.myProfile[0]._id);
+  //     });
 
-  };
+  // };
 
-  this.fetchMyProfile();
+  // this.fetchMyProfile();
+    // this.myCommentsArray = [];
+    // this.myPostsArray = [];
 
-  this.fetchMyProfilePosts = function() {
+  this.fetchMyPosts = () => {
     $log.debug('AccountContentController.fetchMyPosts()');
 
-    this.myCommentsArray = [];
-    this.myPostsArray = [];
-
-    postService.fetchMyPosts(this.myProfile[0]._id)
-    .then( profile => {
-      for( var prop in profile.posts){
-        console.log(profile.posts[prop]);
-        let post = {};
-        post.data = profile.posts[prop];
-        this.myPostsArray.push(post);
-      }
-    });
+    this.answersArr = [];
+    
+    postService.fetchMyPosts()
+    .then( posts => this.postsArr = posts);
   };
+
+  this.fetchMyAnswers = () => {
+    $log.debug('AccountContentController.fetchMyAnswers()');
+
+    this.postsArr = [];
+
+    answerService.fetchMyAnswers()
+    .then( answers => this.answersArr = answers);
+  };
+
+    
 
   // this.fetchMyComments = function() {
   //   $log.debug('AccountContentController.fetchMyComments');
@@ -83,40 +88,40 @@ function AccountContentController($log, $rootScope, $stateParams, $window, profi
   //   // }
   // };
 
-  this.fetchMyComments = function(){
-    $log.debug('AccountContentController.fetchMyComments()');
+  // this.fetchMyComments = function(){
+  //   $log.debug('AccountContentController.fetchMyComments()');
 
-    this.myPostsArray = [];
-    this.myCommentsArray = [];
+  //   this.myPostsArray = [];
+  //   this.myCommentsArray = [];
 
-    commentService.fetchMyProfileComments(this.myProfile[0]._id)
-    .then( comments => {
-      comments.forEach( comment => {
-        this.myCommentsArray.push(comment);
-      });
-    })
-    .catch(err => {
-      $log.error('FAILED to fetchMyComment()', err);
-    });
-  };
+  //   commentService.fetchMyProfileComments(this.myProfile[0]._id)
+  //   .then( comments => {
+  //     comments.forEach( comment => {
+  //       this.myCommentsArray.push(comment);
+  //     });
+  //   })
+  //   .catch(err => {
+  //     $log.error('FAILED to fetchMyComment()', err);
+  //   });
+  // };
 
-  this.fetchMyPosts = function(){
-    $log.debug('AccountContentController.fetchMyPosts()');
+  // this.fetchMyPosts = function(){
+  //   $log.debug('AccountContentController.fetchMyPosts()');
 
-    this.myCommentsArray = [];
-    this.myPostsArray = [];
+  //   this.myCommentsArray = [];
+  //   this.myPostsArray = [];
 
-    postService.fetchPostedPosts(this.myProfile[0]._id)
-    .then( posts => {
-      // console.log(posts);
-      posts.forEach( postData => {
-        console.log(postData.posterName);
-        let post = {};
-        post.data = postData;
-        this.myPostsArray.push(post);
-      });
-    });
-  };
+  //   postService.fetchPostedPosts(this.myProfile[0]._id)
+  //   .then( posts => {
+  //     // console.log(posts);
+  //     posts.forEach( postData => {
+  //       console.log(postData.posterName);
+  //       let post = {};
+  //       post.data = postData;
+  //       this.myPostsArray.push(post);
+  //     });
+  //   });
+  // };
 
 
 }

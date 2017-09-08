@@ -22,6 +22,11 @@ function HomeController($log, $rootScope, $stateParams, $location, profileServic
     // .then(recipes => this.myRecipes = recipes);
   };
 
+  this.explore = () => {
+    this.fetchAllProfiles();
+    this.fetchAllPosts();
+  };
+
   this.fetchAllProfiles = function(){
     $log.debug('HomeController.fetchAllProfiles()');
 
@@ -30,54 +35,46 @@ function HomeController($log, $rootScope, $stateParams, $location, profileServic
     .then( profiles => this.allProfiles = profiles);
   };
 
-  this.fetchJoinedProfiles = function(){
-    $log.debug('HomeController.fetchJoinedProfiles()');
-
-    this.allProfiles = [];
-    this.joinedPosts = [];
-
-    profileService.fetchProfile(this.myUserID)
-    .then(profile => {
-      let arr = profile.memberOf;
-  
-      arr.forEach( profileUID => {
-        profileService.fetchProfile(profileUID)
-        .then( profile => this.allProfiles.push(profile));
-      });
-    })
-    .catch( err => $log.error('couldnt fetch joinded Profiles', err));
+  this.fetchAllPosts = () => {
+    $log.debug('HomeController.fetchAllPosts()');
+    postService.fetchAllPosts()
+    .then( posts => this.postsArr = posts);
   };
+
+  // this.fetchJoinedProfiles = function(){
+  //   $log.debug('HomeController.fetchJoinedProfiles()');
+
+  //   this.allProfiles = [];
+  //   this.postsArr = [];
+
+  //   profileService.fetchProfile(this.myUserID)
+  //   .then(profile => {
+  //     let arr = profile.memberOf;
+  
+  //     arr.forEach( profileUID => {
+  //       profileService.fetchProfile(profileUID)
+  //       .then( profile => this.allProfiles.push(profile));
+  //     });
+  //   })
+  //   .catch( err => $log.error('couldnt fetch joinded Profiles', err));
+  // };
 
   this.fetchJoinedPosts = function(){
     $log.debug('HomeController.fetchJoinedPosts()');
 
-    this.joinedPosts = [];
-    // console.log('JOINED ++++++', this.joinedPosts);
     this.allProfiles = [];
 
-    profileService.fetchProfile(this.myUserID)
-    .then(profile => {
-      let arr = profile.memberOf;
-  
-      arr.forEach( profileUID => {
-        profileService.fetchProfile(profileUID)
-      .then( profile => {
-        postService.fetchMyPosts(profile._id)
-        .then( profile => {
-          // console.log('fetch joined posts [][][]:', profile.posts);
-          for( var prop in profile.posts){
-            console.log(profile.posts[prop]);
-            let prof = {};
-            prof.data = profile.posts[prop];
-            this.joinedPosts.push(prof);
-          }
-        });
-      });
-      });
-    })
-    .catch( err => $log.error('couldnt fetch joined posts', err));
-    
+    postService.fetchJoinedPosts()
+    .then( posts => this.postsArr = posts);
+  };
+
+  this.fetchJoinedFeed = function(){
+    $log.debug('HomeController.fetchJoinedFeed()');
+
     this.allProfiles = [];
+
+    postService.fetchJoinedFeed()
+    .then( posts => this.postsArr = posts);
   };
 
   this.goToSocial = function(){
@@ -87,20 +84,7 @@ function HomeController($log, $rootScope, $stateParams, $location, profileServic
   };
 
   this.fetchProfile();
-  // this.fetchAllProfiles();
-  // this.fetchAllRecipes();
 
-  // this.recipes = [];
-
-  // this.fetchRecipes = function() {
-  //   recipeService.fetchRecipes()
-  //   .then( recipes => {
-  //     this.recipes = recipes;
-  //     this.currentRecipe = recipes[0];
-  //   });
-  // };
-
-  // this.fetchRecipes();
 
   // $rootScope.$on('$locationChangeSuccess', () => {
   //   this.fetchRecipes();

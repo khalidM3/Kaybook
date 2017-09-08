@@ -91,7 +91,7 @@ function postService($q, $log, $http, $window, authService) {
   };
 
   service.fetchPost = function(postID) {
-    $log.debug('postService.fetchMyPosts()');
+    $log.debug('postService.fetchPosts()');
 
     let url = `${__API_URL__}/api/post/${postID}`;
     let config = {
@@ -135,7 +135,7 @@ function postService($q, $log, $http, $window, authService) {
 //            POLL
 
   service.vote = function(postID, choiceID ) {
-    $log.debug('postService.fetchMyPosts()');
+    $log.debug('postService.vote()');
 
     return authService.getToken()
     .then( token => {
@@ -207,10 +207,10 @@ function postService($q, $log, $http, $window, authService) {
     });
   };
 
-  service.fetchMyPosts = function(profileID) {
-    $log.debug('postService.fetchMyPosts()');
+  service.fetchMyPagePosts = function(profileID) {
+    $log.debug('postService.fetchMyPagePosts()');
 
-    let url = `${__API_URL__}/api/allposts/${profileID}`;
+    let url = `${__API_URL__}/api/mypageposts/${profileID}`;
     let config = {
       headers: {
         Accept: 'application/json'
@@ -229,24 +229,27 @@ function postService($q, $log, $http, $window, authService) {
     });
   };
 
-  service.fetchPostedPosts = function(profileID) {
+  service.fetchMyPosts = function() {
     $log.debug('postService.fetchMyPosts()');
 
-    let url = `${__API_URL__}/api/allmyposts/${profileID}`;
-    let config = {
-      headers: {
-        Accept: 'application/json'
-      }
-    };
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/allmyposts`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
 
-    return $http.get(url, config)
+      return $http.get(url, config);
+    })
     .then( res => {
-      $log.log('posts retrieved');
-      service.posts = res.data;
-      return service.posts;
+      $log.log('posts retrieved', res);
+      return res.data;
     })
     .catch( err => {
-      $log.error(err.message);
+      $log.error('Failed to fetch posts',err.message);
       return $q.reject(err);
     });
   };
@@ -271,6 +274,124 @@ function postService($q, $log, $http, $window, authService) {
     })
     .catch( err => {
       $log.error('FAILED to fetch friends posts', err);
+      return $q.reject(err);
+    });
+  };
+
+  service.fetchTimeline = function() {
+    $log.debug('postService.fetchTimeline()');
+
+    return authService.getToken()
+    .then( token  => {
+      let url = `${__API_URL__}/api/timeline`;
+      let config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+      console.log(url);
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('fetched timeline posts', res.data);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('FAILED to fetch timeline posts', err);
+      return $q.reject(err);
+    });
+  };
+
+
+
+  service.fetchTimePosts = function(profileID) {
+    $log.debug('postService.fetchTimePosts()');
+
+    let url = `${__API_URL__}/api/timelineposts/${profileID}`;
+    let config = {
+      headers: {
+        Accept: 'application/json',
+      }
+    };
+    console.log(url);
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('fetched timeline posts', res.data);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('FAILED to fetch timeline posts', err);
+      return $q.reject(err);
+    });
+  };
+
+  service.fetchJoinedPosts = function() {
+    $log.debug('postService.fetchJoinedPosts()');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/joinedposts`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('post retrieved', res);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error(err.message, 'FAILED TO RETRIEVE');
+      return $q.reject(err);
+    });
+  };
+
+  service.fetchJoinedFeed = function() {
+    $log.debug('postService.fetchJoinedFeed()');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/joinedfeed`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('feed retrieved', res);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error(err.message, 'FAILED to retreve feed');
+      return $q.reject(err);
+    });
+  };
+
+  service.fetchAllPosts = function() {
+    $log.debug('postService.fetchAllPosts()');
+
+    let url = `${__API_URL__}/api/allposts`;
+    let config = {
+      headers: {
+        Accept: 'application/json',
+      }
+    };
+    console.log(url);
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('fetched all posts', res.data);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('FAILED to fetch all posts', err);
       return $q.reject(err);
     });
   };

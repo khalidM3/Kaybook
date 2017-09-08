@@ -15,7 +15,8 @@
       </li>
     </ul>
     
-   <edit-page ng-if="pageItemCtrl.showEditBtn" page="pageItemCtrl.page"></edit-page>
+   <!--<edit-page ng-if="pageItemCtrl.showEditBtn" page="pageItemCtrl.page"></edit-page>-->
+   <button ng-if="pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.goToEditPage()">edit page</button>
 
    <section class="subnav">
     <ul> 
@@ -33,10 +34,7 @@
   </div>-->
 
 
-  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openComponentModal(pageItemCtrl.page)">create post</button>
-  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateForumModal(pageItemCtrl.page)">create forum</button>
-  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateArticleModal(pageItemCtrl.page)">create article</button>
-  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePollModal(pageItemCtrl.page)">create poll</button>
+  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()"> post </button>
 
   <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToMerch()">create merch</button>
   <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToCart()">view cart</button>

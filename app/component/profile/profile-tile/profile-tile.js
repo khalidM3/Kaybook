@@ -20,10 +20,10 @@ function ProfileTileController($log, $location, $stateParams, $window, profileSe
     let isFriend = this.profile.friends.some(pID => pID.toString() === profileID);
     let sentThemReq = this.profile.friendReq.some(pID => pID.toString() === profileID);
     let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === profileID);
-    this.showAcceptBtn = sentMeReq;
-    this.showUnFriendBtn = isFriend;
-    this.showSendReqBtn = !sentMeReq && !sentThemReq && !isFriend;
-    this.showUnSendReqBtn = true;//sentThemReq;
+    // this.showAcceptBtn = sentMeReq;
+    // this.showUnFriendBtn = isFriend;
+    // this.showSendReqBtn = !sentMeReq && !sentThemReq && !isFriend;
+    this.showAcceptBtn = this.showUnFriendBtn = this.showSendReqBtn = this.showUnSendReqBtn = true;//sentThemReq;
     console.log(this.profile.name);
     console.log('is my friend', isFriend);
     console.log('sent them a request', sentThemReq);

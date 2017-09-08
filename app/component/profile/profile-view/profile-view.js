@@ -4,14 +4,14 @@ require('./_profile-view.scss');
 
 module.exports = {
   template: require('./profile-view.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$uibModal', 'profileService', 'postService', ProfileViewController],
+  controller: ['$log', '$rootScope', '$stateParams', '$window', '$location', 'profileService', 'postService', ProfileViewController],
   controllerAs: 'profileViewCtrl',
   bindings: {
     profile: '<',
   }
 };
 
-function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModal, profileService, postService) {
+function ProfileViewController($log, $rootScope, $stateParams, $window, $location, profileService, postService) {
   $log.debug('ProfileViewController');
 
   
@@ -46,29 +46,6 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
     });
   };
 
-  // this.fetchProfile = function(){
-  //   $log.debug('profileViewCtrl.fetchProfile()');
-
-  //   profileService.fetchProfile2($stateParams.profileID)
-  //   .then( profile => this.profile = profile);
-  // };
-
-  // this.check = function(){
-  //   $log.debug('profileViewController.check()');
-
-  //   // let userID = $window.localStorage.getItem('userID');
-  //   // profileService.fetchProfile(userID)
-  //   // .then( profile => {
-  //   //   let arr = profile.friends;
-  //   //   this.showLeaveBtn = arr.some( PID => PID.toString() === this.profile._id.toString());
-  //   //   // console.log('profile.memberOf  }-------->',arr);
-  //   //   // console.log('}------->', this.userID);
-  //   // });
-
-  //   console.log('PROFILE ::::::::', this.profile);
-  // };
-  // this.check();
-
   this.updateProfileView = function() {
     $log.debug('ProfileViewController.updateProfileView()');
     console.log('this.postArray:::',this.postsArray);
@@ -88,6 +65,21 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
     })
     .catch( err => $log.error(err.message));
   };
+
+  this.fetchMyPagePosts = () => {
+    $log.debug('ProfileViewController.fetchPosts()');
+
+    postService.fetchMyPagePosts(this.profile._id)
+    .then( posts => this.postsArr =  posts);
+  };
+
+  this.fetchTimePosts = () => {
+    $log.debug('ProfileViewController.fetchTimePosts()');
+   
+    postService.fetchTimePosts(this.profile._id)
+    .then( posts => this.postsArr = posts);
+  };
+  
 
   this.sendReq = function(){
     $log.debug('ProfileViewCtrl.sendReq()');
@@ -144,6 +136,9 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
     .catch( err => console.log('Failed unFriend()', err));
   };
 
+  this.goToEditProfile = () => {
+    $location.url('settings/profile');
+  };
 
   // this.open = function (size, selectedPost) {
   //   // var parentElem = parentSelector ? 
@@ -171,18 +166,18 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModa
   //   // });
   // };
 
-  this.openComponentModal = function ( profile) {
+  // this.openComponentModal = function ( profile) {
 
-    var modalInstance = $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'createPost',
-      resolve: {
-        profile: function () {
-          return profile;
-        }
-      }
-    });
-  };
+  //   var modalInstance = $uibModal.open({
+  //     animation: this.animationsEnabled,
+  //     component: 'createPost',
+  //     resolve: {
+  //       profile: function () {
+  //         return profile;
+  //       }
+  //     }
+  //   });
+  // };
 
 
 }

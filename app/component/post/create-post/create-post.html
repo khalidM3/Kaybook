@@ -1,113 +1,58 @@
 <section ng-init="showCreateBtn = true" class="create-post">
-  <!--<input class="btn-std commenter-button" value="add a post" type="submit" ng-show="showCreateBtn" ng-click="showCreateBtn = false">-->
-  <div ng-show="showCreateBtn" class="add-post">
-    <div class="modal-header">
-      <h2>Create post modal</h2>
-    </div>
 
-    <div class="modal-body">
-      <form name="createPostForm"
-            ng-submit="createPostCtrl.createPost()"
-            novalidate>
+  <div class="choosebtns">
+    <button ng-click="createPostCtrl.chosePost()"> Post</button>
+    <button ng-click="createPostCtrl.choseQuest()"> Question</button>
+    <button ng-click="createPostCtrl.choseArticle()"> Article</button>
+    <button ng-click="createPostCtrl.chosePoll()"> Poll</button>
+  </div>
 
-        <div>
-        <span
-              ngf-select
-              ng-model="createPostCtrl.uploadedPost"> upload pic
-        </span>
+  
 
-        <div>
-          <input type="text" placeholder="choose a link" ng-model="createPostCtrl.post.picURI">
-        </div>
-
-      </div>
-
-      <div>
-        <input class="input-std ignore-valid"
-              name="desc"
-              type="text"
-              placeholder=" "
-              ng-minlength="4"
-              ng-model="createPostCtrl.post.title" required>
-        <label for="desc">Title</label>
-      </div>
+  <form name="createPostForm" ng-submit="createPostCtrl.createPost()">
 
 
-        <div>
-        <input class="input-std ignore-valid"
-              name="desc"
-              type="text"
-              placeholder=" "
-              ng-minlength="4"
-              ng-model="createPostCtrl.post.desc" required>
-        <label for="desc">Description</label>
-      </div>
+    <label for="name"> title</label>
+    <input name="name" type="text" ng-minlength="4" ng-model="createPostCtrl.post.title">
 
-        <!--<div>
-        <input class="input-std ignore-valid"
-              name="ingredients"
-              type="text"
-              placeholder=" "
-              ng-minlength="2"
-              ng-model="createPostCtrl.post.ingredients" ng-list required>
-        <label for="ingredients">Ingredient 1, Ingredient2, ect...</label>
-      </div>-->
+    <label for="Desc">description</label>
+    <textarea name="Desc" type="text" ng-minlength="4" ng-model="createPostCtrl.post.desc"></textarea>
 
-        <!--<div>
-        <input class="input-std ignore-valid"
-              name="instructions"
-              type="text"
-              placeholder=" "
-              ng-minlength="2"
-              ng-model="createPostCtrl.post.instructions" ng-list required>
-        <label for="instruction">Direction 1, Direction 2, ect...</label>
-      </div>-->
+    <section class="post" ng-if="createPostCtrl.showPic">
+      <label for="pic">pic url</label>
+      <img ng-src="{{createPostCtrl.post.picURI}}" alt="">
+      <input name="pic" type="text" ng-minlength="4" ng-model="createPostCtrl.post.picURI"></input>
+    </section>
 
-        <!--<div>
-        <input class="input-std ignore-valid"
-              name="prep"
-              type="text"
-              placeholder=" "
-              ng-minlength="1"
-              ng-model="createPostCtrl.post.prepTime" required>
-        <label for="prep">Prep Time (5 mins)</label>
-      </div>-->
+    <section class="poll" ng-if="createPostCtrl.showPoll">
+      <section class="choice-table" ng-show="createPostCtrl.post.choices[0]">
+        <table>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th>remove</th>
+          </tr>
 
-        <!--<div>
-        <input class="input-std ignore-valid"
-              name="cook"
-              type="text"
-              placeholder=" "
-              ng-minlength="1"
-              ng-model="createPostCtrl.post.cookTime" required>
-        <label for="cook">Cook Time (20 mins)</label>
-      </div>-->
+        <tr ng-repeat="choice in createPostCtrl.post.choices track by $index">
+        
+          <td> <img ng-src="{{choice.picURI}}" alt=""> </td>
+          <td> {{choice.name}} </td>
+          <td ng-click="createPostCtrl.removeChoice(choice)"> X </td>
 
-        <!--<div>
-        <input class="input-std ignore-valid"
-              name="cats"
-              type="text"
-              placeholder=" "
-              ng-minlength="1"
-              ng-model="createPostCtrl.post.categories" required>
-        <label for="cats">Mexican, Indian, ect...</label>
-        <div class="requirements">
+        </tr>
+        </table>
+      </section>
 
-        </div>-->
-        <input type="submit"
-              class="btn-std"
-              value="save post"
-              ng-click="showCreateBtn = true"
-              ng-disabled="createPostForm.$invalid">
-      </form>
-      
-    </div>
-    <div class="modal-footer">
-      <!--<button ng-click="createPostCtrl.ok()" >ok</button>-->
-      <button ng-click="createPostCtrl.cancel()">cancel</button>
-      <button ng-click="createPostCtrl.bark()" >bark</button>
-    </div>
-    </div>
-  <!--</div>-->
+      <label for="name">choice name</label>
+      <input name="name" type="text" ng-minlength="1" ng-model="createPostCtrl.choice">
+
+      <label for="desc">choice pic</label>
+      <input name="desc" type="text" ng-minlength="1" ng-model="createPostCtrl.picURI">
+    
+      <span ng-click="createPostCtrl.addChoice()">add choice</span>
+    </section>
+
+
+    <button>create post</button>
+  </form>
 </section>
-<!--<div class="clearfix"><div>-->

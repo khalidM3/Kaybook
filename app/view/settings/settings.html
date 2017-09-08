@@ -2,13 +2,18 @@
 
 <nav class="account-settings-nav">
   <ul>
-    <li ng-click="settingsCtrl.showContent()">my content</li>
-    <li>placeholder</li>
+    <li ng-click="settingsCtrl.accountProfile()">profile</li>
+    <li ng-click="settingsCtrl.accountContent()">my content</li>
+    <li ng-click="settingsCtrl.accountPages()">pages</li>
     <li>placeholder</li>
   </ul>
 </nav>
 
-  <account-content profile="settingsCtrl.myProfile[0]"></account-content>
+  <account-profile ng-if="settingsCtrl.showprofile" profile="settingsCtrl.profile"></account-profile>
 
+  <account-content ng-if="settingsCtrl.showcontent" profile="settingsCtrl.profile"></account-content>
 
+  <account-pages ng-if="settingsCtrl.showpages"  profile="settingsCtrl.profile"></account-pages>
+
+  <button ng-click="settingsCtrl.checkPath()">bark</button>
   </section>

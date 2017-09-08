@@ -128,12 +128,12 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
-  service.editProfile = function(profileID, profileData) {
-    $log.debug('profileService.editProfile');
+  service.updateProfile = function(profileData) {
+    $log.debug('profileService.updateProfile');
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/api/profile/${profileID}`;
+      let url = `${__API_URL__}/api/profile`;
       let config = {
         headers: {
           Accept: 'application/json',
@@ -145,12 +145,11 @@ function profileService($q, $log, $http, $window, authService) {
       return $http.put(url, profileData, config);
     })
     .then( res => {
-      $log.log('Profile edited successfully.');
-      service.profile = res.data;
-      return service.profile;
+      $log.log('successfuly updated profile');
+      return res.data;
     })
     .catch( err => {
-      $log.error(err.message);
+      $log.error('Failed to update profile ',err.message);
       return $q.reject(err);
     });
   };
@@ -285,13 +284,13 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
-  service.joinProfile = function(joinedUID){
+  service.fetchJoinedPages = function(){
     $log.debug('profileService.joinProfile');
 
     return authService.getToken()
     .then( token => {
       console.log(token);
-      let url = `${__API_URL__}/api/join/${joinedUID}`;
+      let url = `${__API_URL__}/api/joinedpages`;
       let config = {
         headers: {
           authorization: `Bearer ${token}`
@@ -301,12 +300,11 @@ function profileService($q, $log, $http, $window, authService) {
       return $http.get(url, config);
     })
     .then( res => {
-      $log.log('joined the page');
-      service.profile = res.data;
-      return service.profile;
+      $log.log('fetched joined pages', res);
+      return res.data;
     })
     .catch( err => {
-      $log.error('Didnt join the page',err);
+      $log.error('failed to fetch joined pages',err);
       return $q.reject(err);
     });
   };
@@ -356,31 +354,31 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
-  service.leaveProfile = function(joinedUID){
-    $log.debug('profileService.joinProfile');
+  // service.leaveProfile = function(joinedUID){
+  //   $log.debug('profileService.joinProfile');
 
-    return authService.getToken()
-    .then( token => {
-      console.log(token);
-      let url = `${__API_URL__}/api/leave/${joinedUID}`;
-      let config = {
-        headers: {
-          authorization: `Bearer ${token}`
-        }
-      };
+  //   return authService.getToken()
+  //   .then( token => {
+  //     console.log(token);
+  //     let url = `${__API_URL__}/api/leave/${joinedUID}`;
+  //     let config = {
+  //       headers: {
+  //         authorization: `Bearer ${token}`
+  //       }
+  //     };
 
-      return $http.get(url, config);
-    })
-    .then( res => {
-      $log.log('left the page');
-      service.profile = res.data;
-      return service.profile;
-    })
-    .catch( err => {
-      $log.error('Didnt leave the page',err);
-      return $q.reject(err);
-    });
-  };
+  //     return $http.get(url, config);
+  //   })
+  //   .then( res => {
+  //     $log.log('left the page');
+  //     service.profile = res.data;
+  //     return service.profile;
+  //   })
+  //   .catch( err => {
+  //     $log.error('Didnt leave the page',err);
+  //     return $q.reject(err);
+  //   });
+  // };
 
   service.fetchMyCart = function() {
     $log.debug('profileService.fetchCart');
@@ -436,32 +434,32 @@ function profileService($q, $log, $http, $window, authService) {
   // };
 
 
-  service.joinProfile2 = function(joinedID){
-    $log.debug('profileService.joinProfile');
+  // service.joinProfile2 = function(joinedID){
+  //   $log.debug('profileService.joinProfile');
 
-    return authService.getToken()
-    .then( token => {
-      let url = `${__API_URL__}/api/join2/${joinedID}`;
-      let config = {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      };
+  //   return authService.getToken()
+  //   .then( token => {
+  //     let url = `${__API_URL__}/api/join2/${joinedID}`;
+  //     let config = {
+  //       headers: {
+  //         Accept: 'application/json',
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'application/json'
+  //       }
+  //     };
 
-      return $http.put(url, config);
-    })
-    .then( res => {
-      $log.log('joined the page');
-      service.profile = res.data;
-      return service.profile;
-    })
-    .catch( err => {
-      $log.error('Didnt join the page',err.message);
-      return $q.reject(err);
-    });
-  };
+  //     return $http.put(url, config);
+  //   })
+  //   .then( res => {
+  //     $log.log('joined the page');
+  //     service.profile = res.data;
+  //     return service.profile;
+  //   })
+  //   .catch( err => {
+  //     $log.error('Didnt join the page',err.message);
+  //     return $q.reject(err);
+  //   });
+  // };
 
 
   return service;

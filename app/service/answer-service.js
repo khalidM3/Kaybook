@@ -33,31 +33,7 @@ function answerService($q, $log, $window, $http, authService){
     });
   };
   
-  // service.createArticleAnswer = function(articleID, answerData){
-  //   $log.debug('service.createArticleAnswer');
-
-  //   return authService.getToken()
-  //   .then( token => {
-  //     let url = `${__API_URL__}/api/articleanswer/${articleID}`;
-  //     let config = {
-  //       headers: {
-  //         Accept: 'application/json',
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     };
-
-  //     return $http.post(url, answerData, config);
-  //   })
-  //   .then( res => {
-  //     $log.log('created an answer');
-  //     return res.data;
-  //   })
-  //   .catch( err => {
-  //     $log.error('Failed to create an answer',err);
-  //     return $q.reject(err);
-  //   });
-  // };
+  
 
   // service.createPollAnswer = function(pollID, answerData){
   //   $log.debug('service.createPollAnswer');
@@ -107,6 +83,32 @@ function answerService($q, $log, $window, $http, authService){
     })
     .catch( err => {
       $log.error('Failed to reply an answer',err);
+      return $q.reject(err);
+    });
+  };
+
+  service.fetchMyAnswers = function(){
+    $log.debug('service.createArticleAnswer');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/myanswers`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.get(url, config);
+    })
+    .then( res => {
+      $log.log('fetched my answer', res);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to fetch my answer',err);
       return $q.reject(err);
     });
   };

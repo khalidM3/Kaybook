@@ -1,58 +1,33 @@
 <section class="edit-profile">
-<!--
-  <form ng-submit="editProfileCtrl.editProfile()"
-    novalidate>
-    <h3>Edit your profile.</h3>
 
-    <fieldset> 
-
-      <span class="item-label">Name:</span>
-      <input type="name" name="name" class="input-std" type="text"
-        ng-model="editProfileCtrl.profile.name">
-    </fieldset>
-    <input class="btn-std" value="update profile" type="submit">
-  </form>
-  <form
-     ng-submit="editProfileCtrl.uploadProfilePic()"
-     novalidate>
-
-    <div>
-      <img class="upload-img" ng-src="{{editProfileCtrl.profile.profilePicURI}}" alt="profile photo">
-      <p
-        class="grab-img"
-        ngf-select
-        ng-model="editProfileCtrl.pic">
-
-        <input class="btn-std" value="pick a pic" type="submit">
-
-      </p>
-
-      <input  class="btn-std" value="upload" type="submit">
-    </div>
-  </form>-->
-
-
-
-  <form ng-submit="editProfileCtrl.editProfile()"
+  <form ng-submit="editProfileCtrl.updateProfile()"
     novalidate>
 
-    <h3>Edit your profile.</h3>
+    <h3>Edit profile</h3>
 
      <img class="upload-img" ng-src="{{editProfileCtrl.profile.profilePicURI}}" alt="profile photo">
 
-    <span>name:</span>
-    <input type="name" name="name" type="text"
-        ng-model="editProfileCtrl.profile.name">
-    <span ng-model="editProfileCtrl.pic"ngf-select>
+    <label>name:</label>
+    <input name="name" type="text" ng-model="editProfileCtrl.profile.name">
+
+    <label> change profile pic</label>
+    <span placeholder="editProfileCtrl.pic" ng-model="editProfileCtrl.pic" ngf-select>
       change profile picture
     </span>
+    <input type="text" placeholder="editProfileCtrl.profile.profilePicURI" ng-model="editProfileCtrl.profile.profilePicURI">
+
+    <label> change profile banner </label>
     <span ng-model="editProfileCtrl.bannerPic" ngf-select>
       change profile banner
     </span>
+    <input type="text" placeholder="editProfileCtrl.profile.profileBannerPicURI" ng-model="editProfileCtrl.profile.profileBannerURI">
+
+    <label> Bio </label>
+    <textarea name="" id="" cols="30" rows="10" placeholder="editProfileCtrl.profile.bio" ng-model="editProfileCtrl.profile.bio">
+    </textarea>
+
 
     <button type="submit">update profile</button>
-
   </form>
-
 
 </section>
