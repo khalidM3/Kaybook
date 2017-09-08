@@ -1,5 +1,5 @@
 <section class="answer-item">
-
+<button ng-click="answerItemCtrl.delete()">delete</button>
   <section class="answer-item-header">
     <img ng-src="{{answerItemCtrl.poster.profilePicURI}}" alt="">
     <div>
@@ -9,7 +9,7 @@
     <button ng-if="answerItemCtrl.showDeleteBtn" ng-click="answerItemCtrl.deleteAnswer()">delete</button>
   </section>
 
-  <section class="answer-item-content">
+  <!-- <section class="answer-item-content">
     <div>
        <p> 
             {{ answerItemCtrl.answer.answer }}  
@@ -20,7 +20,15 @@
       <img ng-src="{{answerItemCtrl.answer.answerImgURI}}" alt="">
     </div>
 
+  </section> -->
+  <section class="answer-item-content">
+     <div class="answer-words" ng-repeat="word in answerItemCtrl.parsedArr">
+          <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
+          <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
+          <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
+    </div>
   </section>
+   
 
   <button ng-click="answerItemCtrl.upvote()">upvote {{answerItemCtrl.answer.upvotes.length}} </button>
   <button ng-click="answerItemCtrl.downvote()">downvote {{answerItemCtrl.answer.downvotes.length}} </button>

@@ -4,7 +4,7 @@ require('./_post-tile.scss');
 
 module.exports = {
   template: require('./post-tile.html'),
-  controller: ['$log', '$uibModal', '$window', '$location', 'postService' , 'picService','profileService', PostTileController],
+  controller: ['$log', '$uibModal', '$window', '$location', '$stateParams', 'postService' , 'picService','profileService', PostTileController],
   controllerAs: 'postTileCtrl',
   bindings: {
     post: '<'
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function PostTileController($log, $uibModal, $window, $location, postService, picService, profileService){
+function PostTileController($log, $uibModal, $window, $location, $stateParams, postService, picService, profileService){
   $log.debug('PostTileController');
 
   let profileID = $window.localStorage.getItem('profileID');
@@ -99,37 +99,21 @@ function PostTileController($log, $uibModal, $window, $location, postService, pi
   // };
   
   this.goTo = () => {
-    // console.log('the tyoe is =====|>', this.post.type);
-    // if(this.post.type !== 'pic' && this.post.type !== 'question' ) return $location.url(`/${this.post.type}/${this.post._id}`);
-    
-    let post = this.post;
-    return $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'postItem',
-      resolve: {
-        post: function () {
-          console.log('<><><><><><><><><><><><><>', post);
-          return post; 
-        }
-      }
-    });
 
+    let url = $location.path();
+    if($stateParams.post) {
+      url = url.split('/');
+      url.pop();
+      url.push(this.post._id);
+      url = url.join('/');
+      console.log(url);
+      $location.path(url).replace();
+    } else {
+      url = url+'/'+this.post._id;
+      console.log(url);
+      $location.url(url).replace();
+    }
   };
-
-  this.goToRepost = () => {
-    let post = this.post.repost;
-    return $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'postItem',
-      resolve: {
-        post: function () {
-          console.log('<><><><><><><><><><><><><>', post);
-          return post; 
-        }
-      }
-    });
-  };
-
 
 
 }

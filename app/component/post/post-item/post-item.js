@@ -4,7 +4,7 @@ require('./_post-item.scss');
 
 module.exports = {
   template: require('./post-item.html'),
-  controller: ['$log', '$window', 'postService', 'profileService', 'commentService', PostItemController],
+  controller: ['$log','$rootScope', '$window', '$location', 'postService', 'profileService', 'commentService', PostItemController],
   controllerAs: 'postItemCtrl',
   bindings: {
     loggedIn: '<',
@@ -16,7 +16,7 @@ module.exports = {
   }
 };
 
-function PostItemController($log, $window, postService, profileService, commentService){
+function PostItemController($log, $rootScope,$window, $location, postService, profileService, commentService){
   $log.debug('postItemController');
 
   
@@ -58,6 +58,8 @@ function PostItemController($log, $window, postService, profileService, commentS
     .catch(err => console.log('failed fetchArticle()', err));
   };
 
+
+
   this.parseStr = (str) => {
     let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     let imgReg = /\.(?:jpe?g|gif|png)$/i;
@@ -96,8 +98,16 @@ function PostItemController($log, $window, postService, profileService, commentS
     .catch(err => console.log('Failed choice', err));
   };
 
+  $rootScope.$on('$locationChangeSuccess', () => {
+    this.ok();
+  });
+
+  this.ok = function () {
+    this.close({$value: this.post});
+  };
 
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
   };
+
 }

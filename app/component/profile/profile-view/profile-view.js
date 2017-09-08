@@ -28,6 +28,7 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $locatio
     profileService.fetchProfile2($stateParams.profileID)
     .then( profile => this.profile = profile)
     .then(() => {
+      console.log(this.profile.private)
       let myPID = $window.localStorage.getItem('profileID');
       let profileID = $stateParams.profileID;
       let isFriend = this.profile.friends.some(pID => pID.toString() === myPID);

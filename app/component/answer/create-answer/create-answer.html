@@ -3,12 +3,12 @@
   <button ng-show="showCreateBtn" ng-click="showCreateBtn=false">create answer</button>
   <section class="create-answer"  ng-show="!showCreateBtn">
     <form action="" ng-submit="createAnswerCtrl.createAnswer()">
-      <p id="cont">
-        <!-- {{createAnswerCtrl.answerData.answer}} -->
+      <p >
+          {{createAnswerCtrl.answerData.answer}}  
 
       </p>
 
-      <textarea ng-change="createAnswerCtrl.wtf()" cols="30" rows="10"  ng-model="createAnswerCtrl.answerData.answer" placeholder="write answer here">
+      <textarea cols="30" rows="10"  ng-model="createAnswerCtrl.answerData.answer" placeholder="write answer here">
       </textarea>
       <label for="">add img URI</label>
       <input type="text" ng-model="createAnswerCtrl.answerData.answerImgURI">

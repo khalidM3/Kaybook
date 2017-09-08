@@ -22,7 +22,7 @@
    <section class="subnav">
     <ul>
       <li ng-click="profileViewCtrl.fetchMyPagePosts()">posts</li>
-      <li ng-click="profileViewCtrl.fetchTimePosts()"> timeline </li>
+      <li ng-if="!profileViewCtrl.profile.private" ng-click="profileViewCtrl.fetchTimePosts()"> timeline </li>
       <li ng-click="profileViewCtrl.about()"> about </li>
     </ul>
   </section>

@@ -56,6 +56,28 @@ function pageService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.searchPages = function(name) {
+    $log.debug('pageService.searchPage');
+
+    let url = `${__API_URL__}/api/page/search/${name}`;
+    let config = {
+      headers: {
+        Accept: 'application/json'
+      }
+    };
+
+    return $http.get(url, config)
+    .then( res => {
+      $log.log('Page Retrieved', res);
+      let page = res.data;
+      return page;
+    })
+    .catch( err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
+
   service.fetchPagesByPID = function(profileID) {
     $log.debug('pageService.fetchPagesByPID');
 

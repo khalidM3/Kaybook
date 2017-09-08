@@ -129,9 +129,9 @@ function postService($q, $log, $http, $window, authService) {
     };
 
     return $http.get(url, config)
-    .then( post => {
-      $log.log('post retrieved', post);
-      return post;
+    .then( res => {
+      $log.log('post retrieved', res);
+      return res.data;
     })
     .catch( err => {
       $log.error(err.message, 'FAILED TO RETRIEVE');
