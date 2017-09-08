@@ -15,7 +15,8 @@ function ProfileItemController($log, $rootScope, $location, $window, $uibModal, 
   $log.debug('ProfileViewController');
 
   this.$onInit = () => {
-
+    this.fetchTimeline()
+    .then( posts => this.friendsPosts = posts);
   };
 
   this.fetchMyProfile = function(){
@@ -119,7 +120,7 @@ function ProfileItemController($log, $rootScope, $location, $window, $uibModal, 
 
     this.pagesArr = [];
     this.profileArr = [];
-    this.fiendsPosts = [];
+    this.friendsPosts = [];
     this.roomsArr = [];
 
     postService.fetchTimeline()
@@ -138,7 +139,7 @@ function ProfileItemController($log, $rootScope, $location, $window, $uibModal, 
 
     this.pagesArr = [];
     this.profileArr = [];
-    this.fiendsPosts = [];
+    this.friendsPosts = [];
     this.roomsArr = [];
     
     profileService.fetchJoinedPages()
@@ -190,6 +191,14 @@ function ProfileItemController($log, $rootScope, $location, $window, $uibModal, 
 
   this.goToAccount = () => {
     $location.url('settings/profile');
+  };
+
+  this.goToProfile = (id) => {
+    $location.url(`/profile/${id}`);
+  };
+
+  this.goToMyProfile = () => {
+    $location.url(`/profile/${ $window.localStorage.profileID}`);
   };
 
 

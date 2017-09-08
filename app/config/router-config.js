@@ -11,9 +11,9 @@ function routerConfig($stateProvider, $urlRouterProvider) {
   let states = [
     {
       name: 'home',
-      url: '/home/:section/:post',
+      url: '/home/:section',
       params: {
-        post: {
+        section: {
           value: null,
           squash: true,
         }
@@ -38,23 +38,19 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     },
     {
       name: 'myprofile',
-      url: '/profile/:userID/:profileID',
+      url: '/profile/:profileID',
       template: require('../view/myprofile/myprofile.html'),
       controller: 'MyprofileController',
       controllerAs: 'myprofileCtrl'
     },
     {
       name: 'page',
-      url: '/page/:pageID/:section/:post',
+      url: '/page/:pageID/:section',
       params: {
         section: {
           value: null,
           squash: true,
         },
-        post: {
-          value: null,
-          squash: true,
-        }
       },
       template: require('../view/mypage/mypage.html'),
       controller: 'MypageController',
@@ -76,7 +72,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     },
     {
       name: 'social',
-      url: '/social',
+      url: '/social/:section',
+      params: {
+        section: {
+          value: null,
+          squash: true,
+        }
+      },
       template: require('../view/social/social.html'),
       controller: 'SocialController',
       controllerAs: 'socialCtrl'
@@ -135,4 +137,5 @@ function routerConfig($stateProvider, $urlRouterProvider) {
   states.forEach( state => {
     $stateProvider.state(state);
   });
+  
 }

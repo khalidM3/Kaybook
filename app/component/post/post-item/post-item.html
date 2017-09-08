@@ -1,13 +1,17 @@
 <li class="postItem modal-body">
   <!-- <on-init></on-init> -->
+    <p ng-if="postItemCtrl.reposter"> shared by {{postItemCtrl.reposter.name}}</p>
+    
       <span uib-dropdown on-toggle="toggled(open)">
-       <span uib-dropdown-toggle alt=""> 0 0 0 </span>
+       <span uib-dropdown-toggle alt=""> <div class="dots">...</div> </span>
       <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-        <li>edit</li>
-        <li>delete</li>
-        <li>report</li>
+        <li ng-click="postItemCtrl.openEditPostModal()">edit</li>
+        <li ng-click="postItemCtrl.delete()">delete</li>
+        <li ng-click="postItemCtrl.report()">report</li>
       </ul>
     </span>
+
+     
 
   <!--<button ng-click="postItemCtrl.cancel()">x</button>-->
 
@@ -15,20 +19,20 @@
 
     <ul class="post-body">
       <li class="post-content">
-        <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.resolve.post.picURI }}" alt="">
-        <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.resolve.post.picURI }}" controls>
+        <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.post.picURI }}" alt="">
+        <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.post.picURI }}" controls>
           Youre browser does not support HTML5
         </video>
       </li>
       <li class="post-side">
         <ul>
           <li class="post-header">
-            <p ng-if="postItemCtrl.resolve.post.edited">  edited </p>
+            <p ng-if="postItemCtrl.post.edited">  edited </p>
             <img src="{{postItemCtrl.poster.profilePicURI}}">
             <div class="poster-name">Poster: {{postItemCtrl.poster.name}}</div>
-            <div class="date">Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</div>
-            <h2> {{ postItemCtrl.resolve.post.title }}</h2>
-             <!-- <div> {{ postItemCtrl.resolve.post.desc }}</div> -->
+            <div class="date">Date: {{postItemCtrl.post.created | date : 'mediumDate'}}</div>
+            <h2> {{ postItemCtrl.post.title }}</h2>
+             <!-- <div> {{ postItemCtrl.post.desc }}</div> -->
 
              <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
               <button ng-click="postItemCtrl.vote(choice)">
@@ -41,12 +45,12 @@
                    <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
                     <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
                  <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
-                 
+                 <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
             </div>
 
             <div>
-              <button ng-click="postItemCtrl.likePost()">like {{postItemCtrl.resolve.post.likes.length}}</button>
-              <button ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.resolve.post.dislikes.length}}</button>
+              <button ng-click="postItemCtrl.likePost()">like {{postItemCtrl.post.likes.length}}</button>
+              <button ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.post.dislikes.length}}</button>
             </div>
           </li>
 
@@ -54,7 +58,7 @@
             <create-comment
             logged-in="postItemCtrl.loggedIn" 
             on-comment-created="postItemCtrl.updatePostView()"
-            post="postItemCtrl.resolve.post">
+            post="postItemCtrl.post">
             </create-comment>
           </li>
 
@@ -81,9 +85,9 @@
     <!--<ul class="post-info">-->
       <!--<li> <img src="{{postItemCtrl.poster.profilePicURI}}"></li>-->
       <!--<li class="poster-name">Poster: {{postItemCtrl.poster.name}}</li>-->
-      <!--<li> Date: {{postItemCtrl.resolve.post.created | date : 'mediumDate'}}</li>-->
-      <!--<li> <img ng-src="{{postItemCtrl.resolve.post.postPicURI }}" alt=""> </li>-->
-      <!--<li>Description: {{postItemCtrl.resolve.post.description}}</li>      -->
+      <!--<li> Date: {{postItemCtrl.post.created | date : 'mediumDate'}}</li>-->
+      <!--<li> <img ng-src="{{postItemCtrl.post.postPicURI }}" alt=""> </li>-->
+      <!--<li>Description: {{postItemCtrl.post.description}}</li>      -->
     <!--</ul>-->
 
   <!--</div>-->

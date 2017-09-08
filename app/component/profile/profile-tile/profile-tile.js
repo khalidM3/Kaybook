@@ -34,7 +34,7 @@ function ProfileTileController($log, $location, $stateParams, $window, profileSe
   this.goToProfile = function(){
     $log.debug('ProfileTileController.goToProfile');
 
-    $location.url(`/profile/${this.profile.userID}/${this.profile._id}`);
+    $location.url(`/profile/${this.profile._id}`);
   };
 
   this.sendReq = function(){

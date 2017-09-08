@@ -16,13 +16,22 @@
     <input name="name" type="text" ng-minlength="4" ng-model="createPostCtrl.post.title">
 
     <label for="Desc">description</label>
-    <textarea name="Desc" type="text" ng-minlength="4" ng-model="createPostCtrl.post.desc"></textarea>
+
+    <div class="content" ng-repeat="word in createPostCtrl.parsedArr">
+      <p ng-click="createPostCtrl.index = word.index" ng-if="word.type === 'string' "> {{word.payload}} </p>  
+      <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
+      <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
+      <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
+      <input ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" class="med-input" name="Desc" type="" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" />
+    </div>
+    <input class="small-input content" name="Desc" type="text" ng-model="createPostCtrl.post.desc" ng-change="createPostCtrl.parse()" />
 
     <section class="post" ng-if="createPostCtrl.showPic">
       <label for="pic">pic url</label>
       <img ng-src="{{createPostCtrl.post.picURI}}" alt="">
-      <video ng-src="{{createPostCtrl.post.picURI}}"></video>
-      <iframe ng-src="{{createPostCtrl.post.picURI}}" frameborder="0"></iframe>
+       <video src="{{createPostCtrl.post.picURI}}"></video> 
+      <iframe src="{{createPostCtrl.post.picURI | embed }}" frameborder="0"></iframe>
+      <button type="button" ng-click="createPostCtrl.show()">show</button>
       <input name="pic" type="text" ng-minlength="4" ng-model="createPostCtrl.post.picURI"></input>
     </section>
 

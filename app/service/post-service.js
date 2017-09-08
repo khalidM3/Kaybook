@@ -517,6 +517,35 @@ function postService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.reportPost = function(postID, report) {
+    $log.debug('postService.reportPost()');
+
+    return authService.getToken()
+    .then( token  => {
+      let url = `${__API_URL__}/api/post/report/${postID}`;
+      let config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      console.log('POST', config);
+      console.log(url);
+      return $http.post(url, report, config);
+    })
+    .then( res => {
+      $log.log('post report created', res.data);
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('FAILED to report post', err);
+      return $q.reject(err);
+    });
+  };
+
+
 
 
   service.updatePost = function(postID, postData) {

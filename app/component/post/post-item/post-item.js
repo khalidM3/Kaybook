@@ -4,7 +4,7 @@ require('./_post-item.scss');
 
 module.exports = {
   template: require('./post-item.html'),
-  controller: ['$log','$rootScope', '$window', '$location', 'postService', 'profileService', 'commentService', PostItemController],
+  controller: ['$log','$rootScope', '$window', '$uibModal', '$location', 'postService', 'profileService', 'commentService', PostItemController],
   controllerAs: 'postItemCtrl',
   bindings: {
     loggedIn: '<',
@@ -16,7 +16,7 @@ module.exports = {
   }
 };
 
-function PostItemController($log, $rootScope,$window, $location, postService, profileService, commentService){
+function PostItemController($log, $rootScope,$window, $uibModal, $location, postService, profileService, commentService){
   $log.debug('postItemController');
 
   
@@ -25,12 +25,6 @@ function PostItemController($log, $rootScope,$window, $location, postService, pr
   this.showEditpost = false;
   this.showCreateComment = false;
 
-  // this.$onInit = function() {
-  //   $log.debug('postItemController.$onInit()');
-    
-  //   if (this.resolve.post) return this.updatePostView();
-  //   return this.onpostChange();
-  // };
 
   this.updatePostItemView = function() {
     $log.debug('postItemController.updatePostItemView', this.post);
@@ -41,17 +35,19 @@ function PostItemController($log, $rootScope,$window, $location, postService, pr
   this.$onInit = function(){
     $log.debug('articleItemCtrl.onInit()');
 
-    this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI);
 
     postService.fetchPostComments(this.resolve.post._id)
     .then( post =>  {
       this.post =  post;
+      this.reposter = post.repost ? post.posterID : null;
+      post = post.repost ? post.repost : post;
+  
       this.commentsArr = post.comments;
       this.choicesArr = post.choices;
       this.poster = post.posterID;
       this.parsedArr = this.parseStr(this.post.desc);
+      this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI);
       console.log(this.parsedArr);
-      // console.log('ARR',this.commentsArr);
       let profileID = $window.localStorage.getItem('profileID');
       return this.showDeleteBtn = profileID === this.poster._id;
     })
@@ -64,10 +60,13 @@ function PostItemController($log, $rootScope,$window, $location, postService, pr
     let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     let imgReg = /\.(?:jpe?g|gif|png)$/i;
     let hash = /#(?:\w)\w*/g;
+    let embed = /((https| http):\/\/(www\.youtu|www\.vimeo|imgur|))/;
     
     return str.split(' ').map( word => ({
       type: word.match(urlReg) || word.match(hash)
-              ? word.match(imgReg) ? 'img' : 'link'
+              ? word.match(imgReg)
+              ? 'img' : word.match(embed)
+                        ? 'embed' : 'link'
               : 'string',
       payload: word,
       link:  word.match(hash) ? `http://localhost:8080/#!/hash/${word.split('#')[1]}`: word,
@@ -79,7 +78,7 @@ function PostItemController($log, $rootScope,$window, $location, postService, pr
     $log.debug('postItemCtrl.likePost()');
 
     postService.likePost(this.resolve.post._id)
-    .then( post => this.resolve.post =  post)
+    .then( post => this.post =  post)
     .catch( err => console.log('Failed likePost()', err));
   };
 
@@ -87,7 +86,7 @@ function PostItemController($log, $rootScope,$window, $location, postService, pr
     $log.debug('postItemCtrl.dislikePost()');
 
     postService.dislikePost(this.resolve.post._id)
-    .then( post => this.resolve.post = post)
+    .then( post => this.post = post)
     .catch( err => console.log('Failed dislikePost()', err));
   };
 
@@ -108,6 +107,48 @@ function PostItemController($log, $rootScope,$window, $location, postService, pr
 
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
+  };
+
+
+  this.openEditPostModal = function () {
+    let post = this.post;
+    $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'editPost',
+      resolve: {
+        post: function () {
+          console.log('<><><><><><><><><><><><><>', post);
+          return post; 
+        }
+      }
+    });
+  };
+
+
+  this.delete = function(){
+    $log.debug('postTileCtrl.deletePost()');
+
+    postService.deletePost(this.post._id)
+    .then( () => {
+      $location.search('id', null);
+      return this.ok();
+    })
+    .catch( err => console.log('Failed to delete question', err));
+    
+  };
+
+  this.report = () => {
+    let post = this.post;
+    $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'report',
+      resolve: {
+        post: function () {
+          console.log('<><><><><><><><><><><><><>', post);
+          return post; 
+        }
+      }
+    });
   };
 
 }

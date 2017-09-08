@@ -19,6 +19,10 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
   $log.debug('HERE !!!',this.profile);
 
+  this.$onInit = () => {
+    this.chosePost();
+  };
+
   this.post = {};
   this.post.type = 'pic';
   this.uploadedPost = {};
@@ -70,7 +74,43 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
       }
     });
   };
+
+  this.parseStr = (str) => {
+    let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let imgReg = /\.(?:jpe?g|gif|png)$/i;
+    let hash = /#(?:\w)\w*/g;
+    let embed = /((https| http):\/\/(www\.youtu|www\.vimeo|imgur|))/;
+    
+    return str.split(' ').map( ( word, i ) => ({
+      type: word.match(urlReg) || word.match(hash)
+              ? word.match(imgReg)
+              ? 'img' : word.match(embed)
+                        ? 'embed' : 'link'
+              : 'string',
+      payload: word,
+      index: i,
+      link:  word.match(hash) ? `http://localhost:8080/#!/hash/${word.split('#')[1]}`: word,
+      size: {}
+    }));
+  };
+
+  this.parse = () => {
+    console.log('changing', this.parsedArr? this.parsedArr[0] : null);
+    this.parsedArr = this.parseStr(this.post.desc);
+  };
   
+  this.update = (word) => {
+    this.parsedArr[word.index].payload = word.payload;
+    let arr = this.post.desc.split(' ');
+    arr[word.index] = word.payload;
+    this.post.desc = arr.join(' ');
+  };
+
+  this.updateWord = (word) => {
+    this.index = word.index;
+    console.log('index', this.index);
+    this.showUpdate = true;
+  }
 
   this.createPost = function(){
     $log.debug('createPostCtrl.createPost()');
@@ -95,7 +135,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
       }
 
       if( admin ) {
-        console.log('inside page admin')
+        console.log('inside page admin');
         postService.createFeed(this.resolve.page._id, this.post)
         .then( post => console.log('Success createForumFeed()', post))
         .catch(err => console.log('Failed createForumFeed()', err));
@@ -106,6 +146,9 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     
   };
 
+  this.show = () => {
+    this.pic = this.post.picURI;
+  };
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
   };

@@ -4,7 +4,7 @@ require('./_answer-item.scss');
 
 module.exports = {
   template: require('./answer-item.html'),
-  controller: ['$log', '$window', '$filter', 'answerService', 'profileService', AnswerItemController],
+  controller: ['$log', '$window', '$filter', '$uibModal', 'answerService', 'profileService', AnswerItemController],
   controllerAs: 'answerItemCtrl',
   bindings: {
     answer: '=',
@@ -14,7 +14,7 @@ module.exports = {
 };
 
 
-function AnswerItemController($log, $window, $filter, answerService, profileService){
+function AnswerItemController($log, $window, $filter, $uibModal, answerService, profileService){
   $log.debug('AnswerItemController');
 
   // this.forumID = $filter.forumID;
@@ -81,6 +81,20 @@ function AnswerItemController($log, $window, $filter, answerService, profileServ
       return this.repliesArr = answer.replies;
     })
     .catch(err => console.log('Failed to unvoteAnswer()',err));
+  };
+
+  this.report = () => {
+    let answer = this.answer;
+    $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'report',
+      resolve: {
+        answer: function () {
+          console.log('<><><><><><><><><><><><><>', answer);
+          return answer; 
+        }
+      }
+    });
   };
 
   this.delete = function(){
