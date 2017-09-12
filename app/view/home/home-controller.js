@@ -55,8 +55,6 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
       this.fetchJoinedPosts();
     }
     
-    this.postParams();
-    
   };
 
   this.merchParams = () => {
