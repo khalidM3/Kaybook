@@ -22,7 +22,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   this.$onInit = () => {
     this.chosePost();
   };
-
+  
   this.post = {};
   this.post.type = 'pic';
   this.uploadedPost = {};
