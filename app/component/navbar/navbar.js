@@ -13,6 +13,7 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
 
   // this.profilePic = $window.localStorage.getItem('profilePic');
   $rootScope.$on('$locationChangeStart', () => {
+    this.checkPath();
     // this.openPostModal({ _id: $location.search().id});()
     // console.log('atarere', $location.search().id);
     if($location.search().id) {
@@ -31,8 +32,8 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
   
   this.fetchMyProfile = function(){
 
-    let userID = $window.localStorage.getItem('userID');
-    profileService.fetchProfile(userID)
+    // let userID = $window.localStorage.getItem('userID');
+    profileService.fetchProfile()
     .then( profile => {
       $window.localStorage.setItem('profilePic', profile.profilePicURI);
       $window.localStorage.setItem('profileID', profile._id);
@@ -63,15 +64,13 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
   this.myProfile = function() {
     $log.debug('NavbarController.myProfile()');
 
-    let userID = $window.localStorage.getItem('userID');
     let profileID = $window.localStorage.getItem('profileID');
-    $location.url(`/profile/${userID}/${profileID}`);
+    $location.url(`/profile/${profileID}`);
   };
 
   this.myAccount = function(){
     $log.debug('NavbarCtrl.myAccount');
 
-    // let userID = $window.localStorage.getItem('userID');
     $location.url('settings/profile');
   };
 
@@ -101,81 +100,77 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
     .then( pages => this.pagesArr = pages );
   };
 
+
+  this.check_profile = () => {
+    if(!$window.localStorage.profile) {
+      profileService.fetchProfile()
+      .then( profile => {
+        console.log('profile >>>>>>>>>', profile);
+        this.profile = profile;
+        $window.localStorage.profile = JSON.stringify(profile);
+        $window.localStorage.profileID = profile._id;
+      });
+    } else {
+      this.profile = JSON.parse($window.localStorage.profile);
+    }
+  };
+
   this.checkPath = () => {
     $log.debug('NavbarController.checkPath()');
 
     let pathArray = $location.path().split('/');
     let path = `/${pathArray[1]}`;
     if (pathArray.length === 1) path = '/';
+    
+    this.loggedIn = true;
+    this.loginBtn = false;
+    this.signupBtn = false;
 
     if (path === '/' || path === '/landing') {
-      this.hideLoginBtn = false;
-      this.hideSignupBtn = false;
-      this.hideLogout = true;
-      this.hideMyRecipesBtn = true;
-      this.hideHomeBtn = true;
-      this.hideProfileBtn = true;
+      this.signupBtn = true;
+      this.loginBtn = true;
+      this.loggedIn = false;
     }
 
     if (path === '/home') {
-      this.hideLoginBtn = true;
-      this.hideSignupBtn = true;
-      this.hideLogout = false;
-      this.hideMyRecipesBtn = false;
-      this.hideHomeBtn = true;
-      this.hideProfileBtn = false;
-      this.fetchMyProfile();
+      console.log('CHECKING CHECKING CHECKING CHECKIGN CHECKING', $window.localStorage.profileID);
+      this.loggedIn = true;
+      authService.getToken()
+      .then( () => {
+        this.loggedIn = true;
+        this.check_profile();
+      })
+      .catch( () => {
+        $location.url('/landing');
+      });
     }
 
     if (path === '/mypage') {
-      this.hideLoginBtn = true;
-      this.hideSignupBtn = true;
-      this.hideLogout = false;
-      this.hideMyRecipesBtn = true;
-      this.hideHomeBtn = false;
-      this.hideProfileBtn = false;
       this.fetchMyProfile();
     }
 
     if (path === '/page') {
       authService.getToken()
       .then( () => {
-        this.hideProfileBtn = false;
-        this.hideLoginBtn = true;
-        this.hideSignupBtn = true;
-        this.hideLogout = false;
-        this.hideMyRecipesBtn = true;
-        this.hideHomeBtn = false;
+        this.loggedIn = true;
       })
       .catch( () => {
-        this.hideLoginBtn = false;
-        this.hideSignupBtn = false;
-        this.hideLogout = true;
-        this.hideMyRecipesBtn = true;
-        this.hideHomeBtn = true;
+        $location.url('/landing');
       });
     }
 
     if (path === '/join') {
-      this.hideSignupBtn = false;
-      this.hideLoginBtn = false;
-      this.hideLogout = true;
-      this.hideMyRecipesBtn = true;
-      this.hideHomeBtn = true;
-      this.hideProfileBtn = true;
+      this.loginBtn = true;
+      this.loggedIn = false;
     }
 
     if (path === '/signin') {
-      this.hideLoginBtn = false;
-      this.hideSignupBtn = false;
-      this.hideLogout = true;
-      this.hideMyRecipesBtn = true;
-      this.hideHomeBtn = true;
-      this.hideProfileBtn = true;
+      this.signupBtn = true;      
+      this.loggedIn = false;
     }
   };
 
-  this.checkPath();
+  // this.checkPath();
 
-  $rootScope.$on('$locationChangeSuccess', () => this.checkPath());
+  // $rootScope.$on('$locationChangeSuccess', () => this.checkPath());
 }
