@@ -8,7 +8,7 @@ module.exports = ['$log', '$rootScope', '$stateParams', '$location','$uibModal',
 function HomeController($log, $rootScope, $stateParams, $location, $uibModal, profileService, postService, merchService) {
   $log.debug('HomeController');
 
-  this.myUserID = $stateParams.userID;
+  // this.myUserID = $stateParams.userID;
   this.loggedIn = true;
 
 
@@ -16,7 +16,7 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
   this.fetchProfile = function() {
     $log.debug('HomeController.fetchProfile()');
 
-    profileService.fetchProfile(this.myUserID)
+    profileService.fetchProfile()
     .then(profile => this.myProfile = profile);
     // .then( () => recipeService.fetchMyRecipes(this.myProfile._id))
     // .then(recipes => this.myRecipes = recipes);

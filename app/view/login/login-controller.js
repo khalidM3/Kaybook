@@ -16,7 +16,7 @@ function LoginController($log, $location, $window, authService) {
     console.log('PID +++++++', profileID);
     console.log('USER::', this.user);
     authService.login(this.user)
-    .then(user => $location.url(`/home/${user._id}/:profileID`))
+    .then( () => $location.url('/home'))
     .catch( () => {
       this.showLoginError = true;
       this.user = null;

@@ -10,12 +10,12 @@ function SocialController($log, $rootScope, $stateParams, $window, profileServic
   this.$onInit = function(){
     $log.debug('socialCtrl.$onInit()');
 
-    let profileID = $window.localStorage.getItem('profileID');
-    profileService.fetchProfile2(profileID)
-    .then( profile => {
-      console.log('-----------------------');
-      console.log(profile);
-      return this.myProfile = profile;
-    });
+    this.profile = JSON.parse($window.localStorage.profile);
+    // profileService.fetchProfile()
+    // .then( profile => {
+    //   console.log('-----------------------');
+    //   console.log(profile);
+    //   return this.myProfile = profile;
+    // });
   };
 }
