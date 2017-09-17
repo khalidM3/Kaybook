@@ -132,7 +132,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'signupCtrl'
     },
     {
-      name: 'login',
+      name: 'logins',
       url: '/signin',
       template: require('../view/login/login.html'),
       controller: 'LoginController',
