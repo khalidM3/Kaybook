@@ -159,7 +159,7 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
       component: 'merchItem',
       resolve: {
         merch: function () {
-          console.log('<><><><><><><><><><><><><>', merch);
+          console.log('MERCH: ', merch);
           return merch; 
         }
       }
