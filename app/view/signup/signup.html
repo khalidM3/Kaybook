@@ -1,35 +1,32 @@
 <section class='signup-form'>
-    <h2>Sign Up</h2>
-    <form name="signupForm" novalidate ng-submit="signupCtrl.signup(signupCtrl.user)">
-
-        <div>
-
-          <input class="input-std verify" name="name" ng-model="signupCtrl.user.username" type="text" placeholder=" " required pattern=".{4,}">
-            <label for="name">Username</label>
-            <div class="requirements">
-                Must be at least 4 characters
+    
+        <form name="signupForm" novalidate ng-submit="signupCtrl.signup(signupCtrl.user)">
+            <legend>Sign Up</legend>
+            <div>
+                <input class="input-std verify" name="username"  ng-model="signupCtrl.user.username" type="text" placeholder="username" ng-focus="signupForm.usernameError = true"  ng-blur="signupForm.usernameError = false" required pattern=".{4,}">
+                <div class="requirements" ng-if="signupForm.usernameError && signupForm.username.$invalid">
+                    Must be at least 4 characters
+                </div>
             </div>
-        </div>
 
 
-        <div>
-            <input class="input-std verify" name="email" ng-model="signupCtrl.user.email" type="email" placeholder=" " required>
-            <label for="email">Email Address</label>
-            <div class="requirements">
-                Must be a valid email address
+            <div>
+                <input class="input-std verify" name="email" ng-focus="signupForm.emailError = true"  ng-blur="signupForm.emailError = false" ng-model="signupCtrl.user.email" ng-minlength="6" type="email" placeholder="email" required>
+                <div class="requirements" ng-if="signupForm.email.$invalid && signupForm.emailError">
+                    Must be a valid email address
+                </div>
             </div>
-        </div>
-        <div>
 
-            <input class="input-std verify" type="password" name="password" ng-model="signupCtrl.user.password" placeholder="  " ng-minlength="6"
-            pattern=".{6,}"
-            required>
-            <label for="password">Password</label>
-            <div class="requirements">
-                Your password must be at least 6 characters
+            <div>
+                <input class="input-std verify" type="password" name="password" ng-model="signupCtrl.user.password" placeholder="password" ng-minlength="6" ng-focus="signupForm.passwordError = true"  ng-blur="signupForm.passwordError = false"
+                pattern=".{6,}"
+                required>
+                <div class="requirements" ng-if="signupForm.password.$invalid && signupForm.passwordError">
+                    Your password must be at least 6 characters
+                </div>
             </div>
-        </div>
 
-        <input type="submit" class="btn-std" value="sign up" ng-disabled="signupForm.name.$invalid || signupForm.password.$invalid || signupForm.email.$invalid">
-    </form>
+            <input type="submit" class="" value="sign up" ng-disabled="signupForm.username.$invalid || signupForm.password.$invalid || signupForm.email.$invalid">
+        </form>
+
 </section>

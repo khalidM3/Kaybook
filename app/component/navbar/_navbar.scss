@@ -6,7 +6,7 @@
   // background-color: grey;
   outline: 1px solid black;
   padding-top: 6px;// change to percentage
- 
+  // height: 10vh;
   .navbar-row {
     @include make-row(10px);
     // background-color: black;
@@ -71,6 +71,7 @@
       width: 90%;
       height: $navbar-height;
       // background-color: blue;
+      outline: 1px solid grey;
       font-size: 20px;
       padding: 5%;
     }
