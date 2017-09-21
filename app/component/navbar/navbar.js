@@ -35,7 +35,6 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
     // let userID = $window.localStorage.getItem('userID');
     profileService.fetchProfile()
     .then( profile => {
-      $window.localStorage.setItem('profilePic', profile.profilePicURI);
       $window.localStorage.setItem('profileID', profile._id);
       return this.profilePic = profile.profilePicURI;
     });
@@ -95,9 +94,23 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
     });
   };
   
+  this.searchEnd = () => {
+    this.showResults = false;
+    this.pagesArr = null;
+  };
+
   this.searchPages = () => {
-    pageService.searchPages(this.searchName)
-    .then( pages => this.pagesArr = pages );
+    // if(this.pagesArr) name = this.pagesArr[0].pageName;
+    if(this.searchName.split('').length > 3) {
+      // this.resultsClass = 'search-results';
+      this.showResults = true;
+      pageService.searchPages(this.searchName)
+      .then( pages =>  {
+        if(pages.length > 0 ) return this.pagesArr = pages;
+        this.pagesArr = [{pageName: 'found nothing'}];
+      });
+    }
+    
   };
 
 

@@ -1,30 +1,54 @@
-<section class="navbar">
-  <ul class="navbar-ul">
-    <li class="nav-link" id="logo" ng-click="navbarCtrl.home()"><h2>K</h2></li>
-    <li class="searchbar" ng-show="navbarCtrl.loggedIn">
-      <ul> 
-        <input type="text" ng-Change="navbarCtrl.searchPages()" ng-model="navbarCtrl.searchName"> 
-          <li class="searches" ng-repeat="page in navbarCtrl.pagesArr" ng-click="navbarCtrl.goToPage(page._id)">
-            {{page.pageName}}
-          </li>
-      </ul>
+<header class="navbar">
+  <div class="navbar-row">
 
-    </li>
-    <li class="signup-btn"ng-if="navbarCtrl.signupBtn" class="signup" ng-click="navbarCtrl.goSignUp()">sign up</li>
-    <!--<li ng-show="!navbarCtrl.hideMyRecipesBtn" class="signup" ng-click="navbarCtrl.myPage()">my page</li>-->
-    <li class="login-btn" ng-if="navbarCtrl.loginBtn" class="signup" ng-click="navbarCtrl.goLogin()">login</li>
-    <!--<li ng-show="!navbarCtrl.hideLogout" class="login" ng-click="navbarCtrl.logout()">logout</li>-->
-    <!--<li ng-show="!navbarCtrl.hideHomeBtn" class="login" ng-click="navbarCtrl.home()">home</li>-->
-    <li ng-if="navbarCtrl.loggedIn">
-      <span uib-dropdown on-toggle="toggled(open)">
-       <img class="profile-pic" ng-src="{{navbarCtrl.profile.profilePicURI}}" uib-dropdown-toggle alt="">
-      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-        <li class="login" ng-click="navbarCtrl.home()">home</li>
-        <li class="signup" ng-click="navbarCtrl.myProfile()">my profile</li>
-        <li class="settings-nav" ng-click="navbarCtrl.myAccount()">settings</li>
-        <li class="login" ng-click="navbarCtrl.logout()">logout</li>
-      </ul>
-    </span>
-    </li>
-  </ul>
-</section>
+    <div class="navbar-main" id="navbar-logo" ng-click="navbarCtrl.home()">
+      <img class="navbar-logo" src="https://commondatastorage.googleapis.com/ingress.com/img/Ingress_logo_512px.png" />
+    </div>
+
+    <div class="navbar-searchbar navbar-main">
+        <input type="text" ng-show="navbarCtrl.loggedIn" ng-Change="navbarCtrl.searchPages()" ng-Blur="navbarCtrl.searchEnd()" ng-model="navbarCtrl.searchName" placeholder="search"> 
+        <div class="search-results" ng-if="navbarCtrl.showResults" ng-repeat="page in navbarCtrl.pagesArr" ng-click="navbarCtrl.goToPage(page._id)">
+          {{page.pageName}}
+        </div>
+    </div>
+
+    <div class="navbar-auth navbar-main">
+      <span class="navbar-login"ng-if="navbarCtrl.signupBtn" class="signup" ng-click="navbarCtrl.goSignUp()">sign up</span>
+      <span class="navbar-login" ng-if="navbarCtrl.loginBtn" class="signup" ng-click="navbarCtrl.goLogin()">login</span>
+      
+      <span class="navbar-menu navbar-main" ng-if="navbarCtrl.loggedIn" uib-dropdown on-toggle="toggled(open)">
+        <img class="menu-pic" ng-src="{{navbarCtrl.profile.profilePicURI}}" uib-dropdown-toggle alt="">
+        <ul class="dropdown-menu navbar-dropdown" uib-dropdown-menu aria-labelledby="simple-dropdown">
+          <li class="menu-header">
+            <img src="{{navbarCtrl.profile.profilePicURI}}" alt="">
+            <div class="header-names">
+              <p> {{ navbarCtrl.profile.name}} </p>
+              <p> name@email.com</p>
+            </div>
+          </li>
+          <li class="menu-op" ng-click="navbarCtrl.home()">
+            <img src="https://placeholdit.co//i/30x30?&bg=grey&fc=white&text=30 x30"> 
+            <p> home</p>
+          </li>
+          <li class="menu-op" ng-click="navbarCtrl.myProfile()">
+            <img src="https://placeholdit.co//i/30x30?&bg=grey&fc=white&text=30 x30"> 
+            <p> profile</p>
+          </li>
+          <li class="menu-op" ng-click="navbarCtrl.myAccount()">
+            <img src="https://placeholdit.co//i/30x30?&bg=grey&fc=white&text=30 x30"> 
+            <p> account</p>
+          </li>
+          <li class="menu-op" ng-click="">
+            <img src="https://placeholdit.co//i/30x30?&bg=grey&fc=white&text=30 x30"> 
+            <p> nite mode</p>
+          </li>
+          <li class="menu-op" ng-click="navbarCtrl.logout()">
+            <img src="https://placeholdit.co//i/30x30?&bg=grey&fc=white&text=30 x30"> 
+            <p> logout</p>
+          </li>
+        </ul>
+      </span>
+    </div>
+
+  </div>
+</header>
