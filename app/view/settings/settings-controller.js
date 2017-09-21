@@ -42,6 +42,10 @@ function SettingsController($log, $rootScope, $stateParams, $location, profileSe
   this.accountPages = () => {
     $location.url('settings/pages');
   };
+
+  this.accountProducts = () => {
+    $location.url('settings/products');
+  };
   
 
 }

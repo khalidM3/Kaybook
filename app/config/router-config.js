@@ -91,11 +91,17 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'merchCtrl'
     },
     {
-      name: 'cart',
-      url: '/cart',
-      template: require('../view/cart/cart.html'),
-      controller: 'CartController',
-      controllerAs: 'cartCtrl'
+      name: 'product',
+      url: '/product/:section',
+      params: {
+        section: {
+          value: null,
+          squash: true,
+        }
+      },
+      template: require('../view/product/product.html'),
+      controller: 'ProductController',
+      controllerAs: 'productCtrl'
     },
     {
       name: 'room',
@@ -126,7 +132,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'signupCtrl'
     },
     {
-      name: 'login',
+      name: 'logins',
       url: '/signin',
       template: require('../view/login/login.html'),
       controller: 'LoginController',

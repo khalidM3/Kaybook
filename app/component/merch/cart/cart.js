@@ -2,7 +2,16 @@
 
 require('./_cart.scss');
 
-module.exports = ['$log', '$rootScope', '$stateParams', '$window', 'profileService', CartController];
+// module.exports = ['$log', '$rootScope', '$stateParams', '$window', 'profileService', CartController];
+
+module.exports = {
+  template: require('./cart.html'),
+  controller: ['$log', '$rootScope', '$stateParams', '$window', 'profileService', CartController],
+  controllerAs: 'cartCtrl',
+  bindings: {
+    page: '<',
+  }
+};
 
 function CartController($log, $rootScope, $stateParams, $window, profileService) {
   $log.debug('CartController');
@@ -18,8 +27,15 @@ function CartController($log, $rootScope, $stateParams, $window, profileService)
     // });
 
     this.merches = JSON.parse($window.localStorage.merch);
-    this.merchesArr = [];
     console.log('ma merch', this.merches);
+    this.total = 0;
+    for(var prop in this.merches) {
+      console.log('merch is \n', this.merches[prop]);
+      let ptotal = this.merches[prop].price * this.merches[prop].count;
+      console.log('ptotal is \n', ptotal);
+      this.total = this.total + ptotal;
+      console.log('what ? \n',this.total);
+    }
     // for(let prop in this.merches) this.merchesArr.push(this.merches[prop]);
   };
 

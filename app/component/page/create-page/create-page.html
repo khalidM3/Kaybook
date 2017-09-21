@@ -1,4 +1,4 @@
-<section ng-init="showCreateBtn = true" class="createpage">
+<section class="create-page" ng-init="showCreateBtn = true" class="createpage">
 
 <button ng-show="showCreateBtn" ng-click="showCreateBtn=false">create page</button>
 <section ng-show="!showCreateBtn">
@@ -9,6 +9,8 @@
 
     <label for="Desc">Page description</label>
     <input name="Desc" type="text" ng-minlength="4" ng-model="createPageCtrl.page.pageDesc">
+    <label for="">Public</label>
+    <input type="checkbox" ng-click="createPageCtrl.check()" ng-model="createPageCtrl.page.public">
 
     <button ng-disabled="createPageForm.$invalid">create page</button>
   </form>

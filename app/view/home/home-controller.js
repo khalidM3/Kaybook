@@ -3,12 +3,12 @@
 require('./_home.scss');
 
 
-module.exports = ['$log', '$rootScope', '$stateParams', '$location','$uibModal', 'profileService', 'postService', HomeController];
+module.exports = ['$log', '$rootScope', '$stateParams', '$location','$uibModal', 'profileService', 'postService', 'merchService', HomeController];
 
-function HomeController($log, $rootScope, $stateParams, $location, $uibModal, profileService, postService) {
+function HomeController($log, $rootScope, $stateParams, $location, $uibModal, profileService, postService, merchService) {
   $log.debug('HomeController');
 
-  this.myUserID = $stateParams.userID;
+  // this.myUserID = $stateParams.userID;
   this.loggedIn = true;
 
 
@@ -16,7 +16,7 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
   this.fetchProfile = function() {
     $log.debug('HomeController.fetchProfile()');
 
-    profileService.fetchProfile(this.myUserID)
+    profileService.fetchProfile()
     .then(profile => this.myProfile = profile);
     // .then( () => recipeService.fetchMyRecipes(this.myProfile._id))
     // .then(recipes => this.myRecipes = recipes);
@@ -31,7 +31,7 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
       }
     })
     .then( () => {
-      return this.postParams();
+      return this.merchParams();
     });
   };
 
@@ -49,22 +49,22 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
       return this.explore();
     case 'feed':
       return this.fetchJoinedFeed();
+    case 'market':
+      return this.fetchMerch();
     default: 
       this.fetchJoinedPosts();
     }
     
-    this.postParams();
-    
   };
 
-  this.postParams = () => {
-    if($stateParams.post) {
+  this.merchParams = () => {
+    let id = $location.search().mid;
+    if(id) {
       console.log('hapa hapa hapa\n\n\n\n', $stateParams);
-      return postService.fetchPost($stateParams.post)
-      .then( post => {
-        console.log(post);
-        this.postsArr = [post, ...this.postsArr];
-        this.openPostModal(post);
+      return merchService.fetchMerchOptions(id)
+      .then( merch => {
+        console.log(merch);
+        this.openMerchModal(merch);
       });
     }
   };
@@ -79,6 +79,10 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
 
   this.goToFeed = () => {
     $location.url('/home/feed');
+  };
+
+  this.goToMarket = () => {
+    $location.url('/home/market');
   };
 
   this.explore = () => {
@@ -98,6 +102,11 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
     $log.debug('HomeController.fetchAllPosts()');
     postService.fetchAllPosts()
     .then( posts => this.postsArr = posts);
+  };
+
+  this.fetchMerch = () => {
+    merchService.fetchMerch()
+    .then(merches => this.merchesArr = merches);
   };
 
   // this.fetchJoinedProfiles = function(){
@@ -144,14 +153,14 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
 
 
 
-  this.openPostModal = function (post) {
+  this.openMerchModal = function (merch) {
     $uibModal.open({
       animation: this.animationsEnabled,
-      component: 'postItem',
+      component: 'merchItem',
       resolve: {
-        post: function () {
-          console.log('<><><><><><><><><><><><><>', post);
-          return post; 
+        merch: function () {
+          console.log('<><><><><><><><><><><><><>', merch);
+          return merch; 
         }
       }
     });

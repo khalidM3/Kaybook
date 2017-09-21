@@ -1,0 +1,19 @@
+<section class="checkout">
+  <h2>checkout </h2>
+
+  <form ng-submit="checkoutCtrl.checkout()">
+    <input type="text" placeholder="email" ng-model="checkoutCtrl.order.email">
+    <input type="text" placeholder="first name" ng-model="checkoutCtrl.order.fname">
+    <input type="text" placeholder="last name" ng-model="checkoutCtrl.order.lname">
+    <input type="text" placeholder="address" ng-model="checkoutCtrl.order.address">
+    <input type="text" placeholder="Apt, suite, etc" ng-model="checkoutCtrl.order.apt">
+    <input type="text" placeholder="city" ng-model="checkoutCtrl.order.city">
+    <input type="text" placeholder="country" ng-model="checkoutCtrl.order.country">
+    <input type="text" placeholder="state" ng-model="checkoutCtrl.order.state">
+    <input type="text" placeholder="zip code" ng-model="checkoutCtrl.order.zip">
+    <input type="text" placeholder="phone" ng-model="checkoutCtrl.order.phone">
+    
+    <button>checkout</button>
+  </form>
+
+</section>
