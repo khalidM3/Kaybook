@@ -41,7 +41,8 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
     this.postsArr = [];
     this.merchesArr = [];
     this.showPostBtn = true;
-
+    this.active = $stateParams.section;
+    
     switch($stateParams.section) {
     case 'joined':
       return this.fetchJoinedPosts();
