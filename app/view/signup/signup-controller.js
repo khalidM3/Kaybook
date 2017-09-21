@@ -7,10 +7,24 @@ module.exports = ['$log', '$window', '$location', 'authService', 'profileService
 function SignupController($log, $window, $location, authService, profileService) {
   $log.debug('SignupController');
 
-  this.say = function(){
-    console.log('WRONG INPUTS!');
+  this.validate = (e) => {
+    console.log('validating',e);
+    // let {name, value} = e.target;
+    // let short = value.split('').length > 5;
+    // switch(name) {
+    // case 'username':
+    //   if(!short) return;
+    //   this.usernameError = {message: 'username is too short'};
+    //   return;
+    // case 'email':
+    //   if(short) return this.usernameError = true;
+    //   return;
+    // default:
+    //   return;
+    // }
   };
-  this.$onInit = () => console.log('SIGNUP CONTROLLER IS HERE');
+
+  this.barking = (arg) => console.log(arg);
 
   this.signup = function(user) {
     $log.debug('signupCtrl.signup');
@@ -22,8 +36,8 @@ function SignupController($log, $window, $location, authService, profileService)
       console.log('PROFILE', profile);
       profileService.createProfile(profile)
       .then(profile => {
-        $window.localStorage.setItem('userID', profile.userID);
-        $location.url(`/home/${profile.userID}` );
+        $window.localStorage.setItem('profile', profile);
+        $location.url('/home/' );
       });
     });
   };
