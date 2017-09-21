@@ -1,3 +1,87 @@
+@import '../../scss/main';
+.home {
+
+  .subnav {
+    display: block;
+    // background-color: #182856;
+    height: 5vh;
+    .subnav-container {
+      // background-color: green;
+      height: 100%;
+      width: 50%;
+      margin: 0 auto;
+      min-width: 300px;
+
+
+      li {
+        display: inline-block;
+        width: 18%;
+        height: 100%;
+        text-align: center;
+        // margin: 0 10px;
+        // background-color: red;
+
+        p {
+          padding: 10%;
+        }
+
+        &:hover {
+          border-bottom: 2px solid blue;
+          color: blue;
+        }
+        
+        &.active {
+          border-bottom: 2px solid blue;
+          color: blue;
+        }
+      }
+    }
+  }
+  // @media screen and (max-width: 400px){
+  //     .subnav .subnav-container {
+  //       width: 100%;
+  //     }
+  // }
+  
+  // @media screen and (max-width: 700px){
+    
+  // }
+
+  // @media screen and (max-width: 700px){
+    
+  // }
+
+}
+
+
+
+
+
+
+
+
+
+
+// @include container-fixed(10px);
+// $navbar-height: 35px;
+// // background-color: grey;
+// outline: 1px solid black;
+// padding-top: 6px;// change to percentage
+// // height: 10vh;
+// .navbar-row {
+//   @include make-row(10px);
+//   // background-color: black;
+//   height: 100%;
+// }
+
+// #navbar-logo {
+//   @include make-xs-column(1, 5%);
+//   @include make-sm-column(1, 5%);
+//   @include make-lg-column(1, 5%);
+  
+
+
+
 // .subnav {
 //   display: block;
 //   background-color: black;

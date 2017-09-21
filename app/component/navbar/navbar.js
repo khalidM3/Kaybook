@@ -90,6 +90,8 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
 
     authService.logout()
     .then( () => {
+      delete $window.localStorage.token;
+      delete $window.localStorage.profile;
       $location.url('/');
     });
   };
@@ -122,6 +124,7 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
         this.profile = profile;
         $window.localStorage.profile = JSON.stringify(profile);
         $window.localStorage.profileID = profile._id;
+        return;
       });
     } else {
       this.profile = JSON.parse($window.localStorage.profile);
