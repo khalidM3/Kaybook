@@ -2,25 +2,28 @@
 
   <section class="profile-item-nav">
     <ul>
-      <li ng-click="profileItemCtrl.goToMyProfile()">
-        <img ng-src="{{profileItemCtrl.profile.profilePicURI}}">
-        <h5>{{ profileItemCtrl.profile.name}}</h5> 
+      <li class="nav-op nav-head" ng-click="profileItemCtrl.goToMyProfile()">
+
+        <img class="head-pic" ng-src="{{profileItemCtrl.profile.profilePicURI}}">
+        <p>{{ profileItemCtrl.profile.name}}</p> 
+        <p>{{ profileItemCtrl.profile.name}}@gmail.com</p> 
+
       </li>
-      <li ng-click="profileItemCtrl.bark()">bark</li>
-      <li ng-click="profileItemCtrl.goTo('timeline')">timeline</li>
-      <li ng-click="profileItemCtrl.goTo('posts')">posts</li>
-      <li ng-click="profileItemCtrl.goTo('chat')">chats</li>
-      <li ng-click="profileItemCtrl.goTo('friends')">friends</li>
-      <li ng-click="profileItemCtrl.goTo('requests')">friend requests {{profileItemCtrl.profile.friendReq.length}}</li>
-      <li ng-click="profileItemCtrl.goTo('pages')">pages</li>
-      <li ng-click="profileItemCtrl.goTo('joined')">joined pages</li>
-      <li ng-click="profileItemCtrl.goTo('notifs')">notifications</li>
-      <li ng-click="profileItemCtrl.goToAccount()">account</li>
+      <li class="nav-op" ng-click="profileItemCtrl.bark()">bark</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goTo('timeline')">timeline</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goTo('posts')">posts</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goTo('chat')">chats</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goTo('friends')">friends</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goTo('requests')">friend requests {{profileItemCtrl.profile.friendReq.length}}</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goTo('pages')">pages</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goTo('joined')">joined pages</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goTo('notifs')">notifications</li>
+      <li class="nav-op" ng-click="profileItemCtrl.goToAccount()">account</li>
     </ul>
   </section>
 
   <section class="profile-item-content">
-
+    hahahah
     <section> 
       <ul>
       <input type="text" placeholder="search for friends" ng-Change="profileItemCtrl.searchProfiles()" ng-model="profileItemCtrl.searchName">
