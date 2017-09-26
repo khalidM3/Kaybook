@@ -1,57 +1,79 @@
 <section class="profile-item">
-
-  <section class="profile-item-nav">
-    <ul>
-      <li class="nav-op nav-head" ng-click="profileItemCtrl.goToMyProfile()">
-
-        <img class="head-pic" ng-src="{{profileItemCtrl.profile.profilePicURI}}">
-        <p>{{ profileItemCtrl.profile.name}}</p> 
-        <p>{{ profileItemCtrl.profile.name}}@gmail.com</p> 
-
-      </li>
-      <li class="nav-op" ng-click="profileItemCtrl.bark()">bark</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goTo('timeline')">timeline</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goTo('posts')">posts</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goTo('chat')">chats</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goTo('friends')">friends</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goTo('requests')">friend requests {{profileItemCtrl.profile.friendReq.length}}</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goTo('pages')">pages</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goTo('joined')">joined pages</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goTo('notifs')">notifications</li>
-      <li class="nav-op" ng-click="profileItemCtrl.goToAccount()">account</li>
-    </ul>
-  </section>
-
-  <section class="profile-item-content">
-    hahahah
-    <section> 
+  <div class="profile-item-row">
+    <section class="profile-item-nav" ng-class="{ 'nav-hidden' : profileItemCtrl.showMenu === true }">
       <ul>
-      <input type="text" placeholder="search for friends" ng-Change="profileItemCtrl.searchProfiles()" ng-model="profileItemCtrl.searchName">
-        <li class="searches" ng-repeat="profile in profileItemCtrl.searchesArr" ng-click="profileItemCtrl.goToProfile(profile._id)">
-          <img ng-src="{{profile.profilePicURI}}" alt="">  {{ profile.name}}
+        <li class="nav-op" ng-if="profileItemCtrl.showMenu" ng-click="profileItemCtrl.showMenu = false"> X </li>
+        <li class="nav-op nav-head" ng-click="profileItemCtrl.goToMyProfile()">
+
+          <img class="head-pic" ng-src="{{profileItemCtrl.profile.profilePicURI}}">
+          <div class="head-names">
+            <p>{{ profileItemCtrl.profile.name}}</p> 
+            <p> @{{ profileItemCtrl.profile.name}}</p> 
+          </div>
+
+
         </li>
+        <li class="nav-op" ng-click="profileItemCtrl.goTo('timeline')">timeline</li>
+        <li class="nav-op" ng-click="profileItemCtrl.goTo('posts')">posts</li>
+        <li class="nav-op" ng-click="profileItemCtrl.goTo('chat')">chats</li>
+        <li class="nav-op" ng-click="profileItemCtrl.goTo('friends')">friends</li>
+        <li class="nav-op" ng-click="profileItemCtrl.goTo('requests')">friend requests {{profileItemCtrl.profile.friendReq.length}}</li>
+        <li class="nav-op" ng-click="profileItemCtrl.goTo('pages')">pages</li>
+        <li class="nav-op" ng-click="profileItemCtrl.goTo('joined')">joined pages</li>
+        <li class="nav-op" ng-click="profileItemCtrl.goTo('notifs')">notifications</li>
+        <li class="nav-op" ng-click="profileItemCtrl.goToAccount()">account</li>
       </ul>
-      <button ng-if="profileItemCtrl.showPostBtn" ng-click="profileItemCtrl.openCreatePostModal()">create post</button>
     </section>
 
-    <section >
-      <profile-tile ng-repeat="profile in profileItemCtrl.profileArr" profile="profile"></profile-tile>
+    <section class="profile-item-content">
+
+      <section class="content-container" ng-if="!profileItemCtrl.showHiddenSearch"> 
+        <div class="content-menu">
+          <span class="menu-btn" ng-click="profileItemCtrl.showMenu = true"> menu </span>
+        </div>
+
+        <section class="content-search">
+          <input class="search-op" type="text" placeholder="search for friends" ng-Change="profileItemCtrl.searchProfiles()" ng-Blur="profileItemCtrl.searchEnd()" ng-model="profileItemCtrl.searchName">
+          <div class="search-results search-op" ng-repeat="profile in profileItemCtrl.resultsArr" ng-click="profileItemCtrl.goToProfile(profile._id)">
+            <img ng-src="{{profile.profilePicURI}}" alt="">  {{ profile.name}}
+          </div>
+          <span class="search-op-btn" ng-click="profileItemCtrl.showHiddenSearch = true"> search </span>
+        </section>
+
+        <div class="content-create">
+          <span class="create-btn" ng-if="profileItemCtrl.showCreatePostBtn" ng-click="profileItemCtrl.openCreatePostModal()">create post</span>
+          <span class="create-btn" ng-if="profileItemCtrl.showCreatePageBtn" ng-click="profileItemCtrl.openCreatePageModal()">create page</span>
+          <span class="create-btn" ng-if="profileItemCtrl.showCreateRoomBtn" ng-click="profileItemCtrl.createRoom()">create room</span>
+        </div>
+      </section>
+
+      <section class="content-container" ng-if="profileItemCtrl.showHiddenSearch">
+        <section class="content-search-hidden">
+          <input type="text" placeholder="search for friends" ng-Change="profileItemCtrl.searchProfiles()" ng-Blur="profileItemCtrl.searchEnd()" ng-model="profileItemCtrl.searchName">
+          <span class="search-cancel" ng-click="profileItemCtrl.showHiddenSearch = false"> X </span>
+          <div class="search-results" ng-repeat="profile in profileItemCtrl.resultsArr" ng-click="profileItemCtrl.goToProfile(profile._id)">
+            <img ng-src="{{profile.profilePicURI}}" alt="">  {{ profile.name}}
+          </div>
+        </section>
+      </section>
+
+      <section>
+        <profile-tile ng-repeat="profile in profileItemCtrl.profileArr" profile="profile"></profile-tile>
+      </section>
+
+      <section>
+          <post-tile ng-repeat="post in profileItemCtrl.friendsPosts" post="post"></post-tile>
+      </section>
+
+      <section ng-show="profileItemCtrl.showCreatePage">
+        <page-tile ng-repeat="page in profileItemCtrl.pagesArr" page="page"></page-tile>
+      </section>
+
+      <!-- <button ng-if="profileItemCtrl.showRoomBtn" ng-click="profileItemCtrl.createRoom()">create room</button> -->
+      <room-tile ng-repeat="room in profileItemCtrl.roomsArr" room="room"></room-tile>
     </section>
 
-    <section>
-        <post-tile ng-repeat="post in profileItemCtrl.friendsPosts" post="post"></post-tile>
-    </section>
-
-    <section ng-show="profileItemCtrl.showCreatePage">
-      <create-page></create-page>
-      <page-tile ng-repeat="page in profileItemCtrl.pagesArr" page="page"></page-tile>
-    </section>
-
-    <button ng-if="profileItemCtrl.showRoomBtn" ng-click="profileItemCtrl.createRoom()">create room</button>
-    <room-tile ng-repeat="room in profileItemCtrl.roomsArr" room="room"></room-tile>
-  </section>
 
 
-
-
+  </div>
 </section>
