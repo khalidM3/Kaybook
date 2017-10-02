@@ -1,67 +1,193 @@
+
 .create-post {
-  img {
-    max-width: 200px;
+  display: block;
+  
+
+  .post-choice-btns {
+    outline: 1px solid black;
+    background-color: greenyellow;
   }
 
-  // iframe {
-  //   width: 100%;
-  // }
-  .box {
-    display: inline-block;
-    background-color: #41306C;
-    width: 200px;
-  }
-  .small-input {
-    width: 2px;
-  }
-  .med-input {
-    display: inline-block;
-    width: 2px;
+  .post-title {
+    border: 1px solid grey;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    width: 90%;
+    height: 35px;
   }
 
-  .content {
-    display: inline-block;
-    padding: 5px;
-    div {
+  .post-pic-desc {
+    // outline: 1px solid grey;
+    border: 1px solid grey;
+    display: block;
+    margin: auto;
+    width: 90%;
+    overflow: hidden;
+    // overflow: hidden;
+    // height: 50px;
+    // min-height: 100px;
+  }
+
+  .post-pic-ops {
+    background-color: slateblue;
+    display: block;
+    margin: 10px auto;
+    width: 90%;
+    text-align: center;
+    .pic-op {
+      outline: 1px solid black;
       display: inline-block;
+      margin: 10px;
+      width: 150px;
+      height: 100px;
+      max-width: 40%;
     }
-    p {
+    .pic-input {
+      outline: 1px solid black;
       display: inline-block;
+      height: 100px;
+      margin: 10px;
+      width: 90%;
+      input {
+        width: 90%;
+        height: 30px;
+      }
+      .cancel {
+        width: 90%;
+      }
     }
-    
+
+    .post-preview {
+      .post-preview-pic {
+        width: 100%;
+      }
+    }
+
+
   }
   
-  .choosebtns {
-    display: block;
+  .post-filter {
 
-    button {
-      display: inline-block;
+    .post-filter-desc {
+      img {
+        width: 100%;
+      }
+      iframe {
+        width: 100%;
+      }
+
+      .filter-desc-edit {
+        border: 1px solid grey;
+        display: block;
+        margin: auto;
+        width: 100%;
+        overflow: hidden;
+        height: auto;
+      }
+
+
+      .replace-box { 
+        background-color: #5625A5;
+        color: goldenrod;
+        display: block;
+
+        .box-remove-btn {
+          outline: 1px solid black;
+          display: block;
+          width: 200px;
+          height: 30px;
+          max-width: 100%;
+          text-align: center;
+          margin: 10px auto;
+        }
+
+        .box-done-btn {
+          outline: 1px solid black;
+          display: block;
+          width: 200px;
+          height: 30px;
+          max-width: 100%;
+          text-align: center;
+          margin: 10px auto;
+        }
+
+      }
     }
+
   }
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    img {
-      width: 100px;
-    }
-    th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  tr:hover{
-  background-color:#f5f5f5
-  }
+
 }
 
-  form {
-    display: block;
-    label {
-      display: block;
-    }
-    input {
-      // display: block;
-    }
-  }
-}
+
+
+//============================================================\
+
+// .create-post {
+//   img {
+//     max-width: 200px;
+//   }
+
+//   // iframe {
+//   //   width: 100%;
+//   // }
+//   .box {
+//     display: inline-block;
+//     background-color: #41306C;
+//     width: 200px;
+//   }
+//   .small-input {
+//     width: 2px;
+//   }
+//   .med-input {
+//     display: inline-block;
+//     width: 2px;
+//   }
+
+//   .content {
+//     display: inline-block;
+//     padding: 5px;
+//     div {
+//       display: inline-block;
+//     }
+//     p {
+//       display: inline-block;
+//     }
+    
+//   }
+  
+//   .choosebtns {
+//     display: block;
+
+//     button {
+//       display: inline-block;
+//     }
+//   }
+
+//   table {
+//     border-collapse: collapse;
+//     width: 100%;
+//     img {
+//       width: 100px;
+//     }
+//     th, td {
+//     padding: 8px;
+//     text-align: left;
+//     border-bottom: 1px solid #ddd;
+//   }
+//   tr:hover{
+//   background-color:#f5f5f5
+//   }
+// }
+
+//   form {
+//     display: block;
+//     label {
+//       display: block;
+//     }
+//     input {
+//       // display: block;
+//     }
+//   }
+// }

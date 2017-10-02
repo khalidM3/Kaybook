@@ -95,38 +95,56 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   };
 
   this.parse = () => {
-    console.log('changing', this.parsedArr? this.parsedArr : null);
+    // console.log('changing', this.parsedArr? this.parsedArr : null);
     // this.parsedArr = this.parseStr(this.post.desc);
     let urlReg = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
     if(this.x.match(urlReg)) {
-      console.log('x ===>\n',this.x);
+      // console.log('x ===>\n',this.x);
       !this.post.desc ? this.post.desc = '' : false;
-      console.log('desc ===> \n', this.post.desc);
+      // console.log('desc ===> \n', this.post.desc);
       this.post.desc = this.post.desc + this.x;
-      console.log('total desc ===> \n', this.post.desc);
+      // console.log('total desc ===> \n', this.post.desc);
       this.x = '';
       this.parsedArr = this.parseStr(this.post.desc);
     }
   };
   
   this.update = (word) => {
-    let urlReg = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
-    console.log('word', word);
-    this.parsedArr[word.index].payload = word.payload;
-    let arr = this.post.desc.split(urlReg);
-    console.log('arr', arr);
+    let urlReg1 = /(\b(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let urlReg2 = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
+    console.log('WORD :: ', word);
+
+    // this.parsedArr[word.index].payload = word.payload;
+    let arr = this.post.desc.split(urlReg1);
+    console.log('ARR :: ', arr)
+    // console.log('post deska ??????', this.post.desc.split(urlReg))
+    // console.log('arr1', arr);
+    // word.payload.trim();
     arr[word.index] = word.payload;
+    // console.log('arr2', arr);
+    // console.log('arr3', arr[word.index]);
+    // console.log('post desc {}{}{}{}{}{}{', this.post.desc);
     this.post.desc = arr.join(' ');
-    console.log('post desc', this.post.desc);
+    //// if(word.payload.match(urlReg)) 
+    // console.log('this is the post desc =>>>',this.post.desc);
+    this.showUpdate = false;
+    if(word.payload.match(urlReg1)){
+      return this.parsedArr = this.parseStr(this.post.desc);
+    } 
+
+    // console.log('post desc', this.post.desc); 
+    // console.log('parsed arr', this.parsedArr);
   };
+
 
   this.removeLink = (word) => {
     let urlReg = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
-    this.parsedArr[word.index] = null;
+    // this.parsedArr[word.index] = null;
     let arr = this.post.desc.split(urlReg);
     arr[word.index] = null;
     this.post.desc = arr.join(' ');
     this.index = null;
+    this.parsedArr = this.parseStr(this.post.desc);
   };
 
   this.updateWord = (word) => {
@@ -177,9 +195,25 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     this.dismiss({$value: 'cancel'});
   };
 
-  this.bark = function(){
-    return console.log("bark bark ");
+  this.adjust = (e) => {
+    // console.log('adjusting adjusting adjusting');
+    let element = typeof e === 'object' ? e.target : $window.document.getElementById(e);
+    let scrollHeight = element.scrollHeight;
+    element.style.height = scrollHeight > 100 ? scrollHeight+"px" : '100px';
   };
+
+
+
+  this.bark = (arg) => {
+    console.log('barking barking', arg)
+  };
+
+  // this.focus = (word) => {
+  //   this.bark();
+  //   this.index = word.index;
+  //   console.log($window.document.getElementById('text-edit').focus);
+  // }
+
 
 }
   
