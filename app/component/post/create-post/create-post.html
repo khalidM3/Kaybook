@@ -71,31 +71,44 @@
           </div>
         </div>
         <textarea class="post-pic-desc" placeholder="description" type="text" ng-keyup="createPostCtrl.adjust($event)" ng-model="createPostCtrl.x" ng-change="createPostCtrl.parse()" ng-trim="false" cols="30" rows="10"/></textarea>
-    </section>
+      </section>
 
-      <section class="poll" ng-if="createPostCtrl.showPoll">
-          <div class="choice-table" ng-show="createPostCtrl.post.choices[0]">
-            <table>
+      <section class="post-poll" ng-if="createPostCtrl.showPoll">
+          <div class="post-choices">
+            <table class="choice-table">
               <tr>
-                <th>image</th>
-                <th>name</th>
+                <th> choice </th>
                 <th>remove</th>
               </tr>
               <tr ng-repeat="choice in createPostCtrl.post.choices track by $index">
-              <td> <img ng-src="{{choice.picURI}}" alt=""> </td>
-              <td> {{choice.name}} </td>
-              <td ng-click="createPostCtrl.removeChoice(choice)"> X </td>
-            </tr>
+                <td> 
+                  <img ng-src="{{choice.picURI}}" alt=""> 
+                  <p> {{choice.name}} </p>
+                </td>
+                <td> <span class="choice-remove-btn" ng-click="createPostCtrl.removeChoice(choice)"> - </span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="choice-content-btns" ng-show="!createPostCtrl.showChoiceInputs">
+                      <button ng-click="createPostCtrl.choseText()">text</button>
+                      <button ng-click="createPostCtrl.choseLink()">link</button>
+                      <button ngf-select>upload</button>
+                  </div>
+                  <div class="choice-content-inputs" ng-show="createPostCtrl.showChoiceInputs">
+                      <input class="choice-input" name="text" type="text" ng-minlength="1" placeholder="choice name" ng-show="createPostCtrl.showTextInput" ng-model="createPostCtrl.choice">
+                      <input class="choice-input" name="pic" type="text" ng-minlength="1" placeholder="choice pic" ng-show="createPostCtrl.showLinkInput"  ng-model="createPostCtrl.picURI">
+                      <button class="choice-hide-input" ng-click="createPostCtrl.showChoiceInputs = false"> X </button>
+                  </div>
+                  
+                </td>
+                <td>
+                    <button ng-click="createPostCtrl.addChoice()"> + </button>
+                </td>
+              </tr>
+
             </table>
           </div>
 
-          <label for="name">choice name</label>
-          <input name="name" type="text" ng-minlength="1" ng-model="createPostCtrl.choice">
-
-          <label for="desc">choice pic</label>
-          <input name="desc" type="text" ng-minlength="1" ng-model="createPostCtrl.picURI">
-        
-          <span ng-click="createPostCtrl.addChoice()">add choice</span>
       </section> 
 
 
@@ -103,3 +116,35 @@
     </form>
   </div>
 </section>
+
+
+
+<!-- <div class="post-choices">
+    <table class="choice-table">
+      <tr>
+        <th>image</th>
+        <th>name</th>
+        <th>remove</th>
+      </tr>
+      <tr ng-repeat="choice in createPostCtrl.post.choices track by $index">
+        <td> <img ng-src="{{choice.picURI}}" alt=""> </td>
+        <td> {{choice.name}} </td>
+        <td> <span class="choice-remove-btn" ng-click="createPostCtrl.removeChoice(choice)"> X </span></td>
+      </tr>
+      <tr>
+        <td> <input class="choice-input" name="desc" type="text" ng-minlength="1" placeholder="choice pic" ng-model="createPostCtrl.picURI"> </td>
+        <td> <input class="choice-input" name="name" type="text" ng-minlength="1" placeholder="choice name" ng-model="createPostCtrl.choice"> </td>
+        <td> <span class="choice-add-btn" ng-click="createPostCtrl.addChoice()"> add choice </span> </td>
+      </tr>
+
+    </table>
+  </div> -->
+
+
+          <!-- <label for="name">choice name</label>
+          <input name="name" type="text" ng-minlength="1" ng-model="createPostCtrl.choice">
+
+          <label for="desc">choice pic</label>
+          <input name="desc" type="text" ng-minlength="1" ng-model="createPostCtrl.picURI">
+        
+          <span ng-click="createPostCtrl.addChoice()">add choice</span> -->

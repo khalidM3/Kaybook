@@ -4,7 +4,7 @@ require('./_create-post.scss');
 
 module.exports = {
   template: require('./create-post.html'),
-  controller: ['$log', '$location', '$rootScope', '$window', 'postService', 'picService', CreatePostController],
+  controller: ['$log', '$location', '$rootScope', '$window', 'postService', 'picService', '$http', CreatePostController],
   controllerAs: 'createPostCtrl',
   bindings: {
     onPostCreated: '&',
@@ -14,7 +14,7 @@ module.exports = {
   }
 };
 
-function CreatePostController($log, $location, $rootScope, $window, postService, picService) {
+function CreatePostController($log, $location, $rootScope, $window, postService, picService, $http) {
   $log.debug('CreatePostController');
 
   $log.debug('HERE !!!',this.profile);
@@ -116,7 +116,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
     // this.parsedArr[word.index].payload = word.payload;
     let arr = this.post.desc.split(urlReg1);
-    console.log('ARR :: ', arr)
+    console.log('ARR :: ', arr);
     // console.log('post deska ??????', this.post.desc.split(urlReg))
     // console.log('arr1', arr);
     // word.payload.trim();
@@ -199,10 +199,34 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     // console.log('adjusting adjusting adjusting');
     let element = typeof e === 'object' ? e.target : $window.document.getElementById(e);
     let scrollHeight = element.scrollHeight;
-    element.style.height = scrollHeight > 100 ? scrollHeight+"px" : '100px';
+    // let minheight = this.post.type === 'article' ? 400 : 100;
+    // console.log('minheight', minheight);
+    element.style.height = scrollHeight > 100 ? scrollHeight+'px' : 100 +'px';
+  };
+
+  this.choseText = () => {
+    this.showLinkInput = false;
+    this.showTextInput = true;
+    this.showChoiceInputs = true;
+  };
+
+  this.choseLink = () => {
+    this.showTextInput = false;
+    this.showLinkInput = true;
+    this.showChoiceInputs = true ;
   };
 
 
+
+  this.validatePic = () => {
+    return $http.get(this.picURI)
+    .then( res => {
+      console.log('success pic >>>>>', res);
+    })
+    .catch( err => {
+      console.log('not a pic ', err);
+    });
+  };
 
   this.bark = (arg) => {
     console.log('barking barking', arg)
