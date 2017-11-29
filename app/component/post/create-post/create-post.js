@@ -4,7 +4,7 @@ require('./_create-post.scss');
 
 module.exports = {
   template: require('./create-post.html'),
-  controller: ['$log', '$location', '$rootScope', '$window', 'postService', 'picService', '$http', CreatePostController],
+  controller: ['$log', '$location', '$rootScope', '$window', 'postService', 'picService', '$http','$q', CreatePostController],
   controllerAs: 'createPostCtrl',
   bindings: {
     onPostCreated: '&',
@@ -14,7 +14,7 @@ module.exports = {
   }
 };
 
-function CreatePostController($log, $location, $rootScope, $window, postService, picService, $http) {
+function CreatePostController($log, $location, $rootScope, $window, postService, picService, $http, $q) {
   $log.debug('CreatePostController');
 
   $log.debug('HERE !!!',this.profile);
@@ -216,17 +216,34 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     this.showChoiceInputs = true ;
   };
 
-
-
-  this.validatePic = () => {
-    return $http.get(this.picURI)
-    .then( res => {
-      console.log('success pic >>>>>', res);
-    })
-    .catch( err => {
-      console.log('not a pic ', err);
-    });
+  this.validatePic = (src) => {
+    var deferred = $q.defer();
+    var image = new Image();
+    image.onerror = () =>  {
+      deferred.resolve(false);
+    };
+    image.onload = () =>  {
+      deferred.resolve(true);
+    };
+    image.src = src;
+    return deferred.promise;
   };
+
+  // this.validatePic = () => {
+  //   console.log('_PIC_URI_ :', this.picURI);
+  //   // let config = {
+  //   //   headers: {
+  //   //     'Content-Type': 'application/json',
+  //   //     Accept: 'aplication/json',
+  //   //   }
+  //   // };
+
+  //   this.isImage(this.picURI).then( test => console.log('test', test));
+  //   // return $http.get(this.picURI)
+  //   // .then( res => console.log('SUCCESS!!', res))
+  //   // .catch(err => console.log('ERR||', err));
+    
+  // };
 
   this.bark = (arg) => {
     console.log('barking barking', arg)

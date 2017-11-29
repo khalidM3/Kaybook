@@ -123,51 +123,93 @@
     // background-color: greenyellow;
 
     tr {
-      outline: 1px solid green;
+      // outline: 2px solid grey;
+      vertical-align: middle;
     }
     td {
-      outline: 1px solid red;
+      // outline: 1px solid red;
+      vertical-align: middle;
+      border-top: 1px solid #ddd;
+      padding: 10px;
+    }
+    .choice-header {
+      // margin: auto;
+      text-align: center;
     }
     .choice-table {
-      width: 100%;
+      width: 90%;
+      margin: 10px auto;
+
+      
       img {
         width: 100px;
         display: inline-block;
       }
 
-      .choice-content-inputs {
-        .choice-input {
+      .choice-table-last {
+        max-width: 10%;
+        // min-width: 30px;
+        width: 30px;
+        text-align: center;
+      }
+
+      .choice-content-btns {
+        display: block;
+        text-align: center;
+        .content-btn {
+          outline: 1px solid grey;
           display: inline-block;
-          width: 90%;
-          height: 30px;
+          padding: 10px;
+          max-height: 100%;
+          max-width: 100%;
+          margin: 0 2%;
+          // background-color: green;
+          // color: white;
+        }
+      }
+
+      .choice-content-inputs {
+        display: block;
+        height: 60px;
+        width: 100%;
+        .choice-input {
+          border: 1px solid grey;
+          display: inline-block;
+          width: 80%;
+          height: 100%;
+          margin: 0px;
         }
         .choice-hide-input {
-          max-width: 7%;
+          margin: 0px;
+          display: inline-block;
+          padding: 10px;
+          max-height: 100%;
+          max-width: 15%;
+          min-height: 30px;
+          min-width: 30px;
+          outline: 1px solid grey;
         }
       }
       
       .choice-remove-btn {
         display: inline-block;
         padding: 10px;
-        width: 50px;
-        height: 50px;
-        // max-height: 100%;
-        // max-width: 100%;
-        background-color: red;
-        color: white;
-        outline: 1px solid black;
-      }
-      .choice-add-btn {
-        box-sizing: border-box;
-        display: inline-block;
-        padding: 10px;
-        // width: 50px;
-        // height: 50px;
         max-height: 100%;
         max-width: 100%;
-        background-color: green;
+        min-height: 30px;
+        min-width: 30px;
+        background-color: red;
         color: white;
-        outline: 1px solid black;
+        outline: 1px solid grey;
+      }
+      .choice-add-btn {
+        outline: 1px solid grey;
+        display: inline-block;
+        padding: 10px;
+        max-height: 100%;
+        max-width: 100%;
+        background-color: #00D9FF;
+        color: white;
       }
     }
   }
