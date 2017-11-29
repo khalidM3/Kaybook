@@ -1,15 +1,54 @@
-<li class="postItem modal-body">
-  <!-- <on-init></on-init> -->
+<section class="post-item modal-body">
+
     <p ng-if="postItemCtrl.reposter"> shared by {{postItemCtrl.reposter.name}}</p>
     
-      <span uib-dropdown on-toggle="toggled(open)">
-       <span uib-dropdown-toggle alt=""> <div class="dots">...</div> </span>
-      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-        <li ng-click="postItemCtrl.openEditPostModal()">edit</li>
-        <li ng-click="postItemCtrl.delete()">delete</li>
-        <li ng-click="postItemCtrl.report()">report</li>
-      </ul>
-    </span>
+      
+
+    <section class="post-item-head">
+      <div class="head-owner">
+          <!-- <p ng-if="postItemCtrl.post.edited">  edited </p> -->
+          <img class="owner-pic" src="{{postItemCtrl.poster.profilePicURI}}">
+          <div class="owner-names">
+            <p class="owner-name"> {{postItemCtrl.poster.name}} </p>
+            <p class="post-date"> {{postItemCtrl.post.created | date : 'mediumDate'}} </p>
+          </div>
+          
+      </div>
+
+      <div class="head-options" uib-dropdown on-toggle="toggled(open)">
+          <span uib-dropdown-toggle alt=""> <div class="dot"></div><div class="dot"></div><div class="dot"></div> </span>
+          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+            <li class="menu-op" ng-click="postItemCtrl.openEditPostModal()">edit</li>
+            <li class="menu-op" ng-click="postItemCtrl.delete()">delete</li>
+            <li class="menu-op" > follow </li>
+            <li class="menu-op" > repost </li>
+            <li class="menu-op" ng-click="postItemCtrl.report()">report</li>
+          </ul>
+      </div>
+
+    </section>
+
+    <section class="post-item-body">
+      <div class="post-title">
+          <h2> {{ postItemCtrl.post.title }}</h2>
+      </div>
+
+      <div class="post-img">
+          <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.post.picURI }}" alt="">
+          <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.post.picURI }}" controls>
+            Youre browser does not support HTML5
+          </video>
+      </div>
+
+      <div class="post-poll">
+        
+      </div>
+
+      <div class="post-text">
+
+      </div>
+      
+    </section>
 
      
 
@@ -18,20 +57,17 @@
   <!--<div class="current-post" ng-if="!postItemCtrl.showEditComment">-->
 
     <ul class="post-body">
-      <li class="post-content">
-        <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.post.picURI }}" alt="">
-        <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.post.picURI }}" controls>
-          Youre browser does not support HTML5
-        </video>
-      </li>
+      <!-- <li class="post-content">
+          <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.post.picURI }}" alt="">
+          <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.post.picURI }}" controls>
+            Youre browser does not support HTML5
+          </video>
+      </li> -->
       <li class="post-side">
         <ul>
           <li class="post-header">
-            <p ng-if="postItemCtrl.post.edited">  edited </p>
-            <img src="{{postItemCtrl.poster.profilePicURI}}">
-            <div class="poster-name">Poster: {{postItemCtrl.poster.name}}</div>
-            <div class="date">Date: {{postItemCtrl.post.created | date : 'mediumDate'}}</div>
-            <h2> {{ postItemCtrl.post.title }}</h2>
+        
+            <!-- <h2> {{ postItemCtrl.post.title }}</h2> -->
              <!-- <div> {{ postItemCtrl.post.desc }}</div> -->
 
              <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
@@ -106,4 +142,4 @@
   
   <!--<div class="clearfix">
   </div> -->
-</li>
+</section>
