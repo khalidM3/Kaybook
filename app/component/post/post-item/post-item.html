@@ -28,7 +28,7 @@
 
     </section>
 
-    <section class="post-item-body">
+    <section class="post-item-main">
       <div class="post-title">
           <h2> {{ postItemCtrl.post.title }}</h2>
       </div>
@@ -48,6 +48,17 @@
 
       </div>
       
+    </section>
+
+    <section class="post-item-footer">
+      <button class="footer-like" ng-click="postItemCtrl.likePost()">like {{postItemCtrl.post.likes.length}}</button>
+      <button class="footer-dislike"ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.post.dislikes.length}}</button>
+      <button class="footer-repost">repost</button>
+      <button class="footer-comment">
+        <create-answer post="postItemCtrl.post"></create-answer>
+        <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item>
+      </button>
+
     </section>
 
      
@@ -114,6 +125,8 @@
     </li>
 
   </ul>
+
+
     
 
     
