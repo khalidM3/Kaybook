@@ -4,7 +4,7 @@ require('./_create-post.scss');
 
 module.exports = {
   template: require('./create-post.html'),
-  controller: ['$log', '$location', '$rootScope', '$window', 'postService', 'picService', '$http','$q', CreatePostController],
+  controller: ['$log', '$location', '$rootScope', '$window', '$document','postService', 'picService', '$http','$q', CreatePostController],
   controllerAs: 'createPostCtrl',
   bindings: {
     onPostCreated: '&',
@@ -14,13 +14,14 @@ module.exports = {
   }
 };
 
-function CreatePostController($log, $location, $rootScope, $window, postService, picService, $http, $q) {
+function CreatePostController($log, $location, $rootScope, $window, $document, postService, picService, $http, $q) {
   $log.debug('CreatePostController');
 
   $log.debug('HERE !!!',this.profile);
 
   this.$onInit = () => {
     this.chosePost();
+    this.initDoc();
   };
   
   this.post = {};
@@ -245,9 +246,69 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     
   // };
 
-  this.bark = (arg) => {
-    console.log('barking barking', arg)
+
+
+  
+  this.bark = () => {
+    console.log('barking barking', $document[0]);
   };
+  this.switchMode = {}
+  this.switchMode.checked = false;
+
+
+  let oDoc, sDefTxt;
+  let document = $document;
+  
+  this.initDoc = () => {
+    oDoc = document.getElementById("textBox");
+    sDefTxt = oDoc.innerHTML;
+    if (this.switchMode.checked) { this.setDocMode(true); }
+  };
+  
+  this.formatDoc = (sCmd, sValue) => {
+    console.log('formatting the doc', sCmd, sValue);
+    if (this.validateMode()) { $document[0].execCommand('bold', false, sValue); oDoc.focus(); }
+  };
+  
+  this.validateMode = () => {
+    if (!this.switchMode.checked) { return true ; }
+    alert("Uncheck \"Show HTML\".");
+    oDoc.focus();
+    return false;
+  };
+  
+  this.setDocMode = (bToSource) => {
+    var oContent;
+    if (bToSource) {
+      oContent = document.createTextNode(oDoc.innerHTML);
+      oDoc.innerHTML = "";
+      var oPre = document.createElement("pre");
+      oDoc.contentEditable = false;
+      oPre.id = "sourceText";
+      oPre.contentEditable = true;
+      oPre.appendChild(oContent);
+      oDoc.appendChild(oPre);
+    } else {
+      if (document.all) {
+        oDoc.innerHTML = oDoc.innerText;
+      } else {
+        oContent = document.createRange();
+        oContent.selectNodeContents(oDoc.firstChild);
+        oDoc.innerHTML = oContent.toString();
+      }
+      oDoc.contentEditable = true;
+    }
+    oDoc.focus();
+  };
+  
+  this.printDoc = () => {
+    if (!this.validateMode()) { return; }
+    var oPrntWin = $window.open("","_blank","width=450,height=470,left=400,top=100,menubar=yes,toolbar=no,location=no,scrollbars=yes");
+    oPrntWin.document.open();
+    oPrntWin.document.write("<!doctype html><html><head><title>Print<\/title><\/head><body onload=\"print();\">" + oDoc.innerHTML + "<\/body><\/html>");
+    oPrntWin.document.close();
+  };
+
 
   // this.focus = (word) => {
   //   this.bark();
