@@ -246,7 +246,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   // };
 
   this.bark = (arg) => {
-    console.log('barking barking', arg)
+    console.log('barking barking', arg);
   };
 
   // this.focus = (word) => {
