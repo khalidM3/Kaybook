@@ -44,8 +44,13 @@
         
       </div>
 
-      <div class="post-text">
-
+      <div class="post-content">
+          <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
+            <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
+            <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
+            <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
+            <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
+           </div>
       </div>
       
     </section>
@@ -54,10 +59,8 @@
       <button class="footer-like" ng-click="postItemCtrl.likePost()">like {{postItemCtrl.post.likes.length}}</button>
       <button class="footer-dislike"ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.post.dislikes.length}}</button>
       <button class="footer-repost">repost</button>
-      <button class="footer-comment">
-        <create-answer post="postItemCtrl.post"></create-answer>
-        <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item>
-      </button>
+      <create-answer post="postItemCtrl.post"></create-answer>
+      <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item>
 
     </section>
 
@@ -88,12 +91,12 @@
                   </button>
             </section>  
 
-            <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
+            <!-- <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
                    <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
                     <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
                  <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
                  <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
-            </div>
+            </div> -->
 
             <div>
               <button ng-click="postItemCtrl.likePost()">like {{postItemCtrl.post.likes.length}}</button>

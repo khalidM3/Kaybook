@@ -4,7 +4,7 @@
   * {
     vertical-align: middle;
   }
-  background-color: green;
+  // background-color: green;
 
   .post-item-head {
     outline: 1px solid grey;
@@ -57,6 +57,22 @@
 
   img {
     width: 100%;
+  }
+
+  .post-content {
+    .content {
+      display: inline-block;
+
+      p, a {
+        display: inline-block;
+        margin: 3px;
+      }
+      img, iframe{
+        display: block;
+        max-width: 100%;
+      }
+
+    }
   }
 
 }
