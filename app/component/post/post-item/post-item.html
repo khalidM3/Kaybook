@@ -5,18 +5,15 @@
       
 
     <section class="post-item-head">
+      <img class="head-pic" src="{{postItemCtrl.poster.profilePicURI}}">
       <div class="head-owner">
-          <!-- <p ng-if="postItemCtrl.post.edited">  edited </p> -->
-          <img class="owner-pic" src="{{postItemCtrl.poster.profilePicURI}}">
-          <div class="owner-names">
-            <p class="owner-name"> {{postItemCtrl.poster.name}} </p>
-            <p class="post-date"> {{postItemCtrl.post.created | date : 'mediumDate'}} </p>
-          </div>
-          
+        <p class="owner-name"> {{postItemCtrl.poster.name}} </p>
+        <p class="owner-date"> {{postItemCtrl.post.created | date : 'mediumDate'}} </p>
       </div>
+          
 
       <div class="head-options" uib-dropdown on-toggle="toggled(open)">
-          <span uib-dropdown-toggle alt=""> <div class="dot"></div><div class="dot"></div><div class="dot"></div> </span>
+          <span uib-dropdown-toggle alt=""> options </span>
           <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
             <li class="menu-op" ng-click="postItemCtrl.openEditPostModal()">edit</li>
             <li class="menu-op" ng-click="postItemCtrl.delete()">delete</li>
@@ -40,17 +37,22 @@
           </video>
       </div>
 
-      <div class="post-poll">
-        
-      </div>
-
       <div class="post-content">
           <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
             <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
             <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
             <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
             <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
-           </div>
+          </div>
+      </div>
+
+      <div class="post-poll">
+        <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
+          <button ng-click="postItemCtrl.vote(choice)">
+          <img ng-src="{{choice.picURI}}" alt="">
+            {{choice.name}} {{ choice.voters.length }} 
+            </button>
+        </section>
       </div>
       
     </section>
@@ -59,9 +61,11 @@
       <button class="footer-like" ng-click="postItemCtrl.likePost()">like {{postItemCtrl.post.likes.length}}</button>
       <button class="footer-dislike"ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.post.dislikes.length}}</button>
       <button class="footer-repost">repost</button>
+    </section>
+
+    <section class="post-item-comments">
       <create-answer post="postItemCtrl.post"></create-answer>
       <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item>
-
     </section>
 
      
@@ -84,12 +88,12 @@
             <!-- <h2> {{ postItemCtrl.post.title }}</h2> -->
              <!-- <div> {{ postItemCtrl.post.desc }}</div> -->
 
-             <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
-              <button ng-click="postItemCtrl.vote(choice)">
+             <!-- <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
+                <button ng-click="postItemCtrl.vote(choice)">
                 <img ng-src="{{choice.picURI}}" alt="">
                   {{choice.name}} {{ choice.voters.length }} 
                   </button>
-            </section>  
+              </section>   -->
 
             <!-- <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
                    <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
@@ -97,12 +101,12 @@
                  <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
                  <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
             </div> -->
-
+<!-- 
             <div>
               <button ng-click="postItemCtrl.likePost()">like {{postItemCtrl.post.likes.length}}</button>
               <button ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.post.dislikes.length}}</button>
             </div>
-          </li>
+          </li> -->
 
           <!--<li class="create-comment">
             <create-comment
@@ -119,10 +123,10 @@
                           profile="postItemCtrl.poster">
             </comment-item>
           </li>-->
-
+<!-- 
           <create-answer post="postItemCtrl.post"></create-answer>
 
-          <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item>
+          <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item> -->
 
         </ul>
     </li>

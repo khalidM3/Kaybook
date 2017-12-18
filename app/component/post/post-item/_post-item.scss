@@ -1,81 +1,181 @@
 
-
 .post-item {
-  * {
-    vertical-align: middle;
-  }
-  // background-color: green;
+
 
   .post-item-head {
-    outline: 1px solid grey;
-    display: block;
-    width: 100%;
+    outline: 1px solid green;
 
+    display: grid;
+    grid-template-columns: 50px auto auto 50px;
+    grid-template-rows: 1;
+    grid-template-areas: "pic owner . options";
+    grid-column-gap: 10px;
+    .head-pic {
+      grid-area: pic;
+      width: 50px;
+      height: 50px;
+    }
     .head-owner {
-      background-color: #62E9F3;
-      display: inline-block;
-      img {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-      }
+      grid-area: owner;
+      outline: 1px solid black;
+      align-self: center;
+    }
+    .head-options {
+      outline: 1px solid red;
+      grid-area: options;
+      align-self: center;
 
-      .owner-names {
+      .menu-op {
         outline: 1px solid grey;
-        display: inline-block;
-        height: 100%;
-        // vertical-align: middle;
-        
+        padding: 10px 20px;
       }
-
     }
 
-    .head-options {
-      float: right;
-      outline: 1px solid black;
-      .dot {
-        display: inline-block;
-        background-color: black;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        margin: 3px;
-      }
 
-      .dropdown-menu {
-        .menu-op {
-          border-bottom: 1px solid #AAAAAA;
-          display: block;
+
+  }
+
+  .post-item-main {
+    .post-title {
+      font-size: 30px;
+      font-family: Verdana;
+      outline: 1px solid blue;
+      padding: 10px;
+    }
+
+    .post-img {
+      img, video {
+        width: 100%;
+      }
+    }
+
+    .post-content {
+
+      .content {
+        display: inline-block;
+        margin: 5px;
+
+        img, iframe, video {
           width: 100%;
-          padding: 7px;
+          display: block;
+        }
+      }
+    }
+
+    .post-poll {
+      outline: 1px solid red;
+      .poll {
+        display: inline-block;
+        outline: 1px solid green;
+        max-width: 30%;
+        display: inline-block;
+        font-size: 20px;
+        font-family: Verdana;
+
+        img {
+          max-width: 100%;
         }
       }
 
     }
+
   }
 
-  img {
-    width: 100%;
-  }
-
-  .post-content {
-    .content {
-      display: inline-block;
-
-      p, a {
-        display: inline-block;
-        margin: 3px;
-      }
-      img, iframe{
-        display: block;
-        max-width: 100%;
-      }
-
+  .post-item-footer {
+    outline: 1px solid black;
+    padding: 10px;
+    button {
+      margin-left: 10%;
     }
   }
 
+  .post-item-comments {
+    
+  }
+
+
+
 }
+
+
+//=====================================================================================
+
+// .post-item {
+//   * {
+//     vertical-align: middle;
+//   }
+//   // background-color: green;
+
+//   .post-item-head {
+//     outline: 1px solid grey;
+//     display: block;
+//     width: 100%;
+
+//     .head-owner {
+//       background-color: #62E9F3;
+//       display: inline-block;
+//       img {
+//         display: inline-block;
+//         width: 50px;
+//         height: 50px;
+//         border-radius: 50%;
+//       }
+
+//       .owner-names {
+//         outline: 1px solid grey;
+//         display: inline-block;
+//         height: 100%;
+//         // vertical-align: middle;
+        
+//       }
+
+//     }
+
+//     .head-options {
+//       float: right;
+//       outline: 1px solid black;
+//       .dot {
+//         display: inline-block;
+//         background-color: black;
+//         width: 5px;
+//         height: 5px;
+//         border-radius: 50%;
+//         margin: 3px;
+//       }
+
+//       .dropdown-menu {
+//         .menu-op {
+//           border-bottom: 1px solid #AAAAAA;
+//           display: block;
+//           width: 100%;
+//           padding: 7px;
+//         }
+//       }
+
+//     }
+//   }
+
+//   img {
+//     width: 100%;
+//   }
+
+//   .post-content {
+//     .content {
+//       display: inline-block;
+
+//       p, a {
+//         display: inline-block;
+//         margin: 3px;
+//       }
+//       img, iframe{
+//         display: block;
+//         max-width: 100%;
+//       }
+
+//     }
+//   }
+
+// }
 
 
 
