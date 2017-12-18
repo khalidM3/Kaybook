@@ -12,9 +12,8 @@
     <form name="createPostForm" ng-submit="createPostCtrl.createPost()">
 
       <input class="post-title" name="name" type="text" ng-minlength="4" placeholder="Title" ng-model="createPostCtrl.post.title">
-      <textarea id="man" class="post-pic-desc" ng-if="createPostCtrl.showPic" ng-keyup="createPostCtrl.adjust($event)" ng-model="createPostCtrl.post.desc" placeholder="description" ></textarea>
+      
       <div contenteditable="">
-
       </div>
 
       <section class="post-pic-ops" ng-if="createPostCtrl.showPic">
@@ -26,7 +25,7 @@
             <p> Upload </p>
           </div>
           <div class="pic-op" ng-if="!createPostCtrl.showInput" ng-click="createPostCtrl.showInput = true">
-            <p> CHOOSE LINK</p>
+            <p> Link </p>
           </div>
           <div class="pic-input" ng-if="createPostCtrl.showInput">
             <input name="pic" placeholder="pic uri" type="text" ng-minlength="4" ng-model="createPostCtrl.post.picURI"></input> 
@@ -36,6 +35,8 @@
           <iframe ng-if="createPostCtrl.post.picURI" src="{{createPostCtrl.post.picURI | embed }}" frameborder="0"></iframe>
           <input name="pic" placeholder="pic uri" type="text" ng-minlength="4" ng-model="createPostCtrl.post.picURI"></input> -->
       </section>
+
+      <textarea id="man" class="post-pic-desc" ng-if="createPostCtrl.showPic" ng-keyup="createPostCtrl.adjust($event)" ng-model="createPostCtrl.post.desc" placeholder="description" ></textarea>
 
       
       <!-- <section class="post-filter" ng-if="!createPostCtrl.showPic">
@@ -112,7 +113,7 @@
       </section> 
 
 
-      <button>create post</button>
+      <span class="create-post-btn">create post</span>
     </form>
   </div>
 </section>
