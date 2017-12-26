@@ -37,8 +37,8 @@
 
   .post-item-main {
     .post-title {
-      font-size: 30px;
-      font-family: Verdana;
+      font-size: 20px;
+      font-weight: bold;
       outline: 1px solid blue;
       padding: 10px;
     }
@@ -49,18 +49,32 @@
       }
     }
 
-    .post-content {
-
-      .content {
-        display: inline-block;
-        margin: 5px;
-
-        img, iframe, video {
-          width: 100%;
-          display: block;
-        }
-      }
+    .post-desc {
+      outline: 1px solid black;
+      width: 100%;
+      margin: 20px 0;
+      font-size: 15px;
+      line-height: 1.6;
     }
+
+    .post-content {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.6;
+
+      // .content {
+      //   display: inline-block;
+      //   margin: 5px;
+      //   outline: 1px solid green;
+      //   width: 100%;
+      //   // img, iframe, video {
+      //   //   width: 100%;
+      //   //   // display: block;
+      //   // }
+      // }
+    }
+      
 
     .post-poll {
       outline: 1px solid red;
@@ -84,7 +98,7 @@
   .post-item-footer {
     outline: 1px solid black;
     padding: 10px;
-    button {
+    .footer-btn{
       margin-left: 10%;
     }
   }

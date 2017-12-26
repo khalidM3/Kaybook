@@ -13,13 +13,30 @@
           
 
       <div class="head-options" uib-dropdown on-toggle="toggled(open)">
-          <span uib-dropdown-toggle alt=""> options </span>
+          <span  uib-dropdown-toggle alt=""> 
+              <span class="glyphicon glyphicon-option-horizontal"></span> 
+          </span>
+          <!-- <button type="button" class="btn btn-danger">Action</button> -->
           <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-            <li class="menu-op" ng-click="postItemCtrl.openEditPostModal()">edit</li>
-            <li class="menu-op" ng-click="postItemCtrl.delete()">delete</li>
-            <li class="menu-op" > follow </li>
-            <li class="menu-op" > repost </li>
-            <li class="menu-op" ng-click="postItemCtrl.report()">report</li>
+            <li class="menu-op" ng-click="postItemCtrl.openEditPostModal()">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              edit
+            </li>
+            <li class="menu-op" ng-click="postItemCtrl.delete()">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              delete
+            </li>
+            <li class="menu-op" >
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+               follow 
+              </li>
+            <!-- <li class="menu-op" >
+               repost 
+              </li> -->
+            <li class="menu-op" ng-click="postItemCtrl.report()">
+                <i class="fa fa-flag" aria-hidden="true"></i>
+              report
+            </li>
           </ul>
       </div>
 
@@ -30,20 +47,19 @@
           <h2> {{ postItemCtrl.post.title }}</h2>
       </div>
 
-      <div class="post-img">
+      <div class="post-img" ng-if="postItemCtrl.post.picURI">
           <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.post.picURI }}" alt="">
           <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.post.picURI }}" controls>
             Youre browser does not support HTML5
           </video>
       </div>
 
-      <div class="post-content">
-          <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
-            <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
-            <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
-            <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
-            <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
-          </div>
+      <div class="post-desc" ng-if="postItemCtrl.post.picURI" >
+         {{ postItemCtrl.post.desc}}
+      </div>
+
+      <div class="post-content" ng-if="postItemCtrl.post.content">
+          <div class="content" ta-bind="text" ng-model="postItemCtrl.post.content" ta-readonly='disabled'></div>
       </div>
 
       <div class="post-poll">
@@ -58,9 +74,22 @@
     </section>
 
     <section class="post-item-footer">
-      <button class="footer-like" ng-click="postItemCtrl.likePost()">like {{postItemCtrl.post.likes.length}}</button>
-      <button class="footer-dislike"ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.post.dislikes.length}}</button>
-      <button class="footer-repost">repost</button>
+
+        <div ng-model="createPostCtrl.div" contenteditable="true">
+          {{ createPostCtrl.div}}
+        </div>
+      
+      <span class="footer-btn" ng-click="postItemCtrl.likePost()">
+          <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
+          like {{postItemCtrl.post.likes.length}}
+        </span>
+      <span class="footer-btn"ng-click="postItemCtrl.dislikePost()">
+          <i class="fa fa-thumbs-down" aria-hidden="true"></i> dislike {{postItemCtrl.post.dislikes.length}}
+      </span>
+      <span class="footer-btn">
+          <i class="fa fa-retweet" aria-hidden="true"></i> repost
+        </span>
+
     </section>
 
     <section class="post-item-comments">
