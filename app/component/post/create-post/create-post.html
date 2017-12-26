@@ -1,11 +1,26 @@
 <section class="create-post">
 
   <div class="post-choice-btns">
-    <button class="post-choice-btn" ng-click="createPostCtrl.chosePost()"> image </button>
-    <button class="post-choice-btn" ng-click="createPostCtrl.chosePost()"> video </button>
-    <button class="post-choice-btn" ng-click="createPostCtrl.choseQuest()"> Question</button>
-    <button class="post-choice-btn" ng-click="createPostCtrl.choseArticle()"> Article</button>
-    <button class="post-choice-btn" ng-click="createPostCtrl.chosePoll()"> Poll</button>
+    <span class="post-choice-img post-choice-btn" ng-click="createPostCtrl.chosePost()"> 
+        <i class="fa fa-camera icon" aria-hidden="true"></i>
+        <p class="text"> image </p>  
+    </span>
+    <span class="post-choice-vid post-choice-btn" ng-click="createPostCtrl.chosePost()">
+        <i class="fa fa-video-camera icon" aria-hidden="true"></i>
+       <p class="text"> video  </p> 
+    </span>
+    <span class="post-choice-quest post-choice-btn" ng-click="createPostCtrl.choseQuest()"> 
+        <i class="fa fa-question icon" aria-hidden="true"></i>
+        <p class="text">Question </p>
+    </span>
+    <span class="post-choice-poll post-choice-btn" ng-click="createPostCtrl.chosePoll()">
+      <i class="fa fa-hand-paper-o icon" aria-hidden="true"></i>
+      <p class="text"> Poll </p>
+    </span>
+    <span class="post-choice-art post-choice-btn" ng-click="createPostCtrl.choseArticle()">
+        <i class="fa fa-file-text-o icon" aria-hidden="true"></i>
+        <p class="text"> Article </p>
+    </span>
   </div>
   
   <div class="post-content-container">
@@ -13,8 +28,6 @@
 
       <input class="post-title" name="name" type="text" ng-minlength="4" placeholder="Title" ng-model="createPostCtrl.post.title">
       
-      <div contenteditable="">
-      </div>
 
       <section class="post-pic-ops" ng-if="createPostCtrl.showPic">
           <div class="post-preview">
@@ -22,68 +35,37 @@
             <!-- <iframe ng-if="createPostCtrl.post.picURI" src="{{createPostCtrl.post.picURI | embed }}" frameborder="0"></iframe> -->
           </div>
           <div class="pic-op" ng-if="!createPostCtrl.showInput" ngf-select>
-            <p> Upload </p>
+              <i class="fa fa-upload" aria-hidden="true"></i>
+              <p> Upload </p>
           </div>
           <div class="pic-op" ng-if="!createPostCtrl.showInput" ng-click="createPostCtrl.showInput = true">
-            <p> Link </p>
+              <i class="fa fa-link" aria-hidden="true"></i>
+              <p> Link </p>
           </div>
           <div class="pic-input" ng-if="createPostCtrl.showInput">
             <input name="pic" placeholder="pic uri" type="text" ng-minlength="4" ng-model="createPostCtrl.post.picURI"></input> 
-            <span class="pic-cancel" ng-click="createPostCtrl.showInput = false"> X </span>
+            <span class="pic-cancel" ng-click="createPostCtrl.showInput = false">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+            </span>
           </div>
           <!-- <img ng-src="{{createPostCtrl.post.picURI}}" alt="">
           <iframe ng-if="createPostCtrl.post.picURI" src="{{createPostCtrl.post.picURI | embed }}" frameborder="0"></iframe>
           <input name="pic" placeholder="pic uri" type="text" ng-minlength="4" ng-model="createPostCtrl.post.picURI"></input> -->
       </section>
 
-      <textarea id="man" class="post-pic-desc" ng-if="createPostCtrl.showPic" ng-keyup="createPostCtrl.adjust($event)" ng-model="createPostCtrl.post.desc" placeholder="description" ></textarea>
+      <textarea class="post-pic-desc" ng-if="createPostCtrl.showPic" ng-keyup="createPostCtrl.adjust($event)" ng-model="createPostCtrl.post.desc" placeholder="description" ></textarea>
+
+      <div class="ta-editor" ng-if="!createPostCtrl.showPic" text-angular ng-model="createPostCtrl.post.content" ta-toolbar="[['bold','italics', 'underline', 'ul', 'ol', 'insertImage', 'insertLink', 'insertVideo'],['redo', 'undo']]"></div>
 
       
-      <!-- <section class="post-filter" ng-if="!createPostCtrl.showPic">
-          <div class="post-filter-desc" ng-repeat="word in createPostCtrl.parsedArr">
-            <p ng-click= "createPostCtrl.focus(word)" ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word.type === 'string' "> {{word.payload}} </p>  
-            <img ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word.type === 'img'" src="{{word.payload}}" alt="">  
-            <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
-            <iframe ng-if="word.index !== createPostCtrl.index && word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
-            <button type="button" ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word !== null && word.type !== 'string' "> edit </button>
-            <textarea id="text-edit" class="filter-desc-edit" ng-if="word.index !== createPostCtrl.index && word.type === 'string' " ng-mouseover="createPostCtrl.adjust($event)" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" ng-trim="false"/></textarea>
-            <div class="replace-box" ng-if="word.index === createPostCtrl.index && word.type !== 'string'" ng-if="createPostCtrl.showUpdate"> 
-              <span class="box-remove-btn" ng-click="createPostCtrl.removeLink(word)"> remove </span>
-              <span class="box-replace-btn"> replace </span>
-              <input class="box-replace-input" ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)"/>
-              <span class="box-done-btn" ng-click="createPostCtrl.index = null"> done </span>
-            </div>
-          </div>
-          <textarea class="post-pic-desc" placeholder="description" type="text" ng-keyup="createPostCtrl.adjust($event)" ng-model="createPostCtrl.x" ng-change="createPostCtrl.parse($event)" ng-trim="false" cols="30" rows="10"/></textarea>
-      </section> -->
 
-
-      <section class="post-filter" ng-if="!createPostCtrl.showPic">
-        <div class="post-filter-desc" ng-repeat="word in createPostCtrl.parsedArr">
-          <p ng-mouseover="createPostCtrl.index = word.index"  ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word.type === 'string' "> {{word.payload}} </p>  
-          <img ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word.type === 'img'" src="{{word.payload}}" alt="">  
-          <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
-          <iframe ng-if="word.index !== createPostCtrl.index && word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
-          <button type="button" ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word !== null && word.type !== 'string' "> edit </button>
-          <textarea id="text-edit" class="filter-desc-edit" ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" ng-mouseover="createPostCtrl.adjust($event)" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" ng-trim="false"/></textarea>
-          <div class="replace-box" ng-if="word.index === createPostCtrl.index && word.type !== 'string'" ng-if="createPostCtrl.showUpdate"> 
-            <span class="box-remove-btn" ng-click="createPostCtrl.removeLink(word)"> remove </span>
-            <span class="box-replace-btn"> replace </span>
-            <input class="box-replace-input" ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)"/>
-            <span class="box-done-btn" ng-click="createPostCtrl.index = null"> done </span>
-          </div>
-        </div>
-        <textarea class="post-pic-desc" placeholder="description" type="text" ng-keyup="createPostCtrl.adjust($event)" ng-model="createPostCtrl.x" ng-change="createPostCtrl.parse()" ng-trim="false" cols="30" rows="10"/></textarea>
-      </section>
 
       <section class="post-poll" ng-if="createPostCtrl.showPoll">
           <div class="post-choices">
             <table class="choice-table">
-              <!-- <tr>
-                <th> choice </th>
-                <th>remove</th>
-              </tr> -->
+             
               <h2 class="choice-header"> Choices </h2>
+
               <tr ng-repeat="choice in createPostCtrl.post.choices track by $index">
                 <td> 
                   <p ng-if="choice.name"> {{choice.name}} </p>
@@ -93,9 +75,9 @@
               </tr>
               <tr class="choice-content">
                 <td class="choice-content-btns" ng-if="!createPostCtrl.showChoiceInputs">
-                    <span class="content-btn" ng-click="createPostCtrl.choseText()">text</span>
-                    <span class="content-btn" ng-click="createPostCtrl.choseLink()">link</span>
-                    <span class="content-btn" ngf-select>upload</span>
+                    <span class="content-btn" ng-click="createPostCtrl.choseText()"> text </span>
+                    <span class="content-btn" ng-click="createPostCtrl.choseLink()"> link </span>
+                    <span class="content-btn" ngf-select> upload </span>
                 </td>
                 <td class="choice-content-inputs" ng-if="createPostCtrl.showChoiceInputs">
                     <input class="choice-input" name="text" type="text" ng-minlength="1" placeholder="choice name" ng-show="createPostCtrl.showTextInput" ng-model="createPostCtrl.choice">
@@ -109,16 +91,42 @@
 
             </table>
           </div>
-
       </section> 
 
 
-      <span class="create-post-btn">create post</span>
+      <button type="submit" class="create-post-btn">create post</button>
+
+      
     </form>
   </div>
+
+
 </section>
 
 
+ <!-- the old post filter  -->
+
+
+<!-- <div class="post-filter" ng-if="!createPostCtrl.showPic">
+    <div class="post-filter-desc" ng-repeat="word in createPostCtrl.parsedArr">
+      <p ng-mouseover="createPostCtrl.index = word.index"  ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word.type === 'string' "> {{word.payload}} </p>  
+      <img ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word.type === 'img'" src="{{word.payload}}" alt="">  
+      <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
+      <iframe ng-if="word.index !== createPostCtrl.index && word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
+      <button type="button" ng-click="createPostCtrl.index = word.index" ng-if="word.index !== createPostCtrl.index && word !== null && word.type !== 'string' "> edit </button>
+      <textarea id="text-edit" class="filter-desc-edit" ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" ng-mouseover="createPostCtrl.adjust($event)" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)" ng-trim="false"/></textarea>
+      <div class="replace-box" ng-if="word.index === createPostCtrl.index && word.type !== 'string'" ng-if="createPostCtrl.showUpdate"> 
+        <span class="box-remove-btn" ng-click="createPostCtrl.removeLink(word)"> remove </span>
+        <span class="box-replace-btn"> replace </span>
+        <input class="box-replace-input" ng-if="word.index === createPostCtrl.index" ng-if="createPostCtrl.showUpdate" ng-model="createPostCtrl.parsedArr[word.index].payload" ng-change="createPostCtrl.update(word)"/>
+        <span class="box-done-btn" ng-click="createPostCtrl.index = null"> done </span>
+      </div>
+    </div>
+    <textarea class="post-pic-desc" placeholder="description" type="text" ng-keyup="createPostCtrl.adjust($event)" ng-model="createPostCtrl.x" ng-change="createPostCtrl.parse()" ng-trim="false" cols="30" rows="10"/></textarea>
+  </div> -->
+
+
+  <!-- the old post poll choice -->
 
 <!-- <div class="post-choices">
     <table class="choice-table">

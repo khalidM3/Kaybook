@@ -4,8 +4,59 @@
   
 
   .post-choice-btns {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1;
+    grid-template-areas: "img vid quest poll art";
+
+
     outline: 1px solid black;
-    background-color: greenyellow;
+    height: 40px;
+    width: 100%;
+    outline: 1px solid grey;
+
+    .post-choice-btn {
+
+      display: grid;
+      grid-template-columns: 1;
+      grid-template-rows: 2;
+      grid-template-areas: "icon"
+                           "text";
+      justify-items: center;
+      align-items: center;
+      .icon {
+        grid-area: icon;
+      }
+      .text {
+        grid-area: text;
+      }
+
+      &:hover {
+        background-color: #00D9FF;
+        color: white;
+      }
+    }
+
+    .post-choice-img {
+      grid-area: img;
+      outline: 1px solid grey;
+    }
+    .post-choice-vid {
+      grid-area: vid;
+      outline: 1px solid grey;
+    }
+    .post-choice-quest {
+      grid-area: quest;
+      outline: 1px solid grey;
+    }
+    .post-choice-poll {
+      grid-area: poll;
+      outline: 1px solid grey;
+    }
+    .post-choice-art {
+      grid-area: art;
+      outline: 1px solid grey;
+    }
   }
 
   .post-title {
@@ -15,6 +66,8 @@
     text-align: center;
     width: 90%;
     height: 35px;
+    font-size: 20px;
+    font-weight: bold;
   }
 
   .post-pic-desc {
@@ -24,13 +77,15 @@
     margin: 20px auto;
     width: 90%;
     overflow: hidden;
+    font-size: 15px;
+    line-height: 1.6;
     // overflow: hidden;
     // height: 50px;
     // min-height: 100px;
   }
 
   .post-pic-ops {
-    background-color: slateblue;
+    // background-color: slateblue;
     display: block;
     margin: 10px auto;
     width: 90%;
@@ -43,6 +98,11 @@
       // height: 100px;
       padding: 10px;
       max-width: 40%;
+
+      &:hover {
+        background-color: white;
+        color:  #00D9FF;
+      }
     }
     .pic-input {
       outline: 1px solid black;
@@ -127,7 +187,7 @@
       vertical-align: middle;
     }
     td {
-      // outline: 1px solid red;
+      // outline: 1px solid grey;
       vertical-align: middle;
       border-top: 1px solid #ddd;
       padding: 10px;

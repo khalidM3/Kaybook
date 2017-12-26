@@ -4,7 +4,7 @@ require('./_create-post.scss');
 
 module.exports = {
   template: require('./create-post.html'),
-  controller: ['$log', '$location', '$rootScope', '$window', 'postService', 'picService', '$http','$q', CreatePostController],
+  controller: ['$log', '$location', '$rootScope', '$window', 'postService', 'picService', '$http','$q', '$document',  CreatePostController],
   controllerAs: 'createPostCtrl',
   bindings: {
     onPostCreated: '&',
@@ -14,7 +14,7 @@ module.exports = {
   }
 };
 
-function CreatePostController($log, $location, $rootScope, $window, postService, picService, $http, $q) {
+function CreatePostController($log, $location, $rootScope, $window, postService, picService, $http, $q, $document) {
   $log.debug('CreatePostController');
 
   $log.debug('HERE !!!',this.profile);
@@ -157,8 +157,8 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   this.createPost = function(){
     $log.debug('createPostCtrl.createPost()');
     console.log('creating post on ',this.resolve.page ? this.resolve.page : this.resolve.profile)
-    this.post.desc = this.post.desc + this.x;
-    this.post.searchTerms = this.post.desc.match(/#(?:\w)\w*/g);
+    // this.post.desc = this.post.desc + this.x;
+    // this.post.searchTerms = this.post.desc.match(/#(?:\w)\w*/g);
 
     if(this.resolve.profile) {
       console.log('going inside profile');
@@ -229,31 +229,14 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     return deferred.promise;
   };
 
-  // this.validatePic = () => {
-  //   console.log('_PIC_URI_ :', this.picURI);
-  //   // let config = {
-  //   //   headers: {
-  //   //     'Content-Type': 'application/json',
-  //   //     Accept: 'aplication/json',
-  //   //   }
-  //   // };
 
-  //   this.isImage(this.picURI).then( test => console.log('test', test));
-  //   // return $http.get(this.picURI)
-  //   // .then( res => console.log('SUCCESS!!', res))
-  //   // .catch(err => console.log('ERR||', err));
-    
-  // };
 
-  this.bark = (arg) => {
-    console.log('barking barking', arg);
+  this.bark = () => {
+    console.log('barking barking\n', typeof this.post.content, this.post.content);
   };
 
-  // this.focus = (word) => {
-  //   this.bark();
-  //   this.index = word.index;
-  //   console.log($window.document.getElementById('text-edit').focus);
-  // }
+  
+
 
 
 }
