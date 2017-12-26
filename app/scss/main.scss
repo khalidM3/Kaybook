@@ -2,3 +2,21 @@
 @import './lib/bootstrap/custom-bootstrap';
 @import './lib/theme/vars';
 @import './lib/base/reset';
+
+// @import './lib/font-awesome/font-awesome';
+// @import "~font-awesome/scss/variables";
+// @import "~font-awesome/scss/mixins";
+// @import "~font-awesome/scss/path";
+// @import "~font-awesome/scss/core";
+// @import "~font-awesome/scss/larger";
+// @import "~font-awesome/scss/fixed-width";
+// @import "~font-awesome/scss/list";
+// @import "~font-awesome/scss/bordered-pulled";
+// @import "~font-awesome/scss/animated";
+// @import "~font-awesome/scss/rotated-flipped";
+// @import "~font-awesome/scss/stacked";
+// @import "~font-awesome/scss/icons";
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+@import '~textangular/dist/textAngular.css';
+
+// @import "~bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
