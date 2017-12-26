@@ -1,15 +1,101 @@
-<li class="postItem modal-body">
-  <!-- <on-init></on-init> -->
+<section class="post-item modal-body">
+
     <p ng-if="postItemCtrl.reposter"> shared by {{postItemCtrl.reposter.name}}</p>
     
-      <span uib-dropdown on-toggle="toggled(open)">
-       <span uib-dropdown-toggle alt=""> <div class="dots">...</div> </span>
-      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-        <li ng-click="postItemCtrl.openEditPostModal()">edit</li>
-        <li ng-click="postItemCtrl.delete()">delete</li>
-        <li ng-click="postItemCtrl.report()">report</li>
-      </ul>
-    </span>
+      
+
+    <section class="post-item-head">
+      <img class="head-pic" src="{{postItemCtrl.poster.profilePicURI}}">
+      <div class="head-owner">
+        <p class="owner-name"> {{postItemCtrl.poster.name}} </p>
+        <p class="owner-date"> {{postItemCtrl.post.created | date : 'mediumDate'}} </p>
+      </div>
+          
+
+      <div class="head-options" uib-dropdown on-toggle="toggled(open)">
+          <span  uib-dropdown-toggle alt=""> 
+              <span class="glyphicon glyphicon-option-horizontal"></span> 
+          </span>
+          <!-- <button type="button" class="btn btn-danger">Action</button> -->
+          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+            <li class="menu-op" ng-click="postItemCtrl.openEditPostModal()">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              edit
+            </li>
+            <li class="menu-op" ng-click="postItemCtrl.delete()">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              delete
+            </li>
+            <li class="menu-op" >
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+               follow 
+              </li>
+            <!-- <li class="menu-op" >
+               repost 
+              </li> -->
+            <li class="menu-op" ng-click="postItemCtrl.report()">
+                <i class="fa fa-flag" aria-hidden="true"></i>
+              report
+            </li>
+          </ul>
+      </div>
+
+    </section>
+
+    <section class="post-item-main">
+      <div class="post-title">
+          <h2> {{ postItemCtrl.post.title }}</h2>
+      </div>
+
+      <div class="post-img" ng-if="postItemCtrl.post.picURI">
+          <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.post.picURI }}" alt="">
+          <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.post.picURI }}" controls>
+            Youre browser does not support HTML5
+          </video>
+      </div>
+
+      <div class="post-desc" ng-if="postItemCtrl.post.picURI" >
+         {{ postItemCtrl.post.desc}}
+      </div>
+
+      <div class="post-content" ng-if="postItemCtrl.post.content">
+          <div class="content" ta-bind="text" ng-model="postItemCtrl.post.content" ta-readonly='disabled'></div>
+      </div>
+
+      <div class="post-poll">
+        <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
+          <button ng-click="postItemCtrl.vote(choice)">
+          <img ng-src="{{choice.picURI}}" alt="">
+            {{choice.name}} {{ choice.voters.length }} 
+            </button>
+        </section>
+      </div>
+      
+    </section>
+
+    <section class="post-item-footer">
+
+        <div ng-model="createPostCtrl.div" contenteditable="true">
+          {{ createPostCtrl.div}}
+        </div>
+      
+      <span class="footer-btn" ng-click="postItemCtrl.likePost()">
+          <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
+          like {{postItemCtrl.post.likes.length}}
+        </span>
+      <span class="footer-btn"ng-click="postItemCtrl.dislikePost()">
+          <i class="fa fa-thumbs-down" aria-hidden="true"></i> dislike {{postItemCtrl.post.dislikes.length}}
+      </span>
+      <span class="footer-btn">
+          <i class="fa fa-retweet" aria-hidden="true"></i> repost
+        </span>
+
+    </section>
+
+    <section class="post-item-comments">
+      <create-answer post="postItemCtrl.post"></create-answer>
+      <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item>
+    </section>
 
      
 
@@ -18,41 +104,38 @@
   <!--<div class="current-post" ng-if="!postItemCtrl.showEditComment">-->
 
     <ul class="post-body">
-      <li class="post-content">
-        <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.post.picURI }}" alt="">
-        <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.post.picURI }}" controls>
-          Youre browser does not support HTML5
-        </video>
-      </li>
+      <!-- <li class="post-content">
+          <img ng-if="!postItemCtrl.isVid" ng-src="{{postItemCtrl.post.picURI }}" alt="">
+          <video ng-if="postItemCtrl.isVid" ng-src="{{ postItemCtrl.post.picURI }}" controls>
+            Youre browser does not support HTML5
+          </video>
+      </li> -->
       <li class="post-side">
         <ul>
           <li class="post-header">
-            <p ng-if="postItemCtrl.post.edited">  edited </p>
-            <img src="{{postItemCtrl.poster.profilePicURI}}">
-            <div class="poster-name">Poster: {{postItemCtrl.poster.name}}</div>
-            <div class="date">Date: {{postItemCtrl.post.created | date : 'mediumDate'}}</div>
-            <h2> {{ postItemCtrl.post.title }}</h2>
+        
+            <!-- <h2> {{ postItemCtrl.post.title }}</h2> -->
              <!-- <div> {{ postItemCtrl.post.desc }}</div> -->
 
-             <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
-              <button ng-click="postItemCtrl.vote(choice)">
+             <!-- <section class="poll" ng-repeat="choice in postItemCtrl.choicesArr">
+                <button ng-click="postItemCtrl.vote(choice)">
                 <img ng-src="{{choice.picURI}}" alt="">
                   {{choice.name}} {{ choice.voters.length }} 
                   </button>
-            </section>  
+              </section>   -->
 
-            <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
+            <!-- <div class="content" ng-repeat="word in postItemCtrl.parsedArr">
                    <p ng-if="word.type === 'string' "> {{word.payload}} </p>  
                     <img ng-if="word.type === 'img'" src="{{word.payload}}" alt="">  
                  <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
                  <iframe ng-if="word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
-            </div>
-
+            </div> -->
+<!-- 
             <div>
               <button ng-click="postItemCtrl.likePost()">like {{postItemCtrl.post.likes.length}}</button>
               <button ng-click="postItemCtrl.dislikePost()">dislike {{postItemCtrl.post.dislikes.length}}</button>
             </div>
-          </li>
+          </li> -->
 
           <!--<li class="create-comment">
             <create-comment
@@ -69,15 +152,17 @@
                           profile="postItemCtrl.poster">
             </comment-item>
           </li>-->
-
+<!-- 
           <create-answer post="postItemCtrl.post"></create-answer>
 
-          <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item>
+          <answer-item ng-repeat="comment in postItemCtrl.commentsArr" post="postItemCtrl.post" answer="comment"></answer-item> -->
 
         </ul>
     </li>
 
   </ul>
+
+
     
 
     
@@ -106,4 +191,4 @@
   
   <!--<div class="clearfix">
   </div> -->
-</li>
+</section>

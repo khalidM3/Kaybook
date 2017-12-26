@@ -45,7 +45,7 @@ function PostItemController($log, $rootScope,$window, $uibModal, $location, post
       this.commentsArr = post.comments;
       this.choicesArr = post.choices;
       this.poster = post.posterID;
-      this.parsedArr = this.parseStr(this.post.desc);
+      // this.parsedArr = this.parseStr(this.post.desc);
       this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI);
       console.log(this.parsedArr);
       let profileID = $window.localStorage.getItem('profileID');

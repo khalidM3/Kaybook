@@ -14,8 +14,12 @@ const ngFileUpload = require('ng-file-upload');
 const ngRoute = require('angular-route');
 const btford = require('angular-socket-io');
 
+const textAngular = require('textAngular');
+const textAngularSanitize = require('textangular/dist/textAngular-sanitize.min');
+// const ngSanitize = require('angular-sanitize');
 
-const kproject = angular.module('kproject', [ngTouch, ngAnimate, uiRouter, uiBootstrap, ngRoute, ngFileUpload, 'btford.socket-io']);
+
+const kproject = angular.module('kproject', [ngTouch, ngAnimate, uiRouter, uiBootstrap, ngRoute, ngFileUpload, 'btford.socket-io', textAngular]);
 
 let context = require.context('./config/', true, /\.js$/);
 context.keys().forEach( key => {

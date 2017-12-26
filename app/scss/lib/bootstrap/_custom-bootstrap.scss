@@ -1,11 +1,13 @@
 @import "custom-bootstrap-vars";
 
+// @import "~bootstrap-sass"
+
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 
 // Reset and dependencies
-// @import "~bootstrap-sass/assets/stylesheets/bootstrap/normalize";
-// @import "~bootstrap-sass/assets/stylesheets/bootstrap/print";
-// @import "~bootstrap-sass/assets/stylesheets/bootstrap/glyphicons";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/normalize";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/print";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/glyphicons";
 
 // Core CSS
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
@@ -48,3 +50,4 @@
 // Utility classes
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/utilities";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
+

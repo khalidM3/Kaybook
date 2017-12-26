@@ -1,13 +1,21 @@
 <section class="post-tile" ng-init="postTileCtrl.check(postTileCtrl.post.data)" ng-click="postTileCtrl.goTo()">
-    <p class="reposter" ng-if="postTileCtrl.reposter" ng-click="postTileCtrl.goToProfile(postTileCtrl.reposter._id)"> shared by {{ postTileCtrl.reposter.name }} </p>
+    <p class="reposter" ng-if="postTileCtrl.reposter" ng-click="postTileCtrl.goToProfile(postTileCtrl.reposter._id)"> 
+      shared by {{ postTileCtrl.reposter.name }} 
+    </p>
+
     <section class="header">
-      <div>
-         <img ng-src="{{postTileCtrl.poster.profilePicURI}}">
-         </div>
-      <div class="poster-name" ng-click="postTileCtrl.goToProfile(postTileCtrl.poster._id)"> {{postTileCtrl.poster.name}}</div>
-      <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal()">edit</button>
+      <img class="header-pic" ng-src="{{postTileCtrl.poster.profilePicURI}}">
+      <div class="header-names" ng-click="postTileCtrl.goToProfile(postTileCtrl.poster._id)"> 
+        <p> {{postTileCtrl.poster.name}} </p>
+        <p> @ {{postTileCtrl.poster.name}} </p>
+      </div>
+
+      <div class="header-options">
+        . . .
+      </div>
+      <!-- <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal()">edit</button>
       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost()">delete</button>
-      <button ng-if="!postTileCtrl.isMyPost" ng-click="postTileCtrl.rePost()">share</button>
+      <button ng-if="!postTileCtrl.isMyPost" ng-click="postTileCtrl.rePost()">share</button> -->
       <!-- <div ng-if="postTileCtrl.isRePost">
         <img ng-src="{{postTileCtrl.post.posterID.profilePicURI}}">
         <div class=""> {{postTileCtrl.post.posterID.name}}</div>
@@ -17,26 +25,37 @@
     
 
     <section class="body">
-      <section class="post-tile">
-        <h2> {{ postTileCtrl.post.title }} </h2>
-      </section>
+      <!-- <section class="title"> -->
+        <h2 class="title"> {{ postTileCtrl.post.title }} </h2>
+      <!-- </section> -->
 
-      <section class="post-content">
-        
+      <section class="image">
         <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI }}" alt="">
         <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI}}" controls>
             Your browser does not support HTML5
         </video>
-      </section>
+       </section>
+
+      <div class="content" ta-bind="text" ng-model="postTileCtrl.post.content" ta-readonly='disabled'></div>
+
+
+      <div class="post-poll">
+          <section class="poll" ng-repeat="choice in postTileCtrl.post.choices">
+            <img ng-src="{{choice.picURI}}" alt="">
+              {{choice.name}} {{ choice.voters.length }} 
+          </section>
+      </div>
+
+
     </section>
     
-    <section class="post-desc">
-       <p>
-          {{postTileCtrl.post.desc}}
-        </p>
-    </section>
+    <!-- <section class="post-desc">
+      <p>
+        {{postTileCtrl.post.desc}}
+      </p>
+    </section> -->
     
-    <div class="repost" ng-if="postTileCtrl.post.repost" ng-click="postTileCtrl.goToRepost()">
+    <!-- <div class="repost" ng-if="postTileCtrl.post.repost" ng-click="postTileCtrl.goToRepost()">
       <img src="{{postTileCtrl.post.repost.posterID.profilePicURI}}" alt="">
       <h4>  {{postTileCtrl.post.repost.posterID.name}} </h4>
       <h4>  {{postTileCtrl.post.repost.title}} </h4>
@@ -52,6 +71,6 @@
       </section>
 
       </section>
-    </div>
+    </div> -->
 
 </section>
