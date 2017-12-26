@@ -12,21 +12,101 @@
   <form name="editPostForm" ng-submit="editPostCtrl.updatePost()">
 
 
-    <label for="name"> title</label>
-    <input name="name" type="text" ng-minlength="4" ng-model="editPostCtrl.post.title">
+    <input class="post-title" type="text" ng-minlength="4" placeholder="title" ng-model="editPostCtrl.post.title">
 
-    <label for="Desc">description</label>
-    <textarea name="Desc" type="text" ng-minlength="4" ng-model="editPostCtrl.post.desc"></textarea>
-
-    <section class="post" ng-if="editPostCtrl.showPic">
-      <label for="pic">pic url</label>
-      <img ng-src="{{editPostCtrl.post.picURI}}" alt="">
-      <input name="pic" type="text" ng-minlength="4" ng-model="editPostCtrl.post.picURI"></input>
+    <section class="post-pic" ng-if="editPostCtrl.showPic">
+        <div class="post-preview">
+          <img class="post-preview-pic" ng-src="{{editPostCtrl.post.picURI}}" alt="">
+          <!-- <iframe ng-if="editPostCtrl.post.picURI" src="{{editPostCtrl.post.picURI | embed }}" frameborder="0"></iframe> -->
+        </div>
+        <div class="pic-op" ng-if="!editPostCtrl.showInput" ngf-select>
+          <p> Upload </p>
+        </div>
+        <div class="pic-op" ng-if="!editPostCtrl.showInput" ng-click="editPostCtrl.showInput = true">
+          <p> Link </p>
+        </div>
+        <div class="pic-input" ng-if="editPostCtrl.showInput">
+          <input name="pic" placeholder="pic uri" type="text" ng-minlength="4" ng-model="editPostCtrl.post.picURI"></input> 
+          <span class="pic-cancel" ng-click="editPostCtrl.showInput = false"> X </span>
+        </div>
     </section>
 
-    <section class="poll" ng-if="editPostCtrl.showPoll">
+    <textarea class="post-pic-desc" ng-if="editPostCtrl.showPic" name="Desc" type="text" ng-minlength="4" ng-model="editPostCtrl.post.desc" placeholder="desription"></textarea>
+
+    <div class="post-content">
+      <div class="ta-editor" ng-if="!editPostCtrl.showPic"  text-angular ng-model="editPostCtrl.post.content" ta-toolbar="[['bold','italics', 'underline', 'ul', 'ol', 'insertImage', 'insertLink', 'insertVideo'],['redo', 'undo']]"></div>
+      <!-- <text-angular ng-model="editPostCtrl.post.content" ta-toolbar="[['bold','italics', 'underline', 'ul', 'ol', 'insertImage', 'insertLink', 'insertVideo'],['redo', 'undo']]"></text-angular> -->
+    </div>
+
+    <!-- <div class="content" ta-bind="text" ng-model="editPostCtrl.post.content" ta-readonly='disabled'></div> -->
+    <!-- <text-angular ng-model="editPostCtrl.post.content" ></text-angular> -->
+    
+
+    <!-- <div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent" class="ta-root">
+        <div class="ta-toolbar btn-toolbar">...</div>
+        <div contenteditable="true" class="ta-text ta-editor form-content">
+          ...(This is a WYSIWYG view)
+        </div>
+        <pre contenteditable="true" class="ta-html ta-editor form-content">
+          ...(This is the view that shows the HTML tags)
+        </pre>
+        <input type="hidden" style="display: none;" name="htmlcontent" value="...">
+      </div> -->
+
+    <!-- <section class="post-filter" ng-if="!editPostCtrl.showPic">
+        <div class="post-filter-desc" ng-repeat="word in editPostCtrl.parsedArr">
+          <p ng-mouseover="editPostCtrl.index = word.index"  ng-click="editPostCtrl.index = word.index" ng-if="word.index !== editPostCtrl.index && word.type === 'string' "> {{word.payload}} </p>  
+          <img ng-click="editPostCtrl.index = word.index" ng-if="word.index !== editPostCtrl.index && word.type === 'img'" src="{{word.payload}}" alt="">  
+          <a ng-if="word.type === 'link'" href="{{word.link}}"> {{word.payload}} </a>
+          <iframe ng-if="word.index !== editPostCtrl.index && word.type === 'embed'" src="{{word.payload | embed }}" frameborder="0"></iframe>
+          <button type="button" ng-click="editPostCtrl.index = word.index" ng-if="word.index !== editPostCtrl.index && word !== null && word.type !== 'string' "> edit </button>
+          <textarea id="text-edit" class="filter-desc-edit" ng-if="word.index === editPostCtrl.index" ng-if="editPostCtrl.showUpdate" ng-mouseover="editPostCtrl.adjust($event)" ng-model="editPostCtrl.parsedArr[word.index].payload" ng-change="editPostCtrl.update(word)" ng-trim="false"/></textarea>
+          <div class="replace-box" ng-if="word.index === editPostCtrl.index && word.type !== 'string'" ng-if="editPostCtrl.showUpdate"> 
+            <span class="box-remove-btn" ng-click="editPostCtrl.removeLink(word)"> remove </span>
+            <span class="box-replace-btn"> replace </span>
+            <input class="box-replace-input" ng-if="word.index === editPostCtrl.index" ng-if="editPostCtrl.showUpdate" ng-model="editPostCtrl.parsedArr[word.index].payload" ng-change="editPostCtrl.update(word)"/>
+            <span class="box-done-btn" ng-click="editPostCtrl.index = null"> done </span>
+          </div>
+        </div>
+        <textarea class="post-pic-desc" placeholder="description" type="text" ng-keyup="editPostCtrl.adjust($event)" ng-model="editPostCtrl.x" ng-change="editPostCtrl.parse()" ng-trim="false" cols="30" rows="10"/></textarea>
+      </section> -->
+
+
+
+    <section class="post-poll" ng-if="editPostCtrl.showPoll">
       <section class="choice-table" ng-show="editPostCtrl.post.choices[0]">
-        <table>
+
+        <table class="choice-table">
+            <!-- <tr>
+              <th> choice </th>
+              <th>remove</th>
+            </tr> -->
+            <h2 class="choice-header"> Choices </h2>
+            <tr ng-repeat="choice in editPostCtrl.post.choices track by $index">
+              <td> 
+                <p ng-if="choice.name"> {{choice.name}} </p>
+                <img ng-if="choice.picURI" ng-src="{{choice.picURI}}" alt=""> 
+              </td>
+              <td class="choice-table-last"> <span class="choice-remove-btn" ng-click="editPostCtrl.removeChoice(choice)"> - </span></td>
+            </tr>
+            <tr class="choice-content">
+              <td class="choice-content-btns" ng-if="!editPostCtrl.showChoiceInputs">
+                  <span class="content-btn" ng-click="editPostCtrl.choseText()">text</span>
+                  <span class="content-btn" ng-click="editPostCtrl.choseLink()">link</span>
+                  <span class="content-btn" ngf-select>upload</span>
+              </td>
+              <td class="choice-content-inputs" ng-if="editPostCtrl.showChoiceInputs">
+                  <input class="choice-input" name="text" type="text" ng-minlength="1" placeholder="choice name" ng-show="editPostCtrl.showTextInput" ng-model="editPostCtrl.choice">
+                  <input class="choice-input" name="pic" type="text" ng-minlength="1" placeholder="choice pic" ng-show="editPostCtrl.showLinkInput"  ng-model="editPostCtrl.picURI">
+                  <span class="choice-hide-input" ng-click="editPostCtrl.showChoiceInputs = false"> x </span>
+              </td>
+              <td class="choice-table-last">
+                  <span class="choice-add-btn" ng-click="editPostCtrl.addChoice()"> + </span>
+              </td>
+            </tr>
+
+          </table>
+        <!-- <table>
           <tr>
             <th>image</th>
             <th>name</th>
@@ -49,11 +129,13 @@
       <label for="desc">choice pic</label>
       <input name="desc" type="text" ng-minlength="1" ng-model="editPostCtrl.picURI">
     
-      <span ng-click="editPostCtrl.addChoice()">add choice</span>
+      <span ng-click="editPostCtrl.addChoice()">add choice</span> -->
+
     </section>
+  </section>
 
 
-    <button>edit post</button>
+    <button class="edit-post-btn" type="submit">edit post</button>
   </form>
 </section>
 
