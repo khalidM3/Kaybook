@@ -1,43 +1,52 @@
-<section class="pageItem">
+<section class="page-item">
   <!--<div ng-if="!profileViewCtrl.showEditView">-->
 
     <img class="banner" ng-src="{{pageItemCtrl.page.pageBannerURI}}">
-
-    <ul class="page-main">
-      <li><img ng-src="{{pageItemCtrl.page.profilePicURI}}"></li>
-      <li><h3> {{pageItemCtrl.page.pageName}} </h3></li>
-      <li> {{pageItemCtrl.page.pageDesc}} </li>
-      <li class="memberBtn">
-        <span>{{pageItemCtrl.count}}</span>
-         <span class="joinpage" ng-if="!pageItemCtrl.showLeaveBtn" ng-click="pageItemCtrl.joinPage()">join</span>
-         <span class="joinpage" ng-if="pageItemCtrl.showLeaveBtn" ng-click="pageItemCtrl.leavePage()">leave</span>
-      </li>
-    </ul>
+    <div class="page-main">
+      <ul class="main-container">
+        <!-- <li class="main-"><img ng-src="{{pageItemCtrl.page.profilePicURI}}"></li> -->
+        <li class="main-head">
+          <h3> {{pageItemCtrl.page.pageName}} </h3>
+          <p> {{pageItemCtrl.count}}0000000 members </p>
+        </li>
+        <!-- <li> {{pageItemCtrl.page.pageDesc}} </li> -->
+        <li class="main-btns">
+          <span class="main-btn edit-btn" ng-if="pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.goToEditPage()">edit page</span>
+          <span class="main-btn join-btn" ng-if="!pageItemCtrl.showLeaveBtn && !pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.joinPage()">join</span>
+          <span class="main-btn leave-btn" ng-if="pageItemCtrl.showLeaveBtn && !pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.leavePage()">leave</span>
+        </li>
+      </ul>
+    </div>
     
    <!--<edit-page ng-if="pageItemCtrl.showEditBtn" page="pageItemCtrl.page"></edit-page>-->
-   <button ng-if="pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.goToEditPage()">edit page</button>
-   <button ng-click="pageItemCtrl.bark()">bark</button>
+   <!-- <button ng-if="pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.goToEditPage()">edit page</button> -->
+   <!-- <button ng-click="pageItemCtrl.bark()">bark</button> -->
 
    <section class="subnav">
-    <ul> 
+    <ul class="subnav-container"> 
       <!--ng-init="pageItemCtrl.fetchPagePosts()"-->
-      <li ng-click="pageItemCtrl.pagePosts()">posts</li>
-      <li ng-click="pageItemCtrl.pageFeed()">feed</li>
-      <li ng-click="pageItemCtrl.pageMerch()">merch</li>
+      <li class="subnav-btn" ng-click="pageItemCtrl.pagePosts()">posts</li>
+      <li class="subnav-btn" ng-click="pageItemCtrl.pageFeed()">feed</li>
+      <li class="subnav-btn" ng-click="pageItemCtrl.pageMerch()">merch</li>
+      <li class="subnav-btn">about</li>
     </ul>
   </section>
-
+  
+  <div class="create-container">
+    <span class="create-btn"ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()"> post </span>
+    <span class="create-btn"ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToMerch()">create merch</span>
+  </div>
   <!--</div>-->
   <!--<div ng-if="profileViewCtrl.showEditOption">
   <input class="btn-std commenter-button" value="edit profie" type="submit" id="edit-button" ng-if="!profileViewCtrl.showEditView" ng-click="profileViewCtrl.showEditView = true">
   <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    
   </div>-->
-
-
-  <button ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()"> post </button>
-
-  <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToMerch()">create merch</button>
-  <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToCart()">view cart</button>
+<!--   
+  <section class="post-btns">
+    <button class="post-btn" ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()"> post </button>
+    <button class="post-btn" ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToMerch()">create merch</button> -->
+  <!-- </section> -->
+  <!-- <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToCart()">view cart</button> -->
 
   <ul>
     <post-tile class="posttile" ng-repeat="post in pageItemCtrl.postsArr" post="post"></post-tile>

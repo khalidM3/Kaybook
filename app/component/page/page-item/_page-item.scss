@@ -1,35 +1,151 @@
 @import "../../../scss/lib/theme/vars";
 
-.pageItem {
-  
-
+.page-item {
+  // background-color: blue;
   .banner {
     width: 100%;
-    max-width: 1000px;
-    height: 250px;
+    max-height: 30vh;
   }
   .page-main {
-  display: inline-block;
-  li {
-    display: inline-block;
-
-    img {
-      border-radius: 50%;
-      width: 50px;
-    }
-  }
+    // height: ;
+    // background-color: green;
+    padding: 10px 0;
+    .main-container {
+      // background-color: red;
+      height: 5vh;
+      width: 90%;
+      margin: 0 auto;
+      .main-head {
+        // outline: 1px solid black;
+        display: inline-block;
+        height: 100%;
+      }
   
-  .memberBtn {
-    margin-left: 80vw;
-    border: 1px solid black;
-    span {
-      display: inline-block;
-      width: 50px;
-      &:nth-child(2) {
-        background-color: lightgreen;
+      .main-btns {
+        // display: inline-block;
+        // background-color: yellow;
+        float: right;
+        height: 100%;
+        width: 100px;
+
+        .main-btn {
+          // background-color: tan;
+          display: block;
+          margin: auto;
+          // width: 100%;
+          // height: 100%;
+          width: 100px;
+          height: 30px;
+          text-align: center;
+          line-height: 10px;
+          // display:table-cell;
+          // vertical-align:middle;
+          padding: 10px;
+          // padding: 10%;
+        }
+  
+        .edit-btn {
+          border: 1px solid black;
+          background-color: #20C5FE;
+          color: white;
+        }
+        .join-btn {
+          border: 1px solid black;
+          background-color: #37E385;
+        }
+        .leave-btn {
+          border: 1px solid black;
+          background-color: #E60909;
+        }
       }
     }
   }
-}
+
+  .subnav {
+    display: block;
+    // background-color: tan;
+    height: 4vh;
+    .subnav-container {
+      // background-color: yellow;
+      box-sizing: border-box;
+      display: inline-block;
+      height: 4vh;
+      width: 100%;
+      // margin: 0 auto;
+      // padding: 10px;
+      text-align: center;
+      .subnav-btn {
+        box-sizing: border-box;
+        display: inline-block;
+        // background-color: purple;
+        height: 100%;
+        width: 15%;
+        min-width: 50px;
+        // padding: 10px;
+        // margin: 0 10px;
+        &:hover {
+          color: #71CAF1;
+          border-bottom: 1px solid #71CAF1;
+        }
+      }
+    }
+  }
+    .create-container {
+      // box-sizing: border-box;
+      // color: green;
+      display: block;
+      // background-color: blue;
+      // height: 30px;
+      // padding: 10px;
+      // // width: 150px;
+      height: 30px;
+      // text-align: center;
+      .create-btn {
+        width: 100px;
+        height: 30px;
+        outline: 1px solid black;
+        // background-color: #86E386;
+        float: right;
+        text-align: center;
+        line-height: 30px;
+        // margin: 10px;
+      }
+    }
 
 }
+
+
+// .page-item {
+  
+
+//   .banner {
+//     width: 100%;
+//     max-width: 1000px;
+//     margin: 0 auto;
+//     height: 250px;
+//   }
+//   .page-main {
+//   display: inline-block;
+//   li {
+//     display: inline-block;
+
+//     img {
+//       border-radius: 50%;
+//       width: 50px;
+//     }
+//   }
+  
+//   .memberBtn {
+//     margin-left: 80vw;
+//     border: 1px solid black;
+//     span {
+//       display: inline-block;
+//       width: 50px;
+//       &:nth-child(2) {
+//         background-color: lightgreen;
+//       }
+//     }
+//   }
+// }
+
+// }

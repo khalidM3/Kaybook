@@ -1,39 +1,38 @@
 <section class="profile-view">
-  <div ng-if="!profileViewCtrl.showEditView">
 
-    <img class="banner" ng-src="{{profileViewCtrl.profile.profileBannerURI}}">
+  <img class="banner" ng-src="{{profileViewCtrl.profile.profileBannerURI}}">
 
-    <ul class="profile-main">
-      <li><img ng-src="{{profileViewCtrl.profile.profilePicURI}}"></li>
-      <li>{{profileViewCtrl.profile.name}}</li>
-      <li class="theBtns" ng-if="!profileViewCtrl.showEditOption">
-         <span>{{profileViewCtrl.profile.friends.length}}</span>
-         <!--<span class="joinpage" ng-click="profileViewCtrl.sendReq()">add</span>-->
-         <span ng-if="profileViewCtrl.showSendReqBtn" ng-click="profileViewCtrl.sendReq()"> send req </span>
-         <span ng-if="profileViewCtrl.showUnSendReqBtn" ng-click="profileViewCtrl.unSendReq()">unsend </span>
-         <span ng-if="profileViewCtrl.showAcceptBtn" ng-click="profileViewCtrl.acceptReq()">accept</span>
-         <span ng-if="profileViewCtrl.showUnFriendBtn" ng-click="profileViewCtrl.unFriend()">unfriend</span>
-         <!--<span class="joinpage" ng-if="profileViewCtrl.showLeaveBtn" ng-click="profileViewCtrl.removeFriend()">remove</span>-->
-      </li>
-        <li> <button ng-if="profileViewCtrl.showEditOption" ng-click="profileViewCtrl.goToEditProfile()"> edit profile</button></li>
-    </ul>
-    
-   
-   <section class="subnav">
-    <ul>
-      <li ng-click="profileViewCtrl.fetchMyPagePosts()">posts</li>
-      <li ng-if="!profileViewCtrl.profile.private" ng-click="profileViewCtrl.fetchTimePosts()"> timeline </li>
-      <li ng-click="profileViewCtrl.about()"> about </li>
-    </ul>
+  <section class="profile-main">
+    <img class="main-pic" ng-src="{{profileViewCtrl.profile.profilePicURI}}"></div>
+    <div class="main-name">
+      <p class="name"> {{profileViewCtrl.profile.name}} </p>
+      <p class="name"> {{profileViewCtrl.profile.name}} </p>
+      <!-- <img src="{{profileViewCtrl.profile.profilePicURI}}" alt=""> -->
+    </div>
+    <div class="main-btns">
+      <!-- <span>{{profileViewCtrl.profile.friendxs.length}}</span> -->
+      <span class="main-btn" ng-if="profileViewCtrl.showSendReqBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.sendReq()"> send req </span>
+      <span class="main-btn" ng-if="profileViewCtrl.showUnSendReqBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.unSendReq()">unsend </span>
+      <span class="main-btn" ng-if="profileViewCtrl.showAcceptBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.acceptReq()">accept</span>
+      <span class="main-btn" ng-if="profileViewCtrl.showUnFriendBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.unFriend()">unfriend</span>
+      <span class="main-btn" ng-if="profileViewCtrl.showEditOption" ng-click="profileViewCtrl.goToEditProfile()"> edit profile</span>
+    </div>
   </section>
-
-  </div>
+  
+   
+  <section class="profile-subnav">
+    <!-- <div> -->
+      <span class="subnav-btn" ng-click="profileViewCtrl.fetchMyPagePosts()">posts</span>
+      <span class="subnav-btn"  ng-click="profileViewCtrl.fetchTimePosts()"> timeline </span>
+      <span class="subnav-btn" ng-click="profileViewCtrl.about()"> about </span>
+    <!-- </div> -->
+  </section>
 
 
   <!--<button type="button" class="btn btn-default" ng-click="profileViewCtrl.openComponentModal(profileViewCtrl.profile)">create post</button>-->
 <!--
   <ul>
-    <post-item ng-repeat="post in profileViewCtrl.postsArr" post="post"></post-item>
+    <post-item ng-repeat="post in profileViewCtrl.postsArr" post="post">what</post-item>
   </ul>-->
 
   <ul>

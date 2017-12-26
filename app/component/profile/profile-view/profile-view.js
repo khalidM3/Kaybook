@@ -25,22 +25,19 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $locatio
   this.$onInit = function(){
     $log.debug('profileViewCtrl.$oninit()');
 
-    profileService.fetchProfile2($stateParams.profileID)
-    .then( profile => this.profile = profile)
-    .then(() => {
-      console.log(this.profile.private);
-      let myPID = $window.localStorage.getItem('profileID');
-      let profileID = $stateParams.profileID;
-      let isFriend = this.profile.friends.some(pID => pID.toString() === myPID);
-      let sentThemReq = this.profile.friendReq.some(pID => pID.toString() === myPID);
-      let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === myPID);
-      this.showEditOption = myPID === profileID;
-      this.showAcceptBtn = sentMeReq;
-      this.showUnFriendBtn = isFriend;
-      this.showSendReqBtn = !isFriend && !sentMeReq;
-      this.showUnSendReqBtn = sentThemReq;
-      this.fetchMyPagePosts();
-    });
+    this.profile = JSON.parse($window.localStorage.profile);
+    console.log('this profile ', this.profile);
+    let myPID = $window.localStorage.getItem('profileID');
+    let profileID = $stateParams.profileID;
+    let isFriend = this.profile.friends.some(pID => pID.toString() === myPID);
+    let sentThemReq = this.profile.friendReq.some(pID => pID.toString() === myPID);
+    let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === myPID);
+    this.showEditOption = myPID === profileID;
+    this.showAcceptBtn = sentMeReq;
+    this.showUnFriendBtn = isFriend;
+    this.showSendReqBtn = !isFriend && !sentMeReq && !sentThemReq;
+    this.showUnSendReqBtn = sentThemReq;
+    this.fetchMyPagePosts();
   };
 
   // this.updateProfileView = function() {

@@ -17,6 +17,11 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
   this.$onInit = () => {
     let section = $stateParams.section;
 
+    this.showCreatePostBtn = section === 'timeline' || section === 'posts' || section === null;
+    this.showCreatePageBtn = section === 'pages';
+    this.showCreateRoomBtn = section === 'chat';
+
+    console.log('section is ', this.section);
     switch(section) {
     case 'timeline':
       return this.fetchTimeline();
@@ -37,18 +42,6 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     }
   };
 
-  // this.clean = () => {
-  //   this.showRoomBtn = false;
-  //   this.showPostBtn = false;
-  //   this.showProfileTile = false;
-  //   this.showCreatePage = false;
-
-  //   this.friendsPosts = [];
-  //   this.profileArr = [];
-  //   this.pagesArr = [];
-  //   this.roomsArr = [];
-  // };
-
   this.fetchMyProfile = function(){
     $log.debug('profileItemCtrl.fetchMyProfile()');
 
@@ -57,11 +50,20 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     .catch(err => $log.error('FAILED fetchMyProfile()', err));
   };
 
+  this.searchEnd = () => {
+    this.showResults = false;
+    this.resultsArr = null;
+  };
 
   this.searchProfiles = () => {
     console.log('changing', this.searchName);
-    profileService.searchProfile(this.searchName)
-    .then( profiles => this.searchesArr = profiles);
+    if(this.searchName.split('').length > 3) {
+      this.showResults = true;
+      profileService.searchProfile(this.searchName)
+      .then( profiles => {
+        this.resultsArr = profiles.length > 0 ? profiles : [{ name: 'not found'}];
+      });
+    }
   };
 
 
@@ -171,11 +173,24 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
   };
 
 
-  this.openCreatePostModal= function () {
+  this.openCreatePostModal =  () => {
     let profile = this.profile;
     $uibModal.open({
       animation: this.animationsEnabled,
       component: 'createPost',
+      resolve: {
+        profile: function () {
+          return profile;
+        }
+      }
+    });
+  };
+
+  this.openCreatePageModal = () => {
+    let profile = this.profile;
+    $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'createPage',
       resolve: {
         profile: function () {
           return profile;

@@ -1,7 +1,6 @@
-<section class="create-page" ng-init="showCreateBtn = true" class="createpage">
+<section class="create-page" class="createpage">
 
-<button ng-show="showCreateBtn" ng-click="showCreateBtn=false">create page</button>
-<section ng-show="!showCreateBtn">
+<section>
   <form name="createPageForm" ng-submit="createPageCtrl.createPage()">
 
     <label for="name">Page name</label>
@@ -15,7 +14,5 @@
     <button ng-disabled="createPageForm.$invalid">create page</button>
   </form>
 </section>
-
-<button ng-show="!showCreateBtn" ng-click="showCreateBtn = true">cancel</button>
   
 </section>

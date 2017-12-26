@@ -1,35 +1,124 @@
 @import "../../../scss/lib/theme/vars";
 
+
 .profile-view {
-  
 
   .banner {
     width: 100%;
-    max-width: 1000px;
-    height: 250px;
+    max-height: 30vh;
   }
-  .profile-main {
-  display: inline-block;
-  li {
-    display: inline-block;
 
-    img {
-      border-radius: 50%;
-      width: 50px;
-    }
-  }
-  
-  li:nth-child(3) {
-    margin-left: 80vw;
-    border: 1px solid black;
-    span {
+  .profile-main {
+    // background-color: #569FEA;
+    height: 10vh;
+    outline: 1px solid black;
+    display: block;
+    .main-pic {
+      // outline: 1px solid black;
       display: inline-block;
-      width: 50px;
-      &:nth-child(2) {
-        background-color: lightgreen;
+      border-radius: 50%;
+      height: 100%;
+      width: 70px;
+      vertical-align: top;
+    }
+    .main-name {
+      // outline: 1px solid black;
+      display: inline-block;
+      height: 100%;
+      vertical-align: top;
+      .name{
+        // background-color: yellow;
+        margin: 10px;
+      }
+    }
+    .main-btns {
+      float: right;
+      // outline: 1px solid black;
+      height: 10vh;
+      .main-btn {
+        display: block;
+        outline: 1px solid black;
+        box-sizing: border-box;
+        background-color: #569FEA;
+        padding: 10px 20px;
+        text-align: center;
+        margin-top: 20%;
       }
     }
   }
-}
+
+  .profile-subnav {
+    outline: 1px solid black;
+    display: block;
+    height: 5vh;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+
+    .subnav-btn {
+      display: inline-block;
+      // outline: 1px solid black;
+      margin: 10px 20px;
+    }
+  }
 
 }
+
+
+
+
+//=============================================
+//    ISSUES
+//=============================================
+//
+// 1. center the main-btns vertically
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+// .profile-view {
+  
+
+//   .banner {
+//     width: 100%;
+//     max-height: 30vh;
+//   }
+//   .profile-main {
+//   display: inline-block;
+//   li {
+//     display: inline-block;
+
+//     img {
+//       border-radius: 50%;
+//       width: 50px;
+//     }
+//   }
+  
+//   li:nth-child(3) {
+//     margin-left: 80vw;
+//     border: 1px solid black;
+//     span {
+//       display: inline-block;
+//       width: 50px;
+//       &:nth-child(2) {
+//         background-color: lightgreen;
+//       }
+//     }
+//   }
+// }
+
+// }
