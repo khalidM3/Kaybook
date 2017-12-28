@@ -25,6 +25,9 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
             return { _id: $location.search().id};
           }
         }
+      })
+      .closed.then( () => {
+        $location.search('id', null);
       });
     }
     
