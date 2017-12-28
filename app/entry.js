@@ -16,10 +16,11 @@ const btford = require('angular-socket-io');
 
 const textAngular = require('textAngular');
 const textAngularSanitize = require('textangular/dist/textAngular-sanitize.min');
+const angularGrid = require('angulargrid');
 // const ngSanitize = require('angular-sanitize');
 
 
-const kproject = angular.module('kproject', [ngTouch, ngAnimate, uiRouter, uiBootstrap, ngRoute, ngFileUpload, 'btford.socket-io', textAngular]);
+const kproject = angular.module('kproject', [ngTouch, ngAnimate, uiRouter, uiBootstrap, ngRoute, ngFileUpload, 'btford.socket-io', textAngular, angularGrid]);
 
 let context = require.context('./config/', true, /\.js$/);
 context.keys().forEach( key => {
