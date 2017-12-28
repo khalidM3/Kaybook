@@ -35,9 +35,9 @@
     <post-item ng-repeat="post in profileViewCtrl.postsArr" post="post">what</post-item>
   </ul>-->
 
-  <ul>
+  <!-- <ul class="dynamic-grid" angular-grid="profileViewCtrl.postsArr" grid-width="300" gutter-size="10" angular-grid-id="post-tiles" refresh-on-img-load="false"> -->
     <post-tile class="posttile" ng-repeat="post in profileViewCtrl.postsArr" post="post"></post-tile>
-  </ul>
+  <!-- </ul> -->
 
   <section ng-if="profileViewCtrl.showBio">
     {{profileViewCtrl.profile.bio }}
