@@ -12,7 +12,8 @@ module.exports = {
     onpostChange: '&',
     resolve: '<',
     close: '&',
-    dismiss: '&'
+    dismiss: '&',
+    closed: '&',
   }
 };
 
@@ -97,18 +98,19 @@ function PostItemController($log, $rootScope,$window, $uibModal, $location, post
     .catch(err => console.log('Failed choice', err));
   };
 
-  $rootScope.$on('$locationChangeSuccess', () => {
-    this.ok();
-  });
-
+  
   this.ok = function () {
     this.close({$value: this.post});
   };
-
+  
+  
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
   };
-
+  
+  $rootScope.$on('$locationChangeSuccess', () => {
+    this.ok();
+  });
 
   this.openEditPostModal = function () {
     let post = this.post;
@@ -120,7 +122,7 @@ function PostItemController($log, $rootScope,$window, $uibModal, $location, post
           console.log('<><><><><><><><><><><><><>', post);
           return post; 
         }
-      }
+      },
     });
   };
 
