@@ -1,28 +1,139 @@
 .answer-item {
-  border-bottom: 1px solid grey;
-  padding: 20px;
-  width: 500px;
-  margin-left: 10%;
+  border-left: 1px solid grey;
+  // margin: 10px;
+  width: 97%;
+  margin-left: 3%;
+  margin-top: 10px;
+
   .answer-item-header {
+    outline: 1px solid red;
     display: block;
+    width: 100%;
+    padding-left: 1%;
     img {
       display: inline-block;
-      width: 50px;
+      vertical-align: middle;
+      width: 8%;
+      min-width: 30px;
       border-radius: 50%;
     }
-    div {
+    .header-names {
       display: inline-block;
+      vertical-align: middle;
+      .name, .date {
+        display: block;
+      }
+    }
+
+    .header-options {
+      // display: inline-block;
+      vertical-align: middle;
+      text-align: end;
+      float: right;
+      padding: 10px;
+
+      .dropdown-menu {
+        margin: 0;
+        padding: 0;
+      }
+      .options-btn {
+        display: block;
+        width: 100%;
+        padding: 5px 10px;
+        border-bottom: 1px solid rgb(153, 153, 153);
+      }
+    }
+
+  }
+
+  .answer-item-content {
+    display: block;
+    padding: 20px 10px;
+    width: 100%;
+    img {
+      max-width: 100%;
+    }
+
+    .comment-editor {
+      width: 100%;
+      .ta-scroll-window > .ta-bind {
+        min-height: 0px;
+        width: 100%;
+        // width: 80%;
+      }
+      .ta-scroll-window, .form-control {
+        width: 100%;
+        min-height: 0px;
+        // width: 80%;
+      }
+    }
+  
+    .answer-editor {
+      .ta-scroll-window > .ta-bind {
+        min-height: 100px;
+        // width: 80%;
+      }
+      .ta-scroll-window, .form-control {
+        min-height: 100px;
+        // width: 80%;
+      }
+    }
+
+  }
+  
+  // .edit-btns {
+  //   display: block;
+  //   width: 100%;
+  //   text-align: end;
+  //   height: auto;
+  //   margin: 10px;
+  //   // outline: 1px solid black;
+  //   .edit-btn {
+  //     // vertical-align: middle;
+  //     padding: 5px;
+  //     margin: 10px;
+  //   }
+  //   .update {
+  //     outline: 1px solid grey;
+  //     background-color: aqua;
+  //   }
+
+  // }
+  // .ta-editor {
+  //   min-height: 30px;
+  // }
+  .answer-item-footer {
+    display: block;
+    width: 100%;
+    outline: 1px solid black;
+
+    .footer-btn {
+      display: inline-block;
+      margin: 10px;
+      // outline: 1px solid grey;
+      // padding: 5px;
+    }
+
+    .edit-btns {
+      display: block;
+      width: 100%;
+      text-align: end;
+
+      .edit-btn {
+      // vertical-align: middle;
+      padding: 5px;
+      margin: 10px;
+    }
+    .update {
+      outline: 1px solid grey;
+      background-color: aqua;
+    }
+
     }
   }
+
 }
 
-.answer-item-content {
-    display: block;
-    img {
-      max-width: 80%;
-    }
-  }
-  .answer-words {
-    display: inline-block;
-    padding: 5px;
-  }
+
+  
+
