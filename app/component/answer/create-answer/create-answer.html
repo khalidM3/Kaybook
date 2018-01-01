@@ -1,12 +1,49 @@
 
-<section ng-init="showCreateBtn = true">
+    <section class="create-answer" ng-init="showCreateBtn = true">
+
+      <section class="profile">
+        <img class="pic" src="{{createAnswerCtrl.profile.profilePicURI}}" alt="">
+
+        <div class="names">
+          <p class="name"> {{createAnswerCtrl.profile.name}} </p>
+          <p class="name">@ {{createAnswerCtrl.profile.name}} </p>
+        </div>
+         <!-- <input class="comment-input" type="text" ng-show="showCreateBtn" ng-focus="showCreateBtn = false"> -->
+      </section> 
+
+
+      <!-- <section class="btns" ng-show="showCreateBtn" ng-click="showCreateBtn=false">
+          <span ng-if="createAnswerCtrl.post.type === 'question' "> ANSWER  </span>
+          <span ng-if="createAnswerCtrl.answer"> REPLY  </span>
+          <span ng-if="createAnswerCtrl.post.type !== 'question' && !createAnswerCtrl.answer"> COMMENT  </span>
+      </section> -->
+
+      <!-- <section ng-show="!showCreateBtn"> -->
+          <div class="ta-editor answer-editor" ng-if="createAnswerCtrl.post.type === 'question' " text-angular ng-model="createAnswerCtrl.answerData.answer" ta-toolbar="[['bold','italics', 'underline', 'ul', 'ol', 'insertImage', 'insertLink', 'insertVideo'],['redo', 'undo']]"></div>
+          <div class="ta-editor comment-editor" ng-if="createAnswerCtrl.answer || createAnswerCtrl.post.type !== 'question' " text-angular ng-model="createAnswerCtrl.answerData.answer" ta-toolbar="[]"></div>
+      <!-- </section> -->
+
+      <section class="answer-btns">
+          <div class="answer-btn cancel" ng-if="createAnswerCtrl.showreply" ng-click="createAnswerCtrl.showreply = false">
+              <span> CANCEL </span>
+          </div>
+          
+          <div class="answer-btn create"  ng-click="createAnswerCtrl.createAnswer()">
+            <span ng-if="createAnswerCtrl.post.type === 'question' "> ANSWER  </span>
+            <span ng-if="createAnswerCtrl.answer"> REPLY  </span>
+            <span ng-if="createAnswerCtrl.post.type !== 'question' && !createAnswerCtrl.answer"> COMMENT  </span>
+          </div>
+      </section>
+      
+    </section>
+  
+
+
+<!-- <section ng-init="showCreateBtn = true">
   <button ng-show="showCreateBtn" ng-click="showCreateBtn=false">create answer</button>
   <section class="create-answer"  ng-show="!showCreateBtn">
     <form action="" ng-submit="createAnswerCtrl.createAnswer()">
-      <p >
-          {{createAnswerCtrl.answerData.answer}}  
 
-      </p>
 
       <textarea cols="30" rows="10"  ng-model="createAnswerCtrl.answerData.answer" placeholder="write answer here">
       </textarea>
@@ -17,25 +54,4 @@
       </form>
   </section>
   <button ng-show="!showCreateBtn" ng-click="showCreateBtn = true">cancel</button>
-</section>
-
-
-<!--<section ng-init="showCreateBtn = true" class="createpage">
-
-<button ng-show="showCreateBtn" ng-click="showCreateBtn=false">create page</button>
-<section ng-show="!showCreateBtn">
-  <form name="createPageForm" ng-submit="createPageCtrl.createPage()">
-
-    <label for="name">Page name</label>
-    <input name="name" type="text" ng-minlength="4" ng-model="createPageCtrl.page.pageName">
-
-    <label for="Desc">Page description</label>
-    <input name="Desc" type="text" ng-minlength="4" ng-model="createPageCtrl.page.pageDesc">
-
-    <button ng-disabled="createPageForm.$invalid">create page</button>
-  </form>
-</section>
-
-<button ng-show="!showCreateBtn" ng-click="showCreateBtn = true">cancel</button>
-  
-</section>-->
+</section> -->
