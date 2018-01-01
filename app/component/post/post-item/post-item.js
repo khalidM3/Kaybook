@@ -139,6 +139,11 @@ function PostItemController($log, $rootScope,$window, $uibModal, $location, post
     
   };
 
+  this.repost = () => {
+    postService.rePost(this.post._id, this.post)
+    .then( post => console.log('res is ', post));
+  };
+
   this.report = () => {
     let post = this.post;
     $uibModal.open({
