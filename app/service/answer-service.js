@@ -32,6 +32,32 @@ function answerService($q, $log, $window, $http, authService){
       return $q.reject(err);
     });
   };
+
+  service.updateAnswer = (answerID, answerData) => {
+    $log.debug('service.updateAnswer');
+
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/api/answer/${answerID}`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      return $http.put(url, answerData, config);
+    })
+    .then( res => {
+      $log.log('updated an answer');
+      return res.data;
+    })
+    .catch( err => {
+      $log.error('Failed to update an answer',err);
+      return $q.reject(err);
+    });
+  };
   
   
 
