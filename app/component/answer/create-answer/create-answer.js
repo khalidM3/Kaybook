@@ -8,7 +8,8 @@ module.exports = {
   controllerAs: 'createAnswerCtrl',
   bindings: {
     post: '<',
-    answer: '<'
+    answer: '<',
+    showreply: '=',
   }
 };
 
@@ -16,6 +17,13 @@ function CreateAnswerController($log, $window, $document, answerService) {
   $log.debug('CreateAnswerController');
 
   this.answerData = {};
+
+  this.$onInit = () => {
+    this.profile = JSON.parse($window.localStorage.profile);
+    this.showreply = this.showreply || false;
+  };
+
+  this.bark = () => console.log('show reply', this.showreply);
 
   this.createAnswer = function(){
     $log.debug('createAnswerCtrl.createAnswer()');
@@ -35,6 +43,7 @@ function CreateAnswerController($log, $window, $document, answerService) {
     .then( forum => console.log('Successfully replied answer', forum))
     .catch( err => console.log('FAiled to reply to Answer', err));
     }
+
   };
 
   // this.parseURL = (str ) => {

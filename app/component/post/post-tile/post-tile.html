@@ -1,76 +1,120 @@
-<section class="post-tile" ng-init="postTileCtrl.check(postTileCtrl.post.data)" ng-click="postTileCtrl.goTo()">
-    <p class="reposter" ng-if="postTileCtrl.reposter" ng-click="postTileCtrl.goToProfile(postTileCtrl.reposter._id)"> 
-      shared by {{ postTileCtrl.reposter.name }} 
-    </p>
+<section class="dynamic-grid" angular-grid="postTileCtrl.posts" grid-width="300" gutter-size="10" angular-grid-id="post-tiles" refresh-on-img-load="false" >
 
-    <section class="header">
-      <img class="header-pic" ng-src="{{postTileCtrl.poster.profilePicURI}}">
-      <div class="header-names" ng-click="postTileCtrl.goToProfile(postTileCtrl.poster._id)"> 
-        <p> {{postTileCtrl.poster.name}} </p>
-        <p> @ {{postTileCtrl.poster.name}} </p>
-      </div>
-
-      <div class="header-options">
-        . . .
-      </div>
-      <!-- <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal()">edit</button>
-      <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost()">delete</button>
-      <button ng-if="!postTileCtrl.isMyPost" ng-click="postTileCtrl.rePost()">share</button> -->
-      <!-- <div ng-if="postTileCtrl.isRePost">
-        <img ng-src="{{postTileCtrl.post.posterID.profilePicURI}}">
-        <div class=""> {{postTileCtrl.post.posterID.name}}</div>
-     </div> -->
-    </section>
-
+    <section id="{{post._id}}" class="post-tile grid" ng-repeat="post in postTileCtrl.posts" >
     
-
-    <section class="body">
-      <!-- <section class="title"> -->
-        <h2 class="title"> {{ postTileCtrl.post.title }} </h2>
-      <!-- </section> -->
-
-      <section class="image">
-        <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI }}" alt="">
-        <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI}}" controls>
-            Your browser does not support HTML5
-        </video>
-       </section>
-
-      <div class="content" ta-bind="text" ng-model="postTileCtrl.post.content" ta-readonly='disabled'></div>
-
-
-      <div class="post-poll">
-          <section class="poll" ng-repeat="choice in postTileCtrl.post.choices">
-            <img ng-src="{{choice.picURI}}" alt="">
-              {{choice.name}} {{ choice.voters.length }} 
+         
+          <section class="header">
+            <img class="header-pic" ng-src="{{post.posterID.profilePicURI}}">
+            <div class="header-names" ng-click="postTileCtrl.goToProfile(post.posterID._id)"> 
+              <p> {{post.posterID.name}} </p>
+              <p> @ {{post.posterID.name}} </p>
+            </div>
+    
+            <div class="header-options">
+              . . .
+            </div>
+            
           </section>
-      </div>
+    
+          
+    
+          <section class="body" ng-click="postTileCtrl.goToPost(post._id)">
 
+              <h2 class="title"> {{ post.title }} </h2>
 
+    
+            <section class="image">
+              <img  ng-if="!postTileCtrl.isVid" ng-src="{{post.picURI }}" alt="">
+              <video ng-if="postTileCtrl.isVid" ng-src="{{post.picURI}}" controls>
+                  Your browser does not support HTML5
+              </video>
+            </section>
+    
+            <div class="content" ta-bind="text" ng-model="post.content" ta-readonly='disabled'></div>
+    
+    
+            <div class="post-poll">
+                <section class="poll" ng-repeat="choice in post.choices">
+                  <img ng-src="{{choice.picURI}}" alt="">
+                    {{choice.name}} {{ choice.voters.length }} 
+                </section>
+            </div>
+    
+    
+          </section>
+        
+          </section>
     </section>
-    
-    <!-- <section class="post-desc">
-      <p>
-        {{postTileCtrl.post.desc}}
+
+
+
+<!-- <section id="{{postTileCtrl.post._id}}"  class="post-tile grid"   onInit="postTileCtrl.bark(postTileCtrl.post, this)">
+
+      <p class="reposter" ng-if="postTileCtrl.reposter" ng-click="postTileCtrl.goToProfile(postTileCtrl.reposter._id)"> 
+        shared by {{ postTileCtrl.reposter.name }} 
       </p>
-    </section> -->
-    
-    <!-- <div class="repost" ng-if="postTileCtrl.post.repost" ng-click="postTileCtrl.goToRepost()">
-      <img src="{{postTileCtrl.post.repost.posterID.profilePicURI}}" alt="">
-      <h4>  {{postTileCtrl.post.repost.posterID.name}} </h4>
-      <h4>  {{postTileCtrl.post.repost.title}} </h4>
-      <section class="repost-desc">
-        <p>
-          {{postTileCtrl.post.repost.desc}}
-        </p>
-        <section class="post-content">
-        <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.repost.picURI }}" alt="">
-        <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.repost.picURI}}" controls>
-            Your browser does not support HTML5
-        </video>
-      </section>
+
+      <section class="header">
+        <img class="header-pic" ng-src="{{postTileCtrl.poster.profilePicURI}}">
+        <div class="header-names" ng-click="postTileCtrl.goToProfile(postTileCtrl.poster._id)"> 
+          <p> {{postTileCtrl.poster.name}} </p>
+          <p> @ {{postTileCtrl.poster.name}} </p>
+        </div>
+
+        <div class="header-options">
+          . . .
+        </div> -->
+        <!-- <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.openEditPostModal()">edit</button>
+       <button ng-if="postTileCtrl.isMyPost" ng-click="postTileCtrl.deletePost()">delete</button>
+        <button ng-if="!postTileCtrl.isMyPost" ng-click="postTileCtrl.rePost()">share</button>
+        <div ng-if="postTileCtrl.isRePost">
+          <img ng-src="{{postTileCtrl.post.posterID.profilePicURI}}">
+          <div class=""> {{postTileCtrl.post.posterID.name}}</div>
+      </div> -->
+      <!-- </section>
+
+      
+
+      <section class="body">
+
+          <h2 class="title"> {{ postTileCtrl.post.title }} </h2>
+
+        <section class="image">
+          <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI }}" alt="">
+          <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.picURI}}" controls>
+              Your browser does not support HTML5
+          </video>
+        </section>
+
+        <div class="content" ta-bind="text" ng-model="postTileCtrl.post.content" ta-readonly='disabled'></div>
+
+
+        <div class="post-poll">
+            <section class="poll" ng-repeat="choice in postTileCtrl.post.choices">
+              <img ng-src="{{choice.picURI}}" alt="">
+                {{choice.name}} {{ choice.voters.length }} 
+            </section>
+        </div>
+
 
       </section>
-    </div> -->
+       -->
+<!--       
+      <div class="repost" ng-if="postTileCtrl.post.repost" ng-click="postTileCtrl.goToRepost()">
+        <img src="{{postTileCtrl.post.repost.posterID.profilePicURI}}" alt="">
+        <h4>  {{postTileCtrl.post.repost.posterID.name}} </h4>
+        <h4>  {{postTileCtrl.post.repost.title}} </h4>
+        <section class="repost-desc">
+          <p>
+            {{postTileCtrl.post.repost.desc}}
+          </p>
+          <section class="post-content">
+          <img  ng-if="!postTileCtrl.isVid" ng-src="{{postTileCtrl.post.repost.picURI }}" alt="">
+          <video ng-if="postTileCtrl.isVid" ng-src="{{postTileCtrl.post.repost.picURI}}" controls>
+              Your browser does not support HTML5
+          </video>
+        </section>
 
-</section>
+        </section>
+      </div> -->
+      <!-- </section> -->

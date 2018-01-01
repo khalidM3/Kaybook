@@ -1,24 +1,40 @@
-<section>
-    <button ng-click="reportCtrl.cancel()">cancel</button>
-  <form action="" ng-submit="reportCtrl.reportPost()">
-    <label for=""> Sexual content</label>
+<section class="report">
+    <h2 class="title"> Report post</h2>
+
+  <form>
+    <div class="set">
     <input type="checkbox" ng-model="reportCtrl.report.sexual">
-      <label for=""> violent </label>
+    <label for=""> Sexual content</label>
+    </div>
+    <div class="set">
     <input type="checkbox" ng-model="reportCtrl.report.violent">
-      <label for=""> abusive </label>
+    <label for=""> Violent </label>
+    </div>
+    <div class="set">
     <input type="checkbox" ng-model="reportCtrl.report.abusive">
-      <label for=""> promotion </label>
+    <label for=""> Abusive </label>
+    </div>
+    <div class="set">
     <input type="checkbox" ng-model="reportCtrl.report.promotion">
-      <label for=""> spam </label>
+    <label for=""> Promotion </label>
+    </div>
+    <div class="set">
     <input type="checkbox" ng-model="reportCtrl.report.spam">
-      <label for=""> infringement </label>
+    <label for=""> Spam </label>
+    </div>
+    <div class="set">
     <input type="checkbox" ng-model="reportCtrl.report.infringement">
-      <label for=""> message </label>
-    <textarea name="" id="" cols="30" rows="5" ng-model="reportCtrl.report.message">
+    <label for=""> Infringement </label>
+    </div>
+    <div class="set">
+    <textarea name="" placeholder="Any useful information about how it broke one of the rules" ng-model="reportCtrl.report.message"></textarea>
+    </div>
+    
+    <div class="report-btns">
+      <span class="report-btn" ng-click="reportCtrl.cancel()"> CANCEL </span>
+      <span class="report-btn" ng-click="reportCtrl.reportPost()"> REPORT </span>
+    </div>
 
-    </textarea>
-
-    <button>submit</button>
   </form>
 
 </section>

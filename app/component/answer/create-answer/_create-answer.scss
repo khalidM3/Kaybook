@@ -1,0 +1,75 @@
+.create-answer {
+  outline: 1px solid black;
+  width: 97%;
+  margin-left: 3%;
+  margin-top: 10px;
+
+  .profile {
+    display: block;
+    outline: 1px solid blue;
+    // margin: 10px;
+
+    .pic {
+      display: inline-block;
+      width: 40px;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+
+    .names {
+      display: inline-block;
+      vertical-align: middle;
+      .name {
+        display: block;
+      }
+    }
+
+    
+
+
+
+  }
+
+  .ta-editor {
+    // display: inline-block;
+    // width: 200px;
+    // height: 200px;
+  }
+
+  .comment-editor {
+    .ta-scroll-window > .ta-bind {
+      min-height: 0px;
+      // width: 80%;
+    }
+    .ta-scroll-window, .form-control {
+      min-height: 0px;
+      // width: 80%;
+    }
+  }
+
+  .answer-editor {
+    .ta-scroll-window > .ta-bind {
+      min-height: 100px;
+      // width: 80%;
+    }
+    .ta-scroll-window, .form-control {
+      min-height: 100px;
+      // width: 80%;
+    }
+  }
+
+
+  .answer-btns {
+    text-align: end;
+    margin: 10px;
+    .answer-btn {
+      display: inline-block;
+      padding: 2%;
+    }
+
+    .create {
+      outline: 1px solid red;
+      background-color: aqua;
+    }
+  }
+}

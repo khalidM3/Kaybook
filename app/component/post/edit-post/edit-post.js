@@ -51,6 +51,7 @@ function EditPostController($log, $location, $rootScope, postService, picService
       this.showPic = this.showArticle = this.showPoll = false;
     }
   };
+  
 
   // this.updatePostPic = function(){
   //   picService.uploadPostPic(this.resolve.post._id, this.upload)

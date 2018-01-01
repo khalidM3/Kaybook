@@ -9,7 +9,7 @@ module.exports = {
   bindings: {
     answer: '=',
     parent: '=',
-    post: '='
+    post: '=',
   }
 };
 
@@ -19,17 +19,22 @@ function AnswerItemController($log, $window, $filter, $uibModal, answerService, 
 
   // this.forumID = $filter.forumID;
 
-
+  
   this.$onInit = function(){
     $log.debug('answerItemCtrl.onInit()');
-    this.parsedArr = this.parseStr(this.answer.answer);
-    let profileID = $window.localStorage.getItem('profileID');
-    this.showDeleteBtn = profileID === this.answer.posterID;
+    this.showReply = false;
+    this.profile = $window.localStorage.getItem('profile');
+    this.showDeleteBtn = this.profile === this.answer.posterID;
     // profileService.fetchProfile2(this.answer.posterID)
     // .then( profile => this.poster = profile);
     this.poster = this.answer.posterID;
+    this.isQuest = this.post.type === 'question';
+    this.updatedAnswer = this.answer;
   };
 
+  // this.showReply = false;
+  // this.updatedAnswer = this.answer;
+  
 
   this.parseStr = (str) => {
     let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
@@ -70,17 +75,31 @@ function AnswerItemController($log, $window, $filter, $uibModal, answerService, 
     .catch(err => console.log('Failed to unvoteAnswer()',err));
   };
 
+
   this.fetchReplies = function(){
     $log.debug('answerIteCtrl.fetchReplies()');
 
-    answerService.fetchAnswerReplies(this.answer._id)
-    .then( answer => {
-      this.answer = answer;
-      console.log('AR +++++++++++++++++');
-      console.log(answer.replies);
-      return this.repliesArr = answer.replies;
-    })
-    .catch(err => console.log('Failed to unvoteAnswer()',err));
+    console.log('_ANSWER_: ', this.answer.replies);
+    if(!this.repliesArr) {
+      console.log('first');
+      answerService.fetchAnswerReplies(this.answer._id)
+      .then( answer => {
+        this.answer = answer;
+        // console.log('AR +++++++++++++++++');
+        // console.log(answer.replies);
+        return this.repliesArr = answer.replies;
+      })
+      .catch(err => console.log('Failed to fetchAnswer()',err));
+    }
+
+    if(this.repliesArr.length < 1) {
+      console.log('second');
+      return this.repliesArr = this.answer.replies;
+    }
+
+    console.log('third');
+    return this.repliesArr = [];
+
   };
 
   this.report = () => {
@@ -97,6 +116,17 @@ function AnswerItemController($log, $window, $filter, $uibModal, answerService, 
     });
   };
 
+  this.setupEdit = () => {
+    this.editAnswer = true;
+    this.updatedAnswer = this.answer;
+  };
+
+  this.edit = () => {
+    answerService.updateAnswer(this.answer._id, this.updatedAnswer)
+    .then( answer => console.log('YAYYA\n', answer));
+  };
+
+  
   this.delete = function(){
     $log.debug('answerItemCtrl.deleteAnswer()');
 

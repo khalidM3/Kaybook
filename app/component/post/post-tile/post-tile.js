@@ -7,7 +7,7 @@ module.exports = {
   controller: ['$log', '$uibModal', '$window', '$location', '$stateParams', 'postService' , 'picService','profileService', PostTileController],
   controllerAs: 'postTileCtrl',
   bindings: {
-    post: '<'
+    posts: '<',
   }
 };
 
@@ -17,16 +17,19 @@ function PostTileController($log, $uibModal, $window, $location, $stateParams, p
 
   let profileID = $window.localStorage.getItem('profileID');
 
-  this.$onInit = function(){
-    $log.debug('postTileCtrl.$onInit()');
-   
-    this.reposter = this.post.repost? this.post.posterID : null;
-    this.post = this.post.repost ? this.post.repost : this.post;
+  // this.$onInit = function(){
+  //   $log.debug('postTileCtrl.$onInit()');
 
-    this.isVid = (/\.mp4$/).test(this.post.postPicURI);
-    this.isMyPost = this.post.posterID._id === profileID;
-    this.poster = this.post.posterID;
-    this.showRepost = this.post.repost;
+  //   let item = $window.document.getElementById(this.post._id);
+  //   console.log(item);
+   
+    // this.reposter = this.post.repost? this.post.posterID : null;
+    // this.post = this.post.repost ? this.post.repost : this.post;
+
+    // this.isVid = (/\.mp4$/).test(this.post.postPicURI);
+    // this.isMyPost = this.post.posterID._id === profileID;
+    // this.poster = this.post.posterID;
+    // this.showRepost = this.post.repost;
     
     // if(this.post.repost)  {
     //   this.post = this.post.repost;
@@ -48,48 +51,48 @@ function PostTileController($log, $uibModal, $window, $location, $stateParams, p
     //     this.poster = profile;
     //   });
     // });
-  };
+  // };
 
 
   this.animationsEnabled = true;
 
 
-  this.openEditPostModal = function () {
-    let post = this.post;
-    $uibModal.open({
-      animation: this.animationsEnabled,
-      component: 'editPost',
-      resolve: {
-        post: function () {
-          console.log('<><><><><><><><><><><><><>', post);
-          return post; 
-        }
-      }
-    });
-  };
+  // this.openEditPostModal = function () {
+  //   let post = this.post;
+  //   $uibModal.open({
+  //     animation: this.animationsEnabled,
+  //     component: 'editPost',
+  //     resolve: {
+  //       post: function () {
+  //         console.log('<><><><><><><><><><><><><>', post);
+  //         return post; 
+  //       }
+  //     }
+  //   });
+  // };
 
 
-  this.deletePost = function(){
-    $log.debug('postTileCtrl.deletePost()');
+  // this.deletePost = function(){
+  //   $log.debug('postTileCtrl.deletePost()');
 
-    postService.deletePost(this.post._id)
-    .then( res => console.log('Successfully deleted question', res))
-    .catch( err => console.log('Failed to delete question', err));
+  //   postService.deletePost(this.post._id)
+  //   .then( res => console.log('Successfully deleted question', res))
+  //   .catch( err => console.log('Failed to delete question', err));
     
-  };
+  // };
 
-  this.rePost = () => {
+  // this.rePost = () => {
 
-    profileService.fetchMyProfile()
-    .then( profile => {
-      console.log('profile', profile);
-      this.repost = {};
-      this.repost.friends = profile.friends;
-      console.log('repost', this.repost);
-      return postService.rePost(this.post._id, this.repost)
-            .then( post => console.log(post));
-    });
-  };
+  //   profileService.fetchMyProfile()
+  //   .then( profile => {
+  //     console.log('profile', profile);
+  //     this.repost = {};
+  //     this.repost.friends = profile.friends;
+  //     console.log('repost', this.repost);
+  //     return postService.rePost(this.post._id, this.repost)
+  //           .then( post => console.log(post));
+  //   });
+  // };
 
   // this.deletePost = function(){
   //   $log.debug('postTileController.deletePost()');
@@ -119,12 +122,19 @@ function PostTileController($log, $uibModal, $window, $location, $stateParams, p
   //   }
   // };
 
-  this.goTo = () => {
-    $location.search('id', this.post._id);
+  this.goToPost = (id) => {
+    $location.search('id', id);
   };
 
   this.goToProfile = (id) => {
     $location.url(`/profile/${id}`);
+  };
+
+  this.bark = (x, y) => {
+    console.log('this', x, y);
+    let item = $window.document.getElementById(this.post._id); 
+    console.log(item);
+
   };
 
 
