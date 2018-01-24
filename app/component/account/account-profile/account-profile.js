@@ -16,6 +16,8 @@ module.exports = {
 function AccountProfileController($log, $rootScope, $stateParams, $window, profileService, postService, commentService) {
   $log.debug('AccountContentController');
 
-
+  this.$onInit = () => {
+    this.profile = JSON.parse($window.localStorage.profile);
+  };
 
 }

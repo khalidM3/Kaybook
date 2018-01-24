@@ -1,92 +1,15 @@
 @import "../../../scss/lib/theme/vars";
 
+//TODO
+// fix the font sizing problem for mobile viewers
+
 .page-item {
-  
-
-  // .dynamic-grid {
-  //   outline: 1px solid red;
-  //   // background-color: blue;
-// }
-
-    .posttile {
-      background-color: orange;
-      // min-width: 300px;
-      // height: 400px;
-      // height: inherit;
-    }
-
-    .item {
-      width: 300px;
-      img {
-        max-width: 300px;
-      }
-    }
-
-
-
-
-    .grid {
-      list-style: none;
-      background: #ffffff;
-      box-sizing: border-box;
-      -moz-box-sizing : border-box;
-      -webkit-transition: all 0.6s ease-out;
-      transition: all 0.6s ease-out;
     
-      position: absolute;
-      list-style: none;
-      background: #ffffff;;
-      box-sizing: border-box;
-      -webkit-transition: all 400ms ease;
-      transition: all 400ms ease;
-      // overflow: hidden;
-      border-radius: 10px;
-    
-    }
-    .grid.ng-leave {
-      -webkit-transition: all ease 400ms;
-      transition: all ease 400ms;
-    }
-    .grid.ng-leave.ng-leave-active {
-      -webkit-transform: scale(0.5);
-      transform: scale(0.5);
-      opacity: 0;
-    }
-    .grid.ng-enter {
-      -webkit-transition: all ease 400ms;
-      transition: all ease 400ms;
-      -webkit-transition-delay: 500ms;
-      transition-delay: 500ms;
-      -webkit-transform: scale(0.5);
-       transform: scale(0.5);
-      opacity: 0;
-    }
-    .grid.ng-enter.ng-enter-active {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-      opacity: 1;
-    }
-    
-    // .grid-img {
-    //   width: 100%;
-    //   vertical-align: middle;
-    //   -webkit-transition: opacity 0.6s ease-out;
-    //   transition: opacity 0.6s ease-out;
-    //   background-color: #fff;
-    //   // opacity: 0;
-    //   // visibility: hidden;
-    // }
-    
-
-  //   .itemz {
-  //     background-color: green;
-  //     width: 400px;
-  //     height: 200px;
-  //   }
-  // }
-
   .banner {
+    display: block;
+    // margin: auto;
     width: 100%;
+    // max-width: 1000px;
     max-height: 30vh;
   }
   .page-main {
@@ -144,35 +67,87 @@
     }
   }
 
+
   .subnav {
-    display: block;
-    // background-color: tan;
-    height: 4vh;
+    outline: 1px solid black;
+    padding: 5px 0;
+    margin-bottom: 20px;
+    // border-bottom: 1px solid rgb(185, 185, 185);
+    height: 40px;
     .subnav-container {
-      // background-color: yellow;
-      box-sizing: border-box;
-      display: inline-block;
-      height: 4vh;
-      width: 100%;
-      // margin: 0 auto;
-      // padding: 10px;
-      text-align: center;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: 30px;
+      grid-template-areas: "posts feed merch about search create"; 
+      justify-items: center;
+      align-items: center;
       .subnav-btn {
-        box-sizing: border-box;
-        display: inline-block;
-        // background-color: purple;
-        height: 100%;
-        width: 15%;
-        min-width: 50px;
-        // padding: 10px;
-        // margin: 0 10px;
+        font-size: 12px; 
+        font-weight: bold;
+        padding: 10px;
         &:hover {
-          color: #71CAF1;
-          border-bottom: 1px solid #71CAF1;
+          outline: 1px solid rgb(90, 90, 90);
+          background-color: aqua;
         }
       }
+      .posts {
+        grid-area: 'posts';
+      }
+      .feed {
+        grid-area: 'feed';
+      }
+      .merch {
+        grid-area: 'merch';
+      }
+      .about {
+        grid-area: 'about';
+      }
+      .search {
+        grid-area: 'search';
+      }
+      .create {
+        grid-area: 'create';
+        background-color: aqua;
+        outline: 1px solid rgb(28, 28, 70);
+      }
     }
+
+    .search-container {
+      display: block;
+      width: 100%;
+      height: 100%;
+      // padding: 10px;
+      .search-bar {
+        // outline: 1px solid yellow;
+        width: 70%;
+        height: 100%;
+        padding: 0px 10px;
+        // border: none;
+      }        
+
+      .filter-container {
+        // outline: 1px solid black;
+        display: inline-block;
+        text-align: center;
+        width: 50px;
+        min-width: 15%;
+        // height: 100%;
+        .menu-op {
+          padding: 10px 20px;
+          border-top: 1px solid grey;
+        }
+      }
+      .remove-btn {
+        // outline: 1px solid black;
+        display: inline-block;
+        text-align: center;
+        min-width: 10%;
+      }
+    }
+ 
+
   }
+
     .create-container {
       // box-sizing: border-box;
       // color: green;
@@ -192,6 +167,30 @@
         text-align: center;
         line-height: 30px;
         // margin: 10px;
+      }
+    }
+
+    .page-about {
+      .about-section {
+        outline: 1px solid black;
+        display: block;
+        width: 400px;
+        max-width: 100%;
+        padding: 10px;
+        margin: 10px;
+
+        .about-title {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+
+        
+
+        .about-link {
+          margin: 10px 0;
+        }
+        
       }
     }
 

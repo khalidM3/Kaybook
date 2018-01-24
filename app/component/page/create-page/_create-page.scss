@@ -1,5 +1,33 @@
 .create-page {
+
+  .create-title {
+    text-align: center;
+    margin: 10px;
+  }
+
   input {
     display: block;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+  }
+  textarea {
+    display: block;
+    width: 80%;
+    min-height: 50px;
+    resize: none;
+    margin: auto;
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  .create-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    max-width: 100%;
+    min-width: 50px;
+    width: 50%;
+    height: 30px;
   }
 }

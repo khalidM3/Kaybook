@@ -119,19 +119,29 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
   };
 
 
-  this.check_profile = () => {
-    if(!$window.localStorage.profile) {
-      profileService.fetchProfile()
-      .then( profile => {
-        console.log('profile >>>>>>>>>', profile);
-        this.profile = profile;
-        $window.localStorage.profile = JSON.stringify(profile);
-        $window.localStorage.profileID = profile._id;
-        return;
-      });
-    } else {
-      this.profile = JSON.parse($window.localStorage.profile);
-    }
+  // this.check_profile = () => {
+  //   if(!$window.localStorage.profile) {
+  //     profileService.fetchProfile()
+  //     .then( profile => {
+  //       console.log('profile >>>>>>>>>', profile);
+  //       this.profile = profile;
+  //       profileService.setProfile(profile);
+  //       // $window.localStorage.profile = JSON.stringify(profile);
+  //       $window.localStorage.profileID = profile._id;
+  //       return;
+  //     });
+  //   } else {
+  //     this.profile = JSON.parse($window.localStorage.profile);
+  //   }
+  // };
+
+  this.check_user = () => {
+    profileService.fetchProfile()
+    .then( profile => {
+      this.profile = profile;
+      this.loggedIn = true;
+    })
+    .catch( () => console.log('not logged in'));
   };
 
   this.checkPath = () => {
@@ -152,12 +162,12 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
     }
 
     if (path === '/home') {
-      console.log('CHECKING CHECKING CHECKING CHECKIGN CHECKING', $window.localStorage.profileID);
+      // console.log('CHECKING CHECKING CHECKING CHECKIGN CHECKING', $window.localStorage.profileID);
       this.loggedIn = true;
       authService.getToken()
       .then( () => {
         this.loggedIn = true;
-        this.check_profile();
+        this.check_user();
       })
       .catch( () => {
         $location.url('/landing');

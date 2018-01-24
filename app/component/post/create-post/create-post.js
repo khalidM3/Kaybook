@@ -20,6 +20,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   $log.debug('HERE !!!',this.profile);
 
   this.$onInit = () => {
+    this.profile = $window.localStorage.getItem('profile');
     this.chosePost();
   };
   
@@ -156,20 +157,18 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
   this.createPost = function(){
     $log.debug('createPostCtrl.createPost()');
-    console.log('creating post on ',this.resolve.page ? this.resolve.page : this.resolve.profile)
+    // console.log('creating post on ',this.resolve.page ? this.resolve.page : this.resolve.profile)
     // this.post.desc = this.post.desc + this.x;
     // this.post.searchTerms = this.post.desc.match(/#(?:\w)\w*/g);
 
     if(this.resolve.profile) {
-      console.log('going inside profile');
       return postService.createProfilePost(this.post)
       .then( post => console.log('Success createPost()', post))
       .catch(err => console.log('Failed createPost()', err));
     }
 
     if( this.resolve.page) {
-      let profileID = $window.localStorage.getItem('profileID');
-      let admin = profileID === this.resolve.page.profileID;
+      let admin = this.profile._id === this.resolve.page.profileID;
       if( !admin ) {
         console.log('inside page !admin');
         postService.createPost(this.resolve.page._id, this.post)

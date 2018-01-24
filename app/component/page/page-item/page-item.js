@@ -15,18 +15,21 @@ module.exports = {
 function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, merchService){
   $log.debug('PageItemController');
 
+//  TODO
+// add search and filter func to the search bar
 
   this.$onInit = function(){
     $log.debug('pageItemCtrl.onInit');
-    console.log('hapa',$stateParams);
+    // console.log('hapa',$stateParams);
 
     this.pageID = $stateParams.pageID;
-    this.profileID = $window.localStorage.getItem('profileID');
-    
-    pageService.fetchPage(this.pageID)
+    this.filter_type = 'all';
+    return pageService.fetchPage(this.pageID)
     .then( page => {
+      this.myProfile = JSON.parse($window.localStorage.profile);
+      let profileID = this.myProfile._id;
       this.count = page.members.length;
-      this.showLeaveBtn = page.members.some( PID => PID.toString() === this.profileID.toString());
+      this.showLeaveBtn = page.members.some( PID =>PID.toString() === profileID);
       this.showEditBtn = this.profileID === page.profileID;
       this.page = page;
       return this.fetch();
@@ -66,6 +69,8 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     case 'merch':
       this.showPostBtn = false;
       return this.fetchPageMerch();
+    case 'about':
+      return this.showAbout = true;
     default: 
       this.fetchPagePosts();
     }
@@ -82,6 +87,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     postService.fetchPagePosts(this.page._id)
     .then( posts => {
       console.log(posts);
+      this.posts = posts;
       return this.postsArr = posts;
     })
     .catch( err => console.log('Failed ', err));
@@ -100,7 +106,10 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     $log.debug('pageItemCtrl.fetchPostsFeed()');
 
     postService.fetchPageFeed(this.page._id)
-    .then( posts => this.postsArr = posts)
+    .then( posts => {
+      this.posts = posts;
+      this.postsArr = posts;
+    })
     .catch(err => console.log('Failed to fetch feed', err));
   };
 
@@ -130,7 +139,12 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
 
     $location.url('/cart');
   };
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//                    ABOUT
 
+  this.goToAbout = () => {
+    $location.url(`/page/${this.page._id}/about`);
+  };
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                    PAGE 
   this.joinPage = function() {
@@ -180,7 +194,8 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
         page: function () {
           return page;
         }
-      }
+      },
+      backdrop: false,
     });
   };
 
@@ -212,7 +227,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
   };
 
   this.goToEditPage = () => {
-    $location.url('settings/pages'); // change to 'seetings/pages/:pageID'
+    $location.url('settings/pages'); // change to 'settings/pages/:pageID'
   };
 
   this.bark = () => {
@@ -220,6 +235,20 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     $location.search('id', null);
     // $location.path('page/597e798bfd94ab787bb8f851/post/5983de077b678b66f4532dba').replace();
 
+  };
+
+  this.filter = (type) => {
+    this.filter_type = type;
+    if(type == 'all') return this.postsArr = this.posts;
+    this.postsArr = this.posts.filter( post => post.type == type);
+    console.log('new arr\n', this.postsArr);
+  };
+
+  this.searchPost = (term) => {
+    return postService.postSearch(this.page._id,term)
+    .then( posts => {
+      console.log('results ', posts);
+    });
   };
 
 }

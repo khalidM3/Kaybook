@@ -7,6 +7,7 @@ function profileService($q, $log, $http, $window, authService) {
 
   let service = {};
   service.profiles = [];
+  service.profile = 'yahyah';
 
   service.createProfile = function(profile) {
     $log.debug('profileService.createProfile');
@@ -26,9 +27,8 @@ function profileService($q, $log, $http, $window, authService) {
     })
     .then( res => {
       $log.log('profile created');
-      let profile = res.data;
-      service.profiles.unshift(profile);
-      return profile;
+      service.setProfile(res.data);
+      return res.data;
     })
     .catch( err => {
       $log.error(err.message);
@@ -36,31 +36,48 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
+  service.setProfile = function(profile) {
+    $log.debug('profileService.saveProfile');
+    
+    $window.localStorage.profile = JSON.stringify({
+      _id: profile._id,
+      name: profile.name,
+      bio: profile.bio,
+      profilePicURI: profile.profilePicURI,
+      profileBannerURI: profile.profileBannerURI,
+      links: profile.links,
+    });
+
+  };
+//change to get profile
   service.fetchProfile = function() {
     $log.debug('profileService.fetchProfile');
 
     return authService.getToken()
     .then( token => {
-      let url = `${__API_URL__}/profiles/me`;
-      let config = {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      };
-
-      return $http.get(url, config);
+      if ($window.localStorage.profile) {
+        return JSON.parse($window.localStorage.profile);
+      } else {
+        let url = `${__API_URL__}/profiles/me`;
+        let config = {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        };
+        return $http.get(url, config);
+      }
     })
     .then( res => {
       $log.log('Profile Retrieved', res);
-      // $window.localStorage.setItem('profilePic', res.data.profilePicURI);
-      service.profile = res.data;
-      return service.profile;
+      service.setProfile(res.data);
+      return res.data;
     })
     .catch( err => {
       $log.error(err.message);
       return $q.reject(err);
     });
+
   };
 
   service.searchProfile = function(name) {
@@ -309,13 +326,13 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
-  service.fetchJoinedPages = function(){
+  service.fetchJoinedPages = function(profileID){
     $log.debug('profileService.joinProfile');
 
     return authService.getToken()
     .then( token => {
       console.log(token);
-      let url = `${__API_URL__}/api/joinedpages`;
+      let url = `${__API_URL__}/api/joinedpages/${profileID}`;
       let config = {
         headers: {
           authorization: `Bearer ${token}`

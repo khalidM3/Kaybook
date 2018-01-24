@@ -1,18 +1,15 @@
-<section class="create-page" class="createpage">
+<section class="create-page">
 
-<section>
+  <h2 class="create-title">create page</h2>
+
   <form name="createPageForm" ng-submit="createPageCtrl.createPage()">
 
-    <label for="name">Page name</label>
-    <input name="name" type="text" ng-minlength="4" ng-model="createPageCtrl.page.pageName">
+    <input name="name" type="text" ng-minlength="4" placeholder="name" ng-model="createPageCtrl.page.pageName">
 
-    <label for="Desc">Page description</label>
-    <input name="Desc" type="text" ng-minlength="4" ng-model="createPageCtrl.page.pageDesc">
-    <label for="">Public</label>
-    <input type="checkbox" ng-click="createPageCtrl.check()" ng-model="createPageCtrl.page.public">
+    <textarea name="" id="" cols="30" rows="10" placeholder="description" ng-model="createPageCtrl.page.pageDesc"></textarea>
+    <!-- <input type="checkbox" ng-click="createPageCtrl.check()" ng-model="createPageCtrl.page.public"> -->
 
-    <button ng-disabled="createPageForm.$invalid">create page</button>
+    <button class="create-btn" ng-disabled="createPageForm.$invalid">create page</button>
   </form>
-</section>
   
 </section>

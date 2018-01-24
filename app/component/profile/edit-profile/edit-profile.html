@@ -1,36 +1,96 @@
 <section class="edit-profile">
 
-  <form ng-submit="editProfileCtrl.updateProfile()"
+  <form class="edit-profile-container"ng-submit="editProfileCtrl.updateProfile()"
     novalidate>
 
-    <h3>Edit profile</h3>
+    <h3 class="edit-profile-header">Edit profile</h3>
 
-     <img class="upload-img" ng-src="{{editProfileCtrl.profile.profilePicURI}}" alt="profile photo">
 
-    <label>name:</label>
-    <input name="name" type="text" ng-model="editProfileCtrl.profile.name">
+    <fieldset>
+        <label for="">name</label>
+        <input class="edit-title edit-input" name="name" type="text" ng-minlength="4" ng-model="editProfileCtrl.profile.name">
+    </fieldset>
 
-    <label> change profile pic</label>
+    <fieldset>
+        <label for="">profile picture</label>
+        <div class="pic-container">
+            <div class="edit-pic" ng-show="showEditPic" ng-mouseover="showEditPic = true" ng-mouseleave="showEditPic = false" ngf-select>
+                <i class="fa fa-camera" aria-hidden="true"></i>
+            </div>
+          <img class="profile-picture" ng-src="{{editProfileCtrl.profile.profilePicURI}}" ng-mouseover="showEditPic = true" ng-mouseleave="showEditPic = false">
+        </div>
+    </fieldset>
+
+    <!-- <label> change profile pic</label>
     <span placeholder="editProfileCtrl.pic" ng-model="editProfileCtrl.pic" ngf-select>
       change profile picture
     </span>
-    <input type="text" placeholder="editProfileCtrl.profile.profilePicURI" ng-model="editProfileCtrl.profile.profilePicURI">
+    <input type="text" placeholder="editProfileCtrl.profile.profilePicURI" ng-model="editProfileCtrl.profile.profilePicURI"> -->
 
-    <label> change profile banner </label>
+    <fieldset>
+      <label for=""> bio</label>
+      <textarea class="edit-desc edit-input" ng-model="editProfileCtrl.profile.bio"></textarea>
+    </fieldset>
+
+    <!-- <label> change profile banner </label>
     <span ng-model="editProfileCtrl.bannerPic" ngf-select>
       change profile banner
     </span>
-    <input type="text" placeholder="editProfileCtrl.profile.profileBannerPicURI" ng-model="editProfileCtrl.profile.profileBannerURI">
+    <input type="text" placeholder="editProfileCtrl.profile.profileBannerPicURI" ng-model="editProfileCtrl.profile.profileBannerURI"> -->
+    <fieldset>
+        <label for="">profile banner </label>
+        <div class="pic-container"></div>
+          <div class="edit-pic" ng-show="showEditBanner" ng-mouseover="showEditBanner = true" ng-mouseleave="showEditBanner = false" ngf-select>
+              <i class="fa fa-camera" aria-hidden="true"></i>
+          </div>
+          <img class="profile-banner" ng-src="{{editProfileCtrl.profile.profileBannerURI}}" ng-mouseover="showEditBanner = true" ng-mouseleave="showEditBanner = false">
+      </div>
+        <!-- <section class="post-pic-ops">
+            <div class="post-preview">
+              <img class="post-preview-pic" ng-src="{{editProfileCtrl.profile.pageBannerURI}}" alt="">
+            </div>
+            <div class="pic-op" ng-if="!editProfileCtrl.showInput" ngf-select>
+                <i class="fa fa-upload" aria-hidden="true"></i>
+                <p> Upload </p>
+            </div>
+            <div class="pic-op" ng-if="!editProfileCtrl.showInput" ng-click="editProfileCtrl.showInput = true">
+                <i class="fa fa-link" aria-hidden="true"></i>
+                <p> Link </p>
+            </div>
+            <div class="pic-input" ng-if="editProfileCtrl.showInput">
+              <input name="pic" placeholder="banner url" type="text" ng-minlength="4" ng-model="editProfileCtrl.page.pageBannerURI"></input> 
+              <span class="pic-cancel" ng-click="editProfileCtrl.showInput = false">
+                  <i class="fa fa-window-close" aria-hidden="true"></i>
+              </span>
+            </div>
+        </section> -->
+      </fieldset>
 
-    <label> Bio </label>
-    <textarea name="" id="" cols="30" rows="10" placeholder="editProfileCtrl.profile.bio" ng-model="editProfileCtrl.profile.bio">
-    </textarea>
 
-    <label for="">Private</label>
-    <input type="checkbox" ng-model="editProfileCtrl.profile.private">
+    <fieldset>
+      <label for="">Private</label>
+      <input type="checkbox" ng-model="editProfileCtrl.profile.private">
+    </fieldset>
+
+    <fieldset>
+        <table class="link-table">
+            <label for=""> links </label>
+          <tr class="links" ng-repeat="link in editProfileCtrl.profile.links">
+            <td> <a class="link" href="{{link.link}}"> {{ link.name}} </a> </td>
+            <td> <span class="remove-link-btn glyphicon glyphicon-minus" ng-click="editProfileCtrl.removeLink(link)"></span> </td>
+          </tr>
+          <tr class="add-link">
+            <td>
+              <input type="text" class="link-name" placeholder="name" ng-model="editProfileCtrl.link_name">
+              <input type="text" class="link-url" placeholder="link" ng-model="editProfileCtrl.link_link">
+            </td>
+            <td> <span class="add-link-btn glyphicon glyphicon-plus" ng-click="editProfileCtrl.addLink()"> </span> </td>
+          </tr>
+        </table>
+      </fieldset>
 
 
-    <button type="submit">update profile</button>
+    <button class="edit-btn" type="submit">update profile</button>
   </form>
 
 </section>
