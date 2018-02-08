@@ -1,0 +1,82 @@
+.message-item {
+  background-color: white;
+  // outline: 1px solid black;
+  border-bottom: 1px solid rgb(168, 168, 168);
+  display: block;
+  // width: 100%;
+  max-width: 100%;
+  padding: 5px;
+  margin: 10px;
+  .message-container {
+    display: grid;
+    position: relative;
+    grid-template-columns: 50px auto;
+    grid-template-rows: 2;
+    grid-template-areas: "img top"
+                          "img bottom";
+    // align-items: center;
+    // grid-column-gap: 5px;
+    .image-container {
+      grid-area: img;
+      // outline: 1px solid red;
+      align-self: start;
+      padding: 5px;
+      img {
+        width: 40px;
+        border-radius: 50%;
+      }
+    }
+    .message-top {
+      // outline: 1px solid red;
+      grid-area: top;
+      // padding: 5px;
+      // height: 30px;
+      .top-name {
+        display: inline-block;
+        font-weight: bold;
+        margin-right: 5px;
+      }
+      .top-time {
+        display: inline-block;
+        font-size: .75em;
+        color: rgb(148, 148, 148);
+      }
+      .top-menu {
+        float: right;
+        margin-right: 5px;
+        .menu-op {
+          padding: 10px;
+          outline: 1px solid grey;
+        }
+      }
+    }
+    .message-bottom {
+      // outline: 1px solid red;
+      grid-area: bottom;
+      .bottom-message {
+        display: block;
+        overflow-wrap: break-word;
+        word-break: break-all;
+      }
+      .bottom-input {
+        outline: 1px solid grey;
+        width: 100%;
+        resize: none;
+      }
+      .bottom-btns {
+        display: block;
+        float: right;
+        .bottom-btn {
+          display: inline-block;
+          padding: 5px;
+          margin: 5px;
+        }
+        .save-btn {
+          outline: 1px solid grey;
+          background-color: aqua;
+        }
+      }
+    
+    }
+  }
+}

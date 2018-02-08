@@ -230,9 +230,9 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
 
 
-  this.bark = () => {
-    console.log('barking barking\n', typeof this.post.content, this.post.content);
-  };
+  // this.bark = () => {
+  //   console.log('barking barking\n', typeof this.post.content, this.post.content);
+  // };
 
   
 

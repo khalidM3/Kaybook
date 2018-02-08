@@ -1,0 +1,91 @@
+.member {
+  padding: 10px;
+
+  .cancel-btn {
+    float: right;
+    padding: 10px;
+  }
+  .member-room-name {
+    display: block;
+    width: 350px;
+    padding: 10px;
+    max-width: 100%;
+    .room-name-input {
+      display: block;
+      height: 40px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
+
+  .member-friends-list {
+    margin: 20px 0;
+    display: block;
+    width: 100%;
+
+    .member-title {
+      padding: 10px;
+      font-weight: bold;
+      border-bottom: 1px solid grey;
+    }
+    .member-friend {
+      border-bottom: 1px solid grey;
+      // display: block;
+      width: 100%;
+      padding: 5px;
+      display: grid;
+      grid-template-columns: 50px auto 50px;
+      grid-template-rows: 1;
+      grid-template-areas: "img name btn";
+      // justify-items: center;
+      align-items: center;
+      
+      img {
+        grid-area: img;
+        border-radius: 50%;
+        width: 40px;
+      }
+      .friend-name {
+        grid-area: name;
+      }
+      .friend-btn {
+        justify-self: center;
+        padding: 5px;
+        grid-area: btn;
+      }
+      .add-btn {
+        background-color: aqua;
+      }
+      .remove-btn {
+        background-color: red;
+      }
+    }
+
+    .member-leave-btn {
+      display: block;
+      outline: 1px solid black;
+      background-color: white;
+      color: red;
+      padding: 10px;
+      width: 100%;
+      &:hover {
+        background-color: red;
+        color: white;
+      }
+    }
+  }
+
+  .save-container {
+    display: block;
+    width: 100px;
+    margin: auto;
+  }
+  .save-btn {
+    outline: 1px solid black;
+    background-color: aqua;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+
+  }
+}

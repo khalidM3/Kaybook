@@ -30,7 +30,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
       let profileID = this.myProfile._id;
       this.count = page.members.length;
       this.showLeaveBtn = page.members.some( PID =>PID.toString() === profileID);
-      this.showEditBtn = this.profileID === page.profileID;
+      this.showEditBtn = profileID === page.profileID;
       this.page = page;
       return this.fetch();
     })

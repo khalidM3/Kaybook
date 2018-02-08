@@ -21,7 +21,20 @@ function AccountContentController($log, $rootScope, $stateParams, $window, profi
   this.myProfile = [];
 
   this.$onInit = () => {
+    this.filter_type = 'all';
     this.fetchMyPosts();
+  };
+
+  this.search = () => {
+    // this.posts = this.postsArr.filter( post => post.title == new RegExp(this.searchTerm,'g'));
+    // console.log(this.posts);
+  };
+
+  this.filter = (type) => {
+    this.filter_type = type;
+    if(type == 'all') return this.posts = this.postsArr;
+    this.posts = this.postsArr.filter( post => post.type == type);
+    console.log(this.posts);
   };
   // this.fetchMyProfile = function(){
   //   $log.debug('AccountContentController.fetchMyProfile()');
