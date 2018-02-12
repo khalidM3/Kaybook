@@ -9,7 +9,7 @@ function merchService($q, $log, $window, $http, authService){
 
   service.createMerch = function(pageID, merchData){
     $log.debug('service.createMerch');
-
+    console.log('create merch', merchData);
     return authService.getToken()
     .then( token => {
       let url = `${__API_URL__}/api/merch/merch/${pageID}`;
