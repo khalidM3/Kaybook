@@ -1,70 +1,84 @@
 <section class="create-merch">
+    <span class="cancel-btn" ng-click="createMerchCtrl.cancel()">
+        <i class="fa fa-times"></i>
+    </span>
 
-  <section class="create-merch-tile" ng-if="!createMerchCtrl.showCreateForm">
+  <!-- <section class="create-merch-tile" ng-if="!createMerchCtrl.showCreateForm">
     <h2> {{ createMerchCtrl.createdMerch.name}} </h2>
     <p> {{ createMerchCtrl.createdMerch.desc}} </p>
-  </section>
+  </section> -->
 
 
-  <form ng-submit="createMerchCtrl.createMerch()" ng-if="!createMerchCtrl.showCreateForm">
+  <section class="merch-group">
+    <input class="merch-name" type="text" placeholder="name" ng-model="createMerchCtrl.merch.name">
 
-    <input type="text" placeholder="name" ng-model="createMerchCtrl.merch.name">
-
-    <textarea cols="40" rows="5" placeholder="item descriptions" ng-model="createMerchCtrl.merch.desc">
+    <textarea class="merch-desc" cols="40" rows="5" placeholder="item descriptions" ng-model="createMerchCtrl.merch.desc">
     </textarea>
-
-    <section class="option-table" ng-if="createMerchCtrl.showTable">
-      <table>
-          <tr>
-            <th>image</th>
-            <th>name</th>
-            <th>unit price</th>
-            <th>value 1</th>
-            <th>value 2</th>
-            <th>value 3</th>
-            <th>quantity</th>
-            <th>remove</th>
-          </tr>
-
-        <tr ng-repeat="option in createMerchCtrl.optionsArr">
-
-          <td> <img ng-src="{{option.picURI}}" alt=""> </td>
-          <td> {{option.name}} </td>
-          <td> $ {{option.price}} </td>
-          <td> {{option.val1}} </td>
-          <td> {{option.val2}} </td>
-          <td> {{option.val3}} </td>
-          <td> {{option.qtty}} </td>
-          <td ng-click="createMerchCtrl.removeOption(option)"> x </td>
-
-        </tr>
-
-
-      </table>
   </section>
 
+  <section class="merch-group" ng-if="createMerchCtrl.showTable">
+    <table class="option-table">
+      <tr class="table-head">
+        <th> </th>
+        <th>unit price</th>
+        <th>  {{createMerchCtrl.optionsArr[0].name1}}</th>
+        <th>  {{createMerchCtrl.optionsArr[0].name2}}</th>
+        <th>  {{createMerchCtrl.optionsArr[0].name3}} </th>
+        <th> quantity </th>
+        <th> remove </th>
+      </tr>
+
+      <tr class="table-option" ng-repeat="option in createMerchCtrl.optionsArr">
+        <td> <img ng-src="{{option.picURI}}" alt=""> </td>
+        <td> $ {{option.price}} </td>
+        <td> {{option.val1}} </td>
+        <td> {{option.val2}} </td>
+        <td> {{option.val3}} </td>
+        <td> {{option.qtty}} </td>
+        <td ng-click="createMerchCtrl.removeOption(option)"> 
+          <span class="remove-btn">
+              <i class="fa fa-times"></i>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="merch-group">
     <input type="text" placeholder="option name 1" ng-model="createMerchCtrl.option.name1">
     <input type="text" placeholder="option value 1" ng-model="createMerchCtrl.option.val1">
+  </section>
 
+  <section class="merch-group">
     <input type="text" placeholder="option name 2" ng-model="createMerchCtrl.option.name2">
     <input type="text" placeholder="option value 2" ng-model="createMerchCtrl.option.val2">
+  </section>
 
+  <section class="merch-group">
     <input type="text" placeholder="option name 3" ng-model="createMerchCtrl.option.name3">
     <input type="text" placeholder="option value 3" ng-model="createMerchCtrl.option.val3">
+  </section>
 
-
+  <section class="merch-group">
     <input type="text" placeholder="picture url" ng-model="createMerchCtrl.option.picURI">
+  </section>
 
+  <section class="merch-group">
     <input type="number" placeholder="price" ng-model="createMerchCtrl.option.price">
-
+  
     <input type="number" placeholder="quantity" ng-model="createMerchCtrl.option.qtty">
+  </section>
 
-    <button type="button" class="add-option" ng-click="createMerchCtrl.addToOptions()">add option</button>
+  <section class="merch-group"> 
+    <span class="add-btn" ng-click="createMerchCtrl.addToOptions()">
+      <i class="fa fa-plus"></i> option
+    </span>
+  </section>
 
+  <section class="merch-group">
+    <span class="create-btn" ng-click="createMerchCtrl.createMerch()">create</span>
+  </section>
 
-    <button>create</button>
-
-  </form>
 
 </section>
 

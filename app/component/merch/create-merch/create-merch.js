@@ -1,49 +1,40 @@
 'use strict';
 
-require('./_create-merch.scss');
+import './_create-merch.scss';
+import template from './create-merch.html';
 
-module.exports = {
-  template: require('./create-merch.html'),
-  controller: ['$log', '$window', 'merchService', 'optionService', CreateMerchController],
-  controllerAs: 'createMerchCtrl',
-  bindings: {
-    page: '<',
-    onPostCreated: '&',
-    resolve: '<',
-    close: '&',
-    dismiss: '&'
+
+class CreateMerchController {
+  constructor($log, $window, merchService, optionService) {
+    this.$log = $log;
+    this.$window = $window;
+    this.merchService = merchService;
+    this.optionService = optionService;
   }
-};
 
-function CreateMerchController($log, $window, merchService, optionService) {
-  $log.debug('CreateMerchController');
+  
 
-  this.merch = {};
-  this.option = {};
-  this.optionsArr = [];
-  this.showTable = false;
+  $onInit() {
+    this.merch = {};
+    this.option = {};
+    this.optionsArr = [];
+    this.showTable = false;
+    this.profile = JSON.parse(this.$window.localStorage.profile);
+  }
 
-  this.createMerch = function(){
-    $log.debug('createMerchCtrl.createMerch()');
-
-    let profileID = $window.localStorage.getItem('profileID');
-    let admin = this.resolve.page.admins.some( PID => PID.toString() === profileID.toString());
-
+  createMerch() {
+    console.log('create merch', this.merch)
+    // let profileID = this.$window.localStorage.getItem('profileID');
+    let admin = this.resolve.page.admins.some( PID => PID.toString() === this.profile._id);
     if( admin ) {
-      // this.merch.options = this.optionsArr;
-      merchService.createMerch(this.resolve.page._id, this.merch)
-      .then( merch =>  {
-        console.log('Success createMerch()', merch);
-        // this.createdMerch = merch;
-
-        return optionService.createOption(merch._id, { options: this.optionsArr});
-      })
-      .then( merch => console.log('success', merch))
+      this.merch.options = this.optionsArr;
+      return this.merchService.createMerch(this.resolve.page._id, this.merch)
+      .then( merch =>  this.close({$value: merch}))
       .catch(err => console.log('Failed createMerch()', err));
     }
-  };
+  }
 
-  this.addToOptions = function(){
+  addToOptions() {
     console.log('inside baby');
     this.showTable = true;
     let result = JSON.parse(JSON.stringify(this.option));
@@ -54,9 +45,9 @@ function CreateMerchController($log, $window, merchService, optionService) {
     this.option.val1 = null;
     console.log(this.optionsArr);
     return;
-  };
+  }
 
-  this.removeOption = (option) => {
+  removeOption(option) {
     console.log('options 1', this.optionsArr);
     console.log('show table =====>', this.showTable, this.optionsArr.length);
     this.optionsArr.forEach( (op, index) => {
@@ -70,15 +61,23 @@ function CreateMerchController($log, $window, merchService, optionService) {
     });
 
     console.log('options 1]2', this.optionsArr); 
-  };
+  }
 
-
-
-
-  // this.cancel = function () {
-  //   this.dismiss({$value: 'cancel'});
-  // };
-
-
+  cancel () {
+    this.dismiss({$value: 'cancel'});
+  }
 
 }
+
+module.exports = {
+  template: template,
+  controller: CreateMerchController,
+  controllerAs: 'createMerchCtrl',
+  bindings: {
+    page: '<',
+    onPostCreated: '&',
+    resolve: '<',
+    close: '&',
+    dismiss: '&'
+  }
+};
