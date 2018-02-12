@@ -1,20 +1,7 @@
 'use strict';
 
-require('./_merch-item.scss');
+import './_merch-item.scss';
 
-module.exports = {
-  template: require('./merch-item.html'),
-  controller: ['$log', '$window', 'merchService', 'profileService', MerchItemController],
-  controllerAs: 'merchItemCtrl',
-  bindings: {
-    loggedIn: '<',
-    profile: '<',
-    onmerchChange: '&',
-    resolve: '<',
-    close: '&',
-    dismiss: '&'
-  }
-};
 
 function MerchItemController($log, $window, merchService, profileService){
   $log.debug('merchItemController');
@@ -123,3 +110,18 @@ function MerchItemController($log, $window, merchService, profileService){
     this.dismiss({$value: 'cancel'});
   };
 }
+
+module.exports = {
+  template: require('./merch-item.html'),
+  controller: ['$log', '$window', 'merchService', 'profileService', MerchItemController],
+  controllerAs: 'merchItemCtrl',
+  bindings: {
+    loggedIn: '<',
+    profile: '<',
+    onmerchChange: '&',
+    resolve: '<',
+    close: '&',
+    dismiss: '&'
+  }
+};
+
