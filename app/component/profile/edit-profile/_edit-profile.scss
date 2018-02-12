@@ -1,52 +1,157 @@
-
 .edit-profile {
-  * {
+  display: inline-block;
+  width: 100%;
+  .edit-profile-container {
+
+    outline: 1px solid black;
     display: block;
+    width: 500px;
+    max-width: 100%;
     padding: 10px;
+    
+    .edit-profile-header {
+      display: block;
+      margin: auto;
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: center;
+    }
+    fieldset {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      outline: 1px solid black;
+      width: 100%;
+      label {
+        display: block;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px;
+      }
+    }
+
+    .profile-picture {
+      display: block;
+      width: 60px;
+      border-radius: 50%;
+    }
+    .profile-banner {
+      display: block;
+      width: 100%;
+      margin: auto;
+    }
+    .pic-container {
+      background-color: blue;
+      display: inline;
+      position: relative;
+    }
+    .edit-pic {
+      position: absolute;
+      float: left;
+      font-size: 1.5em;
+      padding: 5px;
+      background-color: white;
+      border: 2px solid red;
+      z-index: 11;
+    }
+
+    .edit-input {
+      display: block;
+      width: 90%;
+      padding: 10px;
+      // margin: 10px auto;
+    }
+
+    .edit-desc, .edit-greeting {
+      min-height: 100px;
+      resize: none;
+    }
+    
+    .post-pic-ops {
+      // background-color: slateblue;
+      display: block;
+      // margin: 10px auto;
+      width: 90%;
+      text-align: center;
+      .pic-op {
+        outline: 1px solid black;
+        display: inline-block;
+        margin: 10px;
+        // width: 150px;
+        // height: 100px;
+        padding: 10px;
+        max-width: 40%;
+
+        &:hover {
+          background-color: white;
+          color:  #00D9FF;
+        }
+      }
+      .pic-input {
+        outline: 1px solid black;
+        display: inline-block;
+        margin: 10px;
+        width: 90%;
+        input {
+          width: 90%;
+          height: 30px;
+        }
+        .cancel {
+          width: 90%;
+        }
+      }
+
+      .post-preview {
+        .post-preview-pic {
+          width: 100%;
+        }
+      }
+    }
+
+    .link-table {
+      width: 90%;
+      // outline: 1px solid black;
+      tr {
+        // outline: 2px solid grey;
+        vertical-align: middle;
+      }
+      td {
+        // outline: 1px solid grey;
+        vertical-align: middle;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+      }
+
+      .links {
+        // padding: 10px;
+        margin: 10px;
+        .remove-link-btn {
+          outline: 1px solid grey;
+          padding: 5px;
+          background-color: red;
+        }
+      }
+
+      .add-link {
+
+        .add-link-btn {
+          outline: 1px solid grey;
+          padding: 5px;
+          background-color: aqua;
+        }
+      }
+    }
+
+    
+    .edit-btn {
+      display: block;
+      margin: 20px auto;
+      width: 200px;
+      height: 30px;
+      max-width: 100%;
+      background-color: #00D9FF;
+      outline: 1px solid black;
+    }
+
   }
 }
-
-
-
-
-// @import "../../../scss/lib/theme/vars";
-
-// .input-std {
-//  width: 40%;
-// }
-
-// button {
-//   font-family: $font-secondary;
-//  border: none;
-//  border-radius: 10%;
-//  cursor: pointer;
-//  color: $white;
-//  width: 30%;
-//  height: 50%;
-// }
-
-// form {
-//  border: none;
-// }
-
-// .edit-profile{
-//  form{
-//    h3{
-//      text-align: center;
-//    }
-//    fieldset{
-//      span{
-
-//      }
-//      input{
-
-//      }
-//    }
-//    input{
-//      line-height: 0;
-//      width: 80%;
-//      margin-left: 10%;
-//      margin-right: 10%;
-//    }
-//  }
-// }

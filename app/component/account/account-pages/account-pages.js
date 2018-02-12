@@ -8,9 +8,6 @@ module.exports = {
   template: require('./account-pages.html'),
   controller: ['$log', '$rootScope', '$stateParams', '$window', 'profileService', 'postService', 'pageService', AccountPagesController],
   controllerAs: 'accountPagesCtrl',
-  bindings: {
-    profile: '<'
-  }
 };
 
 function AccountPagesController($log, $rootScope, $stateParams, $window, profileService, postService, pageService) {
@@ -18,7 +15,12 @@ function AccountPagesController($log, $rootScope, $stateParams, $window, profile
 
 
   this.$onInit = () => {
+    this.profile = JSON.parse($window.localStorage.profile);
     this.fetchPages();
+  };
+
+  this.bark = () => {
+    console.log(profileService.profile);
   };
 
   this.fetchPages = () => {

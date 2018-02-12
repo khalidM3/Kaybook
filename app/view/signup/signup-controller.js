@@ -36,7 +36,7 @@ function SignupController($log, $window, $location, authService, profileService)
       console.log('PROFILE', profile);
       profileService.createProfile(profile)
       .then(profile => {
-        $window.localStorage.setItem('profile', profile);
+        // $window.localStorage.setItem('profile', profile);
         $location.url('/home/' );
       });
     });

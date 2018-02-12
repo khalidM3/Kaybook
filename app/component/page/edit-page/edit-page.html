@@ -1,29 +1,71 @@
 <section class="edit-page">
+  <button ng-click="editPageCtrl.bark()">bark</button>
+  <form class="edit-page-container" name="editPageForm" ng-submit="editPageCtrl.editPage()">
+    <fieldset>
+      <label for="">name</label>
+      <input class="edit-title edit-input" name="name" type="text" ng-minlength="4" ng-model="editPageCtrl.page.pageName">
+    </fieldset>
+
+    <fieldset>
+      <label for=""> page description</label>
+      <textarea class="edit-desc edit-input" ng-model="editPageCtrl.page.pageDesc"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <label for="">page banner </label>
   
-  <form name="editPageForm" ng-submit="editPageCtrl.editPage()">
+      <section class="post-pic-ops">
+          <div class="post-preview">
+            <img class="post-preview-pic" ng-src="{{editPageCtrl.page.pageBannerURI}}" alt="">
+            <!-- <iframe ng-if="editPageCtrl.post.picURI" src="{{editPageCtrl.post.picURI | embed }}" frameborder="0"></iframe> -->
+          </div>
+          <div class="pic-op" ng-if="!editPageCtrl.showInput" ngf-select>
+              <i class="fa fa-upload" aria-hidden="true"></i>
+              <p> Upload </p>
+          </div>
+          <div class="pic-op" ng-if="!editPageCtrl.showInput" ng-click="editPageCtrl.showInput = true">
+              <i class="fa fa-link" aria-hidden="true"></i>
+              <p> Link </p>
+          </div>
+          <div class="pic-input" ng-if="editPageCtrl.showInput">
+            <input name="pic" placeholder="banner url" type="text" ng-minlength="4" ng-model="editPageCtrl.page.pageBannerURI"></input> 
+            <span class="pic-cancel" ng-click="editPageCtrl.showInput = false">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+            </span>
+          </div>
+      </section>
+    </fieldset>
 
-    <label for="name">Page name</label>
-    <input name="name" type="text" ng-minlength="4" ng-model="editPageCtrl.page.pageName">
+    <fieldset>
+        <label for="">page greeting</label>
+        <textarea class="edit-greeting edit-input" ng-model="editPageCtrl.page.greeting"></textarea>
+    </fieldset>
 
-    <label for="Desc">Page description</label>
-    <textarea cols="40" rows="5" placeholder="editPageCtrl.page.pageDesc" ng-model="editPageCtrl.page.pageDesc">
-    </textarea>
+    <fieldset>
+      <table class="link-table">
+          <label for=""> links </label>
+        <tr class="links" ng-repeat="link in editPageCtrl.page.links">
+          <td> <a class="link" href="{{link.link}}"> {{ link.name}} </a> </td>
+          <td> <span class="remove-link-btn glyphicon glyphicon-minus" ng-click="editPageCtrl.removeLink(link)"></span> </td>
+        </tr>
+        <tr class="add-link">
+          <td>
+            <input type="text" class="link-name" placeholder="name" ng-model="editPageCtrl.link_name">
+            <input type="text" class="link-url" placeholder="link" ng-model="editPageCtrl.link_link">
+          </td>
+          <td> <span class="add-link-btn glyphicon glyphicon-plus" ng-click="editPageCtrl.addLink()"> </span> </td>
+        </tr>
+      </table>
+    </fieldset>
 
-    <label for="">page banner </label>
-    <img ng-src="{{editPageCtrl.page.pageBannerURI}}" alt="">
-    <input name="name" type="text" ng-minlength="4" ng-model="editPageCtrl.page.pageBannerURI">
-    <button type="button" ngf-select ng-model="editPageCtrl.page.picfile">
-      select an banner image
-    </button>
+  
 
-    <label for="">page greeting</label>
-    <textarea name="" id="" cols="40" rows="5" ng-model="editPageCtrl.page.greeting">
+    <fieldset>
+      <label for="status">public</label>
+      <input class="edit-status" type="checkbox" name="status" value="private">
+    </fieldset>
 
-    </textarea>
 
-    <label for="status">public</label>
-    <input type="checkbox" name="status" value="private">
-
-    <button ng-disabled="editPageForm.$invalid">edit page</button>
+    <button class="edit-btn" ng-disabled="editPageForm.$invalid">edit page</button>
   </form>
 </section>

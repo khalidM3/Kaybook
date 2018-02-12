@@ -4,14 +4,14 @@ require('./_profile-item.scss');
 
 module.exports = {
   template: require('./profile-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$location', '$window', '$uibModal', 'profileService', 'pageService', 'postService', 'roomService', ProfileItemController],
+  controller: ['$log', '$rootScope', '$stateParams', '$location', '$window', '$uibModal', '$timeout', 'profileService', 'pageService', 'postService', 'roomService', ProfileItemController],
   controllerAs: 'profileItemCtrl',
   bindings: {
     profile: '<',
   }
 };
 
-function ProfileItemController($log, $rootScope, $stateParams, $location, $window, $uibModal, profileService, pageService, postService, roomService) {
+function ProfileItemController($log, $rootScope, $stateParams, $location, $window, $uibModal,$timeout, profileService, pageService, postService, roomService) {
   $log.debug('ProfileViewController');
 
   this.$onInit = () => {
@@ -30,7 +30,8 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     case 'chat':
       return this.fetchMyRooms();
     case 'friends':
-      return this.fetchFriends();
+      this.fetchFRP();
+      return this.fetchMyFriends();
     case 'requests':
       return this.fetchFRP();
     case 'pages':
@@ -42,17 +43,21 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     }
   };
 
-  this.fetchMyProfile = function(){
-    $log.debug('profileItemCtrl.fetchMyProfile()');
+  // this.fetchMyProfile = function(){
+  //   $log.debug('profileItemCtrl.fetchMyProfile()');
 
-    profileService.fetchMyProfile()
-    .then( profile => this.myProfile = profile)
-    .catch(err => $log.error('FAILED fetchMyProfile()', err));
-  };
+  //   profileService.fetchProfile()
+  //   .then( profile => this.myProfile = profile)
+  //   .catch(err => $log.error('FAILED fetchMyProfile()', err));
+  // };
 
   this.searchEnd = () => {
-    this.showResults = false;
-    this.resultsArr = null;
+    //TODO
+    //maybe add if !mouseover results then continue
+    $timeout( () => {
+      this.showResults = false;
+      this.resultsArr = null;
+    }, 200);
   };
 
   this.searchProfiles = () => {
@@ -71,7 +76,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     $log.debug('profileViewCtrl.fetchFRP()');
 
     profileService.fetchFriendReq(this.profile._id)
-   .then( profiles => this.profileArr = profiles.friendReq);
+   .then( profiles => this.friendsReq = profiles.friendReq);
   };
 
 
@@ -79,7 +84,9 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     $log.debug('profileItemCtrl.fetchMyFriends()');
 
     profileService.fetchFriends(this.profile._id)
-    .then( profiles => this.profileArr = profiles.friends)
+    .then( profile => {
+      this.profiles = profile.friends;
+    })
     .catch( err => console.log('Failed fetchMyFriends ', err));
   };
 
@@ -89,7 +96,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     this.showCreatePage = true;
 
     pageService.fetchPagesByPID($window.localStorage.profileID)
-    .then( pages => this.pagesArr = pages)
+    .then( pages => this.pages = pages)
     .catch( err => console.log('Failed fetchMyPages()', err));
 
   };
@@ -98,7 +105,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     $log.debug('profileItemCtrl.fetchFriendsPosts()');
 
     postService.fetchFriendsPosts()
-    .then( posts => this.friendsPosts =  posts)
+    .then( posts => this.posts =  posts)
     .catch(err => console.log('Failed to fetch posts', err));
   };
   
@@ -108,7 +115,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     this.showPostBtn = true;
 
     postService.fetchTimeline()
-    .then( posts => this.friendsPosts =  posts)
+    .then( posts => this.posts =  posts)
     .catch(err => console.log('Failed to fetch posts', err));
   };
 
@@ -117,11 +124,11 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
 
     this.showCreatePage = true;
 
-    profileService.fetchJoinedPages()
+    profileService.fetchJoinedPages(this.profile._id)
     .then( profile =>  {
-      this.myProfile = profile;
-      this.pagesArr = profile.memberOf;
-      console.log('this.pagesArr', this.pagesArr, profile.memberOf);
+      // this.myProfile = profile;
+      this.pages = profile.memberOf;
+      console.log('this.pages', this.pages, profile.memberOf);
       return;
     })
     .catch(err => $log.error('FAILED fetchJoiedPages()', err));
@@ -161,12 +168,30 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
   };
 
   this.goToProfile = (id) => {
+    console.log('going to profile #', id);
+    $location.url(`/profile/${id}`);
+  };
+  this.bark = (id) => console.log('id is ',id);
+
+  this.goToMyProfile = () => {
+    $location.url(`/profile/${this.profile._id}`);
+  };
+  this.goToProfile = (id) => {
     $location.url(`/profile/${id}`);
   };
 
-  this.goToMyProfile = () => {
-    $location.url(`/profile/${ $window.localStorage.profileID}`);
+  this.acceptReq = function(id){
+    profileService.acceptReq(id)
+    .then( res => console.log('SUCCESS accepted friend req()', res))
+    .catch( err => console.error('FAILED accepted friend req()', err));
   };
+
+  this.unFriend = function(id){
+    profileService.unFriend(id)
+    .then( res => console.log('Success unFriend() ', res))
+    .catch( err => console.log('Failed unFriend()', err));
+  };
+
 
   this.goTo = (str) => {
     $location.url(`/social/${str}`);

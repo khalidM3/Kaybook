@@ -1,6 +1,13 @@
 
 .create-post {
   display: block;
+
+  .create-header {
+    display: block;
+    width: 100%;
+    text-align: end;
+    padding: 10px;
+  }
   
 
   .post-choice-btns {
@@ -79,6 +86,7 @@
     overflow: hidden;
     font-size: 15px;
     line-height: 1.6;
+    resize: none;
     // overflow: hidden;
     // height: 50px;
     // min-height: 100px;

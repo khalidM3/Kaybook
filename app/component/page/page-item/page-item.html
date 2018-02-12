@@ -24,24 +24,68 @@
    <!-- <button ng-click="pageItemCtrl.bark()">bark</button> -->
 
    <section class="subnav">
-    <ul class="subnav-container"> 
+    <section class="subnav-container" ng-show="!showSearchBar"> 
       <!--ng-init="pageItemCtrl.fetchPagePosts()"-->
-      <li class="subnav-btn" ng-click="pageItemCtrl.pagePosts()">posts</li>
-      <li class="subnav-btn" ng-click="pageItemCtrl.pageFeed()">feed</li>
-      <li class="subnav-btn" ng-click="pageItemCtrl.pageMerch()">merch</li>
-      <li class="subnav-btn">about</li>
-    </ul>
+      <div class="subnav-btn posts" ng-click="pageItemCtrl.pagePosts()"> POSTS </div>
+      <div class="subnav-btn feed" ng-click="pageItemCtrl.pageFeed()"> FEED </div>
+      <div class="subnav-btn merch" ng-click="pageItemCtrl.pageMerch()"> MERCH </div>
+      <div class="subnav-btn about" ng-click="pageItemCtrl.goToAbout()"> ABOUT </div>
+      <div class="subnav-btn search" ng-click="showSearchBar = true">
+          <i class="fa fa-search" aria-hidden="true"></i>
+      </div>
+      <div class="subnav-btn create" ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </div>
+      <div class="subnav-btn create" ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToMerch()">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+    </section>
+
+      <section class="search-container" ng-show="showSearchBar">
+
+        <div class="filter-container" uib-dropdown on-toggle="toggled(open)">
+          <span  uib-dropdown-toggle alt=""> 
+              <p>{{ pageItemCtrl.filter_type}}</p>
+          </span>
+          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+            <li class="menu-op" ng-click="pageItemCtrl.filter('all')">
+                  <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
+                <p>all</p>
+            </li>
+            <li class="menu-op" ng-click="pageItemCtrl.filter('pic')">
+                <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
+                <p>image</p>
+            </li>
+            <li class="menu-op" ng-click="pageItemCtrl.filter('video')">
+                <!-- <i class="fa fa-trash-o" aria-hidden="true"></i> -->
+              <p>video</p>
+            </li>
+            <li class="menu-op" ng-click="pageItemCtrl.filter('question')">
+                <!-- <i class="fa fa-user-plus" aria-hidden="true"></i> -->
+                <p>question</p>
+            </li>
+            <li class="menu-op" ng-click="pageItemCtrl.filter('article')">
+                <p>article</p>
+            </li>
+            <li class="menu-op" ng-click="pageItemCtrl.filter('poll')">
+                <!-- <i class="fa fa-flag" aria-hidden="true"></i> -->
+              <p>poll</p>
+            </li>
+          </ul>
+        </div>
+        
+        <input type="text" class="search-bar" placeholder="search">
+
+        <div class="remove-btn">
+          <span class="glyphicon glyphicon-remove" ng-click="showSearchBar = false" aria-hidden="true"></span>
+        </div>
+      </section>
+
   </section>
   
-  <div class="create-container">
-    <span class="create-btn"ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()"> post </span>
-    <span class="create-btn"ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToMerch()">create merch</span>
-  </div>
-  <!--</div>-->
-  <!--<div ng-if="profileViewCtrl.showEditOption">
-  <input class="btn-std commenter-button" value="edit profie" type="submit" id="edit-button" ng-if="!profileViewCtrl.showEditView" ng-click="profileViewCtrl.showEditView = true">
-  <edit-profile ng-if="profileViewCtrl.showEditView" on-profile-updated="profileViewCtrl.updateProfileView()" profile="profileViewCtrl.profile"></edit-profile>    
-  </div>-->
+
+
+
 <!--   
   <section class="post-btns">
     <button class="post-btn" ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()"> post </button>
@@ -49,40 +93,28 @@
   <!-- </section> -->
   <!-- <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToCart()">view cart</button> -->
 
-  <!-- <ul class="dynamic-grid" angular-grid="pageItemCtrl.postsArr" grid-width="300" gutter-size="10" angular-grid-id="post-tiles" refresh-on-img-load="false">
-    <post-tile class="posttile grid" ng-repeat="post in pageItemCtrl.postsArr" postHeight="postHeight" post="post"></post-tile> -->
+  <section class="page-about" ng-if="pageItemCtrl.showAbout">
 
-    <!-- <li class="item grid">
-      <h2>This is one</h2>
-      <img src="http://www.itugek.org/wp-content/uploads/2017/10/breathtaking-outdoor-tall-table-cocktail-tables-home-design.jpg" alt="">
-    </li>
-    <li class="item grid">
-      <h2>This is one</h2>
-      <img src="https://atmedia.imgix.net/158b77b1bdcd75f863e7979893c9cb72009e07ad?w=800&fit=max" alt="">
-    </li>
-    <li class="item grid">
-      <h2>This is one</h2>
-      <img src="http://www.durafizz.com/wp-content/uploads/2017/11/counter-height-dining-table-high-table-and-chairs-high-table-and-chairs-dining-set-cheap-kitchen-table-sets-tall-bistro-table-805x805.jpg" alt="">
-    </li>
-    <li class="item grid">
-      <h2>This is one</h2>
-      <img src="http://www.itugek.org/wp-content/uploads/2017/10/breathtaking-outdoor-tall-table-cocktail-tables-home-design.jpg" alt="">
-    </li>
-    <li class="item grid">
-      <h2>This is one</h2>
-      <img src="http://4.bp.blogspot.com/-QSL7x9jJhgg/Vaklk7mLSXI/AAAAAAAAFUM/KMA7KGyHyk4/s1600/Nice%2BLiving%2BRoom%2BIdea2.jpg" alt="">
-    </li>
-    <li class="item grid">
-      <h2>This is one</h2>
-      <img src="http://www.connectorcountry.com/wp-content/uploads/2017/09/exquisite-simple-living-rooms-with-fireplace-awesome-best-nice-room-ideas-for-home-designs-in-modern-and-about-on.jpg" alt="">
-    </li>
-    <li class="item grid">
-      <h2>This is one</h2>
-      <img src="http://dkha6pllb2lce.cloudfront.net/wp-content/uploads/2016/02/interior-design.jpg" alt="">
-    </li> -->
-  <!-- </ul> -->
+    <div class="about-section">
+      <h2 class="about-title"> Description</h2>
+      <p class="about-content">
+        {{ pageItemCtrl.page.pageDesc}}
+      </p>
+    </div>
 
-      <post-tile class="posttile"  posts="pageItemCtrl.postsArr"></post-tile>
+    <div class="about-section about-links">
+      <h2 class="about-title"> Links </h2>
+
+      <div class="about-link" ng-repeat="link in pageItemCtrl.page.links">
+        <a href="{{link.link}}"> {{ link.name}} </a>
+      </div>
+    </div>
+  
+
+  </section>
+
+  <post-tile ng-if="!pageItemCtrl.showAbout" class="posttile"  posts="pageItemCtrl.postsArr"></post-tile>
+  
   
 
 

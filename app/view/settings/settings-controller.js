@@ -10,26 +10,10 @@ function SettingsController($log, $rootScope, $stateParams, $location, profileSe
 
 
 
-  this.showAccountContent = true;
-
   this.$onInit = () => {
-    profileService.fetchMyProfile()
-    .then( profile => {
-      this.profile = profile;
-      this.checkPath();
-    });
-
-  };
-
-  this.checkPath = () => {
     let section = $stateParams.section;
-
-    this.showProfile = false;
-    this.showContent = false;
-
     this['show'+section] = true;
   };
-
 
   this.accountProfile = () => {
     $location.url('settings/profile');

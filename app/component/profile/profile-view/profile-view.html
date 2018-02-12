@@ -4,28 +4,29 @@
 
   <section class="profile-main">
     <img class="main-pic" ng-src="{{profileViewCtrl.profile.profilePicURI}}"></div>
-    <div class="main-name">
-      <p class="name"> {{profileViewCtrl.profile.name}} </p>
-      <p class="name"> {{profileViewCtrl.profile.name}} </p>
-      <!-- <img src="{{profileViewCtrl.profile.profilePicURI}}" alt=""> -->
+    <div class="main-names m-op">
+      <p class="main-name"> {{profileViewCtrl.profile.name}} </p>
+      <p class="main-name"> @{{profileViewCtrl.profile.name}} </p>
     </div>
-    <div class="main-btns">
-      <!-- <span>{{profileViewCtrl.profile.friendxs.length}}</span> -->
-      <span class="main-btn" ng-if="profileViewCtrl.showSendReqBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.sendReq()"> send req </span>
-      <span class="main-btn" ng-if="profileViewCtrl.showUnSendReqBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.unSendReq()">unsend </span>
-      <span class="main-btn" ng-if="profileViewCtrl.showAcceptBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.acceptReq()">accept</span>
-      <span class="main-btn" ng-if="profileViewCtrl.showUnFriendBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.unFriend()">unfriend</span>
-      <span class="main-btn" ng-if="profileViewCtrl.showEditOption" ng-click="profileViewCtrl.goToEditProfile()"> edit profile</span>
+   
+    <div class="main-btns m-op">
+      <span class="main-btn blue-btn" ng-if="profileViewCtrl.showSendReqBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.sendReq()"> Send Request</span>
+      <span class="main-btn white-btn" ng-if="profileViewCtrl.showUnSendReqBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.unSendReq()"> Cancel Request </span>
+      <span class="main-btn blue-btn" ng-if="profileViewCtrl.showAcceptBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.acceptReq()"> Add Friend</span>
+      <span class="main-btn white-btn" ng-if="profileViewCtrl.showUnFriendBtn && !profileViewCtrl.showEditOption" ng-click="profileViewCtrl.unFriend()"> Unfriend</span>
+      <span class="main-btn blue-btn" ng-if="profileViewCtrl.showEditOption" ng-click="profileViewCtrl.goToEditProfile()"> Edit Profile</span>
     </div>
+    
   </section>
   
-   
-  <section class="profile-subnav">
-    <!-- <div> -->
-      <span class="subnav-btn" ng-click="profileViewCtrl.fetchMyPagePosts()">posts</span>
-      <span class="subnav-btn"  ng-click="profileViewCtrl.fetchTimePosts()"> timeline </span>
-      <span class="subnav-btn" ng-click="profileViewCtrl.about()"> about </span>
-    <!-- </div> -->
+  <section class="subnav">
+    <section class="profile-subnav">
+      <section class="subnav-container">
+          <span class="subnav-btn posts-btn" ng-click="profileViewCtrl.fetchPosts()">Posts</span>
+          <span class="subnav-btn joined-btn"  ng-click="profileViewCtrl.fetchJoined()"> Joined </span>
+          <span class="subnav-btn about-btn" ng-click="profileViewCtrl.about()"> About </span>
+      </section>
+    </section>
   </section>
 
 
@@ -35,12 +36,33 @@
     <post-item ng-repeat="post in profileViewCtrl.postsArr" post="post">what</post-item>
   </ul>-->
 
-  <!-- <ul class="dynamic-grid" angular-grid="profileViewCtrl.postsArr" grid-width="300" gutter-size="10" angular-grid-id="post-tiles" refresh-on-img-load="false"> -->
-    <post-tile class="posttile" ng-repeat="post in profileViewCtrl.postsArr" post="post"></post-tile>
-  <!-- </ul> -->
+    <section class="tile-container" ng-if="profileViewCtrl.showPosts">
+      <!-- <img class="tile-banner" ng-src="{{profileViewCtrl.profile.profileBannerURI}}"> -->
+      <div class="tile-posts" >
+        <post-tile class="posttile"  posts="profileViewCtrl.postsArr"></post-tile>
+      </div>
 
-  <section ng-if="profileViewCtrl.showBio">
-    {{profileViewCtrl.profile.bio }}
-  </section>
+    </section>
+
+    <section class="about-container" ng-if="profileViewCtrl.showBio">
+      <div class="about-section">
+          <h3 class="about-title">Bio</h3>
+          <p class="about-bio">
+            {{profileViewCtrl.profile.bio }}
+          </p>
+      </div>
+
+      <div class="about-section">
+        <h3 class="about-title">Links</h3>
+        <span class="about-link" ng-repeat="link in profileViewCtrl.profile.links">
+          <a href="{{link.link}}"> {{link.name}}</a>
+        </span>
+      </div>
+      
+    </section>
+
+    <section class="page-container" ng-if="profileViewCtrl.showJoined">
+      <page-tile ng-repeat="page in profileViewCtrl.joined" page="page"></page-tile>
+    </section>
   
 </section>

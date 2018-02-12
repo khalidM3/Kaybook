@@ -1,6 +1,25 @@
-<section class="pageTile" ng-click="pageTileCtrl.goToPage()">
+<section class="page-tile">
 
-  <img ng-src="{{ pageTileCtrl.page.pageBannerURI }}" alt="">
-  <p>{{ pageTileCtrl.page.pageName }}</p>
-  <p>{{ pageTileCtrl.page.pageDesc }}</p>
+  <img class="page-tile-banner" ng-src="{{ pageTileCtrl.page.pageBannerURI }}" ng-click="pageTileCtrl.goToPage()">
+
+  <section class="page-tile-main">
+    <div class="page-tile-header" ng-click="pageTileCtrl.goToPage()">
+      <span class="header-name">
+        {{ pageTileCtrl.page.pageName }}
+      </span>
+      <span class="header-members">
+          {{ pageTileCtrl.page.members.length }} members
+      </span>
+    </div>
+    <!-- <div class="page-btns"> -->
+        <span class="page-tile-btn edit-btn" ng-if="pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.edit()"> edit </span>
+        <span class="page-tile-btn join-btn" ng-if="!pageTileCtrl.showLeaveBtn && !pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.joinPage()">join</span>
+        <span class="page-tile-btn leave-btn" ng-if="pageTileCtrl.showLeaveBtn && !pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.leavePage()">leave</span>
+    <!-- </div> -->
+  </section>
+
+  <section class="page-tile-footer" ng-click="pageTileCtrl.goToPage()">
+    <p>{{ pageTileCtrl.page.pageDesc }}</p>
+  </section>
+
 </section>

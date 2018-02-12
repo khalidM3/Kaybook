@@ -8,6 +8,8 @@ module.exports = {
   controllerAs: 'createPageCtrl',
   bindings: {
     resolve: '<',
+    close: '&',
+    dismiss: '&',
   }
 };
 
@@ -24,7 +26,10 @@ function CreatePageController($log, $window, pageService) {
     $log.debug('createPageCtrl.createPage()');
 
     pageService.createPage(this.page)
-    .then( page => console.log('Success createpage()', page))
+    .then( page =>  {
+      console.log('Success createpage()', page);
+      this.dismiss({$value: 'cancel'});
+    })
     .catch(err => console.log('Failed createPage()', err));
   };
 }

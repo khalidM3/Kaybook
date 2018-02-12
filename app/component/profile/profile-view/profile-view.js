@@ -24,20 +24,39 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $locatio
 
   this.$onInit = function(){
     $log.debug('profileViewCtrl.$oninit()');
+    // console.log('inside ',$stateParams.profileID);
+    // this.profile_me = JSON.parse($window.localStorage.profile);
+    this.my_profile = JSON.parse($window.localStorage.profile);
+    // console.log('this profile ', this.profile);
+    // let me = $window.localStorage.getItem('profileID');
+    // let profileID = $stateParams.profileID;
+    // let isFriend = this.profile.friends.some(pID => pID.toString() === me);
+    // let sentThemReq = this.profile.friendReq.some(pID => pID.toString() === me);
+    // let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === myPID);
+    // this.showEditOption = myPID === profileID;
+    // this.showAcceptBtn = sentMeReq;
+    // this.showUnFriendBtn = isFriend;
+    // this.showSendReqBtn = !isFriend && !sentMeReq && !sentThemReq;
+    // this.showUnSendReqBtn = sentThemReq;
+    // this.fetchMyPagePosts();
 
-    this.profile = JSON.parse($window.localStorage.profile);
-    console.log('this profile ', this.profile);
-    let myPID = $window.localStorage.getItem('profileID');
-    let profileID = $stateParams.profileID;
-    let isFriend = this.profile.friends.some(pID => pID.toString() === myPID);
-    let sentThemReq = this.profile.friendReq.some(pID => pID.toString() === myPID);
-    let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === myPID);
-    this.showEditOption = myPID === profileID;
-    this.showAcceptBtn = sentMeReq;
-    this.showUnFriendBtn = isFriend;
-    this.showSendReqBtn = !isFriend && !sentMeReq && !sentThemReq;
-    this.showUnSendReqBtn = sentThemReq;
-    this.fetchMyPagePosts();
+    profileService.fetchProfile2($stateParams.profileID)
+    .then( profile => {
+      console.log(profile);
+      this.profile = profile;
+
+      let me = this.my_profile._id;
+      let profileID = profile._id;
+      let isFriend = this.profile.friends.some(pID => pID.toString() === me);
+      let sentThemReq = this.profile.friendReq.some(pID => pID.toString() === me);
+      let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === me);
+      this.showEditOption = me === profileID;
+      this.showAcceptBtn = sentMeReq;
+      this.showUnFriendBtn = isFriend;
+      this.showSendReqBtn = !isFriend && !sentMeReq && !sentThemReq;
+      this.showUnSendReqBtn = sentThemReq;
+      this.fetchPosts();
+    });
   };
 
   // this.updateProfileView = function() {
@@ -60,23 +79,57 @@ function ProfileViewController($log, $rootScope, $stateParams, $window, $locatio
   //   .catch( err => $log.error(err.message));
   // };
 
-  this.fetchMyPagePosts = () => {
+  this.fetchPosts = () => {
     $log.debug('ProfileViewController.fetchPosts()');
     this.showBio = false;
+    this.showJoined = false;
+    this.showPosts = true;
+    this.postsArr = [];
     postService.fetchMyPagePosts(this.profile._id)
-    .then( posts => this.postsArr =  posts);
+    .then( posts => {
+      console.log(posts);
+      this.postsArr = posts;
+    });
   };
 
-  this.fetchTimePosts = () => {
-    $log.debug('ProfileViewController.fetchTimePosts()');
-    this.showBio = false;
-    postService.fetchTimePosts(this.profile._id)
-    .then( posts => this.postsArr = posts);
+  // this.fetchTime = () => {
+  //   $log.debug('ProfileViewController.fetchTimePosts()');
+  //   this.showBio = false;
+  //   postService.fetchTimePosts(this.profile._id)
+  //   .then( posts => this.postsArr = posts);
+  // };
+
+  this.fetchJoined = () => {
+    profileService.fetchJoinedPages(this.profile._id)
+    .then( profile => {
+      this.showJoined = true;
+      this.showPosts = false;
+      this.showBio = false;
+      this.profile = profile;
+      this.joined = profile.memberOf;
+      console.log('joined', this.joined);
+    });
   };
+
+  // this.fetchJoinedPages = () => {
+  //   $log.debug('profileItemCtrl.fetchJoinedPages()');
+
+  //   this.showCreatePage = true;
+
+  //   profileService.fetchJoinedPages(this.profile._id)
+  //   .then( profile =>  {
+  //     // this.myProfile = profile;
+  //     this.pages = profile.memberOf;
+  //     console.log('this.pages', this.pages, profile.memberOf);
+  //     return;
+  //   })
+  //   .catch(err => $log.error('FAILED fetchJoiedPages()', err));
+  // };
 
   this.about = () => {
-
     this.showBio = true;
+    this.showJoined = false;
+    this.showPosts = false;
     this.postsArr = [];
     console.log(this.showBio, this.profile.bio)
   };
