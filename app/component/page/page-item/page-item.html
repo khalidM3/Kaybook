@@ -36,7 +36,7 @@
       <div class="subnav-btn create" ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()">
         <i class="fa fa-plus" aria-hidden="true"></i>
       </div>
-      <div class="subnav-btn create" ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToMerch()">
+      <div class="subnav-btn create" ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreateMerchModal()">
           <i class="fa fa-plus" aria-hidden="true"></i>
         </div>
     </section>
@@ -73,7 +73,7 @@
             </li>
           </ul>
         </div>
-        
+
         <input type="text" class="search-bar" placeholder="search">
 
         <div class="remove-btn">
@@ -119,7 +119,7 @@
 
 
   <ul>
-    <merch-tile ng-repeat="merch in pageItemCtrl.merchesArr" merch="merch"></merch-tile>
+    <merch-tile ng-repeat="merch in pageItemCtrl.merches" merch="merch"></merch-tile>
   </ul>
   
 </section>

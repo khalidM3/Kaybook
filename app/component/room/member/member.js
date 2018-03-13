@@ -1,80 +1,97 @@
 'use strict';
 
-require('./_member.scss');
+import './_member.scss';
+import template from './member.html';
 
-module.exports = {
-  template: require('./member.html'),
-  controller: ['$log', '$location', '$stateParams', '$window','$uibModal', 'profileService', 'roomService', MemberController],
-  controllerAs: 'memberCtrl',
-  bindings: {
-    room: '<',
-    resolve: '<'
+
+class MemberController {
+  constructor($log, $location, $stateParams, $window, $uibModal,  profileService, roomService) {
+    this.$log = $log;
+    this.$location = $location;
+    this.$stateParams = $stateParams;
+    this.$window = $window;
+    this.$uibModal = $uibModal;
+    this.profileService = profileService;
+    this.roomService = roomService;
   }
-};
 
 
-function MemberController($log, $location, $stateParams, $window, $uibModal,  profileService, roomService){
-  $log.debug('MemberController');
+  $onInit () {
+    this.profile = JSON.parse(this.$window.localStorage.profile);
+    console.log('this is the init', this.profile);
+    // this.room = this.resolve.room;
+    this.room = JSON.parse(JSON.stringify(this.resolve.room));
+    this.fetchFriends();
+    this.addArr = [];
+  }
 
-  // if(this.resolve) {
-  //   this.fetchFriends();
-  // }
-  this.fetchFriends = function(){
-    profileService.fetchFriends(this.resolve.profile._id)
+
+  fetchFriends() {
+    console.log('FETCHING FRIENDS')
+    this.members = [];
+    this.friends = [];
+    return this.profileService.fetchFriends(this.profile._id)
     .then( profile => {
       this.profile = profile;
-      console.log('profiles', profile);
+      let members = this.room.members;
+      this.profile.friends.forEach( friend => {
+        let isMember = members.some( m => m == friend._id);
+        if(isMember) return this.members.push(friend);
+        return this.friends.push(friend);
+      });
+
+      this.friendsArr = profile.friends;
+      console.log('members are', this.members);
+      console.log('friends are', this.friends);
       return;
     })
     .catch( err => console.log('Failed fetchMyFriends ', err));
-  };
+  }
 
-  this.addArr = [];
 
-  this.pushToAdd = function(friend){
-
-    let added = this.addArr.indexOf(friend._id);
-    console.log(added);
-    if(added > -1) return true;
-    this.addArr.push(friend._id);
-    console.log(this.addArr);
+  add (profile) {
+    let isMember = this.room.members.some(mid => mid == profile._id);
+    if(isMember) return;
+    this.room.members.push(profile._id);
+    this.members.push(profile);
+    this.friends = this.friends.filter( friend => friend._id !== profile._id);
     return;
-  };
+  }
 
-  this.addMembers = function(){
-    $log.debug('memberCtrl.addMembers()');
+  remove (profile) {
+    let isMember = this.room.members.some(mid => mid == profile._id);
+    console.log('__ISMEMBER__', isMember)
+    if(!isMember) return;
+    this.room.members = this.room.members.filter( mid => mid !== profile._id);
+    this.members = this.members.filter( member => member._id !== profile._id);
+    this.friends.push(profile);
+    return;
+  }
 
-    let roomID = $stateParams.roomID;
-    let memberData = {
-      members: this.addArr
-    };
+  leave () {
+    alert('Are You sure');
+    this.remove(this.profile)
+  }
 
-    console.log(roomID);
-    console.log(memberData);
-    roomService.addMembers(roomID, memberData)
-    .then( room => console.log('Success added member', room));
-  };
+  save () {
+    return this.close({$value: this.room});
+  }
 
-  this.removeMembers = function(){
-    $log.debug('memberCtrl.addMembers()');
-
-    let roomID = $stateParams.roomID;
-    let memberData = {
-      members: this.addArr
-    };
-
-    console.log(roomID);
-    console.log(memberData);
-    roomService.removeMembers(roomID, memberData)
-    .then( room => console.log('Success removed member', room));
-  };
-
-  // this.fetchFriends();
-  this.bark = function(){
-    console.log('BARK BARK BARK');
-    console.log('resolve', this.resolve);
-  };
-
-  
+  cancel () {
+    this.dismiss({$value: 'cancel'});
+  }
 
 }
+
+
+module.exports = {
+  template: template,
+  controller:  MemberController,
+  controllerAs: 'memberCtrl',
+  bindings: {
+    room: '<',
+    resolve: '<',
+    close: '&',
+    dismiss: '&',
+  }
+};

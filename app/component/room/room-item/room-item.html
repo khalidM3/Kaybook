@@ -1,5 +1,66 @@
 <section class="room-item">
 
+    <header class="room-item-header" >
+      <span class="room-op" ng-click="roomItemCtrl.goTo('')">
+          <!-- <i class="fa fa-arrow-left" aria-hidden="true"></i>   -->
+          <span class="menu-btn glyphicon glyphicon-menu-hamburger" ng-click="roomItemCtrl.showmenu = true"></span>
+      </span>
+
+      <span class="room-op">
+        {{roomItemCtrl.room.name}}
+      </span>
+  
+    </header>
+  
+    <main class="room-item-main">      
+      <msg-item ng-repeat="msg in roomItemCtrl.messages" msg="msg"></msg-item>
+    </main>
+  
+  
+  
+  
+    <footer class="room-item-footer">
+      <section class="footer-chat">
+        <span class="footer-chat-options" ng-click="roomItemCtrl.openSettingsModal(roomItemCtrl.profile)">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+        </span>
+        <textarea class="footer-chat-input" ng-model="roomItemCtrl.content" ng-keydown="roomItemCtrl.adjust($event)" ng-paste="roomItemCtrl.adjust($event)" placeholder="message" rows="1" minlength="1"></textarea>
+        <span class="footer-chat-btn" ng-click="roomItemCtrl.send()">send</span>
+      </section>
+    </footer>
+  
+  </section>
+  
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++ -->
+
+<!-- 
+<span class="footer-chat-options" uib-dropdown on-toggle="toggled(open)">
+    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+        <li class="menu-op" ng-click="postItemCtrl.openEditPostModal()">
+            Add Friend
+        </li>
+        <li class="menu-op" ng-click="postItemCtrl.delete()">
+            Leave room
+        </li>
+        <li class="menu-op" >
+           
+          </li>
+        <li class="menu-op" ng-click="postItemCtrl.report()">
+            <i class="fa fa-flag" aria-hidden="true"></i>
+          report
+        </li>
+      </ul>
+    <span  uib-dropdown-toggle alt=""> 
+    <i class="fa fa-cog" aria-hidden="true"></i>
+    </span>
+  </span> -->
+
+  <!-- ++++++++++++++++++++++++++++++++++++++ -->
+
+<!-- <section class="room-item">
+
   <header class="room-item-header">
     <p> {{roomItemCtrl.room.name}}</p>
 
@@ -9,7 +70,9 @@
 
 
 
-  <msg-tile ng-repeat="msg in roomItemCtrl.msgArr" msg="msg"></msg-tile>
+  <msg-tile ng-repeat="msg in roomItemCtrl.msgArr" msg="msg"></msg-tile> -->
+
+  <!-- comment -->
 
   <!--<li class="msg-tile" ng-repeat="msg in roomItemCtrl.msgArr track by $index">
     <img ng-src="{{msg.profilePicURI}}" alt="">
@@ -19,9 +82,10 @@
     <p> {{ msg.content }} </p>
  </li>-->
 
+    <!-- comment -->
 
 
-  <footer class="room-item-footer">
+  <!-- <footer class="room-item-footer">
     <img ng-src="{{ roomItemCtrl.profile.profilePicURI}}" alt="">
     <p> {{ roomItemCtrl.profile.name }} </p>
 
@@ -34,4 +98,4 @@
    
   </footer>
 
-</section>
+</section> -->

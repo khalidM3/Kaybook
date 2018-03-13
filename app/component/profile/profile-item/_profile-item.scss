@@ -218,9 +218,11 @@
       width: 100%;
     }
   }
+
   .tile-container {
     padding: 10px;
-
+    background-color: bisque;
+    height: 100%;
     .profiles-list {
       display: block;
       min-width: 300px;
@@ -274,6 +276,64 @@
           }
         }
       }
+    }
+  }
+
+  .profile-item-room {
+    // display: block;
+    // width: 100%;
+    // height: 100%;
+    // background-color: aquamarine;
+    display: inline-block;
+    position: absolute;
+    width: calc(100% - 250px);
+    height: 90vh;
+    padding: 0px;
+    @media screen and (max-width: 900px){
+      width: 100%;
+    }
+  }
+
+  .room-nav {
+    // padding: 10px;
+
+    .room-nav-cancel {
+      float: right;
+      padding: 20px 10px;
+      &:hover {
+        color: aqua;
+      }
+    }
+    .room-nav-back {
+      // float: left;
+      padding: 20px 10px;
+      &:hover {
+        color: aqua;
+      }
+    }
+
+    .room-create {
+      display: block;
+      color: black;
+      .room-create-btn {
+        display: block;
+        padding: 10px;
+        background-color: aqua;
+      }
+    }
+    .room-op {
+      display: block;
+      padding: 10px;
+      // outline: 1px solid white;
+      border-bottom: 1px solid black;
+      &:hover {
+        background-color: rgb(206, 206, 206);
+        color: black;
+      }
+    }
+    .room-active {
+      background-color: white;
+      color: grey;
     }
   }
 }

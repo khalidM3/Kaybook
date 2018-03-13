@@ -1,0 +1,82 @@
+.account-pages {
+  // background-color: rgb(207, 207, 207);
+  .page-filter {
+    // display: inline-block;
+    // background-color: red;
+    float: left;
+    width: 350px;
+    max-width: 100%;
+    // width: 10px;
+    // display: block;
+    // outline: 1px solid red;
+    // width: 600px;
+    // max-width: 100%;
+    // margin: auto;
+    // padding: 10px;
+  }
+  .edit-page {
+    // display: inline-block;
+    float: left;
+    width: 500px;
+    max-width: 100%;
+    // background-color: red;
+  }
+}
+
+.profiles-list {
+  outline: 1px solid grey;
+  display: block;
+  width: 400px;
+  // width: 70%;
+  max-width: 100%;
+  background-color: white;
+  margin: 10px 0;
+  .profile-list-head {
+    outline: 1px solid black;
+    padding: 5px;
+    background-color: #262661;
+    color: white;
+    // margin: 10px 0;
+    span {
+      padding: 10px;
+    }
+    outline: 1px solid grey;
+  }
+  .profile-list-item {
+    // outline: 1px solid grey;
+    border-bottom: 1px solid rgb(184, 184, 184);
+    background-color: white;
+    display: grid;
+    grid-template-columns: 40px auto;
+    grid-template-rows: 1;
+    grid-template-areas: 'img names . btn';
+    align-items: center;
+
+    padding: 10px;
+    // margin: 5px;
+    .list-item-image {
+      grid-area: img;
+      display: inline-block;
+      border-radius: 50%;
+      width: 30px;
+    }
+    .list-item-names {
+      grid-area: names;
+    }
+    .list-item-btn {
+      grid-area: btn;
+      // outline: 1px solid blue;
+      justify-self: end;
+      .item-remove {
+        outline: 1px solid grey;
+        padding: 5px;
+        background-color: red;
+      }
+      .item-add {
+        outline: 1px solid grey;
+        padding: 5px;
+        background-color: rgb(70, 226, 70);
+      }
+    }
+  }
+}

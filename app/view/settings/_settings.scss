@@ -1,12 +1,55 @@
-.account-settings-nav {
-  background-color: black;
-  color: white;
-  ul {
-    margin-left: 20%;
-    padding: 10px;
-  }
-  li {
-    display: inline;
-    padding-right: 10%;
+.settings {
+
+  .settings-style {
+    display: block;
+    width: 100%;
+    outline: 1px solid grey;
+
+    .account-settings {
+      display: block;
+      width: 500px;
+      max-width: 100%;
+      // background-color: grey;
+      margin: auto;
+      .account-settings-nav {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        grid-template-rows: 1;
+        grid-template-areas: "profile content page product";
+
+        justify-items: center;
+        padding: 5px;
+        .profile {
+          grid-area: profile;
+        }
+        .content {
+          grid-area: content;
+        }
+        .page {
+          grid-area: page;
+        }
+        .product {
+          grid-area: product;
+        }
+        .nav-btn {
+          padding: 5px 10px;
+          outline: 1px solid grey;
+        }
+      }
+    }
   }
 }
+
+
+// .account-settings-nav {
+//   background-color: black;
+//   color: white;
+//   ul {
+//     margin-left: 20%;
+//     padding: 10px;
+//   }
+//   li {
+//     display: inline;
+//     padding-right: 10%;
+//   }
+// }

@@ -1,8 +1,8 @@
-<section>
+<section class="account-content">
 
-<h3>Account content</h3>
+<!-- <h3>Account content</h3> -->
 
- <ul class="accountContent-navbar">
+ <!-- <ul class="accountContent-navbar">
    <li ng-click="accountContentCtrl.fetchMyPosts()"> all posts</li>
    <li ng-click="accountContentCtrl.filterType()"> video</li>
    <li ng-click="accountContentCtrl.filterType('pic')"> img</li>
@@ -12,10 +12,43 @@
    <li ng-click="accountContentCtrl.filterType('repost')"> repost </li>
    <li ng-click="accountContentCtrl.fetchMyAnswers()"> answers </li>
    <li>placeholder</li>
- </ul>
+ </ul> -->
+
+ <section class="search-container" >
+
+    <div class="filter-container" uib-dropdown on-toggle="toggled(open)">
+      <span  uib-dropdown-toggle alt=""> 
+          <p>{{ accountContentCtrl.filter_type}}</p>
+          <!-- filter -->
+      </span>
+      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+        <li class="menu-op" ng-click="accountContentCtrl.filter('all')">
+            <p>all</p>
+        </li>
+        <li class="menu-op" ng-click="accountContentCtrl.filter('pic')">
+            <p>image</p>
+        </li>
+        <li class="menu-op" ng-click="accountContentCtrl.filter('video')">
+          <p>video</p>
+        </li>
+        <li class="menu-op" ng-click="accountContentCtrl.filter('question')">
+            <p>question</p>
+        </li>
+        <li class="menu-op" ng-click="accountContentCtrl.filter('article')">
+            <p>article</p>
+        </li>
+        <li class="menu-op" ng-click="accountContentCtrl.filter('poll')">
+          <p>poll</p>
+        </li>
+      </ul>
+    </div>
+    
+    <input type="text" class="search-bar" placeholder="search" ng-model="accountContentCtrl.searchTerm" ng-change="accountContentCtrl.search()">
+
+  </section>
 
  <section>
-    <post-tile ng-repeat="post in accountContentCtrl.posts" post="post"></post-tile>
+    <post-tile posts="accountContentCtrl.posts"></post-tile>
   </section>
 
   <section>

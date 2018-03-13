@@ -30,7 +30,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
       let profileID = this.myProfile._id;
       this.count = page.members.length;
       this.showLeaveBtn = page.members.some( PID =>PID.toString() === profileID);
-      this.showEditBtn = this.profileID === page.profileID;
+      this.showEditBtn = profileID === page.profileID;
       this.page = page;
       return this.fetch();
     })
@@ -124,7 +124,7 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     $log.debug('pageItemCtrl.fetchPageMerch');
 
     merchService.fetchPageMerch(this.page._id)
-    .then( merches => this.merchesArr =  merches)
+    .then( merches => this.merches =  merches)
     .catch(err => console.log('Failed to fetch poll feed', err));
   };
 
@@ -210,6 +210,9 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
           return page;
         }
       }
+    })
+    .result.then( merch => {
+      this.merches.push(merch);
     });
   };
 

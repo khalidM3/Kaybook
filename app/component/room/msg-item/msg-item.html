@@ -1,0 +1,36 @@
+<section class="message-item" ng-if="msgItemCtrl.msg">
+    <div class="message-container">
+      <div class="image-container">
+        <img src="{{msgItemCtrl.msg.pic}}" alt="">
+      </div>
+      <div class="message-top">
+        <span class="top-name"> {{ msgItemCtrl.msg.name}} </span>
+        <span class="top-time"> {{msgItemCtrl.msg.created | date: "shortTime"}} </span>
+        <span class="top-menu" uib-dropdown on-toggle="toggled(open)" ng-if="msgItemCtrl.isOwner">
+            <span  uib-dropdown-toggle alt=""> 
+                <span class="glyphicon glyphicon-option-horizontal"></span> 
+            </span>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+              <li class="menu-op" ng-click="msgItemCtrl.showEdit = true">
+                edit
+              </li>
+              <li class="menu-op" ng-click="msgItemCtrl.delete()">
+                delete
+              </li>
+            </ul>
+        </span>
+      </div>
+      <div class="message-bottom" ng-show="!msgItemCtrl.showEdit">
+        <p class="bottom-message">
+          {{msgItemCtrl.msg.content}}
+        </p>
+      </div>
+      <div class="message-bottom" ng-show="msgItemCtrl.showEdit">
+        <textarea class="bottom-input" ng-model="msgItemCtrl.msg.content" ng-keypress="msgItemCtrl.adjust($event)"></textarea>
+        <div class="bottom-btns">
+          <span class="bottom-btn cancel-btn" ng-click="msgItemCtrl.showEdit = false"> cancel</span>
+          <span class="bottom-btn save-btn" ng-click="msgItemCtrl.update()"> save </span>
+        </div>
+      </div>
+    </div>
+  </section>

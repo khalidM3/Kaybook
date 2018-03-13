@@ -2,8 +2,9 @@
   display: inline-block;
   width: 100%;
   .edit-profile-container {
+    margin: auto;
 
-    outline: 1px solid black;
+    // outline: 1px solid black;
     display: block;
     width: 500px;
     max-width: 100%;
@@ -20,7 +21,8 @@
       display: block;
       margin: 10px auto;
       padding: 10px;
-      outline: 1px solid black;
+      // outline: 1px solid black;
+      border-top: 1px solid rgb(184, 182, 182);
       width: 100%;
       label {
         display: block;
