@@ -4,7 +4,7 @@ require('./_merch-cart.scss');
 
 module.exports = {
   template: require('./merch-cart.html'),
-  controller: ['$log', '$uibModal', '$window', 'merchService' , 'picService','profileService', MerchCartController],
+  controller: ['$log', '$uibModal', '$window','profileService', MerchCartController],
   controllerAs: 'merchCartCtrl',
   bindings: {
     merch: '<'
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function MerchCartController($log, $uibModal, $window, merchService, picService, profileService){
+function MerchCartController($log, $uibModal, $window, profileService){
   $log.debug('MerchCartController');
 
   let profileID = $window.localStorage.getItem('profileID');
@@ -25,7 +25,6 @@ function MerchCartController($log, $uibModal, $window, merchService, picService,
 
     profileService.fetchProfile2(this.merch.posterID)
     .then(profile => {
-      console.log('PPPPPPPPP', profile);
       this.mercher = profile;
     });
   };

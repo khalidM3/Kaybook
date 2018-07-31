@@ -58,34 +58,6 @@ function answerService($q, $log, $window, $http, authService){
       return $q.reject(err);
     });
   };
-  
-  
-
-  // service.createPollAnswer = function(pollID, answerData){
-  //   $log.debug('service.createPollAnswer');
-
-  //   return authService.getToken()
-  //   .then( token => {
-  //     let url = `${__API_URL__}/api/pollanswer/${pollID}`;
-  //     let config = {
-  //       headers: {
-  //         Accept: 'application/json',
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     };
-
-  //     return $http.post(url, answerData, config);
-  //   })
-  //   .then( res => {
-  //     $log.log('created an answer');
-  //     return res.data;
-  //   })
-  //   .catch( err => {
-  //     $log.error('Failed to create an answer',err);
-  //     return $q.reject(err);
-  //   });
-  // };
 
   service.replyAnswer = function(answerID, answerData){
     $log.debug('service.replyAnswer');
@@ -369,8 +341,6 @@ function answerService($q, $log, $window, $http, authService){
       return $q.reject(err);
     });
   };
-
-
 
   return service;
 

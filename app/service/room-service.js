@@ -10,9 +10,6 @@ function roomService($q, $log, $window, $http, authService){
   service.createRoom = function(){
     $log.debug('service.createPoll');
 
-    // let socket = io(`${__API_URL__}`);
-    // let socket = io('http://localhost:8000');
-
     return authService.getToken()
     .then( token => {
       let url = `${__API_URL__}/api/room/newroom`;

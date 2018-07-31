@@ -24,7 +24,6 @@
       display: block;
       width: 90%;
       padding: 10px;
-      // margin: 10px auto;
     }
 
     .edit-desc, .edit-greeting {
@@ -33,17 +32,13 @@
     }
     
     .post-pic-ops {
-      // background-color: slateblue;
       display: block;
-      // margin: 10px auto;
       width: 90%;
       text-align: center;
       .pic-op {
         outline: 1px solid black;
         display: inline-block;
         margin: 10px;
-        // width: 150px;
-        // height: 100px;
         padding: 10px;
         max-width: 40%;
 
@@ -75,20 +70,16 @@
 
     .link-table {
       width: 90%;
-      // outline: 1px solid black;
       tr {
-        // outline: 2px solid grey;
         vertical-align: middle;
       }
       td {
-        // outline: 1px solid grey;
         vertical-align: middle;
         border-top: 1px solid #ddd;
         padding: 10px;
       }
 
       .links {
-        // padding: 10px;
         margin: 10px;
         .remove-link-btn {
           outline: 1px solid grey;

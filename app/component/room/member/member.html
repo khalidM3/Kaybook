@@ -6,7 +6,6 @@
   {{memberCtrl.profile.friends[0].name}}
 
 
-  <!--<profile-tile ng-repeat="friend in memberCtrl.profile.friends" profile="friend" ng-click="memberCtrl.pushToAdd(friend)"></profile-tile>-->
   <li ng-repeat="friend in memberCtrl.profile.friends" ng-click="memberCtrl.pushToAdd(friend)"> {{ friend.name }}</li>
 
   <button ng-click="memberCtrl.fetchFriends()">choose friends</button>

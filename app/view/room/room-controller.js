@@ -31,7 +31,7 @@ function RoomController($log, $rootScope, $stateParams, $window, profileService,
     $log.debug('roomCtrl.fetchRoom');
     let roomID = $stateParams.roomID;
     this.oldroom = this.currRoom;
-    roomService.fetchRoom(roomID) // todo -secure the room BE;
+    roomService.fetchRoom(roomID) 
     .then( room => {
       let data = { old: roomID, new: room._id};
       socketService.emit('join room', data);

@@ -1,16 +1,13 @@
 <section class="page-item">
 
-  <!--<div ng-if="!profileViewCtrl.showEditView">-->
 
     <img class="banner" ng-src="{{pageItemCtrl.page.pageBannerURI}}">
     <div class="page-main">
       <ul class="main-container">
-        <!-- <li class="main-"><img ng-src="{{pageItemCtrl.page.profilePicURI}}"></li> -->
         <li class="main-head">
           <h3> {{pageItemCtrl.page.pageName}} </h3>
           <p> {{pageItemCtrl.count}}0000000 members </p>
         </li>
-        <!-- <li> {{pageItemCtrl.page.pageDesc}} </li> -->
         <li class="main-btns">
           <span class="main-btn edit-btn" ng-if="pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.goToEditPage()">edit page</span>
           <span class="main-btn join-btn" ng-if="!pageItemCtrl.showLeaveBtn && !pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.joinPage()">join</span>
@@ -19,13 +16,9 @@
       </ul>
     </div>
     
-   <!--<edit-page ng-if="pageItemCtrl.showEditBtn" page="pageItemCtrl.page"></edit-page>-->
-   <!-- <button ng-if="pageItemCtrl.showEditBtn" ng-click="pageItemCtrl.goToEditPage()">edit page</button> -->
-   <!-- <button ng-click="pageItemCtrl.bark()">bark</button> -->
-
+   
    <section class="subnav">
     <section class="subnav-container" ng-show="!showSearchBar"> 
-      <!--ng-init="pageItemCtrl.fetchPagePosts()"-->
       <div class="subnav-btn posts" ng-click="pageItemCtrl.pagePosts()"> POSTS </div>
       <div class="subnav-btn feed" ng-click="pageItemCtrl.pageFeed()"> FEED </div>
       <div class="subnav-btn merch" ng-click="pageItemCtrl.pageMerch()"> MERCH </div>
@@ -49,59 +42,41 @@
           </span>
           <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
             <li class="menu-op" ng-click="pageItemCtrl.filter('all')">
-                  <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                 <p>all</p>
             </li>
             <li class="menu-op" ng-click="pageItemCtrl.filter('pic')">
-                <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                 <p>image</p>
             </li>
             <li class="menu-op" ng-click="pageItemCtrl.filter('video')">
-                <!-- <i class="fa fa-trash-o" aria-hidden="true"></i> -->
               <p>video</p>
             </li>
             <li class="menu-op" ng-click="pageItemCtrl.filter('question')">
-                <!-- <i class="fa fa-user-plus" aria-hidden="true"></i> -->
                 <p>question</p>
             </li>
             <li class="menu-op" ng-click="pageItemCtrl.filter('article')">
                 <p>article</p>
             </li>
             <li class="menu-op" ng-click="pageItemCtrl.filter('poll')">
-                <!-- <i class="fa fa-flag" aria-hidden="true"></i> -->
               <p>poll</p>
             </li>
           </ul>
         </div>
         
         <input type="text" class="search-bar" placeholder="search">
-
         <div class="remove-btn">
           <span class="glyphicon glyphicon-remove" ng-click="showSearchBar = false" aria-hidden="true"></span>
         </div>
       </section>
-
   </section>
   
 
-
-
-<!--   
-  <section class="post-btns">
-    <button class="post-btn" ng-if="pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.openCreatePostModal()"> post </button>
-    <button class="post-btn" ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToMerch()">create merch</button> -->
-  <!-- </section> -->
-  <!-- <button ng-if="!pageItemCtrl.showPostBtn" ng-click="pageItemCtrl.goToCart()">view cart</button> -->
-
   <section class="page-about" ng-if="pageItemCtrl.showAbout">
-
     <div class="about-section">
       <h2 class="about-title"> Description</h2>
       <p class="about-content">
         {{ pageItemCtrl.page.pageDesc}}
       </p>
     </div>
-
     <div class="about-section about-links">
       <h2 class="about-title"> Links </h2>
 
@@ -109,17 +84,11 @@
         <a href="{{link.link}}"> {{ link.name}} </a>
       </div>
     </div>
-  
-
   </section>
 
-  <post-tile ng-if="!pageItemCtrl.showAbout" class="posttile"  posts="pageItemCtrl.postsArr"></post-tile>
-  
-  
-
-
-  <ul>
+  <div class="page-tiles">
+    <post-tile ng-if="!pageItemCtrl.showAbout" class="posttile"  posts="pageItemCtrl.postsArr"></post-tile>
     <merch-tile ng-repeat="merch in pageItemCtrl.merchesArr" merch="merch"></merch-tile>
-  </ul>
+  </div>
   
 </section>

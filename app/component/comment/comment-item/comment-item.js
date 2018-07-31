@@ -30,28 +30,24 @@ function CommentItemController($log, $window, commentService, profileService){
 
   this.deleteComment = function(){
     $log.debug('CommentItemController.deleteComment');
-
     commentService.deleteComment(this.comment)
     .then(this.onCommentChange());
   };
 
   this.commenter = function() {
-    $log.debug('CommentItemController.commenter', this.comment.commenterProfileID);
-
+    $log.debug('CommentItemController.commenter');
     profileService.fetchProfile2(this.comment.commenterProfileID)
     .then(profile => this.commenter = profile);
   };
 
   this.$onInit = function() {
     $log.debug('CommentItemController.$onInit()');
-    
     if (this.comment) return this.commenter();
     return this.onCommentChange();
   };
 
   this.updateCommentItemView = function() {
     $log.debug('CommentItemController.updateCommentItemView', this.comment);
-
     this.onCommentChange();
   };
 }

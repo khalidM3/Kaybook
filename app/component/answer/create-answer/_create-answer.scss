@@ -1,21 +1,17 @@
 .create-answer {
-  outline: 1px solid black;
   width: 97%;
   margin-left: 3%;
   margin-top: 10px;
 
   .profile {
     display: block;
-    outline: 1px solid blue;
-    // margin: 10px;
-
+    padding: 5px;
     .pic {
       display: inline-block;
       width: 40px;
       border-radius: 50%;
       vertical-align: middle;
     }
-
     .names {
       display: inline-block;
       vertical-align: middle;
@@ -23,38 +19,23 @@
         display: block;
       }
     }
-
-    
-
-
-
-  }
-
-  .ta-editor {
-    // display: inline-block;
-    // width: 200px;
-    // height: 200px;
   }
 
   .comment-editor {
     .ta-scroll-window > .ta-bind {
       min-height: 0px;
-      // width: 80%;
     }
     .ta-scroll-window, .form-control {
       min-height: 0px;
-      // width: 80%;
     }
   }
 
   .answer-editor {
     .ta-scroll-window > .ta-bind {
       min-height: 100px;
-      // width: 80%;
     }
     .ta-scroll-window, .form-control {
       min-height: 100px;
-      // width: 80%;
     }
   }
 
@@ -68,8 +49,10 @@
     }
 
     .create {
-      outline: 1px solid red;
-      background-color: aqua;
+      border: 1px solid lightgrey;
+      color: white;
+      background-color: dodgerblue;
+      border-radius: 3px;
     }
   }
 }

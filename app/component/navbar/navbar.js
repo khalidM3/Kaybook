@@ -11,11 +11,8 @@ module.exports = {
 function NavbarController($log, $window, $location, $rootScope, $uibModal, authService, profileService, pageService) {
   $log.debug('NavbarController');
 
-  // this.profilePic = $window.localStorage.getItem('profilePic');
   $rootScope.$on('$locationChangeStart', () => {
     this.checkPath();
-    // this.openPostModal({ _id: $location.search().id});()
-    // console.log('atarere', $location.search().id);
     if($location.search().id) {
       $uibModal.open({
         animation: this.animationsEnabled,
@@ -34,8 +31,6 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
   });
   
   this.fetchMyProfile = function(){
-
-    // let userID = $window.localStorage.getItem('userID');
     profileService.fetchProfile()
     .then( profile => {
       $window.localStorage.setItem('profileID', profile._id);
@@ -46,51 +41,42 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
 
   this.goSignUp = function() {
     $log.debug('NavbarController.goSignUp()');
-
     $location.url('/join');
   };
 
   this.goLogin = function() {
     $log.debug('NavbarController.goLogin()');
-
     $location.url('/signin');
   };
 
   this.goToPage = function(pageID) {
     $log.debug('NavbarController.myPage()');
-
-    // let userID = $window.localStorage.getItem('userID');
     $location.url(`/page/${pageID}/posts`);
   };
 
   this.myProfile = function() {
     $log.debug('NavbarController.myProfile()');
-
     let profileID = $window.localStorage.getItem('profileID');
     $location.url(`/profile/${profileID}`);
   };
 
   this.myAccount = function(){
     $log.debug('NavbarCtrl.myAccount');
-
     $location.url('settings/profile');
   };
 
   this.goHome = function() {
     $log.debug('NavbarController.goHome()');
-
     $location.url('/');
   };
 
   this.home = function() {
     $log.debug('NavbarController.home()');
-
     $location.url('/home');
   };
 
   this.logout = () => {
     $log.debug('NavbarController.logout()');
-
     authService.logout()
     .then( () => {
       delete $window.localStorage.token;
@@ -105,9 +91,7 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
   };
 
   this.searchPages = () => {
-    // if(this.pagesArr) name = this.pagesArr[0].pageName;
     if(this.searchName.split('').length > 3) {
-      // this.resultsClass = 'search-results';
       this.showResults = true;
       pageService.searchPages(this.searchName)
       .then( pages =>  {
@@ -117,23 +101,6 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
     }
     
   };
-
-
-  // this.check_profile = () => {
-  //   if(!$window.localStorage.profile) {
-  //     profileService.fetchProfile()
-  //     .then( profile => {
-  //       console.log('profile >>>>>>>>>', profile);
-  //       this.profile = profile;
-  //       profileService.setProfile(profile);
-  //       // $window.localStorage.profile = JSON.stringify(profile);
-  //       $window.localStorage.profileID = profile._id;
-  //       return;
-  //     });
-  //   } else {
-  //     this.profile = JSON.parse($window.localStorage.profile);
-  //   }
-  // };
 
   this.check_user = () => {
     profileService.fetchProfile()
@@ -162,7 +129,6 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
     }
 
     if (path === '/home') {
-      // console.log('CHECKING CHECKING CHECKING CHECKIGN CHECKING', $window.localStorage.profileID);
       this.loggedIn = true;
       authService.getToken()
       .then( () => {
@@ -199,7 +165,4 @@ function NavbarController($log, $window, $location, $rootScope, $uibModal, authS
     }
   };
 
-  // this.checkPath();
-
-  // $rootScope.$on('$locationChangeSuccess', () => this.checkPath());
 }

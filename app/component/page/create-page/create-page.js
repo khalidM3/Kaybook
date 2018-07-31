@@ -4,7 +4,7 @@ require('./_create-page.scss');
 
 module.exports = {
   template: require('./create-page.html'),
-  controller: ['$log', '$window', 'pageService', CreatePageController],
+  controller: ['$log', 'pageService', CreatePageController],
   controllerAs: 'createPageCtrl',
   bindings: {
     resolve: '<',
@@ -13,7 +13,7 @@ module.exports = {
   }
 };
 
-function CreatePageController($log, $window, pageService) {
+function CreatePageController($log, pageService) {
   $log.debug('CreatePageController');
 
   this.page = {};

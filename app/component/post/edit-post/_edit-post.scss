@@ -1,9 +1,5 @@
 .edit-post {
 
-  // img {
-  // max-width: 300px;
-  // min-width: 100px;
-  // }
 
   .post-title {
     border: 1px solid grey;
@@ -15,15 +11,12 @@
   }
 
   .post-pic-desc {
-    // outline: 1px solid grey;
     border: 1px solid grey;
     display: block;
     margin: 20px auto;
     width: 90%;
     overflow: hidden;
-    // overflow: hidden;
-    // height: 50px;
-    // min-height: 100px;
+
   }
 
 
@@ -34,15 +27,10 @@
     margin: 10px auto;
     width: 90%;
     text-align: center;
-    // img {
-    //   width: 100%;
-    // }
     .pic-op {
       outline: 1px solid black;
       display: inline-block;
       margin: 10px;
-      // width: 150px;
-      // height: 100px;
       padding: 10px;
       max-width: 40%;
     }
@@ -70,77 +58,22 @@
   }
 
   .post-content {
-    // display: block;
-    // outline: 1px solid red;
-    // width: 90%;
-    // margin: auto;
-
-    // .ta-editor {
-    //   min-height: 300px;
-    //   height: auto;
-    //   overflow: auto;
-    //   font-family: inherit;
-    //   font-size: 100%;
-    //   h1 {
-    //     font-size: 30px;
-    //   }
-    //   b {
-    //     font-weight: bold;
-    //   }
-    // }
-
-    // .ta-resizer-handle-overlay{
-    //   outline: 1px solid black;
-
-    //   .ta-resizer-handle-background {
-    //     background-color: green;
-    //     width: 20px;
-    //     height: 20px;
-    //   }
-    //   .ta-resizer-handle-corner-br {
-    //     height: 10px;
-    //     width: 10px;
-    //     background-color: rgb(47, 158, 192);
-    //   }
-    // }
-
-    // .ta-root {
-    //   .ta-toolbar {
-    //     margin: 0px;
-    //     padding: 0px;
-    //   }
-    //   .ta-text {
-    //     margin: 0px;
-    //     padding: 0px;
-    //   }
-
-    // }
-
-   
-
   }
-
-
-
-
 
   .post-poll {
     display: block;
     width: 100%;
-    // background-color: greenyellow;
+    
 
     tr {
-      // outline: 2px solid grey;
       vertical-align: middle;
     }
     td {
-      // outline: 1px solid red;
       vertical-align: middle;
       border-top: 1px solid #ddd;
       padding: 10px;
     }
     .choice-header {
-      // margin: auto;
       text-align: center;
     }
     .choice-table {
@@ -155,7 +88,7 @@
 
       .choice-table-last {
         max-width: 10%;
-        // min-width: 30px;
+
         width: 30px;
         text-align: center;
       }
@@ -170,8 +103,8 @@
           max-height: 100%;
           max-width: 100%;
           margin: 0 2%;
-          // background-color: green;
-          // color: white;
+  
+  
         }
       }
 

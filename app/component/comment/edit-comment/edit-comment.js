@@ -16,7 +16,6 @@ module.exports = {
 
 function EditCommentController($log, commentService){
   $log.debug('EditCommentController');
-  console.log('inside editCommentController :::::::::');
 
   this.editComment = function(){
     let commentData = {

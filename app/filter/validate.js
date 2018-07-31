@@ -11,11 +11,6 @@ module.exports = ($q) => (src) => {
     deferred.resolve(src);
   };
   image.src = src;
-  // let it = deferred.promise;
-  console.log('IT',deferred.promise);
-  // for( var prop in it) console.log(it[prop]);
   return deferred.promise;
-  
 
-  //  'http://via.placeholder.com/500x300';
 };

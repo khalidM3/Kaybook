@@ -4,7 +4,7 @@ require('./_merch-tile.scss');
 
 module.exports = {
   template: require('./merch-tile.html'),
-  controller: ['$log', '$location' ,'$uibModal', '$window', 'merchService' , 'picService','profileService', MerchTileController],
+  controller: ['$log', '$location' ,'$uibModal', '$window','profileService', MerchTileController],
   controllerAs: 'merchTileCtrl',
   bindings: {
     merch: '<'
@@ -12,7 +12,7 @@ module.exports = {
 };
 
 
-function MerchTileController($log, $location, $uibModal, $window, merchService, picService, profileService){
+function MerchTileController($log, $location, $uibModal, $window, profileService){
   $log.debug('MerchTileController');
 
   let profileID = $window.localStorage.getItem('profileID');
@@ -25,7 +25,6 @@ function MerchTileController($log, $location, $uibModal, $window, merchService, 
 
     profileService.fetchProfile2(this.merch.posterID)
     .then(profile => {
-      console.log('PPPPPPPPP', profile);
       this.mercher = profile;
     });
   };
@@ -45,20 +44,3 @@ function MerchTileController($log, $location, $uibModal, $window, merchService, 
   };
 
 }
-
-
-
-// this.openMerchModal = function () {
-//   merchService.fetchMerchOptions(this.merch._id)
-//   .then( merch => {
-//     $uibModal.open({
-//       animation: this.animationsEnabled,
-//       component: 'merchItem',
-//       resolve: {
-//         merch: function () {
-//           return merch; 
-//         }
-//       }
-//     });
-//   });
-// };

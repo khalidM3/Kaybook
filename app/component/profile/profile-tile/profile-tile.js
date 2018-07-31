@@ -16,19 +16,8 @@ function ProfileTileController($log, $location, $stateParams, $window, profileSe
   $log.debug('ProfileTileController');
 
   this.$onInit = function(){
-    let profileID = $window.localStorage.getItem('profileID');
-    let isFriend = this.profile.friends.some(pID => pID.toString() === profileID);
-    let sentThemReq = this.profile.friendReq.some(pID => pID.toString() === profileID);
-    let sentMeReq = this.profile.sentReq.some(pID => pID.toString() === profileID);
-    // this.showAcceptBtn = sentMeReq;
-    // this.showUnFriendBtn = isFriend;
-    // this.showSendReqBtn = !sentMeReq && !sentThemReq && !isFriend;
-    this.showAcceptBtn = this.showUnFriendBtn = this.showSendReqBtn = this.showUnSendReqBtn = true;//sentThemReq;
-    console.log(this.profile.name);
-    console.log('is my friend', isFriend);
-    console.log('sent them a request', sentThemReq);
-    console.log('sent me a request', sentMeReq);
-    console.log('+++++++++++++++++++++++++++++++++');
+
+    this.showAcceptBtn = this.showUnFriendBtn = this.showSendReqBtn = this.showUnSendReqBtn = true;
   };
 
   this.goToProfile = function(){
@@ -48,7 +37,6 @@ function ProfileTileController($log, $location, $stateParams, $window, profileSe
     profileService.sendReq(this.profile._id)
     .then( res => console.log('SUCCESS sent friend req()', res))
     .catch( err => console.error('FAILED to send friend req()', err));
-    // return this.updateProfileView();
   };
 
   this.unSendReq = function(){
@@ -77,7 +65,6 @@ function ProfileTileController($log, $location, $stateParams, $window, profileSe
     profileService.acceptReq(this.profile._id)
     .then( res => console.log('SUCCESS accepted friend req()', res))
     .catch( err => console.error('FAILED accepted friend req()', err));
-    // return this.updateProfileView();
   };
 
   this.unFriend = function(){

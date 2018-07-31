@@ -11,11 +11,5 @@ function SocialController($log, $rootScope, $stateParams, $window, profileServic
     $log.debug('socialCtrl.$onInit()');
 
     this.profile = JSON.parse($window.localStorage.profile);
-    // profileService.fetchProfile()
-    // .then( profile => {
-    //   console.log('-----------------------');
-    //   console.log(profile);
-    //   return this.myProfile = profile;
-    // });
   };
 }

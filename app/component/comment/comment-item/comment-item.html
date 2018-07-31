@@ -1,32 +1,16 @@
 <li class="commentItem">
   <on-init></on-init>
 
+  <div ng-if="commentItemCtrl.authorized">
+  <button ng-if="!commentItemCtrl.showEditComment" ng-click="commentItemCtrl.showEditComment = true">edit</button>
+  <button ng-if="commentItemCtrl.showEditComment" ng-click="commentItemCtrl.showEditComment = false">cancel</button>
+  <edit-comment ng-if="commentItemCtrl.showEditComment" comment="commentItemCtrl.comment"></edit-comment>
+  <button ng-click="commentItemCtrl.deleteComment()">delete</button>
+  </div>
 
-  <!--<div class="current-comment" ng-if="!commentItemCtrl.showEditComment">-->
-
-    <!--<div class="profimg">
-      <img src="{{commentItemCtrl.commenter.profilePicURI}}">
-    </div>-->
-
-    <div ng-if="commentItemCtrl.authorized">
-    <button ng-if="!commentItemCtrl.showEditComment" ng-click="commentItemCtrl.showEditComment = true">edit</button>
-    <button ng-if="commentItemCtrl.showEditComment" ng-click="commentItemCtrl.showEditComment = false">cancel</button>
-    <edit-comment ng-if="commentItemCtrl.showEditComment" comment="commentItemCtrl.comment"></edit-comment>
-    <button ng-click="commentItemCtrl.deleteComment()">delete</button>
-    </div>
-
-    <p class="commenter-name">{{commentItemCtrl.commenter.name}}</p> <p>{{commentItemCtrl.comment.comment}}</p>
-    <p>{{commentItemCtrl.comment.created | date : 'mediumDate'}}</p>
+  <p class="commenter-name">{{commentItemCtrl.commenter.name}}</p> <p>{{commentItemCtrl.comment.comment}}</p>
+  <p>{{commentItemCtrl.comment.created | date : 'mediumDate'}}</p>
     
-
-  <!--</div>-->
-  
-  <!--<edit-comment on-comment-edited="commentItemCtrl.updateCommentItemView()" ng-if="commentItemCtrl.loggedIn && commentItemCtrl.showEditComment && commentItemCtrl.profile._id === commentItemCtrl.comment.commenterProfileID" comment="commentItemCtrl.comment"></edit-comment>-->
-  
-  <!--<input ng-if="commentItemCtrl.loggedIn && !commentItemCtrl.showEditComment && commentItemCtrl.profile._id === commentItemCtrl.comment.commenterProfileID" ng-click="commentItemCtrl.showEditComment = !commentItemCtrl.showEditComment" class="btn-std commenter-button" value="edit" type="submit">-->
-
-  <!--<input ng-if="commentItemCtrl.loggedIn && commentItemCtrl.profile._id === commentItemCtrl.comment.commenterProfileID" ng-click="commentItemCtrl.deleteComment(commentItemCtrl.comment)" class="btn-std commenter-button" type="submit" value="delete">-->
-  
   <div class="clearfix">
   </div>
 </li>
