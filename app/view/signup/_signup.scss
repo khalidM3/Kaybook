@@ -9,10 +9,10 @@
       min-width: 300px;
       max-width: 500px;
       margin: 10% auto;
-      border: 1px solid grey;
 
       legend {
         font-size: 30px;
+        color: wheat;
       }
       input {
         width: 80%;
@@ -25,6 +25,12 @@
 
       input[type=submit] {
         transition: 350ms;
+        width: 60%;
+        background-color: #ff1bff;
+        color: white;
+        margin: 30px auto;
+        height: 40px;
+        border: none;
         &:hover {
           background-color: $app-secondary;
           color: #fff;
