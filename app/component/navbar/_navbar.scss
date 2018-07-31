@@ -6,7 +6,7 @@
   @include container-fixed(10px);
   $navbar-height: 35px;
   outline: 1px solid black;
-  background-color: #252525;
+  background-color: #69306D;
   padding-top: 6px;
   margin: 0px;
   .navbar-row {
@@ -14,17 +14,18 @@
     height: 100%;
   }
   .navbar-main {
-    float: left;
+    // float: left;
   }
   .navbar-main-logo {
-    color: silver;
+    color:#D3BCC0;
   }
   .navbar-main-logo {
     @include make-xs-column(2, 5%);
-    @include make-sm-column(1, 5%);
-    @include make-lg-column(1, 5%);
+    @include make-sm-column(2, 5%);
+    @include make-lg-column(2, 5%);
     
     height: $navbar-height;
+    padding-top: 10px;
     min-width: 40px;
     .navbar-logo {
       width: 100%;
@@ -35,8 +36,8 @@
 
   .navbar-searchbar {
     @include make-xs-column(8, 5%);
-    @include make-sm-column(10, 5%);
-    @include make-lg-column(10, 5%);
+    @include make-sm-column(8, 5%);
+    @include make-lg-column(8, 5%);
 
     height: $navbar-height;
     input {
@@ -69,13 +70,14 @@
       display: inline-block;
       position: relative;
       text-align: center;
-      border: 1px solid white;
-      border-radius: 10px;
+      border: 1px solid wheat;
+      border-radius: 3px;
       width: 90%;
-      height: $navbar-height;
       outline: 1px solid grey;
-      font-size: 20px;
-      padding: 5%;
+      font-size: 17px;
+      padding: 5px 10px;
+      color: wheat;
+      margin-top: 5px;
     }
 
     .navbar-menu {

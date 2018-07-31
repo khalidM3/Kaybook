@@ -4,12 +4,12 @@
   .edit-profile-container {
     margin: auto;
 
-    // outline: 1px solid black;
+    outline: 1px solid lightgrey;
     display: block;
-    width: 500px;
+    width: 700px;
     max-width: 100%;
     padding: 10px;
-    
+    margin: 10px auto;
     .edit-profile-header {
       display: block;
       margin: auto;
@@ -21,8 +21,7 @@
       display: block;
       margin: 10px auto;
       padding: 10px;
-      // outline: 1px solid black;
-      border-top: 1px solid rgb(184, 182, 182);
+      border-bottom: 1px solid lightgrey;
       width: 100%;
       label {
         display: block;
@@ -61,6 +60,8 @@
       display: block;
       width: 90%;
       padding: 10px;
+      border: none;
+      border-bottom: 1px solid purple;
     }
 
     .edit-desc, .edit-greeting {
