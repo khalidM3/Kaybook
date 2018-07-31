@@ -2,9 +2,7 @@
 KayBook is a social media platform for creating fanpages with e-commerce, posts, forums, polls, dms and more. Users can create a fanpage that other users can follow. They can add
 
 <h5 align="center"> Preview </h5>
-<image src="./images/signup.png" />
-<image src="./images/posts.png" />
-<image src="./images/account-big.png" />
+<image src="./images/first.png" width="100%" />
 
 ### Environment
 Make sure you have a suitable environment for kayBook to run
@@ -18,12 +16,7 @@ Make sure you have a suitable environment for kayBook to run
 3. run `yarn build` or `yarn watch`
 
 <h5 align="center"> Preview </h5>
-<image src="./images/post-image-create.png" />
-<image src="./images/post-article-create.png" />
-<image src="./images/question-answer.png" />
-<image src="./images/image-reply.png" />
-<image src="./images/comments.png" />
-<image src="./images/timeline-post.png" />
+<image src="./images/second.png" width="100%" />
 
 ### Features
 1. Users can friend other users by sending them friend requests.
@@ -32,9 +25,7 @@ Make sure you have a suitable environment for kayBook to run
 4. Owners of a fanpage can post their merchandise on the merch section of the fanpage.
 
 <h5 align="center"> Preview </h5>
-<image src="./images/timeline-image.png" />
-<image src="./images/page-image.png" />
-<image src="./images/forum.png" />
+<image src="./images/third.png" width="100%" />
 
-<image src="./images/timeline-posts.png" />
+<image src="./images/last.png" width="100%" />
 
