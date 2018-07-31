@@ -22,6 +22,8 @@ Make sure you have a suitable environment for kayBook to run
 <image src="./images/post-article-create.png" />
 <image src="./images/question-answer.png" />
 <image src="./images/image-reply.png" />
+<image src="./images/comments.png" />
+<image src="./images/timeline-post.png" />
 
 ### Features
 1. Users can friend other users by sending them friend requests.
@@ -33,4 +35,6 @@ Make sure you have a suitable environment for kayBook to run
 <image src="./images/timeline-image.png" />
 <image src="./images/page-image.png" />
 <image src="./images/forum.png" />
-<image src="./images/comments.png" />
+
+<image src="./images/timeline-posts.png" />
+
