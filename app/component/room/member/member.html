@@ -1,10 +1,39 @@
 <section class="member">
+  <div class="cancel-btn" ng-click="memberCtrl.cancel()">
+    <span class="glyphicon glyphicon-remove"></span>
+  </div>
+  <div class="member-room-name">
+    <input class="room-name-input" type="text" ng-model="memberCtrl.room.name" placeholder="room name">
+  </div>
 
+  <ul class="member-friends-list">
+      <h3 class="member-title">Members</h3>
+    <li class="member-friend" ng-repeat="profile in memberCtrl.members">
+      <img class="friend-pic" src="{{profile.profilePicURI}}">
+      <span class="friend-name">
+        {{ profile.name}}
+      </span>
+      <span class="friend-btn remove-btn" ng-click="memberCtrl.remove(profile)">
+          <i class="fa fa-minus" aria-hidden="true"></i>
+      </span>
+    </li>
+    <li class="member-leave-btn" ng-click="memberCtrl.leave()">
+      <p> Leave chat</p>
+    </li>
+  </ul>
 
-  <h2>Member Modal</h2>
-
-  {{memberCtrl.profile.friends[0].name}}
-
+  <ul class="member-friends-list">
+      <h3 class="member-title">Invite more friends</h3>
+      <li class="member-friend" ng-repeat="profile in memberCtrl.friends">
+       <img class="friend-pic" src="{{profile.profilePicURI}}">
+        <span class="friend-name">
+          {{ profile.name}}
+        </span>
+        <span class="friend-btn add-btn" ng-click="memberCtrl.add(profile)">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </span>
+      </li>
+    </ul>
 
   <li ng-repeat="friend in memberCtrl.profile.friends" ng-click="memberCtrl.pushToAdd(friend)"> {{ friend.name }}</li>
 

@@ -11,8 +11,7 @@ angular.module('btford.socket-io', []).
     'use strict';
 
     // when forwarding events, prefix the event name
-    var defaultPrefix = 'socket:',
-      ioSocket;
+    var defaultPrefix = 'socket:',ioSocket;
 
     // expose to provider
     this.$get = ['$rootScope', '$timeout', function ($rootScope, $timeout) {

@@ -1,12 +1,23 @@
-<li class="merch-tile" ng-click="merchTileCtrl.openMerchModal()">
+<section class="merch-tile" ng-click="merchTileCtrl.goToMerch()">
 
-  <h2> {{ merchTileCtrl.merch.name}} </h2>
+  <!-- <h2> {{ merchTileCtrl.merch.name}} </h2> -->
+  <div class="header">
+    <span class="merch-title"> {{ merchTileCtrl.merch.name}} </span>
+  </div>
 
-  <img ng-src="{{ merchTileCtrl.merch.options[0].picURI}}" alt="">
+  <section class="main">
+    <img ng-src="{{ merchTileCtrl.merch.options[0].picURI}}" alt="">
+  </section>
 
-  <p> {{ merchTileCtrl.merch.desc}} </p>
+  <section class="footer">
+    <span class="merch-desc"> ${{ merchTileCtrl.merch.prices[0]}} </span>
+
+  </section>
+
+
+  <!-- <p> {{ merchTileCtrl.merch.desc}} </p>
 
   <p> $ {{ merchTileCtrl.merch.price}} USD</p>
 
-  <p> stock {{ merchTileCtrl.merch.qtty}} </p>
-</li>
+  <p> stock {{ merchTileCtrl.merch.qtty}} </p> -->
+</section>

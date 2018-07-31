@@ -3,7 +3,8 @@
 require('./scss/main.scss');
 
 const path = require('path');
-const angular = require('angular');
+import angular from 'angular'
+// const angular = require('angular');
 const camelcase = require('camelcase');
 const pascalcase = require('pascalcase');
 const uiRouter = require('angular-ui-router');

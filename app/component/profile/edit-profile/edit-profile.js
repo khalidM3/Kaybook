@@ -14,6 +14,13 @@ module.exports = {
 function EditProfileController($log, $window, profileService, picService) {
   $log.debug('EditProfileController');
 
+  this.$onInit = () => {
+    return profileService.fetchMyProfile()
+    .then( profile => {
+      this.profile = profile;
+    });
+  };
+
 
   this.addLink = () => {
 

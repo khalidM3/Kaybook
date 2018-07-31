@@ -104,20 +104,21 @@ function profileService($q, $log, $http, $window, authService) {
   service.fetchMyProfile = function() {
     $log.debug('profileService.fetchProfile');
 
-    let userID = $window.localStorage.getItem('userID');
-    let url = `${__API_URL__}/api/profile/${userID}`;
-    let config = {
-      headers: {
-        Accept: 'application/json'
-      }
-    };
-
-    return $http.get(url, config)
+    return authService.getToken()
+    .then( token => {
+      let url = `${__API_URL__}/profiles/me`;
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      };
+      return $http.get(url, config);
+    })
     .then( res => {
       $log.log('Profile Retrieved', res);
-      $window.localStorage.setItem('profilePic', res.data.profilePicURI);
-      service.profile = res.data;
-      return service.profile;
+      service.setProfile(res.data);
+      return res.data;
     })
     .catch( err => {
       $log.error(err.message);
