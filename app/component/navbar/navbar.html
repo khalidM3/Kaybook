@@ -13,11 +13,14 @@
     </div>
 
     <div class="navbar-auth navbar-main">
+      {{ navbarCtrl.profile.profilePicURI }}
       <span class="navbar-login"ng-if="navbarCtrl.signupBtn" class="signup" ng-click="navbarCtrl.goSignUp()">sign up</span>
       <span class="navbar-login" ng-if="navbarCtrl.loginBtn" class="signup" ng-click="navbarCtrl.goLogin()">login</span>
       
       <span class="navbar-menu navbar-main" ng-if="navbarCtrl.loggedIn" uib-dropdown on-toggle="toggled(open)">
-        <img class="menu-pic" ng-src="{{navbarCtrl.profile.profilePicURI}}" uib-dropdown-toggle alt="">
+        <div> {{ navbarCtrl.profile }} </div>
+        <!-- <img class="menu-pic" src="http://placehold.it/50x50" /> -->
+        <img class="menu-pic" ng-src="{{navbarCtrl.profilePic}}" uib-dropdown-toggle alt="">
         <ul class="dropdown-menu navbar-dropdown" uib-dropdown-menu aria-labelledby="simple-dropdown">
           <li class="menu-header">
             <img src="{{navbarCtrl.profile.profilePicURI}}" alt="">
