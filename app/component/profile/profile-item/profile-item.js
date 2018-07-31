@@ -95,7 +95,7 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     console.log('what us going on mate', this.profile);
     this.showCreatePage = true;
 
-    pageService.fetchPagesByPID($window.localStorage.profileID)
+    pageService.fetchPagesByPID(this.profile._id)
     .then( pages => this.pages = pages)
     .catch( err => console.log('Failed fetchMyPages()', err));
 
@@ -158,9 +158,20 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
     $log.debug('profileItemCtrl.fetchMyRooms()');
 
     this.showRoomBtn = true;
+    this.showRooms = true;
     
     roomService.fetchMyRooms()
-    .then( room => this.roomsArr = room);
+    .then( rooms => {
+      console.log('rooms is like', rooms);
+      this.rooms = rooms;
+      this.room = rooms[0];
+    });
+  };
+
+  this.chooseRoom = (id) => {
+    let currRoom = this.rooms.filter(room => room._id == id)[0];
+    return this.room = currRoom;
+    // console.log('room is ', this.room);
   };
 
   this.goToAccount = () => {
@@ -220,6 +231,47 @@ function ProfileItemController($log, $rootScope, $stateParams, $location, $windo
         profile: function () {
           return profile;
         }
+      }
+    });
+  };
+
+  this.openSettingsModal = function () {
+    let room = { members:[]};
+    $uibModal.open({
+      animation: this.animationsEnabled,
+      component: 'member',
+      resolve: {
+        room: function () {
+          return room;
+        }
+      }
+    })
+    .result.then( res => {
+      console.log("ROOMS", this.rooms, res, this.rooms);
+      res.members.push(this.profile._id);
+      this.rooms.forEach( (room, i) => {
+        let sameMembers = room.members.every( member => res.members.some( m => m === member));
+        let sameLength = room.members.length == res.members.length;
+        let scanComplete = i == this.rooms.length - 1;
+        console.log(sameMembers, sameLength);
+        if( sameMembers && sameLength) {
+          this.room = room;
+          throw console.log('already there', room);
+        }
+        if(scanComplete && !sameMembers) {
+          console.log('make a room', res);
+          return roomService.createRoom(res)
+          .then( room => {
+            this.rooms.push(room);
+            this.room = room;
+          });
+        }
+      });
+
+      if(this.rooms.length < 1) {
+        console.log('when no rooms', res);
+        return roomService.createRoom(res)
+        .then( room => console.log('Successfully createRoom ', room));
       }
     });
   };
