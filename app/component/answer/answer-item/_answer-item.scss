@@ -1,12 +1,11 @@
 .answer-item {
-  border-left: 1px solid grey;
-  // margin: 10px;
+  border-top: 1px solid lightgrey;
+  padding: 5px;
   width: 97%;
   margin-left: 3%;
   margin-top: 10px;
 
   .answer-item-header {
-    outline: 1px solid red;
     display: block;
     width: 100%;
     padding-left: 1%;
@@ -14,7 +13,7 @@
       display: inline-block;
       vertical-align: middle;
       width: 8%;
-      min-width: 30px;
+      min-width: 20px;
       border-radius: 50%;
     }
     .header-names {
@@ -26,7 +25,6 @@
     }
 
     .header-options {
-      // display: inline-block;
       vertical-align: middle;
       text-align: end;
       float: right;
@@ -71,47 +69,21 @@
     .answer-editor {
       .ta-scroll-window > .ta-bind {
         min-height: 100px;
-        // width: 80%;
       }
       .ta-scroll-window, .form-control {
         min-height: 100px;
-        // width: 80%;
       }
     }
 
   }
   
-  // .edit-btns {
-  //   display: block;
-  //   width: 100%;
-  //   text-align: end;
-  //   height: auto;
-  //   margin: 10px;
-  //   // outline: 1px solid black;
-  //   .edit-btn {
-  //     // vertical-align: middle;
-  //     padding: 5px;
-  //     margin: 10px;
-  //   }
-  //   .update {
-  //     outline: 1px solid grey;
-  //     background-color: aqua;
-  //   }
-
-  // }
-  // .ta-editor {
-  //   min-height: 30px;
-  // }
   .answer-item-footer {
     display: block;
     width: 100%;
-    outline: 1px solid black;
 
     .footer-btn {
       display: inline-block;
       margin: 10px;
-      // outline: 1px solid grey;
-      // padding: 5px;
     }
 
     .edit-btns {
@@ -120,7 +92,6 @@
       text-align: end;
 
       .edit-btn {
-      // vertical-align: middle;
       padding: 5px;
       margin: 10px;
     }
