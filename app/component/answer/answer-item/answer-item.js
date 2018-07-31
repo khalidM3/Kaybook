@@ -4,7 +4,7 @@ require('./_answer-item.scss');
 
 module.exports = {
   template: require('./answer-item.html'),
-  controller: ['$log', '$window', '$filter', '$uibModal', 'answerService', 'profileService', AnswerItemController],
+  controller: ['$log', '$window', '$uibModal', 'answerService', AnswerItemController],
   controllerAs: 'answerItemCtrl',
   bindings: {
     answer: '=',
@@ -14,10 +14,9 @@ module.exports = {
 };
 
 
-function AnswerItemController($log, $window, $filter, $uibModal, answerService, profileService){
+function AnswerItemController($log, $window, $uibModal, answerService){
   $log.debug('AnswerItemController');
 
-  // this.forumID = $filter.forumID;
 
   
   this.$onInit = function(){
@@ -25,16 +24,10 @@ function AnswerItemController($log, $window, $filter, $uibModal, answerService, 
     this.showReply = false;
     this.profile = $window.localStorage.getItem('profile');
     this.showDeleteBtn = this.profile === this.answer.posterID;
-    // profileService.fetchProfile2(this.answer.posterID)
-    // .then( profile => this.poster = profile);
     this.poster = this.answer.posterID;
     this.isQuest = this.post.type === 'question';
     this.updatedAnswer = this.answer;
   };
-
-  // this.showReply = false;
-  // this.updatedAnswer = this.answer;
-  
 
   this.parseStr = (str) => {
     let urlReg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
@@ -85,19 +78,15 @@ function AnswerItemController($log, $window, $filter, $uibModal, answerService, 
       answerService.fetchAnswerReplies(this.answer._id)
       .then( answer => {
         this.answer = answer;
-        // console.log('AR +++++++++++++++++');
-        // console.log(answer.replies);
         return this.repliesArr = answer.replies;
       })
       .catch(err => console.log('Failed to fetchAnswer()',err));
     }
 
     if(this.repliesArr.length < 1) {
-      console.log('second');
       return this.repliesArr = this.answer.replies;
     }
 
-    console.log('third');
     return this.repliesArr = [];
 
   };
@@ -109,7 +98,6 @@ function AnswerItemController($log, $window, $filter, $uibModal, answerService, 
       component: 'report',
       resolve: {
         answer: function () {
-          console.log('<><><><><><><><><><><><><>', answer);
           return answer; 
         }
       }
@@ -122,8 +110,7 @@ function AnswerItemController($log, $window, $filter, $uibModal, answerService, 
   };
 
   this.edit = () => {
-    answerService.updateAnswer(this.answer._id, this.updatedAnswer)
-    .then( answer => console.log('YAYYA\n', answer));
+    answerService.updateAnswer(this.answer._id, this.updatedAnswer);
   };
 
   

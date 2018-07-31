@@ -11,11 +11,11 @@
           {{ pageTileCtrl.page.members.length }} members
       </span>
     </div>
-    <!-- <div class="page-btns"> -->
-        <span class="page-tile-btn edit-btn" ng-if="pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.edit()"> edit </span>
-        <span class="page-tile-btn join-btn" ng-if="!pageTileCtrl.showLeaveBtn && !pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.joinPage()">join</span>
-        <span class="page-tile-btn leave-btn" ng-if="pageTileCtrl.showLeaveBtn && !pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.leavePage()">leave</span>
-    <!-- </div> -->
+
+    <span class="page-tile-btn edit-btn" ng-if="pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.edit()"> edit </span>
+    <span class="page-tile-btn join-btn" ng-if="!pageTileCtrl.showLeaveBtn && !pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.joinPage()">join</span>
+    <span class="page-tile-btn leave-btn" ng-if="pageTileCtrl.showLeaveBtn && !pageTileCtrl.showEditBtn" ng-click="pageTileCtrl.leavePage()">leave</span>
+    
   </section>
 
   <section class="page-tile-footer" ng-click="pageTileCtrl.goToPage()">

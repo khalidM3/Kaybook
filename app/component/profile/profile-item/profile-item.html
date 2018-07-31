@@ -1,8 +1,7 @@
 <section class="profile-item">
   <div class="profile-item-row">
-    <section class="profile-item-nav" ng-class="{ 'nav-hidden' : profileItemCtrl.showMenu === true }" >
-      <ul ng-if="!profileItemCtrl.showRooms">
-        <!-- <li class="nav-op" ng-if="profileItemCtrl.showMenu" ng-click="profileItemCtrl.showMenu = false"> X </li> -->
+    <section class="profile-item-nav" ng-class="{ 'nav-hidden' : profileItemCtrl.showMenu === true }">
+      <ul>
         <li class="nav-op nav-head">
           <img class="head-pic" ng-src="{{profileItemCtrl.profile.profilePicURI}}" ng-click="profileItemCtrl.goToMyProfile()">
           <div class="head-names"  ng-click="profileItemCtrl.goToMyProfile()">
@@ -15,7 +14,6 @@
         <li class="nav-op" ng-click="profileItemCtrl.goTo('posts')">posts</li>
         <li class="nav-op" ng-click="profileItemCtrl.goTo('chat')">chats</li>
         <li class="nav-op" ng-click="profileItemCtrl.goTo('friends')">friends</li>
-        <!-- <li class="nav-op" ng-click="profileItemCtrl.goTo('requests')">friend requests {{profileItemCtrl.profile.friendReq.length}}</li> -->
         <li class="nav-op" ng-click="profileItemCtrl.goTo('pages')">pages</li>
         <li class="nav-op" ng-click="profileItemCtrl.goTo('joined')">joined </li>
         <li class="nav-op" ng-click="profileItemCtrl.goTo('notifs')">notifications</li>
@@ -134,7 +132,6 @@
       </section>
 
 
-      <!-- <button ng-if="profileItemCtrl.showRoomBtn" ng-click="profileItemCtrl.createRoom()">create room</button> -->
 
 
     </section>

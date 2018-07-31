@@ -21,23 +21,13 @@
         </div>
     </fieldset>
 
-    <!-- <label> change profile pic</label>
-    <span placeholder="editProfileCtrl.pic" ng-model="editProfileCtrl.pic" ngf-select>
-      change profile picture
-    </span>
-    <input type="text" placeholder="editProfileCtrl.profile.profilePicURI" ng-model="editProfileCtrl.profile.profilePicURI"> -->
-
+    
     <fieldset>
       <label for=""> bio</label>
       <textarea class="edit-desc edit-input" ng-model="editProfileCtrl.profile.bio"></textarea>
     </fieldset>
 
-    <!-- <label> change profile banner </label>
-    <span ng-model="editProfileCtrl.bannerPic" ngf-select>
-      change profile banner
-    </span>
-    <input type="text" placeholder="editProfileCtrl.profile.profileBannerPicURI" ng-model="editProfileCtrl.profile.profileBannerURI"> -->
-    <fieldset>
+      <fieldset>
         <label for="">profile banner </label>
         <div class="pic-container"></div>
           <div class="edit-pic" ng-show="showEditBanner" ng-mouseover="showEditBanner = true" ng-mouseleave="showEditBanner = false" ngf-select>
@@ -45,25 +35,6 @@
           </div>
           <img class="profile-banner" ng-src="{{editProfileCtrl.profile.profileBannerURI}}" ng-mouseover="showEditBanner = true" ng-mouseleave="showEditBanner = false">
       </div>
-        <!-- <section class="post-pic-ops">
-            <div class="post-preview">
-              <img class="post-preview-pic" ng-src="{{editProfileCtrl.profile.pageBannerURI}}" alt="">
-            </div>
-            <div class="pic-op" ng-if="!editProfileCtrl.showInput" ngf-select>
-                <i class="fa fa-upload" aria-hidden="true"></i>
-                <p> Upload </p>
-            </div>
-            <div class="pic-op" ng-if="!editProfileCtrl.showInput" ng-click="editProfileCtrl.showInput = true">
-                <i class="fa fa-link" aria-hidden="true"></i>
-                <p> Link </p>
-            </div>
-            <div class="pic-input" ng-if="editProfileCtrl.showInput">
-              <input name="pic" placeholder="banner url" type="text" ng-minlength="4" ng-model="editProfileCtrl.page.pageBannerURI"></input> 
-              <span class="pic-cancel" ng-click="editProfileCtrl.showInput = false">
-                  <i class="fa fa-window-close" aria-hidden="true"></i>
-              </span>
-            </div>
-        </section> -->
       </fieldset>
 
 

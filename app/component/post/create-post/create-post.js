@@ -4,7 +4,7 @@ require('./_create-post.scss');
 
 module.exports = {
   template: require('./create-post.html'),
-  controller: ['$log', '$location', '$rootScope', '$window', 'postService', 'picService', '$http','$q', '$document',  CreatePostController],
+  controller: ['$log', '$window', 'postService', 'picService', '$http','$q', '$document',  CreatePostController],
   controllerAs: 'createPostCtrl',
   bindings: {
     onPostCreated: '&',
@@ -14,7 +14,7 @@ module.exports = {
   }
 };
 
-function CreatePostController($log, $location, $rootScope, $window, postService, picService, $http, $q, $document) {
+function CreatePostController($log, $window, postService, picService, $http, $q, $document) {
   $log.debug('CreatePostController');
 
   $log.debug('HERE !!!',this.profile);
@@ -29,7 +29,6 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   this.uploadedPost = {};
 
   this.chosePost = () => {
-    console.log('chose post');
     this.post = {};
     this.post.type = 'pic';
     this.showPic = true;
@@ -37,14 +36,12 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   };
 
   this.choseQuest = () => {
-    console.log('chose question');
     this.post = {};
     this.post.type = 'question';
     this.showPic = this.showArticle = this.showPoll = false;
   };
 
   this.choseArticle = () => {
-    console.log('chose article');
     this.post = {};
     this.post.type = 'article';
     this.showArticle = true;
@@ -52,7 +49,6 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   };
 
   this.chosePoll = () => {
-    console.log('chose poll');
     this.post = {};
     this.post.choices = [];
     this.post.type = 'poll';
@@ -61,11 +57,9 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   };
 
   this.addChoice = () => {
-    console.log({name: this.choice1});
     this.post.choices.push({name: this.choice, picURI: this.picURI});
     this.choice = null;
     this.picURI = null;
-    console.log('post\n', this.post);
   };
 
   this.removeChoice = (choice) => {
@@ -96,15 +90,10 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   };
 
   this.parse = () => {
-    // console.log('changing', this.parsedArr? this.parsedArr : null);
-    // this.parsedArr = this.parseStr(this.post.desc);
     let urlReg = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
     if(this.x.match(urlReg)) {
-      // console.log('x ===>\n',this.x);
       !this.post.desc ? this.post.desc = '' : false;
-      // console.log('desc ===> \n', this.post.desc);
       this.post.desc = this.post.desc + this.x;
-      // console.log('total desc ===> \n', this.post.desc);
       this.x = '';
       this.parsedArr = this.parseStr(this.post.desc);
     }
@@ -113,34 +102,18 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
   this.update = (word) => {
     let urlReg1 = /(\b(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     let urlReg2 = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
-    console.log('WORD :: ', word);
-
-    // this.parsedArr[word.index].payload = word.payload;
     let arr = this.post.desc.split(urlReg1);
-    console.log('ARR :: ', arr);
-    // console.log('post deska ??????', this.post.desc.split(urlReg))
-    // console.log('arr1', arr);
-    // word.payload.trim();
     arr[word.index] = word.payload;
-    // console.log('arr2', arr);
-    // console.log('arr3', arr[word.index]);
-    // console.log('post desc {}{}{}{}{}{}{', this.post.desc);
     this.post.desc = arr.join(' ');
-    //// if(word.payload.match(urlReg)) 
-    // console.log('this is the post desc =>>>',this.post.desc);
     this.showUpdate = false;
     if(word.payload.match(urlReg1)){
       return this.parsedArr = this.parseStr(this.post.desc);
     } 
-
-    // console.log('post desc', this.post.desc); 
-    // console.log('parsed arr', this.parsedArr);
   };
 
 
   this.removeLink = (word) => {
     let urlReg = /(\s(?:https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\s/ig;
-    // this.parsedArr[word.index] = null;
     let arr = this.post.desc.split(urlReg);
     arr[word.index] = null;
     this.post.desc = arr.join(' ');
@@ -157,9 +130,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
   this.createPost = function(){
     $log.debug('createPostCtrl.createPost()');
-    // console.log('creating post on ',this.resolve.page ? this.resolve.page : this.resolve.profile)
-    // this.post.desc = this.post.desc + this.x;
-    // this.post.searchTerms = this.post.desc.match(/#(?:\w)\w*/g);
+
 
     if(this.resolve.profile) {
       return postService.createProfilePost(this.post)
@@ -170,14 +141,12 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
     if( this.resolve.page) {
       let admin = this.profile._id === this.resolve.page.profileID;
       if( !admin ) {
-        console.log('inside page !admin');
         postService.createPost(this.resolve.page._id, this.post)
         .then( post => console.log('Success createPost()', post))
         .catch(err => console.log('Failed createPost()', err));
       }
 
       if( admin ) {
-        console.log('inside page admin');
         postService.createFeed(this.resolve.page._id, this.post)
         .then( post => console.log('Success createForumFeed()', post))
         .catch(err => console.log('Failed createForumFeed()', err));
@@ -186,20 +155,13 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
   };
 
-  // this.show = () => {
-  //   this.pic = this.post.picURI;
-  // };
-
   this.cancel = function () {
     this.dismiss({$value: 'cancel'});
   };
 
   this.adjust = (e) => {
-    // console.log('adjusting adjusting adjusting');
     let element = typeof e === 'object' ? e.target : $window.document.getElementById(e);
     let scrollHeight = element.scrollHeight;
-    // let minheight = this.post.type === 'article' ? 400 : 100;
-    // console.log('minheight', minheight);
     element.style.height = scrollHeight > 100 ? scrollHeight+'px' : 100 +'px';
   };
 
@@ -230,32 +192,7 @@ function CreatePostController($log, $location, $rootScope, $window, postService,
 
 
 
-
+  this.bark = () => {
+  };
 }
   
-
-
-
-
-// let profileID = $window.localStorage.getItem('profileID');
-//     // todo - change to array of admin profile ID's
-//     // let admin = this.resolve.page.admins.some(PID => PID.toString() === profileID);
-//     if(profileID === this.resolve.page.profileID ) {
-//       postService.createFeed(this.resolve.page._id, this.post)
-//       .then( post => {
-//         console.log('res.post  CAPITAL', post._id);
-//         console.log('uploadedPost', this.uploadedPost);
-//         if( this.uploadedPost.name) picService.uploadPostPic(post._id, this.uploadedPost);
-//         return;
-//       })
-//       .then( () => {
-//         this.post = null;
-//         this.uploadPost = null;
-//         this.onPostCreated();
-//       })
-//       .then( () => this.cancel())
-//       .catch( err => {
-//         this.post = null;
-//         this.uploadPost = null;
-//         console.log('the error', err);
-      // });

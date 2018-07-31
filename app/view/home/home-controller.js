@@ -8,7 +8,6 @@ module.exports = ['$log', '$rootScope', '$stateParams', '$location','$uibModal',
 function HomeController($log, $rootScope, $stateParams, $location, $uibModal, profileService, postService, merchService) {
   $log.debug('HomeController');
 
-  // this.myUserID = $stateParams.userID;
   this.loggedIn = true;
 
 
@@ -18,8 +17,6 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
 
     profileService.fetchProfile()
     .then(profile => this.myProfile = profile);
-    // .then( () => recipeService.fetchMyRecipes(this.myProfile._id))
-    // .then(recipes => this.myRecipes = recipes);
   };
 
   this.$onInit = () => {
@@ -110,23 +107,6 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
     .then(merches => this.merchesArr = merches);
   };
 
-  // this.fetchJoinedProfiles = function(){
-  //   $log.debug('HomeController.fetchJoinedProfiles()');
-
-  //   this.allProfiles = [];
-  //   this.postsArr = [];
-
-  //   profileService.fetchProfile(this.myUserID)
-  //   .then(profile => {
-  //     let arr = profile.memberOf;
-  
-  //     arr.forEach( profileUID => {
-  //       profileService.fetchProfile(profileUID)
-  //       .then( profile => this.allProfiles.push(profile));
-  //     });
-  //   })
-  //   .catch( err => $log.error('couldnt fetch joinded Profiles', err));
-  // };
 
   this.fetchJoinedPosts = function(){
     $log.debug('HomeController.fetchJoinedPosts()');
@@ -166,7 +146,4 @@ function HomeController($log, $rootScope, $stateParams, $location, $uibModal, pr
       }
     });
   };
-  // $rootScope.$on('$locationChangeSuccess', () => {
-  //   this.fetchRecipes();
-  // });
 }

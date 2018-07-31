@@ -8,21 +8,18 @@
 }
 
 .post-tile {
-  
+  border-radius: 0;
+  border: 1px solid grey;
   img {
     max-width: 300px;
   }
   padding: 10px;
-
-
   display: inline-block;
   width: 100%;
-  outline: 1px solid grey;
 
   .header {
-    outline: 1px solid red;
     display: grid;
-    grid-template-columns: 50px 100px auto 50px;
+    grid-template-columns: 40px 100px auto 50px;
     grid-template-rows: 1;
     grid-template-areas: "pic names . options";
 
@@ -30,6 +27,7 @@
     align-items: center;
     .header-pic {
       grid-area: pic;
+      width: 40px;
       border-radius: 50%;
     }
     .header-names {
@@ -42,10 +40,6 @@
   }
 
   .body {
-
-    // display: block;
-    // margin: 0 20px;
-
     .title {
       display: block;
       margin: auto;
@@ -98,7 +92,6 @@
   box-sizing: border-box;
   -webkit-transition: all 400ms ease;
   transition: all 400ms ease;
-  // overflow: hidden;
   border-radius: 10px;
 
 }
@@ -132,63 +125,5 @@
   -webkit-transition: opacity 0.6s ease-out;
   transition: opacity 0.6s ease-out;
   background-color: #fff;
-  // opacity: 0;
-  // visibility: hidden;
 }
 
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]
-//       old css
-
-// .post-tile {
-//   display: inline-block;
-//   width: 300px;
-//   // height: 300px;
-//   background-color: #006699;
-//   margin: 10px;
-
-//  .header {
-//    border: 1px solid black;
-//    display: block;
-//    background-color: black;
-//    color: white;
-//    img {
-//      width: 50px;
-//    }
-//    div {
-//      display: inline-block;
-//    }
-//  }
-
-//  .post-tile {
-//    display: block;
-//    background-color: white;
-//  }
-
-//  .post-content {
-//    img {
-//      width: 100%;
-//    }
-//  }
-
-//  .reposter {
-//    background-color: white;
-//    color: green;
-//  }
-
-//  .post-desc {
-//    background-color: white;
-//    border: 1px solid black;
-//    height: 100px;
-//  }
-
-//  .repost {
-//    img {
-//      max-width: 20px;
-//    }
-//    border: 1px solid grey;
-//    background-color: lightgrey;
-//    width: 80%;
-//   //  height: 100px;
-//  }
-// }

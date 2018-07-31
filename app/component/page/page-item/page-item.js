@@ -4,7 +4,7 @@ require('./_page-item.scss');
 
 module.exports = {
   template: require('./page-item.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', '$location', '$uibModal', 'pageService', 'postService', 'merchService',PageItemController],
+  controller: ['$log', '$stateParams', '$window', '$location', '$uibModal', 'pageService', 'postService', 'merchService',PageItemController],
   controllerAs: 'pageItemCtrl',
   bindings: {
     page: '<' 
@@ -12,15 +12,12 @@ module.exports = {
 };
 
 
-function PageItemController ($log, $rootScope, $stateParams, $window, $location, $uibModal, pageService, postService, merchService){
+function PageItemController ($log, $stateParams, $window, $location, $uibModal, pageService, postService, merchService){
   $log.debug('PageItemController');
 
-//  TODO
-// add search and filter func to the search bar
 
   this.$onInit = function(){
     $log.debug('pageItemCtrl.onInit');
-    // console.log('hapa',$stateParams);
 
     this.pageID = $stateParams.pageID;
     this.filter_type = 'all';
@@ -52,8 +49,8 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
       return;
     });
   };
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//               FETCH MAIN
+
+
   this.fetch = function(){
     $log.debug('pageItemCtrl.fetch()');
 
@@ -86,17 +83,11 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
 
     postService.fetchPagePosts(this.page._id)
     .then( posts => {
-      console.log(posts);
       this.posts = posts;
       return this.postsArr = posts;
     })
     .catch( err => console.log('Failed ', err));
   };
-
-
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//               FEED
 
   this.pageFeed = () => {
     $location.url(`/page/${this.page._id}/feed`);
@@ -112,9 +103,6 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     })
     .catch(err => console.log('Failed to fetch feed', err));
   };
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                    MERCH
 
   this.pageMerch = () => {
     $location.url(`/page/${this.page._id}/merch`);
@@ -139,27 +127,21 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
 
     $location.url('/cart');
   };
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                    ABOUT
+
 
   this.goToAbout = () => {
     $location.url(`/page/${this.page._id}/about`);
   };
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                    PAGE 
+
   this.joinPage = function() {
     $log.debug('pageItemCtrl.joinPage()');
 
     this.showLeaveBtn = true;
     ++this.count;
-
     pageService.joinPage(this.page._id)
     .then( page => {
-      console.log('Successfully joinPage()', page);
       this.openModal( page.greeting);
-
-    })
-    .catch( err => console.log('Failed joinPage()', err));
+    });
   };
 
   this.leavePage = function(){
@@ -169,8 +151,6 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
     --this.count;
 
     pageService.leavePage(this.page._id)
-    .then( page => console.log('Successfully leavePage()', page))
-    .catch( err => console.log('Failed leavePage()', err));
   };
 
   this.openModal = function (message) {
@@ -217,7 +197,6 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
   };
 
   this.openPostModal = function (post) {
-    // let page = this.page;
     $uibModal.open({
       animation: this.animationsEnabled,
       component: 'postItem',
@@ -230,21 +209,17 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
   };
 
   this.goToEditPage = () => {
-    $location.url('settings/pages'); // change to 'settings/pages/:pageID'
+    $location.url('settings/pages');
   };
 
   this.bark = () => {
-    console.log($stateParams);
     $location.search('id', null);
-    // $location.path('page/597e798bfd94ab787bb8f851/post/5983de077b678b66f4532dba').replace();
-
   };
 
   this.filter = (type) => {
     this.filter_type = type;
     if(type == 'all') return this.postsArr = this.posts;
     this.postsArr = this.posts.filter( post => post.type == type);
-    console.log('new arr\n', this.postsArr);
   };
 
   this.searchPost = (term) => {
@@ -255,113 +230,3 @@ function PageItemController ($log, $rootScope, $stateParams, $window, $location,
   };
 
 }
-
-// function ProfileViewController($log, $rootScope, $stateParams, $window, $uibModal, profileService, postService) {
-//   $log.debug('ProfileViewController');
-
-//   this.userID = $stateParams.userID;
-//   this.showEditView = false;
-
-//   let userID = $window.localStorage.getItem('userID');
-  
-//   this.showEditOption = userID === this.userID;
-
-//   this.check = function(){
-//     $log.debug('profileViewController.check()');
-
-//     let userID = $window.localStorage.getItem('userID');
-//     profileService.fetchProfile(userID)
-//     .then( profile => {
-//       let arr = profile.memberOf;
-//       this.showLeaveBtn = arr.some( PID => PID.toString() === this.userID.toString());
-//       // console.log('profile.memberOf  }-------->',arr);
-//       // console.log('}------->', this.userID);
-//     });
-//   };
-//   this.check();
-
-
-//   this.deleteProfile = function(profile) {
-//     if (this.profile._id === profile._id) {
-//       this.profile = null;
-//     }
-//   };
-
-//   this.updateProfileView = function() {
-//     $log.debug('ProfileViewController.updateProfileView()');
-//     console.log('this.postArray:::',this.postsArray);
-
-//     this.postsArray = [];
-    
-//     profileService.fetchProfile(this.userID)
-//     .then(profile => {
-//       this.profile = profile;
-//       this.showEditView = false;
-//       if(profile.posts.length !== 0){
-//         profile.posts.forEach( profileID => {
-//           postService.fetchPost(profileID)
-//           .then( postObj => this.postsArray.push(postObj));
-//         });
-//       }
-//     })
-//     .catch( err => $log.error(err.message));
-//   };
-
-//   this.join = function(){
-//     $log.debug('ProfileViewController.join()');
-
-//     profileService.joinProfile(this.userID)
-//     .then( res => console.log('SUCCESS join()', res))
-//     .catch( err => console.error('FAILED join()', err));
-//     return this.updateProfileView();
-//   };
-
-//   this.leave = function(){
-//     $log.debug('ProfileViewController.leave()');
-
-//     profileService.leaveProfile(this.userID)
-//     .then( profile => console.log(profile))
-//     .catch( (err) => console.error('FAILED leave()', err));
-//   };
-
-//   // this.open = function (size, selectedPost) {
-//   //   // var parentElem = parentSelector ? 
-//   //   //   angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
-//   //   var modalInstance = $uibModal.open({
-//   //     animation: this.animationsEnabled,
-//   //     // ariaLabelledBy: 'modal-title',
-//   //     // ariaDescribedBy: 'modal-body',
-//   //     templateUrl: 'create-post.html',
-//   //     // controller: 'CreatePostController',
-//   //     // controllerAs: 'this',
-//   //     size: size,
-//   //     // appendTo: parentElem,
-//   //     resolve: {
-//   //       items: function () {
-//   //         return selectedPost;
-//   //       }
-//   //     }
-//   //   });
-
-//   //   // modalInstance.result.then(function (selectedItem) {
-//   //   //   this.selected = selectedItem;
-//   //   // }, function () {
-//   //   //   $log.info('Modal dismissed at: ' + new Date());
-//   //   // });
-//   // };
-
-  // this.openComponentModal = function ( profile) {
-
-  //   var modalInstance = $uibModal.open({
-  //     animation: this.animationsEnabled,
-  //     component: 'createPost',
-  //     resolve: {
-  //       profile: function () {
-  //         return profile;
-  //       }
-  //     }
-  //   });
-  // };
-
-
-// }

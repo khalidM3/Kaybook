@@ -35,9 +35,10 @@
       </li>
     </ul>
 
- 
+  <li ng-repeat="friend in memberCtrl.profile.friends" ng-click="memberCtrl.pushToAdd(friend)"> {{ friend.name }}</li>
 
-  <div class="save-container">
-    <span class="save-btn" ng-click="memberCtrl.save()"> Save </span>
-  </div>
+  <button ng-click="memberCtrl.fetchFriends()">choose friends</button>
+
+  <button ng-click="memberCtrl.addMembers()">add</button>
+  <button ng-click="memberCtrl.removeMembers()">remove</button>
 </section>

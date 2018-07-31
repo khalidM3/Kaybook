@@ -16,15 +16,12 @@ function PageTileController($log, $location, $window, pageService) {
 
   this.$onInit = () => {
     this.profile = JSON.parse($window.localStorage.profile);
-
     this.showLeaveBtn = this.page.members.some( id => id === this.profile._id);
     this.showEditBtn = this.page.admins.some(id => id === this.profile._id);
-  
   };
 
   this.goToPage = function(){
     $log.debug('pageTileCtrl.goToPage');
-
     $location.url(`/page/${this.page._id}/post`);
   };
 
@@ -40,7 +37,7 @@ function PageTileController($log, $location, $window, pageService) {
 
     pageService.joinPage(this.page._id)
     .then( page => {
-      console.log('Successfully joinPage()', page);
+      console.log('Successfully joinPage()');
     })
     .catch( err => console.log('Failed joinPage()', err));
   };

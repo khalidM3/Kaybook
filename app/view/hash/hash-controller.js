@@ -8,7 +8,6 @@ module.exports = ['$log', '$rootScope', '$stateParams', '$location', 'profileSer
 function HashController($log, $rootScope, $stateParams, $location, profileService, postService) {
   $log.debug('HashController');
 
-  // this.myUserID = $stateParams.;
   this.loggedIn = true;
   
   this.$onInit = () => {

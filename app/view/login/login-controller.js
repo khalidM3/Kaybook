@@ -13,8 +13,6 @@ function LoginController($log, $location, $window, authService) {
   this.login = function() {
     $log.debug('loginCtrl.login');
     let profileID = $window.localStorage.getItem('profileID');
-    console.log('PID +++++++', profileID);
-    console.log('USER::', this.user);
     authService.login(this.user)
     .then( () => $location.url('/home'))
     .catch( () => {

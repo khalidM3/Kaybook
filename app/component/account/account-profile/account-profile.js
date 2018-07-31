@@ -2,18 +2,17 @@
 
 require('./_account-profile.scss');
 
-// module.exports = ['$log', '$rootScope', '$stateParams', 'profileService', 'postService', 'commentService', AccountprofileController];
 
 module.exports = {
   template: require('./account-profile.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', 'profileService', 'postService', 'commentService', AccountProfileController],
+  controller: ['$log', '$window',  AccountProfileController],
   controllerAs: 'accountProfileCtrl',
   bindings: {
     profile: '<'
   }
 };
 
-function AccountProfileController($log, $rootScope, $stateParams, $window, profileService, postService, commentService) {
+function AccountProfileController($log, $window) {
   $log.debug('AccountContentController');
 
   this.$onInit = () => {

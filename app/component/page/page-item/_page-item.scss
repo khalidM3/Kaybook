@@ -1,53 +1,38 @@
 @import "../../../scss/lib/theme/vars";
 
-//TODO
-// fix the font sizing problem for mobile viewers
-
 .page-item {
-    
   .banner {
     display: block;
-    // margin: auto;
-    width: 100%;
-    // max-width: 1000px;
+    min-height: 200px;
+    max-width: 100%;
     max-height: 30vh;
+    display: block;
+    margin: auto;
   }
   .page-main {
-    // height: ;
-    // background-color: green;
     padding: 10px 0;
     .main-container {
-      // background-color: red;
       height: 5vh;
       width: 90%;
       margin: 0 auto;
       .main-head {
-        // outline: 1px solid black;
         display: inline-block;
         height: 100%;
       }
   
       .main-btns {
-        // display: inline-block;
-        // background-color: yellow;
         float: right;
         height: 100%;
         width: 100px;
 
         .main-btn {
-          // background-color: tan;
           display: block;
           margin: auto;
-          // width: 100%;
-          // height: 100%;
           width: 100px;
           height: 30px;
           text-align: center;
           line-height: 10px;
-          // display:table-cell;
-          // vertical-align:middle;
           padding: 10px;
-          // padding: 10%;
         }
   
         .edit-btn {
@@ -69,10 +54,8 @@
 
 
   .subnav {
-    outline: 1px solid black;
+    outline: 1px solid lightgrey;
     padding: 5px 0;
-    margin-bottom: 20px;
-    // border-bottom: 1px solid rgb(185, 185, 185);
     height: 40px;
     .subnav-container {
       display: grid;
@@ -116,57 +99,39 @@
       display: block;
       width: 100%;
       height: 100%;
-      // padding: 10px;
       .search-bar {
-        // outline: 1px solid yellow;
         width: 70%;
         height: 100%;
         padding: 0px 10px;
-        // border: none;
       }        
 
       .filter-container {
-        // outline: 1px solid black;
         display: inline-block;
         text-align: center;
         width: 50px;
         min-width: 15%;
-        // height: 100%;
         .menu-op {
           padding: 10px 20px;
           border-top: 1px solid grey;
         }
       }
       .remove-btn {
-        // outline: 1px solid black;
         display: inline-block;
         text-align: center;
         min-width: 10%;
       }
     }
- 
-
   }
-
     .create-container {
-      // box-sizing: border-box;
-      // color: green;
       display: block;
-      // background-color: blue;
-      // height: 30px;
-      // padding: 10px;
-      // // width: 150px;
       height: 30px;
-      // text-align: center;
       .create-btn {
         width: 100px;
         height: 30px;
         outline: 1px solid black;
-        // background-color: #86E386;
         float: right;
         text-align: center;
         line-height: 30px;
-        // margin: 10px;
       }
     }
 
@@ -184,50 +149,15 @@
           font-weight: bold;
           margin-bottom: 10px;
         }
-
-        
-
         .about-link {
           margin: 10px 0;
         }
         
       }
     }
+    .page-tiles {
+      background-color: lightgrey;
+      padding: 10px;
+    }
 
 }
-
-
-// .page-item {
-  
-
-//   .banner {
-//     width: 100%;
-//     max-width: 1000px;
-//     margin: 0 auto;
-//     height: 250px;
-//   }
-//   .page-main {
-//   display: inline-block;
-//   li {
-//     display: inline-block;
-
-//     img {
-//       border-radius: 50%;
-//       width: 50px;
-//     }
-//   }
-  
-//   .memberBtn {
-//     margin-left: 80vw;
-//     border: 1px solid black;
-//     span {
-//       display: inline-block;
-//       width: 50px;
-//       &:nth-child(2) {
-//         background-color: lightgreen;
-//       }
-//     }
-//   }
-// }
-
-// }

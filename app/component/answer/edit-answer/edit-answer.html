@@ -3,9 +3,8 @@
   <button ng-show="showCreateBtn" ng-click="showCreateBtn=false">edit answer</button>
   <section class="edit-answer"  ng-show="!showCreateBtn">
     <form action="" ng-submit="editAnswerCtrl.editAnswer()">
-      <p >
+      <p>
           {{editAnswerCtrl.answer.answer}}  
-
       </p>
 
       <textarea cols="30" rows="10"  ng-model="editAnswerCtrl.answer.answer" placeholder="write answer here">

@@ -1,29 +1,5 @@
 <section class="home">
 
-  <!-- <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Joined Posts</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Explore</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Feed</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Social</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Market</a>
-        </li>
-      </ul>
-    </div>
-  </nav> -->
 <nav class="subnav">
   <ul class="subnav-container">
     <li ng-class="{'active': homeCtrl.active === 'joined'}" ng-click="homeCtrl.goToJoined()">
@@ -43,11 +19,6 @@
     </li>
   </ul>
 </nav>
-
-
-  <!--<section ng-if="homeCtrl.showProfileItem">
-     <profile-Item profile="homeCtrl.myProfile"></profile-Item>
-  </section>-->
 
   <section>
     <profile-tile ng-repeat="tile in homeCtrl.allProfiles" profile="tile"></profile-tile>

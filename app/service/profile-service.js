@@ -397,31 +397,6 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
-  // service.leaveProfile = function(joinedUID){
-  //   $log.debug('profileService.joinProfile');
-
-  //   return authService.getToken()
-  //   .then( token => {
-  //     console.log(token);
-  //     let url = `${__API_URL__}/api/leave/${joinedUID}`;
-  //     let config = {
-  //       headers: {
-  //         authorization: `Bearer ${token}`
-  //       }
-  //     };
-
-  //     return $http.get(url, config);
-  //   })
-  //   .then( res => {
-  //     $log.log('left the page');
-  //     service.profile = res.data;
-  //     return service.profile;
-  //   })
-  //   .catch( err => {
-  //     $log.error('Didnt leave the page',err);
-  //     return $q.reject(err);
-  //   });
-  // };
 
   service.fetchMyCart = function() {
     $log.debug('profileService.fetchCart');
@@ -452,57 +427,7 @@ function profileService($q, $log, $http, $window, authService) {
     });
   };
 
-  // service.fetchMyCart = function() {
-  //   $log.debug('profileService.fetchCart');
 
-  //   let profileID = $window.localStorage.getItem('profileID');
-
-  //   let url = `${__API_URL__}/api/mycart/${profileID}`;
-  //   let config = {
-  //     headers: {
-  //       Accept: 'application/json'
-  //     }
-  //   };
-  //   console.log('url ++++++++++',url);
-  //   return $http.get(url, config)
-  //    .then( res => {
-  //      $log.log('Profile Retrieved', res.data);
-  //      service.profile = res.data;
-  //      return service.profile;
-  //    })
-  //   .catch( err => {
-  //     $log.error(err.message);
-  //     return $q.reject(err);
-  //   });
-  // };
-
-
-  // service.joinProfile2 = function(joinedID){
-  //   $log.debug('profileService.joinProfile');
-
-  //   return authService.getToken()
-  //   .then( token => {
-  //     let url = `${__API_URL__}/api/join2/${joinedID}`;
-  //     let config = {
-  //       headers: {
-  //         Accept: 'application/json',
-  //         Authorization: `Bearer ${token}`,
-  //         'Content-Type': 'application/json'
-  //       }
-  //     };
-
-  //     return $http.put(url, config);
-  //   })
-  //   .then( res => {
-  //     $log.log('joined the page');
-  //     service.profile = res.data;
-  //     return service.profile;
-  //   })
-  //   .catch( err => {
-  //     $log.error('Didnt join the page',err.message);
-  //     return $q.reject(err);
-  //   });
-  // };
 
 
   return service;

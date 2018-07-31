@@ -20,9 +20,6 @@ module.exports = {
 function PostItemController($log, $rootScope,$window, $uibModal, $location, postService, profileService, commentService){
   $log.debug('postItemController');
 
-  
-// posts.data are resolve.post
-
   this.showEditpost = false;
   this.showCreateComment = false;
 
@@ -46,13 +43,10 @@ function PostItemController($log, $rootScope,$window, $uibModal, $location, post
       this.commentsArr = post.comments;
       this.choicesArr = post.choices;
       this.poster = post.posterID;
-      // this.parsedArr = this.parseStr(this.post.desc);
       this.isVid = (/\.mp4$/).test(this.resolve.post.postPicURI);
-      console.log(this.parsedArr);
       let profileID = $window.localStorage.getItem('profileID');
       return this.showDeleteBtn = profileID === this.poster._id;
     })
-    .catch(err => console.log('failed fetchArticle()', err));
   };
 
 
@@ -119,7 +113,6 @@ function PostItemController($log, $rootScope,$window, $uibModal, $location, post
       component: 'editPost',
       resolve: {
         post: function () {
-          console.log('<><><><><><><><><><><><><>', post);
           return post; 
         }
       },

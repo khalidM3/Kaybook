@@ -1,76 +1,10 @@
 <section class="account-pages">
 
-  <!-- <h2>Account pages</h2> -->
+  <h2>Account pages</h2>
 
-   <!-- <section class="page-filter">
-     <div class="filter-curr" ng-click="accountPagesCtrl.showOp = true">
-        {{ accountPagesCtrl.currPage.pageName}} 
-     </div>
-    <ul class="filter-options">
-      <div ng-if="accountPagesCtrl.showOp">
-        <li class="filter-option" ng-click="accountPagesCtrl.filter(page._id)" ng-repeat="page in accountPagesCtrl.pages"> 
-          {{page.pageName}} 
-        </li>
-      </div>
-    </ul>
-  </section> -->
-
-  <section class="page-filter">
-
-    <ul class="profiles-list" >
-        <!-- <input type="text"> -->
-        <div class="profile-list-head">
-          <span> {{ accountPagesCtrl.currPage.pageName}} </span>
-          <span class="glyphicon glyphicon-menu-up" ng-show="!hideReqList" ng-click="hideReqList = true"></span>
-          <span class="glyphicon glyphicon-menu-down" ng-show="hideReqList" ng-click="hideReqList = false"></span>
-        </div>
-        <li class="profile-list-item" ng-repeat="page in accountPagesCtrl.pages" ng-show="!hideReqList" ng-click="accountPagesCtrl.filter(page._id)">
-            <!-- <img class="list-item-image" src="{{accountPagesCtrl.profile.profilePicURI}}" alt="" ng-click="profileItemCtrl.goToProfile(profile._id)"> -->
-            <div class="list-item-names" ng-click="profileItemCtrl.goToProfile(profile._id)">
-              <p class="list-item-name"> {{page.pageName}} </p>
-              <!-- <p class="list-item-name"> @{{profile.name}} </p> -->
-            </div>
-              
-            <span class="list-item-btn">
-            </span>
-          </li>
-      </ul>
-    </section>
-
-    <section class="edit-page">
-      <edit-page  ng-if="accountPagesCtrl.currPage" page="accountPagesCtrl.currPage"></edit-page>
-    </section>
-    
-  <!-- <div class="filter-container" uib-dropdown on-toggle="toggled(open)">
-      <span  uib-dropdown-toggle alt=""> 
-          <p>{{ accountPagesCtrl.currPage.pageName}}</p>
-      </span>
-      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-        <li class="menu-op" ng-click="accountPagesCtrl.filter(page._id)" ng-repeat="page in accountPagesCtrl.pages">
-            <p> {{ accountPagesCtrl.page.pageName}} </p>
-            <li ng-click="accountPagesCtrl.changeCurr(page)" ng-repeat="page in accountPagesCtrl.pages"> {{page.pageName}} </li>
-            <!-- <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod doloribus dicta excepturi corporis ad officia repudiandae fugit maiores ipsum libero hic explicabo optio nostrum natus temporibus, sequi voluptates ipsam quos?</p> -->
-        <!-- </li> -->
-        <!-- <li class="menu-op" ng-click="accountPagesCtrl.filter(profile)">
-            <p>image</p>
-        </li>
-        <li class="menu-op" ng-click="accountPagesCtrl.filter('video')">
-          <p>video</p>
-        </li>
-        <li class="menu-op" ng-click="accountPagesCtrl.filter('question')">
-            <p>question</p>
-        </li>
-        <li class="menu-op" ng-click="accountPagesCtrl.filter('article')">
-            <p>article</p>
-        </li>
-        <li class="menu-op" ng-click="accountPagesCtrl.filter('poll')">
-          <p>poll</p>
-        </li> -->
-      <!-- </ul> -->
-    <!-- </div> --> 
-
-
-
-
-
+  <ul class="accountContent-navbar">
+    <li ng-click="accountPagesCtrl.changeCurr(page)" ng-repeat="page in accountPagesCtrl.pagesArr"> {{page.pageName}} </li>
+  </ul>
 </section>
+
+<edit-page page="accountPagesCtrl.currpage"></edit-page>

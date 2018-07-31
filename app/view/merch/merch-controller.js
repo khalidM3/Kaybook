@@ -15,7 +15,6 @@ function MerchController($log, $rootScope, $stateParams, $window, profileService
     .then( page => {
       this.resolve = {};
       this.resolve.page = page;
-      console.log('resolve ', this.resolve.page);
     });
   };
 }

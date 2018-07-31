@@ -1,18 +1,10 @@
 @import "../../scss/main";
 
 .signup-form {
-  // @include container-fixed(10px);
-  // background-color: green;
-  // height: 500px;
   
     form {
       text-align: center;
-      // @include make-xs-column(1, 5%);
-      // @include make-sm-column(1, 5%);
-      // @include make-lg-column(1, 5%);
-      // background-color: yellow;
       padding: 10px;
-      // height: 500px;
       width: 50%;
       min-width: 300px;
       max-width: 500px;
@@ -28,13 +20,11 @@
         display: block;
         margin: 10px auto;
         height: 30px;
-        // border-radius: -30px;
         border: 1px solid grey;
       }
 
       input[type=submit] {
         transition: 350ms;
-        // background-color: blue;
         &:hover {
           background-color: $app-secondary;
           color: #fff;
@@ -46,55 +36,3 @@
 }
 
 
-
-// .signup-form {
-//   width: 85%;
-//   margin: auto;
-
-//   h2 {
-//       text-align: center;
-//     }
-
-//   form {
-//     border: none;
-
-//       input {
-//         display: block;
-//         width: 60%;
-//         height: 30px;
-//         margin: auto;
-//         margin-top: 10px;
-//         padding: 5px;
-//         font-size: 15px;
-//         border-bottom: 0;
-//       }
-
-//       input[type=submit] {
-//         height: 40px;
-//         width:100%;
-//         background-color: #BFD8D2;
-//         border: none;
-//         color: white;
-//         font-size: 15px;
-//         transition: 350ms;
-//         margin: 20px 0 20px 0;
-
-//         &:hover {
-//           background-color: blue;
-//           color: #fff;
-//         }
-//       }
-
-//       label {
-//         margin-bottom: 0;
-//       }
-//   }
-// }
-
-// .signup-form {
-//   form {
-//     div {
-//       border: none;
-//     }
-//   }
-// }

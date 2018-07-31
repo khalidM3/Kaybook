@@ -2,18 +2,16 @@
 
 require('./_checkout.scss');
 
-// module.exports = ['$log', '$rootScope', '$stateParams', '$window', 'profileService', CartController];
-
 module.exports = {
   template: require('./checkout.html'),
-  controller: ['$log', '$rootScope', '$stateParams', '$window', 'orderService', CheckoutController],
+  controller: ['$log','$window', 'orderService', CheckoutController],
   controllerAs: 'checkoutCtrl',
   bindings: {
     page: '<',
   }
 };
 
-function CheckoutController($log, $rootScope, $stateParams, $window, orderService) {
+function CheckoutController($log, $window, orderService) {
   $log.debug('CheckoutController');
 
   this.$onInit = function(){
@@ -31,16 +29,9 @@ function CheckoutController($log, $rootScope, $stateParams, $window, orderServic
     }
 
     for( let prop in obj) {
-      console.log('|^|', obj[prop]);
       orderService.createOrder(prop, obj[prop])
       .then( res => console.log('Success', res));
     }
   };
-
-
-
-  
-
-
 
 }
