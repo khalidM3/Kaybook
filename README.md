@@ -1,5 +1,5 @@
 <h1 align="center"> Kaybook </h1>
-KayBook is a social media platform for creating fanpages with e-commerce, posts, forums, polls, chat groups, direct messages and more. 
+KayBook is a social media platform for creating fanpages with e-commerce, posts, forums, polls, chat groups, direct messages and more. Built using the Angular JS.
 
 <h5 align="center"> Preview </h5>
 <image src="./images/first.png" width="100%" />
