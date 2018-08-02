@@ -17,7 +17,7 @@ Make sure you have a suitable environment for kayBook to run
 
 
 ### Views
-There are manny views on KayBook including :
+There are many page/views on KayBook including :
 1. Home 
 2. Landing
 3. Signup / Signin
@@ -25,7 +25,7 @@ There are manny views on KayBook including :
 5. Social / dashboard
 6. Page
 7. Account
-8. Chats 
+8. Chatrooms
 
 <h5 align="center"> Preview </h5>
 <image src="./images/second.png" width="100%" />
