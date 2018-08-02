@@ -1,5 +1,5 @@
 <h1 align="center"> Kaybook </h1>
-KayBook is a social media platform for creating fanpages with e-commerce, posts, forums, polls, dms and more. Users can create a fanpage that other users can follow. They can add
+KayBook is a social media platform for creating fanpages with e-commerce, posts, forums, polls, chat groups, direct messages and more. 
 
 <h5 align="center"> Preview </h5>
 <image src="./images/first.png" width="100%" />
@@ -15,14 +15,27 @@ Make sure you have a suitable environment for kayBook to run
 2. run `npm install` or `yarn install`
 3. run `yarn build` or `yarn watch`
 
+
+### Views
+There are manny views on KayBook including :
+1. Home 
+2. Landing
+3. Signup / Signin
+4. Profile
+5. Social / dashboard
+6. Page
+7. Account
+8. Chats 
+
 <h5 align="center"> Preview </h5>
 <image src="./images/second.png" width="100%" />
 
 ### Features
-1. Users can friend other users by sending them friend requests.
-2. User can join a fangroup and post whatever they want on the fanpage. 
-3. Owners of the fanpage can post to the feed section of the fanpage. 
-4. Owners of a fanpage can post their merchandise on the merch section of the fanpage.
+* Users can friend other users by sending them friend requests and blocking users.
+* User can join a fangroup and post images, videos, questions and articles on the fanpage. 
+* Owners of the fanpage can post to the feed section of the fanpage. 
+* Owners of a fanpage can post their merchandise on the merch section of the fanpage.
+* Users can start, invite, remove from and leave chat groups. 
 
 <h5 align="center"> Preview </h5>
 <image src="./images/third.png" width="100%" />
