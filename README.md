@@ -1,5 +1,5 @@
 <h1 align="center"> Kaybook </h1>
-KayBook is a social media platform for creating fanpages with e-commerce, posts, forums, polls, chat groups, direct messages and more. 
+KayBook is a social media platform for creating fanpages with e-commerce, posts, forums, polls, chat groups, direct messages and more. This app was built using the MEAN stack (MongoDB, Express Js, Angular Js, Node JS). 
 
 <h5 align="center"> Preview </h5>
 <image src="./images/first.png" width="100%" />
@@ -41,6 +41,3 @@ There are many page/views on KayBook including :
 <image src="./images/third.png" width="100%" />
 
 <image src="./images/last.png" width="100%" />
-
-### Info
-This app was built using the MEAN stack (MongoDB, Express Js, Angular Js, Node JS)
